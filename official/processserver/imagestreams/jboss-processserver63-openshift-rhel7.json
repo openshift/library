@@ -1,0 +1,25 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "iconClass": "icon-jboss",
+                    "supports": "processserver:6.3,java:8,xpaas:1.3",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "sampleContextDir": "processserver/library",
+                    "description": "Red Hat JBoss BPM Suite 6.3 intelligent process server S2I images.",
+                    "tags": "builder,processserver,java,xpaas",
+                    "sampleRef": "1.3",
+                    "version": "1.3"
+                },
+                "name": "1.3"
+            }
+        ],
+        "dockerImageRepository": "registry.access.redhat.com/jboss-processserver-6/processserver63-openshift"
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "jboss-processserver63-openshift"
+    }
+}

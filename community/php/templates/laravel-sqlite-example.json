@@ -1,0 +1,323 @@
+{
+    "labels": {
+        "template": "laravel-sqlite-example"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Laravel",
+            "iconClass": "icon-laravel",
+            "tags": "quickstart,php,laravel",
+            "description": "An example Laravel application with a SQLite database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing."
+        },
+        "name": "laravel-sqlite-example"
+    },
+    "kind": "Template",
+    "message": "The following service(s) have been created in your project: laravel-sqlite-example.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/luciddreamz/laravel-ex.git",
+            "displayName": "Git Repository URL",
+            "required": true,
+            "description": "The URL of the repository with your application source code."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_REF",
+            "displayName": "Git Reference",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+        },
+        {
+            "name": "LARAVEL_APP_ENV",
+            "value": "development",
+            "displayName": "Laravel Application Environment",
+            "required": true,
+            "description": "Determines the 'environment' your application is currently."
+        },
+        {
+            "name": "LARAVEL_APP_DEBUG",
+            "value": "true",
+            "displayName": "Laravel Application Debug Mode",
+            "required": true,
+            "description": "Enable or disable detailed error messages."
+        },
+        {
+            "value": "0",
+            "displayName": "OPcache Revalidation Frequency",
+            "name": "OPCACHE_REVALIDATE_FREQ",
+            "description": "How often to check script timestamps for updates, in seconds. 0 will result in OPcache checking for updates on every request."
+        },
+        {
+            "name": "CLUSTER_NAME",
+            "value": "preview",
+            "displayName": "Cluster Name",
+            "required": true,
+            "description": "The name of your current OpenShift cluster (console.CLUSTER_NAME.openshift.com)."
+        },
+        {
+            "name": "ROUTER_SHARD",
+            "value": "44fs",
+            "displayName": "Router Shard",
+            "required": true,
+            "description": "The router shard used by routes in your current OpenShift cluster (http://PROJECT_NAME-APPLICATION_NAME.ROUTER_SHARD.CLUSTER_NAME.openshiftapps.com/)."
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi",
+            "displayName": "Memory Limit",
+            "required": true,
+            "description": "Maximum amount of memory the Laravel container can use."
+        },
+        {
+            "name": "CONTEXT_DIR",
+            "displayName": "Context Directory",
+            "description": "Set this to the relative path to your project if it is not in the root of your repository."
+        },
+        {
+            "value": "",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the Laravel service, if left blank a value will be defaulted."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "displayName": "GitHub Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the GitHub webhook."
+        },
+        {
+            "name": "DATABASE_ENGINE",
+            "value": "sqlite",
+            "displayName": "Database Engine",
+            "required": true,
+            "description": "Database engine: mysql, pgsql, or sqlite (default)."
+        },
+        {
+            "from": "[\\w]{32}",
+            "name": "LARAVEL_APP_KEY",
+            "displayName": "Laravel Encryption Key",
+            "generate": "expression",
+            "description": "Set this to a 32 character random string."
+        }
+    ],
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080,
+                        "name": "web"
+                    }
+                ],
+                "selector": {
+                    "name": "laravel-sqlite-example"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes and load balances the application pods"
+                },
+                "name": "laravel-sqlite-example"
+            }
+        },
+        {
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "laravel-sqlite-example"
+                }
+            },
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "laravel-sqlite-example"
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Keeps track of changes in the application image"
+                },
+                "name": "laravel-sqlite-example"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "namespace": "openshift",
+                            "kind": "ImageStreamTag",
+                            "name": "php:5.6"
+                        },
+                        "forcePull": true
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "laravel-sqlite-example:latest"
+                    }
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
+                },
+                "name": "laravel-sqlite-example"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Rolling",
+                    "recreateParams": {
+                        "pre": {
+                            "failurePolicy": "Retry",
+                            "execNewPod": {
+                                "command": [
+                                    "./migrate-database.sh"
+                                ],
+                                "containerName": "laravel-sqlite-example"
+                            }
+                        }
+                    }
+                },
+                "selector": {
+                    "name": "laravel-sqlite-example"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "laravel-sqlite-example:latest"
+                            },
+                            "containerNames": [
+                                "laravel-sqlite-example"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "containerPort": 8080
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/health.php",
+                                        "port": 8080
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "env": [
+                                    {
+                                        "value": "${CLUSTER_NAME}",
+                                        "name": "CLUSTER_NAME"
+                                    },
+                                    {
+                                        "value": "${ROUTER_SHARD}",
+                                        "name": "ROUTER_SHARD"
+                                    },
+                                    {
+                                        "value": "${DATABASE_ENGINE}",
+                                        "name": "DB_CONNECTION"
+                                    },
+                                    {
+                                        "value": "${LARAVEL_APP_KEY}",
+                                        "name": "APP_KEY"
+                                    },
+                                    {
+                                        "value": "${LARAVEL_APP_ENV}",
+                                        "name": "APP_ENV"
+                                    },
+                                    {
+                                        "value": "${LARAVEL_APP_DEBUG}",
+                                        "name": "APP_DEBUG"
+                                    },
+                                    {
+                                        "value": "${OPCACHE_REVALIDATE_FREQ}",
+                                        "name": "OPCACHE_REVALIDATE_FREQ"
+                                    }
+                                ],
+                                "image": "laravel-sqlite-example",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080
+                                    }
+                                },
+                                "name": "laravel-sqlite-example"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "laravel-sqlite-example"
+                        },
+                        "name": "laravel-sqlite-example"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
+                },
+                "name": "laravel-sqlite-example"
+            }
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "iconClass": "icon-perl",
+                    "supports": "perl",
+                    "sampleRepo": "https://github.com/openshift/dancer-ex.git",
+                    "openshift.io/display-name": "Perl (Latest)",
+                    "tags": "builder,perl",
+                    "description": "Build and run Perl applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.20/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Perl available on OpenShift, including major versions updates."
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "5.20"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-perl",
+                    "supports": "perl:5.16,perl",
+                    "sampleRepo": "https://github.com/openshift/dancer-ex.git",
+                    "description": "Build and run Perl 5.16 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.16/README.md.",
+                    "openshift.io/display-name": "Perl 5.16",
+                    "tags": "builder,perl",
+                    "version": "5.16"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/openshift3/perl-516-rhel7:latest"
+                },
+                "name": "5.16"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-perl",
+                    "supports": "perl:5.20,perl",
+                    "sampleRepo": "https://github.com/openshift/dancer-ex.git",
+                    "description": "Build and run Perl 5.20 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.20/README.md.",
+                    "openshift.io/display-name": "Perl 5.20",
+                    "tags": "builder,perl",
+                    "version": "5.20"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/rhscl/perl-520-rhel7:latest"
+                },
+                "name": "5.20"
+            }
+        ]
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Perl"
+        },
+        "name": "perl"
+    }
+}

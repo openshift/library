@@ -1,0 +1,765 @@
+{
+    "labels": {
+        "template": "processserver63-postgresql-persistent-s2i",
+        "xpaas": "1.3.3"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server PostgreSQL applications with persistent storage built using S2I.",
+            "iconClass": "icon-jboss",
+            "version": "1.3.3",
+            "tags": "processserver,postgresql,javaee,java,database,jboss,xpaas"
+        },
+        "name": "processserver63-postgresql-persistent-s2i"
+    },
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's http port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8443,
+                        "port": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's https port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 5432,
+                        "port": 5432
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The database server's port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-http",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's http service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-https",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's https service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTPS}",
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "value": "${KIE_CONTAINER_DEPLOYMENT}",
+                                "name": "KIE_CONTAINER_DEPLOYMENT"
+                            }
+                        ],
+                        "forcePull": true,
+                        "from": {
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-processserver63-openshift:1.3"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStream",
+                                "name": "${APPLICATION_NAME}"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "serviceAccountName": "processserver-service-account",
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "jolokia",
+                                        "containerPort": 8778
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "http",
+                                        "containerPort": 8080
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "https",
+                                        "containerPort": 8443
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "image": "${APPLICATION_NAME}",
+                                "env": [
+                                    {
+                                        "value": "${KIE_CONTAINER_DEPLOYMENT}",
+                                        "name": "KIE_CONTAINER_DEPLOYMENT"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_PROTOCOL}",
+                                        "name": "KIE_SERVER_PROTOCOL"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_PORT}",
+                                        "name": "KIE_SERVER_PORT"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_USER}",
+                                        "name": "KIE_SERVER_USER"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_PASSWORD}",
+                                        "name": "KIE_SERVER_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_DOMAIN}",
+                                        "name": "KIE_SERVER_DOMAIN"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_PERSISTENCE_DIALECT}",
+                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ",
+                                        "name": "DB_SERVICE_PREFIX_MAPPING"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_NAME}-postgresql=DB",
+                                        "name": "TX_DATABASE_PREFIX_MAPPING"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}",
+                                        "name": "DB_JNDI"
+                                    },
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "DB_USERNAME"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "DB_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "DB_DATABASE"
+                                    },
+                                    {
+                                        "value": "${DB_MIN_POOL_SIZE}",
+                                        "name": "DB_MIN_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_MAX_POOL_SIZE}",
+                                        "name": "DB_MAX_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_TX_ISOLATION}",
+                                        "name": "DB_TX_ISOLATION"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}NotManaged",
+                                        "name": "QUARTZ_JNDI"
+                                    },
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "QUARTZ_USERNAME"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "QUARTZ_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "QUARTZ_DATABASE"
+                                    },
+                                    {
+                                        "value": "${DB_MIN_POOL_SIZE}",
+                                        "name": "QUARTZ_MIN_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_MAX_POOL_SIZE}",
+                                        "name": "QUARTZ_MAX_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_TX_ISOLATION}",
+                                        "name": "QUARTZ_TX_ISOLATION"
+                                    },
+                                    {
+                                        "value": "false",
+                                        "name": "QUARTZ_JTA"
+                                    },
+                                    {
+                                        "value": "true",
+                                        "name": "QUARTZ_NONXA"
+                                    },
+                                    {
+                                        "value": "/etc/processserver-secret-volume",
+                                        "name": "HTTPS_KEYSTORE_DIR"
+                                    },
+                                    {
+                                        "value": "${HTTPS_KEYSTORE}",
+                                        "name": "HTTPS_KEYSTORE"
+                                    },
+                                    {
+                                        "value": "${HTTPS_NAME}",
+                                        "name": "HTTPS_NAME"
+                                    },
+                                    {
+                                        "value": "${HTTPS_PASSWORD}",
+                                        "name": "HTTPS_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}",
+                                        "name": "HORNETQ_CLUSTER_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_QUEUES}",
+                                        "name": "HORNETQ_QUEUES"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_TOPICS}",
+                                        "name": "HORNETQ_TOPICS"
+                                    }
+                                ],
+                                "name": "${APPLICATION_NAME}",
+                                "volumeMounts": [
+                                    {
+                                        "readOnly": true,
+                                        "mountPath": "/etc/processserver-secret-volume",
+                                        "name": "processserver-keystore-volume"
+                                    }
+                                ],
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                }
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "secret": {
+                                    "secretName": "${HTTPS_SECRET}"
+                                },
+                                "name": "processserver-keystore-volume"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:latest"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}-postgresql"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "containerPort": 5432
+                                    }
+                                ],
+                                "image": "postgresql",
+                                "env": [
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "POSTGRESQL_USER"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "POSTGRESQL_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "POSTGRESQL_DATABASE"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}",
+                                        "name": "POSTGRESQL_SHARED_BUFFERS"
+                                    }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/pgsql/data",
+                                        "name": "${APPLICATION_NAME}-postgresql-pvol"
+                                    }
+                                ],
+                                "imagePullPolicy": "Always",
+                                "name": "${APPLICATION_NAME}-postgresql"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-postgresql-claim"
+                                },
+                                "name": "${APPLICATION_NAME}-postgresql-pvol"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}-postgresql"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            }
+        },
+        {
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
+                    }
+                }
+            },
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql-claim"
+            }
+        }
+    ],
+    "kind": "Template",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
+            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final",
+            "required": false,
+            "name": "KIE_CONTAINER_DEPLOYMENT"
+        },
+        {
+            "description": "The protocol to access the KIE Server REST interface.",
+            "value": "https",
+            "required": false,
+            "name": "KIE_SERVER_PROTOCOL"
+        },
+        {
+            "description": "The port to access the KIE Server REST interface.",
+            "value": "8443",
+            "required": false,
+            "name": "KIE_SERVER_PORT"
+        },
+        {
+            "description": "The user name to access the KIE Server REST or JMS interface.",
+            "value": "kieserver",
+            "required": false,
+            "name": "KIE_SERVER_USER"
+        },
+        {
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
+            "required": false,
+            "generate": "expression",
+            "name": "KIE_SERVER_PASSWORD"
+        },
+        {
+            "description": "JAAS LoginContext domain that shall be used to authenticate users when using JMS.",
+            "value": "other",
+            "required": false,
+            "name": "KIE_SERVER_DOMAIN"
+        },
+        {
+            "description": "Hibernate persistence dialect.",
+            "value": "org.hibernate.dialect.PostgreSQL82Dialect",
+            "required": false,
+            "name": "KIE_SERVER_PERSISTENCE_DIALECT"
+        },
+        {
+            "description": "The name for the application.",
+            "value": "kie-app",
+            "required": true,
+            "name": "APPLICATION_NAME"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTP"
+        },
+        {
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTPS"
+        },
+        {
+            "description": "Git source URI for application",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "required": true,
+            "name": "SOURCE_REPOSITORY_URL"
+        },
+        {
+            "description": "Git branch/tag reference",
+            "value": "1.3",
+            "required": false,
+            "name": "SOURCE_REPOSITORY_REF"
+        },
+        {
+            "description": "Path within Git project to build; empty for root project directory.",
+            "value": "processserver/library",
+            "required": false,
+            "name": "CONTEXT_DIR"
+        },
+        {
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS",
+            "value": "java:jboss/datasources/ExampleDS",
+            "required": false,
+            "name": "DB_JNDI"
+        },
+        {
+            "description": "Database name",
+            "value": "root",
+            "required": true,
+            "name": "DB_DATABASE"
+        },
+        {
+            "description": "Size of persistent storage for database volume.",
+            "value": "512Mi",
+            "required": true,
+            "name": "VOLUME_CAPACITY"
+        },
+        {
+            "description": "Queue names",
+            "value": "",
+            "required": false,
+            "name": "HORNETQ_QUEUES"
+        },
+        {
+            "description": "Topic names",
+            "value": "",
+            "required": false,
+            "name": "HORNETQ_TOPICS"
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "value": "processserver-app-secret",
+            "required": false,
+            "name": "HTTPS_SECRET"
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "value": "keystore.jks",
+            "required": false,
+            "name": "HTTPS_KEYSTORE"
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "value": "jboss",
+            "required": false,
+            "name": "HTTPS_NAME"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "value": "mykeystorepass",
+            "required": false,
+            "name": "HTTPS_PASSWORD"
+        },
+        {
+            "from": "user[a-zA-Z0-9]{3}",
+            "description": "Database user name",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_USERNAME"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Database user password",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_PASSWORD"
+        },
+        {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MIN_POOL_SIZE"
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MAX_POOL_SIZE"
+        },
+        {
+            "description": "Sets transaction-isolation for the configured datasource.",
+            "required": false,
+            "name": "DB_TX_ISOLATION"
+        },
+        {
+            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
+            "required": false,
+            "name": "POSTGRESQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
+            "required": false,
+            "name": "POSTGRESQL_SHARED_BUFFERS"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "HornetQ cluster admin password",
+            "required": true,
+            "generate": "expression",
+            "name": "HORNETQ_CLUSTER_PASSWORD"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "GitHub trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Generic build trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GENERIC_WEBHOOK_SECRET"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "value": "openshift",
+            "required": true,
+            "name": "IMAGE_STREAM_NAMESPACE"
+        }
+    ]
+}

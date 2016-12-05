@@ -1,0 +1,567 @@
+{
+    "labels": {
+        "template": "rails-postgresql-example"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Rails + PostgreSQL (Ephemeral)",
+            "iconClass": "icon-ruby",
+            "tags": "quickstart,ruby,rails",
+            "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/rails-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing."
+        },
+        "name": "rails-postgresql-example"
+    },
+    "kind": "Template",
+    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/rails-ex/blob/master/README.md.",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "name": "NAME",
+            "value": "rails-postgresql-example",
+            "displayName": "Name",
+            "required": true,
+            "description": "The name assigned to all of the frontend objects defined in this template."
+        },
+        {
+            "displayName": "Namespace",
+            "value": "openshift",
+            "required": true,
+            "name": "NAMESPACE",
+            "description": "The OpenShift Namespace where the ImageStream resides."
+        },
+        {
+            "displayName": "Memory Limit",
+            "value": "512Mi",
+            "required": true,
+            "name": "MEMORY_LIMIT",
+            "description": "Maximum amount of memory the Rails container can use."
+        },
+        {
+            "displayName": "Memory Limit (PostgreSQL)",
+            "value": "512Mi",
+            "required": true,
+            "name": "MEMORY_POSTGRESQL_LIMIT",
+            "description": "Maximum amount of memory the PostgreSQL container can use."
+        },
+        {
+            "displayName": "Git Repository URL",
+            "value": "https://github.com/openshift/rails-ex.git",
+            "required": true,
+            "name": "SOURCE_REPOSITORY_URL",
+            "description": "The URL of the repository with your application source code."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_REF",
+            "displayName": "Git Reference",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+        },
+        {
+            "name": "CONTEXT_DIR",
+            "displayName": "Context Directory",
+            "description": "Set this to the relative path to your project if it is not in the root of your repository."
+        },
+        {
+            "value": "",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the Rails service, if left blank a value will be defaulted."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "displayName": "GitHub Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the GitHub webhook."
+        },
+        {
+            "from": "[a-z0-9]{127}",
+            "name": "SECRET_KEY_BASE",
+            "displayName": "Secret Key",
+            "generate": "expression",
+            "description": "Your secret key for verifying the integrity of signed cookies."
+        },
+        {
+            "displayName": "Application Username",
+            "value": "openshift",
+            "required": true,
+            "name": "APPLICATION_USER",
+            "description": "The application user that is used within the sample application to authorize access on pages."
+        },
+        {
+            "displayName": "Application Password",
+            "value": "secret",
+            "required": true,
+            "name": "APPLICATION_PASSWORD",
+            "description": "The application password that is used within the sample application to authorize access on pages."
+        },
+        {
+            "displayName": "Rails Environment",
+            "value": "production",
+            "required": true,
+            "name": "RAILS_ENV",
+            "description": "Environment under which the sample application will run. Could be set to production, development or test."
+        },
+        {
+            "value": "postgresql",
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true
+        },
+        {
+            "from": "user[A-Z0-9]{3}",
+            "displayName": "Database Username",
+            "generate": "expression",
+            "name": "DATABASE_USER"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "displayName": "Database Password",
+            "generate": "expression",
+            "name": "DATABASE_PASSWORD"
+        },
+        {
+            "value": "root",
+            "displayName": "Database Name",
+            "name": "DATABASE_NAME",
+            "required": true
+        },
+        {
+            "value": "100",
+            "displayName": "Maximum Database Connections",
+            "name": "POSTGRESQL_MAX_CONNECTIONS"
+        },
+        {
+            "value": "12MB",
+            "displayName": "Shared Buffer Amount",
+            "name": "POSTGRESQL_SHARED_BUFFERS"
+        },
+        {
+            "value": "",
+            "displayName": "Custom RubyGems Mirror URL",
+            "name": "RUBYGEM_MIRROR",
+            "description": "The custom RubyGems mirror URL"
+        }
+    ],
+    "objects": [
+        {
+            "stringData": {
+                "applicationPassword": "${APPLICATION_PASSWORD}",
+                "keyBase": "${SECRET_KEY_BASE}",
+                "applicationUser": "${APPLICATION_USER}",
+                "databasePassword": "${DATABASE_PASSWORD}",
+                "databaseUser": "${DATABASE_USER}"
+            },
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080,
+                        "name": "web"
+                    }
+                ],
+                "selector": {
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]",
+                    "description": "Exposes and load balances the application pods"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${NAME}"
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Keeps track of changes in the application image"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "namespace": "${NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "ruby:2.3"
+                        },
+                        "env": [
+                            {
+                                "value": "${RUBYGEM_MIRROR}",
+                                "name": "RUBYGEM_MIRROR"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${NAME}:latest"
+                    }
+                },
+                "postCommit": {
+                    "script": "bundle exec rake test"
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "recreateParams": {
+                        "pre": {
+                            "failurePolicy": "Abort",
+                            "execNewPod": {
+                                "command": [
+                                    "./migrate-database.sh"
+                                ],
+                                "containerName": "${NAME}"
+                            }
+                        }
+                    }
+                },
+                "selector": {
+                    "name": "${NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${NAME}:latest"
+                            },
+                            "containerNames": [
+                                "rails-postgresql-example"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "containerPort": 8080
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/articles",
+                                        "port": 8080
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "env": [
+                                    {
+                                        "value": "${DATABASE_SERVICE_NAME}",
+                                        "name": "DATABASE_SERVICE_NAME"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "POSTGRESQL_USER"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "POSTGRESQL_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DATABASE_NAME}",
+                                        "name": "POSTGRESQL_DATABASE"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "keyBase",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "SECRET_KEY_BASE"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}",
+                                        "name": "POSTGRESQL_SHARED_BUFFERS"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_DOMAIN}",
+                                        "name": "APPLICATION_DOMAIN"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "applicationUser",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "APPLICATION_USER"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "applicationPassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "APPLICATION_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${RAILS_ENV}",
+                                        "name": "RAILS_ENV"
+                                    }
+                                ],
+                                "image": " ",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 10,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/articles",
+                                        "port": 8080
+                                    }
+                                },
+                                "name": "rails-postgresql-example"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "${NAME}"
+                        },
+                        "name": "${NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 5432,
+                        "port": 5432,
+                        "name": "postgresql"
+                    }
+                ],
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes the database server"
+                },
+                "name": "${DATABASE_SERVICE_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:9.5"
+                            },
+                            "containerNames": [
+                                "postgresql"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "volumes": [
+                            {
+                                "emptyDir": {},
+                                "name": "data"
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "containerPort": 5432
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1,
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "psql -h 127.0.0.1 -U ${POSTGRESQL_USER} -q -d ${POSTGRESQL_DATABASE} -c 'SELECT 1'"
+                                        ]
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_POSTGRESQL_LIMIT}"
+                                    }
+                                },
+                                "env": [
+                                    {
+                                        "value": "${DATABASE_USER}",
+                                        "name": "POSTGRESQL_USER"
+                                    },
+                                    {
+                                        "value": "${DATABASE_PASSWORD}",
+                                        "name": "POSTGRESQL_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DATABASE_NAME}",
+                                        "name": "POSTGRESQL_DATABASE"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}",
+                                        "name": "POSTGRESQL_SHARED_BUFFERS"
+                                    }
+                                ],
+                                "image": " ",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/pgsql/data",
+                                        "name": "data"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 1,
+                                    "tcpSocket": {
+                                        "port": 5432
+                                    }
+                                },
+                                "name": "postgresql"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
+                        },
+                        "name": "${DATABASE_SERVICE_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the database"
+                },
+                "name": "${DATABASE_SERVICE_NAME}"
+            }
+        }
+    ]
+}

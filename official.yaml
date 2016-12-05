@@ -1,0 +1,344 @@
+variables:
+  xpaas_version: ose-v1.3.3
+data:
+  ruby:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: rhel7
+  rails:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json
+        docs: https://github.com/openshift/rails-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
+        docs: https://github.com/openshift/rails-ex/blob/master/README.md
+  python:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
+        regex: python
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
+        regex: python
+        suffix: rhel7
+  django:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+  nodejs:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
+        regex: nodejs
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
+        regex: nodejs
+        suffix: rhel7
+  perl:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
+        regex: perl
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
+        regex: perl
+        suffix: rhel7
+  dancer:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+  php:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
+        regex: php
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
+        regex: php
+        suffix: rhel7
+  cakephp:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+  mariadb:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        regex: mariadb
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        regex: mariadb
+        suffix: rhel7
+  mongodb:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        regex: mongodb
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        regex: mongodb
+        suffix: rhel7
+  mysql:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+        regex: mysql
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+        regex: mysql
+        suffix: rhel7
+  postgresql:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        regex: postgresql
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        regex: postgresql
+        suffix: rhel7
+  amq:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-basic.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-amq
+        suffix: rhel7
+  datagrid:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-basic.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-mysql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-postgresql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-datagrid
+        suffix: rhel7
+  decisionserver:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-decisionserver
+        suffix: rhel7
+  eap:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-amq-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-sso-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-sso-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-eap
+        suffix: rhel7
+  processserver:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-processserver
+        suffix: rhel7
+  sso:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-mysql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-postgresql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: redhat-sso
+        suffix: rhel7
+  webserver:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mongodb-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mongodb-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mongodb-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mongodb-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        regex: jboss-webserver
+        suffix: rhel7
+  fis:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json
+        docs: https://github.com/jboss-fuse/application-templates/blob/master/README.md
+  dotnet:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md

@@ -1,0 +1,32 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "supports": "jboss-fuse:6.2.1,java:8,xpaas:1.2",
+                    "description": "JBoss Fuse Integration Services 1.0 Karaf S2I images.",
+                    "iconClass": "icon-jboss",
+                    "version": "1.0",
+                    "tags": "builder,jboss-fuse,java,karaf,xpaas"
+                },
+                "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
+                    "description": "JBoss Fuse Integration Services 2.0 Karaf S2I images.",
+                    "iconClass": "icon-jboss",
+                    "version": "2.0",
+                    "tags": "builder,jboss-fuse,java,karaf,xpaas"
+                },
+                "name": "2.0"
+            }
+        ],
+        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-karaf-openshift"
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "fis-karaf-openshift"
+    }
+}

@@ -1,0 +1,716 @@
+{
+    "labels": {
+        "template": "datagrid65-postgresql",
+        "xpaas": "1.3.2"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Application template for JDG 6.5 and PostgreSQL applications built using.",
+            "iconClass": "icon-jboss",
+            "version": "1.3.2",
+            "tags": "datagrid,jboss,xpaas"
+        },
+        "name": "datagrid65-postgresql"
+    },
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's HTTP port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8443,
+                        "port": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's HTTPS port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 11211,
+                        "port": 11211
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Memcached service for clustered applications."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-memcached"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 11333,
+                        "port": 11333
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Hot Rod service for clustered applications."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-hotrod"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 5432,
+                        "port": 5432
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The database server's port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-http",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's HTTP service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-https",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's HTTPS service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTPS}",
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                }
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "jboss-datagrid65-openshift:1.2"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "serviceAccountName": "datagrid-service-account",
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "jolokia",
+                                        "containerPort": 8778
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "http",
+                                        "containerPort": 8080
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "https",
+                                        "containerPort": 8443
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "ping",
+                                        "containerPort": 8888
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "memcached",
+                                        "containerPort": 11211
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "hotrod",
+                                        "containerPort": 11222
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/datagrid/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "image": "jboss-datagrid65-openshift",
+                                "env": [
+                                    {
+                                        "value": "${USERNAME}",
+                                        "name": "USERNAME"
+                                    },
+                                    {
+                                        "value": "${PASSWORD}",
+                                        "name": "PASSWORD"
+                                    },
+                                    {
+                                        "value": "/etc/datagrid-secret-volume",
+                                        "name": "HTTPS_KEYSTORE_DIR"
+                                    },
+                                    {
+                                        "value": "${HTTPS_KEYSTORE}",
+                                        "name": "HTTPS_KEYSTORE"
+                                    },
+                                    {
+                                        "value": "${HTTPS_NAME}",
+                                        "name": "HTTPS_NAME"
+                                    },
+                                    {
+                                        "value": "${HTTPS_PASSWORD}",
+                                        "name": "HTTPS_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_NAME}-postgresql=DB",
+                                        "name": "DB_SERVICE_PREFIX_MAPPING"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}",
+                                        "name": "DB_JNDI"
+                                    },
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "DB_USERNAME"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "DB_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "DB_DATABASE"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_NAME}-postgresql=DB",
+                                        "name": "TX_DATABASE_PREFIX_MAPPING"
+                                    },
+                                    {
+                                        "value": "${DB_MIN_POOL_SIZE}",
+                                        "name": "DB_MIN_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_MAX_POOL_SIZE}",
+                                        "name": "DB_MAX_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_TX_ISOLATION}",
+                                        "name": "DB_TX_ISOLATION"
+                                    },
+                                    {
+                                        "value": "string",
+                                        "name": "DEFAULT_JDBC_STORE_TYPE"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}",
+                                        "name": "DEFAULT_JDBC_STORE_DATASOURCE"
+                                    },
+                                    {
+                                        "value": "string",
+                                        "name": "MEMCACHED_JDBC_STORE_TYPE"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}",
+                                        "name": "MEMCACHED_JDBC_STORE_DATASOURCE"
+                                    },
+                                    {
+                                        "value": "application=${APPLICATION_NAME}",
+                                        "name": "OPENSHIFT_KUBE_PING_LABELS"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        },
+                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE"
+                                    },
+                                    {
+                                        "value": "${INFINISPAN_CONNECTORS}",
+                                        "name": "INFINISPAN_CONNECTORS"
+                                    },
+                                    {
+                                        "value": "${CACHE_NAMES}",
+                                        "name": "CACHE_NAMES"
+                                    },
+                                    {
+                                        "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}",
+                                        "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH"
+                                    },
+                                    {
+                                        "value": "${APPLICATION_NAME}-hotrod",
+                                        "name": "HOTROD_SERVICE_NAME"
+                                    },
+                                    {
+                                        "value": "${MEMCACHED_CACHE}",
+                                        "name": "MEMCACHED_CACHE"
+                                    },
+                                    {
+                                        "value": "${REST_SECURITY_DOMAIN}",
+                                        "name": "REST_SECURITY_DOMAIN"
+                                    },
+                                    {
+                                        "value": "${JGROUPS_ENCRYPT_SECRET}",
+                                        "name": "JGROUPS_ENCRYPT_SECRET"
+                                    },
+                                    {
+                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}",
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE"
+                                    },
+                                    {
+                                        "value": "/etc/jgroups-encrypt-secret-volume",
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR"
+                                    },
+                                    {
+                                        "value": "${JGROUPS_ENCRYPT_NAME}",
+                                        "name": "JGROUPS_ENCRYPT_NAME"
+                                    },
+                                    {
+                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}",
+                                        "name": "JGROUPS_ENCRYPT_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${JGROUPS_CLUSTER_PASSWORD}",
+                                        "name": "JGROUPS_CLUSTER_PASSWORD"
+                                    }
+                                ],
+                                "name": "${APPLICATION_NAME}",
+                                "volumeMounts": [
+                                    {
+                                        "readOnly": true,
+                                        "mountPath": "/etc/datagrid-secret-volume",
+                                        "name": "datagrid-keystore-volume"
+                                    },
+                                    {
+                                        "readOnly": true,
+                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
+                                        "name": "datagrid-jgroups-keystore-volume"
+                                    }
+                                ],
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                }
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "secret": {
+                                    "secretName": "${HTTPS_SECRET}"
+                                },
+                                "name": "datagrid-keystore-volume"
+                            },
+                            {
+                                "secret": {
+                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
+                                },
+                                "name": "datagrid-jgroups-keystore-volume"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:latest"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}-postgresql"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "POSTGRESQL_USER"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "POSTGRESQL_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "POSTGRESQL_DATABASE"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
+                                        "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS"
+                                    },
+                                    {
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}",
+                                        "name": "POSTGRESQL_SHARED_BUFFERS"
+                                    }
+                                ],
+                                "name": "${APPLICATION_NAME}-postgresql",
+                                "imagePullPolicy": "Always",
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "containerPort": 5432
+                                    }
+                                ],
+                                "image": "postgresql"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}-postgresql"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            }
+        }
+    ],
+    "kind": "Template",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "description": "The name for the application.",
+            "value": "datagrid-app",
+            "required": true,
+            "name": "APPLICATION_NAME"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTP"
+        },
+        {
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTPS"
+        },
+        {
+            "description": "User name for JDG user.",
+            "value": "",
+            "required": false,
+            "name": "USERNAME"
+        },
+        {
+            "description": "Password for JDG user.",
+            "value": "",
+            "required": false,
+            "name": "PASSWORD"
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "value": "datagrid-app-secret",
+            "required": true,
+            "name": "HTTPS_SECRET"
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "value": "keystore.jks",
+            "required": false,
+            "name": "HTTPS_KEYSTORE"
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "value": "",
+            "required": false,
+            "name": "HTTPS_NAME"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "value": "",
+            "required": false,
+            "name": "HTTPS_PASSWORD"
+        },
+        {
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/postgresql",
+            "value": "java:jboss/datasources/postgresql",
+            "required": false,
+            "name": "DB_JNDI"
+        },
+        {
+            "description": "Database name",
+            "value": "root",
+            "required": true,
+            "name": "DB_DATABASE"
+        },
+        {
+            "from": "user[a-zA-Z0-9]{3}",
+            "description": "Database user name",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_USERNAME"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Database user password",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_PASSWORD"
+        },
+        {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MIN_POOL_SIZE"
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MAX_POOL_SIZE"
+        },
+        {
+            "description": "Sets transaction-isolation for the configured datasource.",
+            "required": false,
+            "name": "DB_TX_ISOLATION"
+        },
+        {
+            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
+            "required": false,
+            "name": "POSTGRESQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
+            "required": false,
+            "name": "POSTGRESQL_SHARED_BUFFERS"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "value": "openshift",
+            "required": true,
+            "name": "IMAGE_STREAM_NAMESPACE"
+        },
+        {
+            "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
+            "value": "hotrod,memcached,rest",
+            "required": false,
+            "name": "INFINISPAN_CONNECTORS"
+        },
+        {
+            "description": "Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configurd for each entry.",
+            "value": "",
+            "required": false,
+            "name": "CACHE_NAMES"
+        },
+        {
+            "description": "",
+            "value": "",
+            "required": false,
+            "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH"
+        },
+        {
+            "description": "The name of the cache to expose through this memcached connector (defaults to 'default')",
+            "value": "default",
+            "required": false,
+            "name": "MEMCACHED_CACHE"
+        },
+        {
+            "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
+            "value": "",
+            "required": false,
+            "name": "REST_SECURITY_DOMAIN"
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "value": "datagrid-app-secret",
+            "required": false,
+            "name": "JGROUPS_ENCRYPT_SECRET"
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "value": "jgroups.jceks",
+            "required": false,
+            "name": "JGROUPS_ENCRYPT_KEYSTORE"
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "value": "",
+            "required": false,
+            "name": "JGROUPS_ENCRYPT_NAME"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "value": "",
+            "required": false,
+            "name": "JGROUPS_ENCRYPT_PASSWORD"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "JGroups cluster password",
+            "required": true,
+            "generate": "expression",
+            "name": "JGROUPS_CLUSTER_PASSWORD"
+        }
+    ]
+}
