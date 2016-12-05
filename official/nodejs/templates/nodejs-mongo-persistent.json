@@ -1,0 +1,541 @@
+{
+    "labels": {
+        "template": "nodejs-mongo-persistent"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Node.js + MongoDB (Persistent)",
+            "iconClass": "icon-nodejs",
+            "tags": "quickstart,nodejs",
+            "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md."
+        },
+        "name": "nodejs-mongo-persistent"
+    },
+    "kind": "Template",
+    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "name": "NAME",
+            "value": "nodejs-mongo-persistent",
+            "displayName": "Name",
+            "required": true,
+            "description": "The name assigned to all of the frontend objects defined in this template."
+        },
+        {
+            "name": "NAMESPACE",
+            "value": "openshift",
+            "displayName": "Namespace",
+            "required": true,
+            "description": "The OpenShift Namespace where the ImageStream resides."
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi",
+            "displayName": "Memory Limit",
+            "required": true,
+            "description": "Maximum amount of memory the Node.js container can use."
+        },
+        {
+            "name": "MEMORY_MONGODB_LIMIT",
+            "value": "512Mi",
+            "displayName": "Memory Limit (MongoDB)",
+            "required": true,
+            "description": "Maximum amount of memory the MongoDB container can use."
+        },
+        {
+            "name": "VOLUME_CAPACITY",
+            "value": "1Gi",
+            "displayName": "Volume Capacity",
+            "required": true,
+            "description": "Volume space available for data, e.g. 512Mi, 2Gi"
+        },
+        {
+            "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/openshift/nodejs-ex.git",
+            "displayName": "Git Repository URL",
+            "required": true,
+            "description": "The URL of the repository with your application source code."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_REF",
+            "displayName": "Git Reference",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+        },
+        {
+            "name": "CONTEXT_DIR",
+            "displayName": "Context Directory",
+            "description": "Set this to the relative path to your project if it is not in the root of your repository."
+        },
+        {
+            "value": "",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "displayName": "GitHub Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the GitHub webhook."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "displayName": "Generic Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the Generic webhook."
+        },
+        {
+            "value": "mongodb",
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true
+        },
+        {
+            "from": "user[A-Z0-9]{3}",
+            "name": "DATABASE_USER",
+            "displayName": "MongoDB Username",
+            "generate": "expression",
+            "description": "Username for MongoDB user that will be used for accessing the database."
+        },
+        {
+            "from": "[a-zA-Z0-9]{16}",
+            "name": "DATABASE_PASSWORD",
+            "displayName": "MongoDB Password",
+            "generate": "expression",
+            "description": "Password for the MongoDB user."
+        },
+        {
+            "value": "sampledb",
+            "displayName": "Database Name",
+            "name": "DATABASE_NAME",
+            "required": true
+        },
+        {
+            "from": "[a-zA-Z0-9]{16}",
+            "name": "DATABASE_ADMIN_PASSWORD",
+            "displayName": "Database Administrator Password",
+            "generate": "expression",
+            "description": "Password for the database admin user."
+        },
+        {
+            "value": "",
+            "displayName": "Custom NPM Mirror URL",
+            "name": "NPM_MIRROR",
+            "description": "The custom NPM mirror URL"
+        }
+    ],
+    "objects": [
+        {
+            "stringData": {
+                "databaseAdminPassword": "${DATABASE_ADMIN_PASSWORD}",
+                "databasePassword": "${DATABASE_PASSWORD}",
+                "databaseUser": "${DATABASE_USER}"
+            },
+            "kind": "Secret",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080,
+                        "name": "web"
+                    }
+                ],
+                "selector": {
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]",
+                    "description": "Exposes and load balances the application pods"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${NAME}"
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Keeps track of changes in the application image"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "namespace": "${NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "nodejs:4"
+                        },
+                        "env": [
+                            {
+                                "value": "${NPM_MIRROR}",
+                                "name": "NPM_MIRROR"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${NAME}:latest"
+                    }
+                },
+                "postCommit": {
+                    "script": "npm test"
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Rolling"
+                },
+                "selector": {
+                    "name": "${NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${NAME}:latest"
+                            },
+                            "containerNames": [
+                                "nodejs-mongo-persistent"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": " ",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/pagecount",
+                                        "port": 8080
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "env": [
+                                    {
+                                        "value": "${DATABASE_SERVICE_NAME}",
+                                        "name": "DATABASE_SERVICE_NAME"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_USER"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DATABASE_NAME}",
+                                        "name": "MONGODB_DATABASE"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseAdminPassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_ADMIN_PASSWORD"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/pagecount",
+                                        "port": 8080
+                                    }
+                                },
+                                "name": "nodejs-mongo-persistent"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "${NAME}"
+                        },
+                        "name": "${NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
+                    }
+                }
+            },
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 27017,
+                        "port": 27017,
+                        "name": "mongodb"
+                    }
+                ],
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes the database server"
+                },
+                "name": "${DATABASE_SERVICE_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "mongodb:3.2"
+                            },
+                            "containerNames": [
+                                "mongodb"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": " ",
+                                "ports": [
+                                    {
+                                        "containerPort": 27017
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 1,
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
+                                        ]
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_MONGODB_LIMIT}"
+                                    }
+                                },
+                                "env": [
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_USER"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DATABASE_NAME}",
+                                        "name": "MONGODB_DATABASE"
+                                    },
+                                    {
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseAdminPassword",
+                                                "name": "${NAME}"
+                                            }
+                                        },
+                                        "name": "MONGODB_ADMIN_PASSWORD"
+                                    }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/var/lib/mongodb/data",
+                                        "name": "${DATABASE_SERVICE_NAME}-data"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 1,
+                                    "tcpSocket": {
+                                        "port": 27017
+                                    }
+                                },
+                                "name": "mongodb"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "persistentVolumeClaim": {
+                                    "claimName": "${DATABASE_SERVICE_NAME}"
+                                },
+                                "name": "${DATABASE_SERVICE_NAME}-data"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
+                        },
+                        "name": "${DATABASE_SERVICE_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the database"
+                },
+                "name": "${DATABASE_SERVICE_NAME}"
+            }
+        }
+    ]
+}

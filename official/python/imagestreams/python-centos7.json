@@ -1,0 +1,93 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "iconClass": "icon-python",
+                    "supports": "python",
+                    "sampleRepo": "https://github.com/openshift/django-ex.git",
+                    "openshift.io/display-name": "Python (Latest)",
+                    "tags": "builder,python",
+                    "description": "Build and run Python applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/3.5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Python available on OpenShift, including major versions updates."
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "3.5"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-python",
+                    "supports": "python:3.3,python",
+                    "sampleRepo": "https://github.com/openshift/django-ex.git",
+                    "description": "Build and run Python 3.3 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/3.3/README.md.",
+                    "openshift.io/display-name": "Python 3.3",
+                    "tags": "builder,python",
+                    "version": "3.3"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "openshift/python-33-centos7:latest"
+                },
+                "name": "3.3"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-python",
+                    "supports": "python:2.7,python",
+                    "sampleRepo": "https://github.com/openshift/django-ex.git",
+                    "description": "Build and run Python 2.7 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/2.7/README.md.",
+                    "openshift.io/display-name": "Python 2.7",
+                    "tags": "builder,python",
+                    "version": "2.7"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/python-27-centos7:latest"
+                },
+                "name": "2.7"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-python",
+                    "supports": "python:3.4,python",
+                    "sampleRepo": "https://github.com/openshift/django-ex.git",
+                    "description": "Build and run Python 3.4 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/3.4/README.md.",
+                    "openshift.io/display-name": "Python 3.4",
+                    "tags": "builder,python",
+                    "version": "3.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/python-34-centos7:latest"
+                },
+                "name": "3.4"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-python",
+                    "supports": "python:3.5,python",
+                    "sampleRepo": "https://github.com/openshift/django-ex.git",
+                    "description": "Build and run Python 3.5 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/3.5/README.md.",
+                    "openshift.io/display-name": "Python 3.5",
+                    "tags": "builder,python",
+                    "version": "3.5"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/python-35-centos7:latest"
+                },
+                "name": "3.5"
+            }
+        ]
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Python"
+        },
+        "name": "python"
+    }
+}

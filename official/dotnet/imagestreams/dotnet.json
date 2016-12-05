@@ -1,0 +1,64 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "iconClass": "icon-dotnet",
+                    "supports": "dotnet",
+                    "sampleRepo": "https://github.com/redhat-developer/s2i-dotnetcore.git",
+                    "sampleContextDir": "1.1/test/asp-net-hello-world",
+                    "openshift.io/display-name": ".NET Core (Latest)",
+                    "tags": "builder,.net,dotnet,dotnetcore",
+                    "description": "Build and run .NET Core applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/1.1/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of .NET Core available on OpenShift, including major versions updates."
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "1.1"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-dotnet",
+                    "description": "Build and run .NET Core 1.1 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/1.1/README.md.",
+                    "supports": "dotnet:1.1,dotnet",
+                    "sampleRepo": "https://github.com/redhat-developer/s2i-dotnetcore.git",
+                    "sampleContextDir": "1.1/test/asp-net-hello-world",
+                    "openshift.io/display-name": ".NET Core 1.1",
+                    "version": "1.1",
+                    "tags": "builder,.net,dotnet,dotnetcore,rh-dotnetcore11"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/dotnet/dotnetcore-11-rhel7:1.1"
+                },
+                "name": "1.1"
+            },
+            {
+                "annotations": {
+                    "iconClass": "icon-dotnet",
+                    "description": "Build and run .NET Core 1.0 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/1.0/README.md.",
+                    "supports": "dotnet:1.0,dotnet",
+                    "sampleRepo": "https://github.com/redhat-developer/s2i-dotnetcore.git",
+                    "sampleContextDir": "1.0/test/asp-net-hello-world",
+                    "openshift.io/display-name": ".NET Core 1.0",
+                    "version": "1.0",
+                    "tags": "builder,.net,dotnet,dotnetcore,rh-dotnetcore10"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/dotnet/dotnetcore-10-rhel7:1.0"
+                },
+                "name": "1.0"
+            }
+        ]
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": ".NET Core"
+        },
+        "name": "dotnet"
+    }
+}

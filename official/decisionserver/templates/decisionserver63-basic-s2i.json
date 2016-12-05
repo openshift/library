@@ -1,0 +1,339 @@
+{
+    "labels": {
+        "template": "decisionserver63-basic-s2i",
+        "xpaas": "1.3.3"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Application template for Red Hat JBoss BRMS 6.3 decision server applications built using S2I.",
+            "iconClass": "icon-jboss",
+            "version": "1.3.3",
+            "tags": "decisionserver,java,jboss,xpaas"
+        },
+        "name": "decisionserver63-basic-s2i"
+    },
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's http port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-http",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's http service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "value": "${KIE_CONTAINER_DEPLOYMENT}",
+                                "name": "KIE_CONTAINER_DEPLOYMENT"
+                            }
+                        ],
+                        "forcePull": true,
+                        "from": {
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-decisionserver63-openshift:1.3"
+                        }
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStream",
+                                "name": "${APPLICATION_NAME}"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "jolokia",
+                                        "containerPort": 8778
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "http",
+                                        "containerPort": 8080
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "image": "${APPLICATION_NAME}",
+                                "env": [
+                                    {
+                                        "value": "${KIE_CONTAINER_DEPLOYMENT}",
+                                        "name": "KIE_CONTAINER_DEPLOYMENT"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_USER}",
+                                        "name": "KIE_SERVER_USER"
+                                    },
+                                    {
+                                        "value": "${KIE_SERVER_PASSWORD}",
+                                        "name": "KIE_SERVER_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}",
+                                        "name": "HORNETQ_CLUSTER_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_QUEUES}",
+                                        "name": "HORNETQ_QUEUES"
+                                    },
+                                    {
+                                        "value": "${HORNETQ_TOPICS}",
+                                        "name": "HORNETQ_TOPICS"
+                                    }
+                                ],
+                                "name": "${APPLICATION_NAME}",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        }
+    ],
+    "kind": "Template",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
+            "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final",
+            "required": false,
+            "name": "KIE_CONTAINER_DEPLOYMENT"
+        },
+        {
+            "description": "The user name to access the KIE Server REST or JMS interface.",
+            "value": "kieserver",
+            "required": false,
+            "name": "KIE_SERVER_USER"
+        },
+        {
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
+            "required": false,
+            "generate": "expression",
+            "name": "KIE_SERVER_PASSWORD"
+        },
+        {
+            "description": "The name for the application.",
+            "value": "kie-app",
+            "required": true,
+            "name": "APPLICATION_NAME"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTP"
+        },
+        {
+            "description": "Git source URI for application",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+            "required": true,
+            "name": "SOURCE_REPOSITORY_URL"
+        },
+        {
+            "description": "Git branch/tag reference",
+            "value": "1.3",
+            "required": false,
+            "name": "SOURCE_REPOSITORY_REF"
+        },
+        {
+            "description": "Path within Git project to build; empty for root project directory.",
+            "value": "decisionserver/hellorules",
+            "required": false,
+            "name": "CONTEXT_DIR"
+        },
+        {
+            "description": "Queue names",
+            "value": "",
+            "required": false,
+            "name": "HORNETQ_QUEUES"
+        },
+        {
+            "description": "Topic names",
+            "value": "",
+            "required": false,
+            "name": "HORNETQ_TOPICS"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "HornetQ cluster admin password",
+            "required": true,
+            "generate": "expression",
+            "name": "HORNETQ_CLUSTER_PASSWORD"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "GitHub trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Generic build trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GENERIC_WEBHOOK_SECRET"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "value": "openshift",
+            "required": true,
+            "name": "IMAGE_STREAM_NAMESPACE"
+        }
+    ]
+}

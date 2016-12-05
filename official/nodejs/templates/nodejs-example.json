@@ -1,0 +1,276 @@
+{
+    "labels": {
+        "template": "nodejs-example"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Node.js",
+            "iconClass": "icon-nodejs",
+            "tags": "quickstart,nodejs",
+            "description": "An example Node.js application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md."
+        },
+        "name": "nodejs-example"
+    },
+    "kind": "Template",
+    "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "name": "NAME",
+            "value": "nodejs-example",
+            "displayName": "Name",
+            "required": true,
+            "description": "The name assigned to all of the frontend objects defined in this template."
+        },
+        {
+            "name": "NAMESPACE",
+            "value": "openshift",
+            "displayName": "Namespace",
+            "required": true,
+            "description": "The OpenShift Namespace where the ImageStream resides."
+        },
+        {
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi",
+            "displayName": "Memory Limit",
+            "required": true,
+            "description": "Maximum amount of memory the container can use."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_URL",
+            "value": "https://github.com/openshift/nodejs-ex.git",
+            "displayName": "Git Repository URL",
+            "required": true,
+            "description": "The URL of the repository with your application source code."
+        },
+        {
+            "name": "SOURCE_REPOSITORY_REF",
+            "displayName": "Git Reference",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+        },
+        {
+            "name": "CONTEXT_DIR",
+            "displayName": "Context Directory",
+            "description": "Set this to the relative path to your project if it is not in the root of your repository."
+        },
+        {
+            "value": "",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "displayName": "GitHub Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the GitHub webhook."
+        },
+        {
+            "from": "[a-zA-Z0-9]{40}",
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "displayName": "Generic Webhook Secret",
+            "generate": "expression",
+            "description": "A secret string used to configure the Generic webhook."
+        },
+        {
+            "value": "",
+            "displayName": "Custom NPM Mirror URL",
+            "name": "NPM_MIRROR",
+            "description": "The custom NPM mirror URL"
+        }
+    ],
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080,
+                        "name": "web"
+                    }
+                ],
+                "selector": {
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes and load balances the application pods"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "host": "${APPLICATION_DOMAIN}",
+                "to": {
+                    "kind": "Service",
+                    "name": "${NAME}"
+                }
+            },
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "${NAME}"
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Keeps track of changes in the application image"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "namespace": "${NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "nodejs:4"
+                        },
+                        "env": [
+                            {
+                                "value": "${NPM_MIRROR}",
+                                "name": "NPM_MIRROR"
+                            }
+                        ]
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${NAME}:latest"
+                    }
+                },
+                "postCommit": {
+                    "script": "npm test"
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
+                },
+                "name": "${NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Rolling"
+                },
+                "selector": {
+                    "name": "${NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${NAME}:latest"
+                            },
+                            "containerNames": [
+                                "nodejs-example"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "containerPort": 8080
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080
+                                    }
+                                },
+                                "image": " ",
+                                "env": [],
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080
+                                    }
+                                },
+                                "name": "nodejs-example"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "name": "${NAME}"
+                        },
+                        "name": "${NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
+                },
+                "name": "${NAME}"
+            }
+        }
+    ]
+}

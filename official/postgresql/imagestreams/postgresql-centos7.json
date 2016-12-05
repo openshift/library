@@ -1,0 +1,69 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "openshift.io/display-name": "PostgreSQL (Latest)",
+                    "iconClass": "icon-postgresql",
+                    "tags": "postgresql",
+                    "description": "Provides a PostgreSQL database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/tree/master/9.5.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of PostgreSQL available on OpenShift, including major versions updates."
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "9.5"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "openshift.io/display-name": "PostgreSQL 9.2",
+                    "iconClass": "icon-postgresql",
+                    "version": "9.2",
+                    "tags": "postgresql",
+                    "description": "Provides a PostgreSQL 9.2 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/tree/master/9.2."
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "openshift/postgresql-92-centos7:latest"
+                },
+                "name": "9.2"
+            },
+            {
+                "annotations": {
+                    "openshift.io/display-name": "PostgreSQL 9.4",
+                    "iconClass": "icon-postgresql",
+                    "version": "9.4",
+                    "tags": "postgresql",
+                    "description": "Provides a PostgreSQL 9.4 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/tree/master/9.4."
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/postgresql-94-centos7:latest"
+                },
+                "name": "9.4"
+            },
+            {
+                "annotations": {
+                    "openshift.io/display-name": "PostgreSQL 9.5",
+                    "iconClass": "icon-postgresql",
+                    "version": "9.5",
+                    "tags": "postgresql",
+                    "description": "Provides a PostgreSQL 9.5 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/tree/master/9.5."
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/postgresql-95-centos7:latest"
+                },
+                "name": "9.5"
+            }
+        ]
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "PostgreSQL"
+        },
+        "name": "postgresql"
+    }
+}

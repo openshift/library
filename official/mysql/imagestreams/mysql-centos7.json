@@ -1,0 +1,55 @@
+{
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "openshift.io/display-name": "MySQL (Latest)",
+                    "iconClass": "icon-mysql-database",
+                    "tags": "mysql",
+                    "description": "Provides a MySQL database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/tree/master/5.6/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MySQL available on OpenShift, including major versions updates."
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "5.6"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "openshift.io/display-name": "MySQL 5.5",
+                    "iconClass": "icon-mysql-database",
+                    "version": "5.5",
+                    "tags": "mysql",
+                    "description": "Provides a MySQL 5.5 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/tree/master/5.5/README.md."
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "openshift/mysql-55-centos7:latest"
+                },
+                "name": "5.5"
+            },
+            {
+                "annotations": {
+                    "openshift.io/display-name": "MySQL 5.6",
+                    "iconClass": "icon-mysql-database",
+                    "version": "5.6",
+                    "tags": "mysql",
+                    "description": "Provides a MySQL 5.6 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/tree/master/5.6/README.md."
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/mysql-56-centos7:latest"
+                },
+                "name": "5.6"
+            }
+        ]
+    },
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "MySQL"
+        },
+        "name": "mysql"
+    }
+}

@@ -1,0 +1,930 @@
+{
+    "rails": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json",
+                "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/rails-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/rails-ex/blob/master/README.md",
+                "path": "official/rails/templates/rails-postgresql-example.json",
+                "name": "rails-postgresql-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json",
+                "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/rails-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/rails-ex/blob/master/README.md",
+                "path": "official/rails/templates/rails-pgsql-persistent.json",
+                "name": "rails-pgsql-persistent"
+            }
+        ]
+    },
+    "dancer": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json",
+                "description": "An example Dancer application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/dancer-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/dancer-ex/blob/master/README.md",
+                "path": "official/dancer/templates/dancer-example.json",
+                "name": "dancer-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql.json",
+                "description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/dancer-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/dancer-ex/blob/master/README.md",
+                "path": "official/dancer/templates/dancer-mysql-example.json",
+                "name": "dancer-mysql-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json",
+                "description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/dancer-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/dancer-ex/blob/master/README.md",
+                "path": "official/dancer/templates/dancer-mysql-persistent.json",
+                "name": "dancer-mysql-persistent"
+            }
+        ]
+    },
+    "sso": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/sso/sso70-https.json",
+                "description": "Application template for SSO 7.0",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/sso/templates/sso70-https.json",
+                "name": "sso70-https"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/sso/sso70-mysql-persistent.json",
+                "description": "Application template for SSO 7.0 MySQL applications with persistent storage",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/sso/templates/sso70-mysql-persistent.json",
+                "name": "sso70-mysql-persistent"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/sso/sso70-mysql.json",
+                "description": "Application template for SSO 7.0 MySQL applications",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/sso/templates/sso70-mysql.json",
+                "name": "sso70-mysql"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/sso/sso70-postgresql-persistent.json",
+                "description": "Application template for SSO 7.0 PostgreSQL applications with persistent storage",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/sso/templates/sso70-postgresql-persistent.json",
+                "name": "sso70-postgresql-persistent"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/sso/sso70-postgresql.json",
+                "description": "Application template for SSO 7.0 PostgreSQL applications",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/sso/templates/sso70-postgresql.json",
+                "name": "sso70-postgresql"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/sso/imagestreams/redhat-sso70-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "redhat-sso70-openshift"
+            }
+        ]
+    },
+    "php": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/php/imagestreams/php-centos7.json",
+                "docs": "https://github.com/sclorg/s2i-php-container/blob/master/README.md",
+                "name": "php"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/php/imagestreams/php-rhel7.json",
+                "docs": "https://github.com/sclorg/s2i-php-container/blob/master/README.md",
+                "name": "php"
+            }
+        ]
+    },
+    "postgresql": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json",
+                "description": "PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/postgresql/templates/postgresql-ephemeral.json",
+                "name": "postgresql-ephemeral"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json",
+                "description": "PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/postgresql/templates/postgresql-persistent.json",
+                "name": "postgresql-persistent"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/postgresql/imagestreams/postgresql-centos7.json",
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/postgresql/imagestreams/postgresql-rhel7.json",
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql"
+            }
+        ]
+    },
+    "django": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json",
+                "description": "An example Django application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/django-ex/blob/master/README.md",
+                "path": "official/django/templates/django-example.json",
+                "name": "django-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql.json",
+                "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/django-ex/blob/master/README.md",
+                "path": "official/django/templates/django-psql-example.json",
+                "name": "django-psql-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json",
+                "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/django-ex/blob/master/README.md",
+                "path": "official/django/templates/django-psql-persistent.json",
+                "name": "django-psql-persistent"
+            }
+        ]
+    },
+    "ruby": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/ruby/imagestreams/ruby-centos7.json",
+                "docs": "https://github.com/sclorg/s2i-ruby-container/blob/master/README.md",
+                "name": "ruby"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/ruby/imagestreams/ruby-rhel7.json",
+                "docs": "https://github.com/sclorg/s2i-ruby-container/blob/master/README.md",
+                "name": "ruby"
+            }
+        ]
+    },
+    "processserver": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-amq-mysql-persistent-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-amq-mysql-persistent-s2i.json",
+                "name": "processserver63-amq-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-amq-mysql-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-amq-mysql-s2i.json",
+                "name": "processserver63-amq-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-amq-postgresql-persistent-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-amq-postgresql-persistent-s2i.json",
+                "name": "processserver63-amq-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-amq-postgresql-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-amq-postgresql-s2i.json",
+                "name": "processserver63-amq-postgresql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-basic-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-basic-s2i.json",
+                "name": "processserver63-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-mysql-persistent-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-mysql-persistent-s2i.json",
+                "name": "processserver63-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-mysql-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-mysql-s2i.json",
+                "name": "processserver63-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-postgresql-persistent-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-postgresql-persistent-s2i.json",
+                "name": "processserver63-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/processserver/processserver63-postgresql-s2i.json",
+                "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/processserver/templates/processserver63-postgresql-s2i.json",
+                "name": "processserver63-postgresql-s2i"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/processserver/imagestreams/jboss-processserver63-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-processserver63-openshift"
+            }
+        ]
+    },
+    "decisionserver": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver62-amq-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.2 decision server A-MQ applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver62-amq-s2i.json",
+                "name": "decisionserver62-amq-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver62-basic-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.2 decision server applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver62-basic-s2i.json",
+                "name": "decisionserver62-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver62-https-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.2 decision server HTTPS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver62-https-s2i.json",
+                "name": "decisionserver62-https-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver63-amq-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.3 decision server A-MQ applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver63-amq-s2i.json",
+                "name": "decisionserver63-amq-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver63-basic-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.3 decision server applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver63-basic-s2i.json",
+                "name": "decisionserver63-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/decisionserver/decisionserver63-https-s2i.json",
+                "description": "Application template for Red Hat JBoss BRMS 6.3 decision server HTTPS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/decisionserver/templates/decisionserver63-https-s2i.json",
+                "name": "decisionserver63-https-s2i"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/decisionserver/imagestreams/jboss-decisionserver62-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-decisionserver62-openshift"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/decisionserver/imagestreams/jboss-decisionserver63-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-decisionserver63-openshift"
+            }
+        ]
+    },
+    "cakephp": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json",
+                "description": "An example CakePHP application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/cakephp-ex/blob/master/README.md",
+                "path": "official/cakephp/templates/cakephp-example.json",
+                "name": "cakephp-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql.json",
+                "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cakephp-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/cakephp-ex/blob/master/README.md",
+                "path": "official/cakephp/templates/cakephp-mysql-example.json",
+                "name": "cakephp-mysql-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json",
+                "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cakephp-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/cakephp-ex/blob/master/README.md",
+                "path": "official/cakephp/templates/cakephp-mysql-persistent.json",
+                "name": "cakephp-mysql-persistent"
+            }
+        ]
+    },
+    "python": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/python/imagestreams/python-centos7.json",
+                "docs": "https://github.com/sclorg/s2i-python-container/blob/master/README.md",
+                "name": "python"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/python/imagestreams/python-rhel7.json",
+                "docs": "https://github.com/sclorg/s2i-python-container/blob/master/README.md",
+                "name": "python"
+            }
+        ]
+    },
+    "eap": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-amq-persistent-s2i.json",
+                "description": "Application template for EAP 6 A-MQ applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-amq-persistent-s2i.json",
+                "name": "eap64-amq-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-amq-s2i.json",
+                "description": "Application template for EAP 6 A-MQ applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-amq-s2i.json",
+                "name": "eap64-amq-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-basic-s2i.json",
+                "description": "Application template for EAP 6 applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-basic-s2i.json",
+                "name": "eap64-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-https-s2i.json",
+                "description": "Application template for EAP 6 applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-https-s2i.json",
+                "name": "eap64-https-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-mongodb-persistent-s2i.json",
+                "description": "Application template for EAP 6 MongoDB applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-mongodb-persistent-s2i.json",
+                "name": "eap64-mongodb-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-mongodb-s2i.json",
+                "description": "Application template for EAP 6 MongoDB applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-mongodb-s2i.json",
+                "name": "eap64-mongodb-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-mysql-persistent-s2i.json",
+                "description": "Application template for EAP 6 MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-mysql-persistent-s2i.json",
+                "name": "eap64-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-mysql-s2i.json",
+                "description": "Application template for EAP 6 MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-mysql-s2i.json",
+                "name": "eap64-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-postgresql-persistent-s2i.json",
+                "description": "Application template for EAP 6 PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-postgresql-persistent-s2i.json",
+                "name": "eap64-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-postgresql-s2i.json",
+                "description": "Application template for EAP 6 PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-postgresql-s2i.json",
+                "name": "eap64-postgresql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap64-sso-s2i.json",
+                "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap64-sso-s2i.json",
+                "name": "eap64-sso-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-amq-persistent-s2i.json",
+                "description": "Application template for EAP 7 A-MQ applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-amq-persistent-s2i.json",
+                "name": "eap70-amq-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-amq-s2i.json",
+                "description": "Application template for EAP 7 A-MQ applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-amq-s2i.json",
+                "name": "eap70-amq-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-basic-s2i.json",
+                "description": "Application template for EAP 7 applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-basic-s2i.json",
+                "name": "eap70-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-https-s2i.json",
+                "description": "Application template for EAP 7 applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-https-s2i.json",
+                "name": "eap70-https-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-mongodb-persistent-s2i.json",
+                "description": "Application template for EAP 7 MongoDB applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-mongodb-persistent-s2i.json",
+                "name": "eap70-mongodb-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-mongodb-s2i.json",
+                "description": "Application template for EAP 7 MongoDB applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-mongodb-s2i.json",
+                "name": "eap70-mongodb-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-mysql-persistent-s2i.json",
+                "description": "Application template for EAP 7 MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-mysql-persistent-s2i.json",
+                "name": "eap70-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-mysql-s2i.json",
+                "description": "Application template for EAP 7 MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-mysql-s2i.json",
+                "name": "eap70-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-postgresql-persistent-s2i.json",
+                "description": "Application template for EAP 7 PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-postgresql-persistent-s2i.json",
+                "name": "eap70-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-postgresql-s2i.json",
+                "description": "Application template for EAP 7 PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-postgresql-s2i.json",
+                "name": "eap70-postgresql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/eap/eap70-sso-s2i.json",
+                "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/eap/templates/eap70-sso-s2i.json",
+                "name": "eap70-sso-s2i"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/eap/imagestreams/jboss-eap64-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-eap64-openshift"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/eap/imagestreams/jboss-eap70-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-eap70-openshift"
+            }
+        ]
+    },
+    "mongodb": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json",
+                "description": "MongoDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/blob/master/3.2/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mongodb/templates/mongodb-ephemeral.json",
+                "name": "mongodb-ephemeral"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json",
+                "description": "MongoDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/blob/master/3.2/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mongodb/templates/mongodb-persistent.json",
+                "name": "mongodb-persistent"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/mongodb/imagestreams/mongodb-centos7.json",
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/mongodb/imagestreams/mongodb-rhel7.json",
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb"
+            }
+        ]
+    },
+    "webserver": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-basic-s2i.json",
+                "description": "Application template for JWS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-basic-s2i.json",
+                "name": "jws30-tomcat7-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-https-s2i.json",
+                "description": "Application template for JWS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-https-s2i.json",
+                "name": "jws30-tomcat7-https-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-mongodb-persistent-s2i.json",
+                "description": "Application template for JWS MongoDB applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-mongodb-persistent-s2i.json",
+                "name": "jws30-tomcat7-mongodb-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-mongodb-s2i.json",
+                "description": "Application template for JWS MongoDB applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-mongodb-s2i.json",
+                "name": "jws30-tomcat7-mongodb-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-mysql-persistent-s2i.json",
+                "description": "Application template for JWS MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-mysql-persistent-s2i.json",
+                "name": "jws30-tomcat7-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-mysql-s2i.json",
+                "description": "Application template for JWS MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-mysql-s2i.json",
+                "name": "jws30-tomcat7-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-postgresql-persistent-s2i.json",
+                "description": "Application template for JWS PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-postgresql-persistent-s2i.json",
+                "name": "jws30-tomcat7-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat7-postgresql-s2i.json",
+                "description": "Application template for JWS PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat7-postgresql-s2i.json",
+                "name": "jws30-tomcat7-postgresql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-basic-s2i.json",
+                "description": "Application template for JWS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-basic-s2i.json",
+                "name": "jws30-tomcat8-basic-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-https-s2i.json",
+                "description": "Application template for JWS applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-https-s2i.json",
+                "name": "jws30-tomcat8-https-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-mongodb-persistent-s2i.json",
+                "description": "Application template for JWS MongoDB applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-mongodb-persistent-s2i.json",
+                "name": "jws30-tomcat8-mongodb-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-mongodb-s2i.json",
+                "description": "Application template for JWS MongoDB applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-mongodb-s2i.json",
+                "name": "jws30-tomcat8-mongodb-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-mysql-persistent-s2i.json",
+                "description": "Application template for JWS MySQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-mysql-persistent-s2i.json",
+                "name": "jws30-tomcat8-mysql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-mysql-s2i.json",
+                "description": "Application template for JWS MySQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-mysql-s2i.json",
+                "name": "jws30-tomcat8-mysql-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-postgresql-persistent-s2i.json",
+                "description": "Application template for JWS PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-postgresql-persistent-s2i.json",
+                "name": "jws30-tomcat8-postgresql-persistent-s2i"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/webserver/jws30-tomcat8-postgresql-s2i.json",
+                "description": "Application template for JWS PostgreSQL applications built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/webserver/templates/jws30-tomcat8-postgresql-s2i.json",
+                "name": "jws30-tomcat8-postgresql-s2i"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/webserver/imagestreams/jboss-webserver30-tomcat7-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-webserver30-tomcat7-openshift"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/webserver/imagestreams/jboss-webserver30-tomcat8-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-webserver30-tomcat8-openshift"
+            }
+        ]
+    },
+    "nodejs": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json",
+                "description": "An example Node.js application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/nodejs-ex/blob/master/README.md",
+                "path": "official/nodejs/templates/nodejs-example.json",
+                "name": "nodejs-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json",
+                "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/nodejs-ex/blob/master/README.md",
+                "path": "official/nodejs/templates/nodejs-mongodb-example.json",
+                "name": "nodejs-mongodb-example"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json",
+                "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/nodejs-ex/blob/master/README.md",
+                "path": "official/nodejs/templates/nodejs-mongo-persistent.json",
+                "name": "nodejs-mongo-persistent"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/nodejs/imagestreams/nodejs-centos7.json",
+                "docs": "https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md",
+                "name": "nodejs"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/nodejs/imagestreams/nodejs-rhel7.json",
+                "docs": "https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md",
+                "name": "nodejs"
+            }
+        ]
+    },
+    "amq": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/amq/amq62-basic.json",
+                "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template doesn't feature SSL support.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/amq/templates/amq62-basic.json",
+                "name": "amq62-basic"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/amq/amq62-persistent-ssl.json",
+                "description": "Application template for JBoss A-MQ brokers. These are deployed as standalone and use persistent storage for saving messages. This template supports SSL and requires usage of OpenShift secrets.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/amq/templates/amq62-persistent-ssl.json",
+                "name": "amq62-persistent-ssl"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/amq/amq62-persistent.json",
+                "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone and use persistent storage for saving messages. This template doesn't feature SSL support.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/amq/templates/amq62-persistent.json",
+                "name": "amq62-persistent"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/amq/amq62-ssl.json",
+                "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template supports SSL and requires usage of OpenShift secrets.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/amq/templates/amq62-ssl.json",
+                "name": "amq62-ssl"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/amq/imagestreams/jboss-amq-62-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-amq-62"
+            }
+        ]
+    },
+    "mariadb": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json",
+                "description": "MariaDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/blob/master/10.1/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mariadb/templates/mariadb-ephemeral.json",
+                "name": "mariadb-ephemeral"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json",
+                "description": "MariaDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/blob/master/10.1/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mariadb/templates/mariadb-persistent.json",
+                "name": "mariadb-persistent"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/mariadb/imagestreams/mariadb-centos7.json",
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/mariadb/imagestreams/mariadb-rhel7.json",
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb"
+            }
+        ]
+    },
+    "dotnet": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json",
+                "path": "official/dotnet/imagestreams/dotnet.json",
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet"
+            }
+        ]
+    },
+    "mysql": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json",
+                "description": "MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mysql/templates/mysql-ephemeral.json",
+                "name": "mysql-ephemeral"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json",
+                "description": "MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/db-templates/README.md",
+                "path": "official/mysql/templates/mysql-persistent.json",
+                "name": "mysql-persistent"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/mysql/imagestreams/mysql-centos7.json",
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/mysql/imagestreams/mysql-rhel7.json",
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql"
+            }
+        ]
+    },
+    "fis": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json",
+                "path": "official/fis/imagestreams/fis-java-openshift.json",
+                "docs": "https://github.com/jboss-fuse/application-templates/blob/master/README.md",
+                "name": "fis-java-openshift"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json",
+                "path": "official/fis/imagestreams/fis-karaf-openshift.json",
+                "docs": "https://github.com/jboss-fuse/application-templates/blob/master/README.md",
+                "name": "fis-karaf-openshift"
+            }
+        ]
+    },
+    "datagrid": {
+        "templates": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-basic.json",
+                "description": "Application template for JDG 6.5 applications.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-basic.json",
+                "name": "datagrid65-basic"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-https.json",
+                "description": "Application template for JDG 6.5 applications.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-https.json",
+                "name": "datagrid65-https"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-mysql-persistent.json",
+                "description": "Application template for JDG 6.5 and MySQL applications with persistent storage.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-mysql-persistent.json",
+                "name": "datagrid65-mysql-persistent"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-mysql.json",
+                "description": "Application template for JDG 6.5 and MySQL applications.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-mysql.json",
+                "name": "datagrid65-mysql"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-postgresql-persistent.json",
+                "description": "Application template for JDG 6.5 and PostgreSQL applications with persistent storage.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-postgresql-persistent.json",
+                "name": "datagrid65-postgresql-persistent"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/datagrid/datagrid65-postgresql.json",
+                "description": "Application template for JDG 6.5 and PostgreSQL applications built using.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "path": "official/datagrid/templates/datagrid65-postgresql.json",
+                "name": "datagrid65-postgresql"
+            }
+        ],
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.3.3/jboss-image-streams.json",
+                "path": "official/datagrid/imagestreams/jboss-datagrid65-openshift-rhel7.json",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.3.3/README.md",
+                "name": "jboss-datagrid65-openshift"
+            }
+        ]
+    },
+    "perl": {
+        "imagestreams": [
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json",
+                "path": "official/perl/imagestreams/perl-centos7.json",
+                "docs": "https://github.com/sclorg/s2i-perl-container/blob/master/README.md",
+                "name": "perl"
+            },
+            {
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json",
+                "path": "official/perl/imagestreams/perl-rhel7.json",
+                "docs": "https://github.com/sclorg/s2i-perl-container/blob/master/README.md",
+                "name": "perl"
+            }
+        ]
+    }
+}

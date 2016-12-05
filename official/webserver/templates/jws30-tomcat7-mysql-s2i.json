@@ -1,0 +1,616 @@
+{
+    "labels": {
+        "template": "jws30-tomcat7-mysql-s2i",
+        "xpaas": "1.2.0"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Application template for JWS MySQL applications built using S2I.",
+            "iconClass": "icon-tomcat",
+            "version": "1.2.0",
+            "tags": "tomcat,tomcat7,mysql,java,database,jboss,xpaas"
+        },
+        "name": "jws30-tomcat7-mysql-s2i"
+    },
+    "objects": [
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8080,
+                        "port": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's http port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 8443,
+                        "port": 8443
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The web server's https port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "ports": [
+                    {
+                        "targetPort": 3306,
+                        "port": 3306
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                }
+            },
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "The database server's port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-mysql"
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-http",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's http service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTP}",
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "id": "${APPLICATION_NAME}-https",
+            "kind": "Route",
+            "apiVersion": "v1",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's https service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTPS}",
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                }
+            }
+        },
+        {
+            "kind": "ImageStream",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Source",
+                    "sourceStrategy": {
+                        "from": {
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-webserver30-tomcat7-openshift:1.2"
+                        },
+                        "forcePull": true
+                    }
+                },
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "git": {
+                        "uri": "${SOURCE_REPOSITORY_URL}",
+                        "ref": "${SOURCE_REPOSITORY_REF}"
+                    },
+                    "contextDir": "${CONTEXT_DIR}",
+                    "type": "Git"
+                },
+                "triggers": [
+                    {
+                        "type": "GitHub",
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "type": "Generic",
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        }
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "kind": "BuildConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}:latest"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "serviceAccountName": "jws-service-account",
+                        "containers": [
+                            {
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "jolokia",
+                                        "containerPort": 8778
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "http",
+                                        "containerPort": 8080
+                                    },
+                                    {
+                                        "protocol": "TCP",
+                                        "name": "https",
+                                        "containerPort": 8443
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer&att=stateName' |grep -iq 'stateName *= *STARTED'"
+                                        ]
+                                    }
+                                },
+                                "image": "${APPLICATION_NAME}",
+                                "env": [
+                                    {
+                                        "value": "${APPLICATION_NAME}-mysql=DB",
+                                        "name": "DB_SERVICE_PREFIX_MAPPING"
+                                    },
+                                    {
+                                        "value": "${DB_JNDI}",
+                                        "name": "DB_JNDI"
+                                    },
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "DB_USERNAME"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "DB_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "DB_DATABASE"
+                                    },
+                                    {
+                                        "value": "${DB_MIN_POOL_SIZE}",
+                                        "name": "DB_MIN_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_MAX_POOL_SIZE}",
+                                        "name": "DB_MAX_POOL_SIZE"
+                                    },
+                                    {
+                                        "value": "${DB_TX_ISOLATION}",
+                                        "name": "DB_TX_ISOLATION"
+                                    },
+                                    {
+                                        "value": "/etc/jws-secret-volume",
+                                        "name": "JWS_HTTPS_CERTIFICATE_DIR"
+                                    },
+                                    {
+                                        "value": "${JWS_HTTPS_CERTIFICATE}",
+                                        "name": "JWS_HTTPS_CERTIFICATE"
+                                    },
+                                    {
+                                        "value": "${JWS_HTTPS_CERTIFICATE_KEY}",
+                                        "name": "JWS_HTTPS_CERTIFICATE_KEY"
+                                    },
+                                    {
+                                        "value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}",
+                                        "name": "JWS_HTTPS_CERTIFICATE_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${JWS_ADMIN_USERNAME}",
+                                        "name": "JWS_ADMIN_USERNAME"
+                                    },
+                                    {
+                                        "value": "${JWS_ADMIN_PASSWORD}",
+                                        "name": "JWS_ADMIN_PASSWORD"
+                                    }
+                                ],
+                                "volumeMounts": [
+                                    {
+                                        "readOnly": true,
+                                        "mountPath": "/etc/jws-secret-volume",
+                                        "name": "jws-certificate-volume"
+                                    }
+                                ],
+                                "imagePullPolicy": "Always",
+                                "name": "${APPLICATION_NAME}"
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "secret": {
+                                    "secretName": "${JWS_HTTPS_SECRET}"
+                                },
+                                "name": "jws-certificate-volume"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "spec": {
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "from": {
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
+                                "kind": "ImageStreamTag",
+                                "name": "mysql:latest"
+                            },
+                            "containerNames": [
+                                "${APPLICATION_NAME}-mysql"
+                            ],
+                            "automatic": true
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "template": {
+                    "spec": {
+                        "terminationGracePeriodSeconds": 60,
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "value": "${DB_USERNAME}",
+                                        "name": "MYSQL_USER"
+                                    },
+                                    {
+                                        "value": "${DB_PASSWORD}",
+                                        "name": "MYSQL_PASSWORD"
+                                    },
+                                    {
+                                        "value": "${DB_DATABASE}",
+                                        "name": "MYSQL_DATABASE"
+                                    },
+                                    {
+                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}",
+                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES"
+                                    },
+                                    {
+                                        "value": "${MYSQL_MAX_CONNECTIONS}",
+                                        "name": "MYSQL_MAX_CONNECTIONS"
+                                    },
+                                    {
+                                        "value": "${MYSQL_FT_MIN_WORD_LEN}",
+                                        "name": "MYSQL_FT_MIN_WORD_LEN"
+                                    },
+                                    {
+                                        "value": "${MYSQL_FT_MAX_WORD_LEN}",
+                                        "name": "MYSQL_FT_MAX_WORD_LEN"
+                                    },
+                                    {
+                                        "value": "${MYSQL_AIO}",
+                                        "name": "MYSQL_AIO"
+                                    }
+                                ],
+                                "name": "${APPLICATION_NAME}-mysql",
+                                "ports": [
+                                    {
+                                        "protocol": "TCP",
+                                        "containerPort": 3306
+                                    }
+                                ],
+                                "image": "mysql"
+                            }
+                        ]
+                    },
+                    "metadata": {
+                        "labels": {
+                            "deploymentConfig": "${APPLICATION_NAME}-mysql",
+                            "application": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}-mysql"
+                    }
+                }
+            },
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-mysql"
+            }
+        }
+    ],
+    "kind": "Template",
+    "apiVersion": "v1",
+    "parameters": [
+        {
+            "description": "The name for the application.",
+            "value": "jws-app",
+            "required": true,
+            "name": "APPLICATION_NAME"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTP"
+        },
+        {
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "value": "",
+            "required": false,
+            "name": "HOSTNAME_HTTPS"
+        },
+        {
+            "description": "Git source URI for application",
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "required": true,
+            "name": "SOURCE_REPOSITORY_URL"
+        },
+        {
+            "description": "Git branch/tag reference",
+            "value": "1.2",
+            "required": false,
+            "name": "SOURCE_REPOSITORY_REF"
+        },
+        {
+            "description": "Path within Git project to build; empty for root project directory.",
+            "value": "todolist/todolist-jdbc",
+            "required": false,
+            "name": "CONTEXT_DIR"
+        },
+        {
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/mysqlDS",
+            "value": "jboss/datasources/defaultDS",
+            "required": false,
+            "name": "DB_JNDI"
+        },
+        {
+            "description": "Database name",
+            "value": "root",
+            "required": true,
+            "name": "DB_DATABASE"
+        },
+        {
+            "description": "The name of the secret containing the certificate files",
+            "value": "jws-app-secret",
+            "required": true,
+            "name": "JWS_HTTPS_SECRET"
+        },
+        {
+            "description": "The name of the certificate file within the secret",
+            "value": "server.crt",
+            "required": false,
+            "name": "JWS_HTTPS_CERTIFICATE"
+        },
+        {
+            "description": "The name of the certificate key file within the secret",
+            "value": "server.key",
+            "required": false,
+            "name": "JWS_HTTPS_CERTIFICATE_KEY"
+        },
+        {
+            "description": "The certificate password",
+            "value": "",
+            "required": false,
+            "name": "JWS_HTTPS_CERTIFICATE_PASSWORD"
+        },
+        {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MIN_POOL_SIZE"
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "required": false,
+            "name": "DB_MAX_POOL_SIZE"
+        },
+        {
+            "description": "Sets transaction-isolation for the configured datasource.",
+            "required": false,
+            "name": "DB_TX_ISOLATION"
+        },
+        {
+            "description": "Sets how the table names are stored and compared.",
+            "required": false,
+            "name": "MYSQL_LOWER_CASE_TABLE_NAMES"
+        },
+        {
+            "description": "The maximum permitted number of simultaneous client connections.",
+            "required": false,
+            "name": "MYSQL_MAX_CONNECTIONS"
+        },
+        {
+            "description": "The minimum length of the word to be included in a FULLTEXT index.",
+            "required": false,
+            "name": "MYSQL_FT_MIN_WORD_LEN"
+        },
+        {
+            "description": "The maximum length of the word to be included in a FULLTEXT index.",
+            "required": false,
+            "name": "MYSQL_FT_MAX_WORD_LEN"
+        },
+        {
+            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
+            "required": false,
+            "name": "MYSQL_AIO"
+        },
+        {
+            "from": "user[a-zA-Z0-9]{3}",
+            "description": "Database user name",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_USERNAME"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Database user password",
+            "required": true,
+            "generate": "expression",
+            "name": "DB_PASSWORD"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "JWS Admin User",
+            "required": true,
+            "generate": "expression",
+            "name": "JWS_ADMIN_USERNAME"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "JWS Admin Password",
+            "required": true,
+            "generate": "expression",
+            "name": "JWS_ADMIN_PASSWORD"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "GitHub trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "from": "[a-zA-Z0-9]{8}",
+            "description": "Generic build trigger secret",
+            "required": true,
+            "generate": "expression",
+            "name": "GENERIC_WEBHOOK_SECRET"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "value": "openshift",
+            "required": true,
+            "name": "IMAGE_STREAM_NAMESPACE"
+        }
+    ]
+}
