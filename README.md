@@ -51,7 +51,7 @@ Community Templates and ImageStreams are **not** provided or supported by Red Ha
 
 ### Command Line Options
 
-    usage: library.py [-h] [--no-clean] [--no-cache]
+    usage: import_content.py [-h] [--no-clean] [--no-cache]
 
     Build OpenShift template and image-stream library
 
@@ -62,7 +62,7 @@ Community Templates and ImageStreams are **not** provided or supported by Red Ha
 
 ### Running the Script
 
-    $ python3 scripts/library.py
+    $ python3 scripts/import_content.py
 
 ## Contributing
 
@@ -121,7 +121,7 @@ The **suffix** is applied to the end of the filename that is created right befor
 
 - Fork the https://github.com/openshift/library on github
 - Add your template or image stream to the **community.yaml** file in the top level of this project
-- Run the **library.py** script and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** folder and that no errors have occurred.
+- Run the **import_content.py** script and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** folder and that no errors have occurred.
 - Commit your changes to your fork of the github repo
 - Create a pull request against the https://github.com/openshift/library upstream repository
 
