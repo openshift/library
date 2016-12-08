@@ -1,12 +1,20 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "MariaDB"
+        },
+        "name": "mariadb"
+    },
     "spec": {
         "tags": [
             {
                 "annotations": {
-                    "openshift.io/display-name": "MariaDB (Latest)",
+                    "description": "Provides a MariaDB database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.1/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MariaDB available on OpenShift, including major versions updates.",
                     "iconClass": "icon-mariadb",
-                    "tags": "mariadb",
-                    "description": "Provides a MariaDB database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.1/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MariaDB available on OpenShift, including major versions updates."
+                    "openshift.io/display-name": "MariaDB (Latest)",
+                    "tags": "mariadb"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
@@ -16,11 +24,11 @@
             },
             {
                 "annotations": {
-                    "openshift.io/display-name": "MariaDB 10.1",
+                    "description": "Provides a MariaDB 10.1 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.1/README.md.",
                     "iconClass": "icon-mariadb",
-                    "version": "10.1",
+                    "openshift.io/display-name": "MariaDB 10.1",
                     "tags": "mariadb",
-                    "description": "Provides a MariaDB 10.1 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.1/README.md."
+                    "version": "10.1"
                 },
                 "from": {
                     "kind": "DockerImage",
@@ -29,13 +37,5 @@
                 "name": "10.1"
             }
         ]
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "annotations": {
-            "openshift.io/display-name": "MariaDB"
-        },
-        "name": "mariadb"
     }
 }

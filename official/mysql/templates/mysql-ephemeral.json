@@ -1,156 +1,135 @@
 {
+    "apiVersion": "v1",
+    "kind": "Template",
     "labels": {
         "template": "mysql-ephemeral-template"
     },
+    "message": "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${MYSQL_USER}\n       Password: ${MYSQL_PASSWORD}\n  Database Name: ${MYSQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:3306/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.",
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "MySQL (Ephemeral)",
+            "description": "MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
             "iconClass": "icon-mysql-database",
-            "tags": "database,mysql",
-            "description": "MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing"
+            "openshift.io/display-name": "MySQL (Ephemeral)",
+            "tags": "database,mysql"
         },
         "name": "mysql-ephemeral"
     },
-    "kind": "Template",
-    "message": "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${MYSQL_USER}\n       Password: ${MYSQL_PASSWORD}\n  Database Name: ${MYSQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:3306/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.6/README.md.",
-    "apiVersion": "v1",
-    "parameters": [
-        {
-            "value": "512Mi",
-            "displayName": "Memory Limit",
-            "name": "MEMORY_LIMIT",
-            "description": "Maximum amount of memory the container can use."
-        },
-        {
-            "value": "openshift",
-            "displayName": "Namespace",
-            "name": "NAMESPACE",
-            "description": "The OpenShift Namespace where the ImageStream resides."
-        },
-        {
-            "name": "DATABASE_SERVICE_NAME",
-            "value": "mysql",
-            "displayName": "Database Service Name",
-            "required": true,
-            "description": "The name of the OpenShift Service exposed for the database."
-        },
-        {
-            "from": "user[A-Z0-9]{3}",
-            "generate": "expression",
-            "required": true,
-            "description": "Username for MySQL user that will be used for accessing the database.",
-            "displayName": "MySQL Connection Username",
-            "name": "MYSQL_USER"
-        },
-        {
-            "from": "[a-zA-Z0-9]{16}",
-            "generate": "expression",
-            "required": true,
-            "description": "Password for the MySQL connection user.",
-            "displayName": "MySQL Connection Password",
-            "name": "MYSQL_PASSWORD"
-        },
-        {
-            "from": "[a-zA-Z0-9]{16}",
-            "generate": "expression",
-            "required": true,
-            "description": "Password for the MySQL root user.",
-            "displayName": "MySQL root user Password",
-            "name": "MYSQL_ROOT_PASSWORD"
-        },
-        {
-            "name": "MYSQL_DATABASE",
-            "value": "sampledb",
-            "displayName": "MySQL Database Name",
-            "required": true,
-            "description": "Name of the MySQL database accessed."
-        },
-        {
-            "name": "MYSQL_VERSION",
-            "value": "5.6",
-            "displayName": "Version of MySQL Image",
-            "required": true,
-            "description": "Version of MySQL image to be used (5.5, 5.6 or latest)."
-        }
-    ],
     "objects": [
         {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
             "stringData": {
                 "databasePassword": "${MYSQL_PASSWORD}",
                 "databaseRootPassword": "${MYSQL_ROOT_PASSWORD}",
                 "databaseUser": "${MYSQL_USER}"
-            },
-            "kind": "Secret",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
             }
         },
         {
-            "spec": {
-                "ports": [
-                    {
-                        "protocol": "TCP",
-                        "port": 3306,
-                        "targetPort": 3306,
-                        "nodePort": 0,
-                        "name": "mysql"
-                    }
-                ],
-                "type": "ClusterIP",
-                "sessionAffinity": "None",
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
-                }
-            },
-            "kind": "Service",
-            "status": {
-                "loadBalancer": {}
-            },
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "creationTimestamp": null,
                 "name": "${DATABASE_SERVICE_NAME}"
-            }
-        },
-        {
+            },
             "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "nodePort": 0,
+                        "port": 3306,
+                        "protocol": "TCP",
+                        "targetPort": 3306
+                    }
+                ],
                 "selector": {
                     "name": "${DATABASE_SERVICE_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "namespace": "${NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "mysql:${MYSQL_VERSION}"
-                            },
-                            "containerNames": [
-                                "mysql"
-                            ],
-                            "lastTriggeredImage": "",
-                            "automatic": true
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
                         }
                     },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "template": {
                     "spec": {
-                        "dnsPolicy": "ClusterFirst",
-                        "restartPolicy": "Always",
                         "containers": [
                             {
+                                "capabilities": {},
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MYSQL_ROOT_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseRootPassword",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${MYSQL_DATABASE}"
+                                    }
+                                ],
+                                "image": " ",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "mysql",
+                                "ports": [
+                                    {
+                                        "containerPort": 3306,
+                                        "protocol": "TCP"
+                                    }
+                                ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/sh",
@@ -158,76 +137,30 @@
                                             "-c",
                                             "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
                                 },
-                                "capabilities": {},
-                                "imagePullPolicy": "IfNotPresent",
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mysql/data",
                                         "name": "${DATABASE_SERVICE_NAME}-data"
                                     }
-                                ],
-                                "name": "mysql",
-                                "securityContext": {
-                                    "capabilities": {},
-                                    "privileged": false
-                                },
-                                "ports": [
-                                    {
-                                        "protocol": "TCP",
-                                        "containerPort": 3306
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${DATABASE_SERVICE_NAME}"
-                                            }
-                                        },
-                                        "name": "MYSQL_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${DATABASE_SERVICE_NAME}"
-                                            }
-                                        },
-                                        "name": "MYSQL_PASSWORD"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseRootPassword",
-                                                "name": "${DATABASE_SERVICE_NAME}"
-                                            }
-                                        },
-                                        "name": "MYSQL_ROOT_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${MYSQL_DATABASE}",
-                                        "name": "MYSQL_DATABASE"
-                                    }
-                                ],
-                                "image": " ",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 1,
-                                    "tcpSocket": {
-                                        "port": 3306
-                                    }
-                                },
-                                "terminationMessagePath": "/dev/termination-log"
+                                ]
                             }
                         ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
                         "volumes": [
                             {
                                 "emptyDir": {
@@ -236,22 +169,89 @@
                                 "name": "${DATABASE_SERVICE_NAME}-data"
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${DATABASE_SERVICE_NAME}"
-                        },
-                        "creationTimestamp": null
                     }
-                }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "mysql:${MYSQL_VERSION}",
+                                "namespace": "${NAMESPACE}"
+                            },
+                            "lastTriggeredImage": ""
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             },
-            "kind": "DeploymentConfig",
-            "status": {},
-            "apiVersion": "v1",
-            "metadata": {
-                "creationTimestamp": null,
-                "name": "${DATABASE_SERVICE_NAME}"
-            }
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "description": "Maximum amount of memory the container can use.",
+            "displayName": "Memory Limit",
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi"
+        },
+        {
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "displayName": "Namespace",
+            "name": "NAMESPACE",
+            "value": "openshift"
+        },
+        {
+            "description": "The name of the OpenShift Service exposed for the database.",
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true,
+            "value": "mysql"
+        },
+        {
+            "description": "Username for MySQL user that will be used for accessing the database.",
+            "displayName": "MySQL Connection Username",
+            "from": "user[A-Z0-9]{3}",
+            "generate": "expression",
+            "name": "MYSQL_USER",
+            "required": true
+        },
+        {
+            "description": "Password for the MySQL connection user.",
+            "displayName": "MySQL Connection Password",
+            "from": "[a-zA-Z0-9]{16}",
+            "generate": "expression",
+            "name": "MYSQL_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Password for the MySQL root user.",
+            "displayName": "MySQL root user Password",
+            "from": "[a-zA-Z0-9]{16}",
+            "generate": "expression",
+            "name": "MYSQL_ROOT_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Name of the MySQL database accessed.",
+            "displayName": "MySQL Database Name",
+            "name": "MYSQL_DATABASE",
+            "required": true,
+            "value": "sampledb"
+        },
+        {
+            "description": "Version of MySQL image to be used (5.5, 5.6 or latest).",
+            "displayName": "Version of MySQL Image",
+            "name": "MYSQL_VERSION",
+            "required": true,
+            "value": "5.6"
         }
     ]
 }

@@ -1,4 +1,6 @@
 {
+    "apiVersion": "v1",
+    "kind": "Template",
     "labels": {
         "template": "processserver63-amq-postgresql-persistent-s2i",
         "xpaas": "1.3.3"
@@ -7,26 +9,15 @@
         "annotations": {
             "description": "Application template for Red Hat JBoss BPM Suite 6.3 intelligent process server AMQ and PostgreSQL applications with persistent storage built using S2I.",
             "iconClass": "icon-jboss",
-            "version": "1.3.3",
-            "tags": "processserver,amq,postgresql,javaee,java,database,jboss,xpaas"
+            "tags": "processserver,amq,postgresql,javaee,java,database,jboss,xpaas",
+            "version": "1.3.3"
         },
         "name": "processserver63-amq-postgresql-persistent-s2i"
     },
     "objects": [
         {
-            "spec": {
-                "ports": [
-                    {
-                        "targetPort": 8080,
-                        "port": 8080
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            },
-            "kind": "Service",
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "The web server's http port."
@@ -35,22 +26,22 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
-            }
-        },
-        {
+            },
             "spec": {
                 "ports": [
                     {
-                        "targetPort": 8443,
-                        "port": 8443
+                        "port": 8080,
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 }
-            },
-            "kind": "Service",
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "The web server's https port."
@@ -59,22 +50,22 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "name": "secure-${APPLICATION_NAME}"
-            }
-        },
-        {
+            },
             "spec": {
                 "ports": [
                     {
-                        "targetPort": 5432,
-                        "port": 5432
+                        "port": 8443,
+                        "targetPort": 8443
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}"
                 }
-            },
-            "kind": "Service",
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "The database server's port."
@@ -83,22 +74,22 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}-postgresql"
-            }
-        },
-        {
+            },
             "spec": {
                 "ports": [
                     {
-                        "targetPort": 61616,
-                        "port": 61616
+                        "port": 5432,
+                        "targetPort": 5432
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
                 }
-            },
-            "kind": "Service",
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "The broker's OpenWire port."
@@ -107,12 +98,23 @@
                     "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}-amq-tcp"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "port": 61616,
+                        "targetPort": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
             }
         },
         {
+            "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
             "kind": "Route",
-            "apiVersion": "v1",
             "metadata": {
                 "annotations": {
                     "description": "Route for application's http service."
@@ -130,9 +132,9 @@
             }
         },
         {
+            "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-https",
             "kind": "Route",
-            "apiVersion": "v1",
             "metadata": {
                 "annotations": {
                     "description": "Route for application's https service."
@@ -144,17 +146,17 @@
             },
             "spec": {
                 "host": "${HOSTNAME_HTTPS}",
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
-                },
                 "tls": {
                     "termination": "passthrough"
+                },
+                "to": {
+                    "name": "secure-${APPLICATION_NAME}"
                 }
             }
         },
         {
-            "kind": "ImageStream",
             "apiVersion": "v1",
+            "kind": "ImageStream",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -163,24 +165,15 @@
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Source",
-                    "sourceStrategy": {
-                        "env": [
-                            {
-                                "value": "${KIE_CONTAINER_DEPLOYMENT}",
-                                "name": "KIE_CONTAINER_DEPLOYMENT"
-                            }
-                        ],
-                        "forcePull": true,
-                        "from": {
-                            "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "kind": "ImageStreamTag",
-                            "name": "jboss-processserver63-openshift:1.3"
-                        }
-                    }
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
                 },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
@@ -188,25 +181,42 @@
                     }
                 },
                 "source": {
-                    "git": {
-                        "uri": "${SOURCE_REPOSITORY_URL}",
-                        "ref": "${SOURCE_REPOSITORY_REF}"
-                    },
                     "contextDir": "${CONTEXT_DIR}",
+                    "git": {
+                        "ref": "${SOURCE_REPOSITORY_REF}",
+                        "uri": "${SOURCE_REPOSITORY_URL}"
+                    },
                     "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "KIE_CONTAINER_DEPLOYMENT",
+                                "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            }
+                        ],
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-processserver63-openshift:1.3",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                        }
+                    },
+                    "type": "Source"
                 },
                 "triggers": [
                     {
-                        "type": "GitHub",
                         "github": {
                             "secret": "${GITHUB_WEBHOOK_SECRET}"
-                        }
+                        },
+                        "type": "GitHub"
                     },
                     {
-                        "type": "Generic",
                         "generic": {
                             "secret": "${GENERIC_WEBHOOK_SECRET}"
-                        }
+                        },
+                        "type": "Generic"
                     },
                     {
                         "imageChange": {},
@@ -216,64 +226,221 @@
                         "type": "ConfigChange"
                     }
                 ]
-            },
-            "kind": "BuildConfig",
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "DeploymentConfig",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
-            }
-        },
-        {
+            },
             "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
+                "replicas": 1,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "kind": "ImageStream",
-                                "name": "${APPLICATION_NAME}"
-                            },
-                            "containerNames": [
-                                "${APPLICATION_NAME}"
-                            ],
-                            "automatic": true
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    },
                     "spec": {
-                        "terminationGracePeriodSeconds": 60,
-                        "serviceAccountName": "processserver-service-account",
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "KIE_CONTAINER_DEPLOYMENT",
+                                        "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PROTOCOL",
+                                        "value": "${KIE_SERVER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PORT",
+                                        "value": "${KIE_SERVER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_USER",
+                                        "value": "${KIE_SERVER_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PASSWORD",
+                                        "value": "${KIE_SERVER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_DOMAIN",
+                                        "value": "${KIE_SERVER_DOMAIN}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
+                                        "value": "${KIE_SERVER_JMS_QUEUES_REQUEST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
+                                        "value": "${KIE_SERVER_JMS_QUEUES_RESPONSE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
+                                        "value": "${KIE_SERVER_EXECUTOR_JMS_QUEUE}"
+                                    },
+                                    {
+                                        "name": "MQ_SERVICE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-amq=MQ"
+                                    },
+                                    {
+                                        "name": "MQ_JNDI",
+                                        "value": "${MQ_JNDI}"
+                                    },
+                                    {
+                                        "name": "MQ_USERNAME",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MQ_PROTOCOL",
+                                        "value": "tcp"
+                                    },
+                                    {
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT",
+                                        "value": "${KIE_SERVER_PERSISTENCE_DIALECT}"
+                                    },
+                                    {
+                                        "name": "DB_SERVICE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ"
+                                    },
+                                    {
+                                        "name": "TX_DATABASE_PREFIX_MAPPING",
+                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                    },
+                                    {
+                                        "name": "DB_JNDI",
+                                        "value": "${DB_JNDI}"
+                                    },
+                                    {
+                                        "name": "DB_USERNAME",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "DB_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "DB_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "DB_MIN_POOL_SIZE",
+                                        "value": "${DB_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_MAX_POOL_SIZE",
+                                        "value": "${DB_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "DB_TX_ISOLATION",
+                                        "value": "${DB_TX_ISOLATION}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_JNDI",
+                                        "value": "${DB_JNDI}NotManaged"
+                                    },
+                                    {
+                                        "name": "QUARTZ_USERNAME",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_MIN_POOL_SIZE",
+                                        "value": "${DB_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_MAX_POOL_SIZE",
+                                        "value": "${DB_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_TX_ISOLATION",
+                                        "value": "${DB_TX_ISOLATION}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_JTA",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "QUARTZ_NONXA",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/processserver-secret-volume"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
+                                    }
+                                ],
+                                "image": "${APPLICATION_NAME}",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "name": "${APPLICATION_NAME}",
                                 "ports": [
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 8778,
                                         "name": "jolokia",
-                                        "containerPort": 8778
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 8080,
                                         "name": "http",
-                                        "containerPort": 8080
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 8443,
                                         "name": "https",
-                                        "containerPort": 8443
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -285,272 +452,104 @@
                                         ]
                                     }
                                 },
-                                "image": "${APPLICATION_NAME}",
-                                "env": [
-                                    {
-                                        "value": "${KIE_CONTAINER_DEPLOYMENT}",
-                                        "name": "KIE_CONTAINER_DEPLOYMENT"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_PROTOCOL}",
-                                        "name": "KIE_SERVER_PROTOCOL"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_PORT}",
-                                        "name": "KIE_SERVER_PORT"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_USER}",
-                                        "name": "KIE_SERVER_USER"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_PASSWORD}",
-                                        "name": "KIE_SERVER_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_DOMAIN}",
-                                        "name": "KIE_SERVER_DOMAIN"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_JMS_QUEUES_REQUEST}",
-                                        "name": "KIE_SERVER_JMS_QUEUES_REQUEST"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_JMS_QUEUES_RESPONSE}",
-                                        "name": "KIE_SERVER_JMS_QUEUES_RESPONSE"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_EXECUTOR_JMS_QUEUE}",
-                                        "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE"
-                                    },
-                                    {
-                                        "value": "${APPLICATION_NAME}-amq=MQ",
-                                        "name": "MQ_SERVICE_PREFIX_MAPPING"
-                                    },
-                                    {
-                                        "value": "${MQ_JNDI}",
-                                        "name": "MQ_JNDI"
-                                    },
-                                    {
-                                        "value": "${MQ_USERNAME}",
-                                        "name": "MQ_USERNAME"
-                                    },
-                                    {
-                                        "value": "${MQ_PASSWORD}",
-                                        "name": "MQ_PASSWORD"
-                                    },
-                                    {
-                                        "value": "tcp",
-                                        "name": "MQ_PROTOCOL"
-                                    },
-                                    {
-                                        "value": "${MQ_QUEUES}",
-                                        "name": "MQ_QUEUES"
-                                    },
-                                    {
-                                        "value": "${MQ_TOPICS}",
-                                        "name": "MQ_TOPICS"
-                                    },
-                                    {
-                                        "value": "${KIE_SERVER_PERSISTENCE_DIALECT}",
-                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT"
-                                    },
-                                    {
-                                        "value": "${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ",
-                                        "name": "DB_SERVICE_PREFIX_MAPPING"
-                                    },
-                                    {
-                                        "value": "${APPLICATION_NAME}-postgresql=DB",
-                                        "name": "TX_DATABASE_PREFIX_MAPPING"
-                                    },
-                                    {
-                                        "value": "${DB_JNDI}",
-                                        "name": "DB_JNDI"
-                                    },
-                                    {
-                                        "value": "${DB_USERNAME}",
-                                        "name": "DB_USERNAME"
-                                    },
-                                    {
-                                        "value": "${DB_PASSWORD}",
-                                        "name": "DB_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${DB_DATABASE}",
-                                        "name": "DB_DATABASE"
-                                    },
-                                    {
-                                        "value": "${DB_MIN_POOL_SIZE}",
-                                        "name": "DB_MIN_POOL_SIZE"
-                                    },
-                                    {
-                                        "value": "${DB_MAX_POOL_SIZE}",
-                                        "name": "DB_MAX_POOL_SIZE"
-                                    },
-                                    {
-                                        "value": "${DB_TX_ISOLATION}",
-                                        "name": "DB_TX_ISOLATION"
-                                    },
-                                    {
-                                        "value": "${DB_JNDI}NotManaged",
-                                        "name": "QUARTZ_JNDI"
-                                    },
-                                    {
-                                        "value": "${DB_USERNAME}",
-                                        "name": "QUARTZ_USERNAME"
-                                    },
-                                    {
-                                        "value": "${DB_PASSWORD}",
-                                        "name": "QUARTZ_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${DB_DATABASE}",
-                                        "name": "QUARTZ_DATABASE"
-                                    },
-                                    {
-                                        "value": "${DB_MIN_POOL_SIZE}",
-                                        "name": "QUARTZ_MIN_POOL_SIZE"
-                                    },
-                                    {
-                                        "value": "${DB_MAX_POOL_SIZE}",
-                                        "name": "QUARTZ_MAX_POOL_SIZE"
-                                    },
-                                    {
-                                        "value": "${DB_TX_ISOLATION}",
-                                        "name": "QUARTZ_TX_ISOLATION"
-                                    },
-                                    {
-                                        "value": "false",
-                                        "name": "QUARTZ_JTA"
-                                    },
-                                    {
-                                        "value": "true",
-                                        "name": "QUARTZ_NONXA"
-                                    },
-                                    {
-                                        "value": "/etc/processserver-secret-volume",
-                                        "name": "HTTPS_KEYSTORE_DIR"
-                                    },
-                                    {
-                                        "value": "${HTTPS_KEYSTORE}",
-                                        "name": "HTTPS_KEYSTORE"
-                                    },
-                                    {
-                                        "value": "${HTTPS_NAME}",
-                                        "name": "HTTPS_NAME"
-                                    },
-                                    {
-                                        "value": "${HTTPS_PASSWORD}",
-                                        "name": "HTTPS_PASSWORD"
-                                    }
-                                ],
-                                "name": "${APPLICATION_NAME}",
                                 "volumeMounts": [
                                     {
-                                        "readOnly": true,
                                         "mountPath": "/etc/processserver-secret-volume",
-                                        "name": "processserver-keystore-volume"
+                                        "name": "processserver-keystore-volume",
+                                        "readOnly": true
                                     }
-                                ],
-                                "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "/opt/eap/bin/livenessProbe.sh"
-                                        ]
-                                    }
-                                }
+                                ]
                             }
                         ],
+                        "serviceAccountName": "processserver-service-account",
+                        "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
+                                "name": "processserver-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
-                                },
-                                "name": "processserver-keystore-volume"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}",
-                            "application": "${APPLICATION_NAME}"
-                        },
-                        "name": "${APPLICATION_NAME}"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}"
-            }
-        },
-        {
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
                 },
                 "triggers": [
                     {
-                        "type": "ImageChange",
                         "imageChangeParams": {
-                            "from": {
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:latest"
-                            },
+                            "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
+                                "${APPLICATION_NAME}"
                             ],
-                            "automatic": true
-                        }
+                            "from": {
+                                "kind": "ImageStream",
+                                "name": "${APPLICATION_NAME}"
+                            }
+                        },
+                        "type": "ImageChange"
                     },
                     {
                         "type": "ConfigChange"
                     }
-                ],
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-postgresql"
+            },
+            "spec": {
                 "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                        },
+                        "name": "${APPLICATION_NAME}-postgresql"
+                    },
                     "spec": {
-                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
-                                "ports": [
+                                "env": [
                                     {
-                                        "protocol": "TCP",
-                                        "containerPort": 5432
+                                        "name": "POSTGRESQL_USER",
+                                        "value": "${DB_USERNAME}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_PASSWORD",
+                                        "value": "${DB_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_DATABASE",
+                                        "value": "${DB_DATABASE}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
+                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_SHARED_BUFFERS",
+                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
                                     }
                                 ],
                                 "image": "postgresql",
-                                "env": [
+                                "imagePullPolicy": "Always",
+                                "name": "${APPLICATION_NAME}-postgresql",
+                                "ports": [
                                     {
-                                        "value": "${DB_USERNAME}",
-                                        "name": "POSTGRESQL_USER"
-                                    },
-                                    {
-                                        "value": "${DB_PASSWORD}",
-                                        "name": "POSTGRESQL_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${DB_DATABASE}",
-                                        "name": "POSTGRESQL_DATABASE"
-                                    },
-                                    {
-                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}",
-                                        "name": "POSTGRESQL_MAX_CONNECTIONS"
-                                    },
-                                    {
-                                        "value": "${POSTGRESQL_SHARED_BUFFERS}",
-                                        "name": "POSTGRESQL_SHARED_BUFFERS"
+                                        "containerPort": 5432,
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "volumeMounts": [
@@ -558,39 +557,50 @@
                                         "mountPath": "/var/lib/pgsql/data",
                                         "name": "${APPLICATION_NAME}-postgresql-pvol"
                                     }
-                                ],
-                                "imagePullPolicy": "Always",
-                                "name": "${APPLICATION_NAME}-postgresql"
+                                ]
                             }
                         ],
+                        "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
+                                "name": "${APPLICATION_NAME}-postgresql-pvol",
                                 "persistentVolumeClaim": {
                                     "claimName": "${APPLICATION_NAME}-postgresql-claim"
-                                },
-                                "name": "${APPLICATION_NAME}-postgresql-pvol"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
-                            "application": "${APPLICATION_NAME}"
-                        },
-                        "name": "${APPLICATION_NAME}-postgresql"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-postgresql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:latest",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-postgresql"
-            }
-        },
-        {
+                "name": "${APPLICATION_NAME}-postgresql-claim"
+            },
             "spec": {
                 "accessModes": [
                     "ReadWriteOnce"
@@ -600,89 +610,117 @@
                         "storage": "${VOLUME_CAPACITY}"
                     }
                 }
-            },
-            "kind": "PersistentVolumeClaim",
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "DeploymentConfig",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-postgresql-claim"
-            }
-        },
-        {
+                "name": "${APPLICATION_NAME}-amq"
+            },
             "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
+                "replicas": 1,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-amq"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:1.3"
-                            },
-                            "containerNames": [
-                                "${APPLICATION_NAME}-amq"
-                            ],
-                            "automatic": true
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-amq"
+                        },
+                        "name": "${APPLICATION_NAME}-amq"
+                    },
                     "spec": {
-                        "terminationGracePeriodSeconds": 60,
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${MQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${MQ_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "${MQ_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "AMQ_SPLIT",
+                                        "value": "${AMQ_SPLIT}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_DISCOVERY_TYPE",
+                                        "value": "${AMQ_MESH_DISCOVERY_TYPE}"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                    },
+                                    {
+                                        "name": "AMQ_MESH_SERVICE_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "AMQ_STORAGE_USAGE_LIMIT",
+                                        "value": "${AMQ_STORAGE_USAGE_LIMIT}"
+                                    }
+                                ],
+                                "image": "jboss-amq-62",
+                                "imagePullPolicy": "Always",
+                                "name": "${APPLICATION_NAME}-amq",
                                 "ports": [
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 8778,
                                         "name": "jolokia",
-                                        "containerPort": 8778
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 5672,
                                         "name": "amqp",
-                                        "containerPort": 5672
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 5671,
                                         "name": "amqp-ssl",
-                                        "containerPort": 5671
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 1883,
                                         "name": "mqtt",
-                                        "containerPort": 1883
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 61613,
                                         "name": "stomp",
-                                        "containerPort": 61613
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 61612,
                                         "name": "stomp-ssl",
-                                        "containerPort": 61612
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 61616,
                                         "name": "tcp",
-                                        "containerPort": 61616
+                                        "protocol": "TCP"
                                     },
                                     {
-                                        "protocol": "TCP",
+                                        "containerPort": 61617,
                                         "name": "tcp-ssl",
-                                        "containerPort": 61617
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -694,83 +732,55 @@
                                         ]
                                     }
                                 },
-                                "image": "jboss-amq-62",
-                                "env": [
-                                    {
-                                        "value": "${MQ_USERNAME}",
-                                        "name": "AMQ_USER"
-                                    },
-                                    {
-                                        "value": "${MQ_PASSWORD}",
-                                        "name": "AMQ_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${MQ_PROTOCOL}",
-                                        "name": "AMQ_TRANSPORTS"
-                                    },
-                                    {
-                                        "value": "${AMQ_SPLIT}",
-                                        "name": "AMQ_SPLIT"
-                                    },
-                                    {
-                                        "value": "${AMQ_MESH_DISCOVERY_TYPE}",
-                                        "name": "AMQ_MESH_DISCOVERY_TYPE"
-                                    },
-                                    {
-                                        "value": "${APPLICATION_NAME}-amq-tcp",
-                                        "name": "AMQ_MESH_SERVICE_NAME"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "metadata.namespace"
-                                            }
-                                        },
-                                        "name": "AMQ_MESH_SERVICE_NAMESPACE"
-                                    },
-                                    {
-                                        "value": "${AMQ_STORAGE_USAGE_LIMIT}",
-                                        "name": "AMQ_STORAGE_USAGE_LIMIT"
-                                    }
-                                ],
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/opt/amq/data",
                                         "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
-                                ],
-                                "imagePullPolicy": "Always",
-                                "name": "${APPLICATION_NAME}-amq"
+                                ]
                             }
                         ],
+                        "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
+                                "name": "${APPLICATION_NAME}-amq-pvol",
                                 "persistentVolumeClaim": {
                                     "claimName": "${APPLICATION_NAME}-amq-claim"
-                                },
-                                "name": "${APPLICATION_NAME}-amq-pvol"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "deploymentConfig": "${APPLICATION_NAME}-amq",
-                            "application": "${APPLICATION_NAME}"
-                        },
-                        "name": "${APPLICATION_NAME}-amq"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-amq"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "jboss-amq-62:1.3",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
             "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-amq"
-            }
-        },
-        {
+                "name": "${APPLICATION_NAME}-amq-claim"
+            },
             "spec": {
                 "accessModes": [
                     "ReadWriteMany"
@@ -780,273 +790,263 @@
                         "storage": "${VOLUME_CAPACITY}"
                     }
                 }
-            },
-            "kind": "PersistentVolumeClaim",
-            "apiVersion": "v1",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-amq-claim"
             }
         }
     ],
-    "kind": "Template",
-    "apiVersion": "v1",
     "parameters": [
         {
             "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
-            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final",
+            "name": "KIE_CONTAINER_DEPLOYMENT",
             "required": false,
-            "name": "KIE_CONTAINER_DEPLOYMENT"
+            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final"
         },
         {
             "description": "The protocol to access the KIE Server REST interface.",
-            "value": "https",
+            "name": "KIE_SERVER_PROTOCOL",
             "required": false,
-            "name": "KIE_SERVER_PROTOCOL"
+            "value": "https"
         },
         {
             "description": "The port to access the KIE Server REST interface.",
-            "value": "8443",
+            "name": "KIE_SERVER_PORT",
             "required": false,
-            "name": "KIE_SERVER_PORT"
+            "value": "8443"
         },
         {
             "description": "The user name to access the KIE Server REST or JMS interface.",
-            "value": "kieserver",
+            "name": "KIE_SERVER_USER",
             "required": false,
-            "name": "KIE_SERVER_USER"
+            "value": "kieserver"
         },
         {
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
             "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
-            "required": false,
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
-            "name": "KIE_SERVER_PASSWORD"
+            "name": "KIE_SERVER_PASSWORD",
+            "required": false
         },
         {
             "description": "JAAS LoginContext domain that shall be used to authenticate users when using JMS.",
-            "value": "other",
+            "name": "KIE_SERVER_DOMAIN",
             "required": false,
-            "name": "KIE_SERVER_DOMAIN"
+            "value": "other"
         },
         {
             "description": "JNDI name of request queue for JMS.",
-            "value": "queue/KIE.SERVER.REQUEST",
+            "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
             "required": false,
-            "name": "KIE_SERVER_JMS_QUEUES_REQUEST"
+            "value": "queue/KIE.SERVER.REQUEST"
         },
         {
             "description": "JNDI name of response queue for JMS.",
-            "value": "queue/KIE.SERVER.RESPONSE",
+            "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
             "required": false,
-            "name": "KIE_SERVER_JMS_QUEUES_RESPONSE"
+            "value": "queue/KIE.SERVER.RESPONSE"
         },
         {
             "description": "JNDI name of executor queue for JMS.",
-            "value": "queue/KIE.SERVER.EXECUTOR",
+            "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE",
             "required": false,
-            "name": "KIE_SERVER_EXECUTOR_JMS_QUEUE"
+            "value": "queue/KIE.SERVER.EXECUTOR"
         },
         {
             "description": "Hibernate persistence dialect.",
-            "value": "org.hibernate.dialect.PostgreSQL82Dialect",
+            "name": "KIE_SERVER_PERSISTENCE_DIALECT",
             "required": false,
-            "name": "KIE_SERVER_PERSISTENCE_DIALECT"
+            "value": "org.hibernate.dialect.PostgreSQL82Dialect"
         },
         {
             "description": "The name for the application.",
-            "value": "kie-app",
+            "name": "APPLICATION_NAME",
             "required": true,
-            "name": "APPLICATION_NAME"
+            "value": "kie-app"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
-            "value": "",
+            "name": "HOSTNAME_HTTP",
             "required": false,
-            "name": "HOSTNAME_HTTP"
+            "value": ""
         },
         {
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "value": "",
+            "name": "HOSTNAME_HTTPS",
             "required": false,
-            "name": "HOSTNAME_HTTPS"
+            "value": ""
         },
         {
             "description": "Git source URI for application",
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts",
+            "name": "SOURCE_REPOSITORY_URL",
             "required": true,
-            "name": "SOURCE_REPOSITORY_URL"
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts"
         },
         {
             "description": "Git branch/tag reference",
-            "value": "1.3",
+            "name": "SOURCE_REPOSITORY_REF",
             "required": false,
-            "name": "SOURCE_REPOSITORY_REF"
+            "value": "1.3"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
-            "value": "processserver/library",
+            "name": "CONTEXT_DIR",
             "required": false,
-            "name": "CONTEXT_DIR"
+            "value": "processserver/library"
         },
         {
             "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS",
-            "value": "java:jboss/datasources/ExampleDS",
+            "name": "DB_JNDI",
             "required": false,
-            "name": "DB_JNDI"
+            "value": "java:jboss/datasources/ExampleDS"
         },
         {
             "description": "Database name",
-            "value": "root",
+            "name": "DB_DATABASE",
             "required": true,
-            "name": "DB_DATABASE"
+            "value": "root"
         },
         {
             "description": "Size of persistent storage for database volume.",
-            "value": "512Mi",
+            "name": "VOLUME_CAPACITY",
             "required": true,
-            "name": "VOLUME_CAPACITY"
+            "value": "512Mi"
         },
         {
             "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA",
-            "value": "java:/JmsXA",
+            "name": "MQ_JNDI",
             "required": false,
-            "name": "MQ_JNDI"
+            "value": "java:/JmsXA"
         },
         {
             "description": "Split the data directory for each node in a mesh.",
-            "value": "false",
+            "name": "AMQ_SPLIT",
             "required": false,
-            "name": "AMQ_SPLIT"
+            "value": "false"
         },
         {
             "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
-            "value": "openwire",
+            "name": "MQ_PROTOCOL",
             "required": false,
-            "name": "MQ_PROTOCOL"
+            "value": "openwire"
         },
         {
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
-            "value": "KIE.SERVER.REQUEST,KIE.SERVER.RESPONSE,KIE.SERVER.EXECUTOR",
+            "name": "MQ_QUEUES",
             "required": false,
-            "name": "MQ_QUEUES"
+            "value": "KIE.SERVER.REQUEST,KIE.SERVER.RESPONSE,KIE.SERVER.EXECUTOR"
         },
         {
             "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
-            "value": "",
+            "name": "MQ_TOPICS",
             "required": false,
-            "name": "MQ_TOPICS"
+            "value": ""
         },
         {
             "description": "The name of the secret containing the keystore file",
-            "value": "processserver-app-secret",
+            "name": "HTTPS_SECRET",
             "required": false,
-            "name": "HTTPS_SECRET"
+            "value": "processserver-app-secret"
         },
         {
             "description": "The name of the keystore file within the secret",
-            "value": "keystore.jks",
+            "name": "HTTPS_KEYSTORE",
             "required": false,
-            "name": "HTTPS_KEYSTORE"
+            "value": "keystore.jks"
         },
         {
             "description": "The name associated with the server certificate",
-            "value": "jboss",
+            "name": "HTTPS_NAME",
             "required": false,
-            "name": "HTTPS_NAME"
+            "value": "jboss"
         },
         {
             "description": "The password for the keystore and certificate",
-            "value": "mykeystorepass",
+            "name": "HTTPS_PASSWORD",
             "required": false,
-            "name": "HTTPS_PASSWORD"
+            "value": "mykeystorepass"
         },
         {
-            "from": "user[a-zA-Z0-9]{3}",
             "description": "Database user name",
-            "required": true,
+            "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "name": "DB_USERNAME"
+            "name": "DB_USERNAME",
+            "required": true
         },
         {
-            "from": "[a-zA-Z0-9]{8}",
             "description": "Database user password",
-            "required": true,
+            "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "name": "DB_PASSWORD"
+            "name": "DB_PASSWORD",
+            "required": true
         },
         {
             "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "required": false,
-            "name": "DB_MIN_POOL_SIZE"
+            "name": "DB_MIN_POOL_SIZE",
+            "required": false
         },
         {
             "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "required": false,
-            "name": "DB_MAX_POOL_SIZE"
+            "name": "DB_MAX_POOL_SIZE",
+            "required": false
         },
         {
             "description": "Sets transaction-isolation for the configured datasource.",
-            "required": false,
-            "name": "DB_TX_ISOLATION"
+            "name": "DB_TX_ISOLATION",
+            "required": false
         },
         {
             "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
-            "required": false,
-            "name": "POSTGRESQL_MAX_CONNECTIONS"
+            "name": "POSTGRESQL_MAX_CONNECTIONS",
+            "required": false
         },
         {
             "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
-            "required": false,
-            "name": "POSTGRESQL_SHARED_BUFFERS"
+            "name": "POSTGRESQL_SHARED_BUFFERS",
+            "required": false
         },
         {
-            "from": "user[a-zA-Z0-9]{3}",
             "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-            "required": false,
+            "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
-            "name": "MQ_USERNAME"
+            "name": "MQ_USERNAME",
+            "required": false
         },
         {
-            "from": "[a-zA-Z0-9]{8}",
             "description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-            "required": false,
+            "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "name": "MQ_PASSWORD"
+            "name": "MQ_PASSWORD",
+            "required": false
         },
         {
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
-            "value": "kube",
+            "name": "AMQ_MESH_DISCOVERY_TYPE",
             "required": false,
-            "name": "AMQ_MESH_DISCOVERY_TYPE"
+            "value": "kube"
         },
         {
             "description": "The A-MQ storage usage limit",
-            "value": "100 gb",
+            "name": "AMQ_STORAGE_USAGE_LIMIT",
             "required": false,
-            "name": "AMQ_STORAGE_USAGE_LIMIT"
+            "value": "100 gb"
         },
         {
-            "from": "[a-zA-Z0-9]{8}",
             "description": "GitHub trigger secret",
-            "required": true,
+            "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "name": "GITHUB_WEBHOOK_SECRET"
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "required": true
         },
         {
-            "from": "[a-zA-Z0-9]{8}",
             "description": "Generic build trigger secret",
-            "required": true,
+            "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
-            "name": "GENERIC_WEBHOOK_SECRET"
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "required": true
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
-            "value": "openshift",
+            "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
-            "name": "IMAGE_STREAM_NAMESPACE"
+            "value": "openshift"
         }
     ]
 }

@@ -1,25 +1,25 @@
 {
-    "spec": {
-        "tags": [
-            {
-                "annotations": {
-                    "supports": "sso:7.0,xpaas:1.3",
-                    "description": "Red Hat SSO 7.0",
-                    "iconClass": "icon-jboss",
-                    "version": "1.3",
-                    "tags": "sso,keycloak,redhat"
-                },
-                "name": "1.3"
-            }
-        ],
-        "dockerImageRepository": "registry.access.redhat.com/redhat-sso-7/sso70-openshift"
-    },
-    "kind": "ImageStream",
     "apiVersion": "v1",
+    "kind": "ImageStream",
     "metadata": {
         "annotations": {
             "description": "Red Hat SSO 7.0"
         },
         "name": "redhat-sso70-openshift"
+    },
+    "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/redhat-sso-7/sso70-openshift",
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat SSO 7.0",
+                    "iconClass": "icon-jboss",
+                    "supports": "sso:7.0,xpaas:1.3",
+                    "tags": "sso,keycloak,redhat",
+                    "version": "1.3"
+                },
+                "name": "1.3"
+            }
+        ]
     }
 }
