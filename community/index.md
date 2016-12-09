@@ -1,3 +1,9 @@
+# memcached
+## imagestreams
+### memcached
+Source URL: [https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json](https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json )  
+Docs: [https://github.com/luciddreamz/examples/blob/master/README.md](https://github.com/luciddreamz/examples/blob/master/README.md)  
+Path: community/memcached/imagestreams/memcached.json  
 # php
 ## templates
 ### laravel-mysql-example
@@ -12,9 +18,3 @@ Path: community/php/templates/laravel-pgsql-example.json
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/php/templates/laravel-sqlite-example.json  
-# memcached
-## imagestreams
-### memcached
-Source URL: [https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json](https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json )  
-Docs: [https://github.com/luciddreamz/examples/blob/master/README.md](https://github.com/luciddreamz/examples/blob/master/README.md)  
-Path: community/memcached/imagestreams/memcached.json  

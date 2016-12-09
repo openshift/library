@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Module Docstring"""
+"""Imports templates and imagestreams from various sources"""
 
 import argparse
 import hashlib
@@ -135,7 +135,7 @@ def write_data_to_file(data, path):
     """
     message('Writing', 'data to file', path)
     with open(path, 'wb') as target_file:
-        target_file.write(bytes(json.dumps(data, sort_keys=False, indent=4), 'utf-8'))
+        target_file.write(bytes(json.dumps(data, sort_keys=True, indent=4), 'utf-8'))
 
 def process_template(source, folder, location_list, template):
     """ Processes a template and writes it's data to a file in JSON format
@@ -201,9 +201,9 @@ def create_indexes():
         write_data_to_file(SVARS['index'][source], source + '/index.json')
 
         with open(source + '/index.md', 'a') as index_file:
-            for folder, sections in SVARS['index'][source].items():
+            for folder, sections in sorted(SVARS['index'][source].items()):
                 index_file.write('# ' + folder + '\n')
-                for section, items in sections.items():
+                for section, items in sorted(sections.items()):
                     index_file.write('## ' + section + '\n')
                     for item in items:
                         index_file.write('### ' + item['name'] + '\n')

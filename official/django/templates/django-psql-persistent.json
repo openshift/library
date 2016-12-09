@@ -1,187 +1,71 @@
 {
+    "apiVersion": "v1",
+    "kind": "Template",
     "labels": {
         "template": "django-psql-persistent"
     },
+    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "Django + PostgreSQL (Persistent)",
+            "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
             "iconClass": "icon-python",
-            "tags": "quickstart,python,django",
-            "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md."
+            "openshift.io/display-name": "Django + PostgreSQL (Persistent)",
+            "tags": "quickstart,python,django"
         },
         "name": "django-psql-persistent"
     },
-    "kind": "Template",
-    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
-    "apiVersion": "v1",
-    "parameters": [
-        {
-            "name": "NAME",
-            "value": "django-psql-persistent",
-            "displayName": "Name",
-            "required": true,
-            "description": "The name assigned to all of the frontend objects defined in this template."
-        },
-        {
-            "displayName": "Namespace",
-            "value": "openshift",
-            "required": true,
-            "name": "NAMESPACE",
-            "description": "The OpenShift Namespace where the ImageStream resides."
-        },
-        {
-            "displayName": "Memory Limit",
-            "value": "512Mi",
-            "required": true,
-            "name": "MEMORY_LIMIT",
-            "description": "Maximum amount of memory the Django container can use."
-        },
-        {
-            "displayName": "Memory Limit (PostgreSQL)",
-            "value": "512Mi",
-            "required": true,
-            "name": "MEMORY_POSTGRESQL_LIMIT",
-            "description": "Maximum amount of memory the PostgreSQL container can use."
-        },
-        {
-            "name": "VOLUME_CAPACITY",
-            "value": "1Gi",
-            "displayName": "Volume Capacity",
-            "required": true,
-            "description": "Volume space available for data, e.g. 512Mi, 2Gi"
-        },
-        {
-            "displayName": "Git Repository URL",
-            "value": "https://github.com/openshift/django-ex.git",
-            "required": true,
-            "name": "SOURCE_REPOSITORY_URL",
-            "description": "The URL of the repository with your application source code."
-        },
-        {
-            "name": "SOURCE_REPOSITORY_REF",
-            "displayName": "Git Reference",
-            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
-        },
-        {
-            "name": "CONTEXT_DIR",
-            "displayName": "Context Directory",
-            "description": "Set this to the relative path to your project if it is not in the root of your repository."
-        },
-        {
-            "value": "",
-            "displayName": "Application Hostname",
-            "name": "APPLICATION_DOMAIN",
-            "description": "The exposed hostname that will route to the Django service, if left blank a value will be defaulted."
-        },
-        {
-            "from": "[a-zA-Z0-9]{40}",
-            "name": "GITHUB_WEBHOOK_SECRET",
-            "displayName": "GitHub Webhook Secret",
-            "generate": "expression",
-            "description": "A secret string used to configure the GitHub webhook."
-        },
-        {
-            "value": "postgresql",
-            "displayName": "Database Service Name",
-            "name": "DATABASE_SERVICE_NAME",
-            "required": true
-        },
-        {
-            "displayName": "Database Engine",
-            "value": "postgresql",
-            "required": true,
-            "name": "DATABASE_ENGINE",
-            "description": "Database engine: postgresql, mysql or sqlite (default)."
-        },
-        {
-            "value": "default",
-            "displayName": "Database Name",
-            "name": "DATABASE_NAME",
-            "required": true
-        },
-        {
-            "value": "django",
-            "displayName": "Database Username",
-            "name": "DATABASE_USER",
-            "required": true
-        },
-        {
-            "from": "[a-zA-Z0-9]{16}",
-            "displayName": "Database User Password",
-            "generate": "expression",
-            "name": "DATABASE_PASSWORD"
-        },
-        {
-            "name": "APP_CONFIG",
-            "displayName": "Application Configuration File Path",
-            "description": "Relative path to Gunicorn configuration file (optional)."
-        },
-        {
-            "from": "[\\w]{50}",
-            "name": "DJANGO_SECRET_KEY",
-            "displayName": "Django Secret Key",
-            "generate": "expression",
-            "description": "Set this to a long random string."
-        },
-        {
-            "value": "",
-            "displayName": "Custom PyPi Index URL",
-            "name": "PIP_INDEX_URL",
-            "description": "The custom PyPi index URL"
-        }
-    ],
     "objects": [
         {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${NAME}"
+            },
             "stringData": {
                 "databasePassword": "${DATABASE_PASSWORD}",
                 "databaseUser": "${DATABASE_USER}"
-            },
-            "kind": "Secret",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${NAME}"
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes and load balances the application pods",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]"
+                },
+                "name": "${NAME}"
+            },
             "spec": {
                 "ports": [
                     {
-                        "targetPort": 8080,
+                        "name": "web",
                         "port": 8080,
-                        "name": "web"
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
                     "name": "${NAME}"
                 }
-            },
-            "kind": "Service",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]",
-                    "description": "Exposes and load balances the application pods"
-                },
-                "name": "${NAME}"
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "Route",
+            "metadata": {
+                "name": "${NAME}"
+            },
             "spec": {
                 "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "kind": "Service",
                     "name": "${NAME}"
                 }
-            },
-            "kind": "Route",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${NAME}"
             }
         },
         {
-            "kind": "ImageStream",
             "apiVersion": "v1",
+            "kind": "ImageStream",
             "metadata": {
                 "annotations": {
                     "description": "Keeps track of changes in the application image"
@@ -190,23 +74,15 @@
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Source",
-                    "sourceStrategy": {
-                        "from": {
-                            "namespace": "${NAMESPACE}",
-                            "kind": "ImageStreamTag",
-                            "name": "python:3.5"
-                        },
-                        "env": [
-                            {
-                                "value": "${PIP_INDEX_URL}",
-                                "name": "PIP_INDEX_URL"
-                            }
-                        ]
-                    }
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
                 },
+                "name": "${NAME}"
+            },
+            "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
@@ -217,12 +93,28 @@
                     "script": "./manage.py test"
                 },
                 "source": {
-                    "git": {
-                        "uri": "${SOURCE_REPOSITORY_URL}",
-                        "ref": "${SOURCE_REPOSITORY_REF}"
-                    },
                     "contextDir": "${CONTEXT_DIR}",
+                    "git": {
+                        "ref": "${SOURCE_REPOSITORY_REF}",
+                        "uri": "${SOURCE_REPOSITORY_URL}"
+                    },
                     "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "PIP_INDEX_URL",
+                                "value": "${PIP_INDEX_URL}"
+                            }
+                        ],
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "python:3.5",
+                            "namespace": "${NAMESPACE}"
+                        }
+                    },
+                    "type": "Source"
                 },
                 "triggers": [
                     {
@@ -232,142 +124,139 @@
                         "type": "ConfigChange"
                     },
                     {
-                        "type": "GitHub",
                         "github": {
                             "secret": "${GITHUB_WEBHOOK_SECRET}"
-                        }
+                        },
+                        "type": "GitHub"
                     }
                 ]
-            },
-            "kind": "BuildConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to build the application"
-                },
-                "name": "${NAME}"
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Rolling"
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
                 },
+                "name": "${NAME}"
+            },
+            "spec": {
+                "replicas": 1,
                 "selector": {
                     "name": "${NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "${NAME}:latest"
-                            },
-                            "containerNames": [
-                                "django-psql-persistent"
-                            ],
-                            "automatic": true
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                "strategy": {
+                    "type": "Rolling"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${NAME}"
+                        },
+                        "name": "${NAME}"
+                    },
                     "spec": {
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "DATABASE_SERVICE_NAME",
+                                        "value": "${DATABASE_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "DATABASE_ENGINE",
+                                        "value": "${DATABASE_ENGINE}"
+                                    },
+                                    {
+                                        "name": "DATABASE_NAME",
+                                        "value": "${DATABASE_NAME}"
+                                    },
+                                    {
+                                        "name": "DATABASE_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "DATABASE_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "APP_CONFIG",
+                                        "value": "${APP_CONFIG}"
+                                    },
+                                    {
+                                        "name": "DJANGO_SECRET_KEY",
+                                        "value": "${DJANGO_SECRET_KEY}"
+                                    }
+                                ],
+                                "image": " ",
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080
+                                    },
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 3
+                                },
+                                "name": "django-psql-persistent",
                                 "ports": [
                                     {
                                         "containerPort": 8080
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 3,
-                                    "timeoutSeconds": 3,
                                     "httpGet": {
                                         "path": "/health",
                                         "port": 8080
-                                    }
+                                    },
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 3
                                 },
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_LIMIT}"
                                     }
-                                },
-                                "env": [
-                                    {
-                                        "value": "${DATABASE_SERVICE_NAME}",
-                                        "name": "DATABASE_SERVICE_NAME"
-                                    },
-                                    {
-                                        "value": "${DATABASE_ENGINE}",
-                                        "name": "DATABASE_ENGINE"
-                                    },
-                                    {
-                                        "value": "${DATABASE_NAME}",
-                                        "name": "DATABASE_NAME"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "DATABASE_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "DATABASE_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${APP_CONFIG}",
-                                        "name": "APP_CONFIG"
-                                    },
-                                    {
-                                        "value": "${DJANGO_SECRET_KEY}",
-                                        "name": "DJANGO_SECRET_KEY"
-                                    }
-                                ],
-                                "image": " ",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 3,
-                                    "httpGet": {
-                                        "path": "/health",
-                                        "port": 8080
-                                    }
-                                },
-                                "name": "django-psql-persistent"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${NAME}"
-                        },
-                        "name": "${NAME}"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to deploy the application server"
                 },
-                "name": "${NAME}"
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "django-psql-persistent"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${NAME}:latest"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
             "spec": {
                 "accessModes": [
                     "ReadWriteOnce"
@@ -377,84 +266,96 @@
                         "storage": "${VOLUME_CAPACITY}"
                     }
                 }
-            },
-            "kind": "PersistentVolumeClaim",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
             }
         },
         {
-            "spec": {
-                "ports": [
-                    {
-                        "targetPort": 5432,
-                        "port": 5432,
-                        "name": "postgresql"
-                    }
-                ],
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
-                }
-            },
-            "kind": "Service",
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "Exposes the database server"
                 },
                 "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "postgresql",
+                        "port": 5432,
+                        "targetPort": 5432
+                    }
+                ],
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                }
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the database"
                 },
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
                 "selector": {
                     "name": "${DATABASE_SERVICE_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "namespace": "${NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:9.5"
-                            },
-                            "containerNames": [
-                                "postgresql"
-                            ],
-                            "automatic": true
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
+                        },
+                        "name": "${DATABASE_SERVICE_NAME}"
+                    },
                     "spec": {
-                        "volumes": [
-                            {
-                                "persistentVolumeClaim": {
-                                    "claimName": "${DATABASE_SERVICE_NAME}"
-                                },
-                                "name": "${DATABASE_SERVICE_NAME}-data"
-                            }
-                        ],
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "POSTGRESQL_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_DATABASE",
+                                        "value": "${DATABASE_NAME}"
+                                    }
+                                ],
                                 "image": " ",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 5432
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "postgresql",
                                 "ports": [
                                     {
                                         "containerPort": 5432
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/sh",
@@ -462,70 +363,169 @@
                                             "-c",
                                             "psql -h 127.0.0.1 -U ${POSTGRESQL_USER} -q -d ${POSTGRESQL_DATABASE} -c 'SELECT 1'"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
                                 },
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_POSTGRESQL_LIMIT}"
                                     }
                                 },
-                                "env": [
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "POSTGRESQL_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "POSTGRESQL_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${DATABASE_NAME}",
-                                        "name": "POSTGRESQL_DATABASE"
-                                    }
-                                ],
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/pgsql/data",
                                         "name": "${DATABASE_SERVICE_NAME}-data"
                                     }
-                                ],
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 1,
-                                    "tcpSocket": {
-                                        "port": 5432
-                                    }
-                                },
-                                "name": "postgresql"
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${DATABASE_SERVICE_NAME}-data",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${DATABASE_SERVICE_NAME}"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${DATABASE_SERVICE_NAME}"
-                        },
-                        "name": "${DATABASE_SERVICE_NAME}"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to deploy the database"
                 },
-                "name": "${DATABASE_SERVICE_NAME}"
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "postgresql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:9.5",
+                                "namespace": "${NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
+        }
+    ],
+    "parameters": [
+        {
+            "description": "The name assigned to all of the frontend objects defined in this template.",
+            "displayName": "Name",
+            "name": "NAME",
+            "required": true,
+            "value": "django-psql-persistent"
+        },
+        {
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "displayName": "Namespace",
+            "name": "NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "Maximum amount of memory the Django container can use.",
+            "displayName": "Memory Limit",
+            "name": "MEMORY_LIMIT",
+            "required": true,
+            "value": "512Mi"
+        },
+        {
+            "description": "Maximum amount of memory the PostgreSQL container can use.",
+            "displayName": "Memory Limit (PostgreSQL)",
+            "name": "MEMORY_POSTGRESQL_LIMIT",
+            "required": true,
+            "value": "512Mi"
+        },
+        {
+            "description": "Volume space available for data, e.g. 512Mi, 2Gi",
+            "displayName": "Volume Capacity",
+            "name": "VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
+            "description": "The URL of the repository with your application source code.",
+            "displayName": "Git Repository URL",
+            "name": "SOURCE_REPOSITORY_URL",
+            "required": true,
+            "value": "https://github.com/openshift/django-ex.git"
+        },
+        {
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
+            "displayName": "Git Reference",
+            "name": "SOURCE_REPOSITORY_REF"
+        },
+        {
+            "description": "Set this to the relative path to your project if it is not in the root of your repository.",
+            "displayName": "Context Directory",
+            "name": "CONTEXT_DIR"
+        },
+        {
+            "description": "The exposed hostname that will route to the Django service, if left blank a value will be defaulted.",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "value": ""
+        },
+        {
+            "description": "A secret string used to configure the GitHub webhook.",
+            "displayName": "GitHub Webhook Secret",
+            "from": "[a-zA-Z0-9]{40}",
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true,
+            "value": "postgresql"
+        },
+        {
+            "description": "Database engine: postgresql, mysql or sqlite (default).",
+            "displayName": "Database Engine",
+            "name": "DATABASE_ENGINE",
+            "required": true,
+            "value": "postgresql"
+        },
+        {
+            "displayName": "Database Name",
+            "name": "DATABASE_NAME",
+            "required": true,
+            "value": "default"
+        },
+        {
+            "displayName": "Database Username",
+            "name": "DATABASE_USER",
+            "required": true,
+            "value": "django"
+        },
+        {
+            "displayName": "Database User Password",
+            "from": "[a-zA-Z0-9]{16}",
+            "generate": "expression",
+            "name": "DATABASE_PASSWORD"
+        },
+        {
+            "description": "Relative path to Gunicorn configuration file (optional).",
+            "displayName": "Application Configuration File Path",
+            "name": "APP_CONFIG"
+        },
+        {
+            "description": "Set this to a long random string.",
+            "displayName": "Django Secret Key",
+            "from": "[\\w]{50}",
+            "generate": "expression",
+            "name": "DJANGO_SECRET_KEY"
+        },
+        {
+            "description": "The custom PyPi index URL",
+            "displayName": "Custom PyPi Index URL",
+            "name": "PIP_INDEX_URL",
+            "value": ""
         }
     ]
 }

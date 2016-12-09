@@ -1,148 +1,126 @@
 {
+    "apiVersion": "v1",
+    "kind": "Template",
     "labels": {
         "template": "postgresql-ephemeral-template"
     },
+    "message": "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${POSTGRESQL_USER}\n       Password: ${POSTGRESQL_PASSWORD}\n  Database Name: ${POSTGRESQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:5432/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.",
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "PostgreSQL (Ephemeral)",
+            "description": "PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
             "iconClass": "icon-postgresql",
-            "tags": "database,postgresql",
-            "description": "PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing"
+            "openshift.io/display-name": "PostgreSQL (Ephemeral)",
+            "tags": "database,postgresql"
         },
         "creationTimestamp": null,
         "name": "postgresql-ephemeral"
     },
-    "kind": "Template",
-    "message": "The following service(s) have been created in your project: ${DATABASE_SERVICE_NAME}.\n\n       Username: ${POSTGRESQL_USER}\n       Password: ${POSTGRESQL_PASSWORD}\n  Database Name: ${POSTGRESQL_DATABASE}\n Connection URL: mysql://${DATABASE_SERVICE_NAME}:5432/\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/9.5.",
-    "apiVersion": "v1",
-    "parameters": [
-        {
-            "value": "512Mi",
-            "displayName": "Memory Limit",
-            "name": "MEMORY_LIMIT",
-            "description": "Maximum amount of memory the container can use."
-        },
-        {
-            "value": "openshift",
-            "displayName": "Namespace",
-            "name": "NAMESPACE",
-            "description": "The OpenShift Namespace where the ImageStream resides."
-        },
-        {
-            "name": "DATABASE_SERVICE_NAME",
-            "value": "postgresql",
-            "displayName": "Database Service Name",
-            "required": true,
-            "description": "The name of the OpenShift Service exposed for the database."
-        },
-        {
-            "from": "user[A-Z0-9]{3}",
-            "generate": "expression",
-            "required": true,
-            "description": "Username for PostgreSQL user that will be used for accessing the database.",
-            "displayName": "PostgreSQL Connection Username",
-            "name": "POSTGRESQL_USER"
-        },
-        {
-            "from": "[a-zA-Z0-9]{16}",
-            "generate": "expression",
-            "required": true,
-            "description": "Password for the PostgreSQL connection user.",
-            "displayName": "PostgreSQL Connection Password",
-            "name": "POSTGRESQL_PASSWORD"
-        },
-        {
-            "name": "POSTGRESQL_DATABASE",
-            "value": "sampledb",
-            "displayName": "PostgreSQL Database Name",
-            "required": true,
-            "description": "Name of the PostgreSQL database accessed."
-        },
-        {
-            "name": "POSTGRESQL_VERSION",
-            "value": "9.5",
-            "displayName": "Version of PostgreSQL Image",
-            "required": true,
-            "description": "Version of PostgreSQL image to be used (9.2, 9.4, 9.5 or latest)."
-        }
-    ],
     "objects": [
         {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
             "stringData": {
                 "databasePassword": "${POSTGRESQL_PASSWORD}",
                 "databaseUser": "${POSTGRESQL_USER}"
-            },
-            "kind": "Secret",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
             }
         },
         {
-            "spec": {
-                "ports": [
-                    {
-                        "protocol": "TCP",
-                        "port": 5432,
-                        "targetPort": 5432,
-                        "nodePort": 0,
-                        "name": "postgresql"
-                    }
-                ],
-                "type": "ClusterIP",
-                "sessionAffinity": "None",
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
-                }
-            },
-            "kind": "Service",
-            "status": {
-                "loadBalancer": {}
-            },
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "creationTimestamp": null,
                 "name": "${DATABASE_SERVICE_NAME}"
-            }
-        },
-        {
+            },
             "spec": {
-                "strategy": {
-                    "type": "Recreate"
-                },
+                "ports": [
+                    {
+                        "name": "postgresql",
+                        "nodePort": 0,
+                        "port": 5432,
+                        "protocol": "TCP",
+                        "targetPort": 5432
+                    }
+                ],
                 "selector": {
                     "name": "${DATABASE_SERVICE_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "namespace": "${NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:${POSTGRESQL_VERSION}"
-                            },
-                            "containerNames": [
-                                "postgresql"
-                            ],
-                            "lastTriggeredImage": "",
-                            "automatic": true
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
                         }
                     },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
-                "template": {
                     "spec": {
-                        "dnsPolicy": "ClusterFirst",
-                        "restartPolicy": "Always",
                         "containers": [
                             {
+                                "capabilities": {},
+                                "env": [
+                                    {
+                                        "name": "POSTGRESQL_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "POSTGRESQL_DATABASE",
+                                        "value": "${POSTGRESQL_DATABASE}"
+                                    }
+                                ],
+                                "image": " ",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 5432
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "postgresql",
+                                "ports": [
+                                    {
+                                        "containerPort": 5432,
+                                        "protocol": "TCP"
+                                    }
+                                ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/sh",
@@ -150,67 +128,30 @@
                                             "-c",
                                             "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
                                 },
-                                "capabilities": {},
-                                "imagePullPolicy": "IfNotPresent",
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_LIMIT}"
                                     }
                                 },
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/pgsql/data",
                                         "name": "${DATABASE_SERVICE_NAME}-data"
                                     }
-                                ],
-                                "name": "postgresql",
-                                "securityContext": {
-                                    "capabilities": {},
-                                    "privileged": false
-                                },
-                                "ports": [
-                                    {
-                                        "protocol": "TCP",
-                                        "containerPort": 5432
-                                    }
-                                ],
-                                "env": [
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${DATABASE_SERVICE_NAME}"
-                                            }
-                                        },
-                                        "name": "POSTGRESQL_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${DATABASE_SERVICE_NAME}"
-                                            }
-                                        },
-                                        "name": "POSTGRESQL_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${POSTGRESQL_DATABASE}",
-                                        "name": "POSTGRESQL_DATABASE"
-                                    }
-                                ],
-                                "image": " ",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 1,
-                                    "tcpSocket": {
-                                        "port": 5432
-                                    }
-                                },
-                                "terminationMessagePath": "/dev/termination-log"
+                                ]
                             }
                         ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
                         "volumes": [
                             {
                                 "emptyDir": {
@@ -219,22 +160,81 @@
                                 "name": "${DATABASE_SERVICE_NAME}-data"
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${DATABASE_SERVICE_NAME}"
-                        },
-                        "creationTimestamp": null
                     }
-                }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "postgresql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "postgresql:${POSTGRESQL_VERSION}",
+                                "namespace": "${NAMESPACE}"
+                            },
+                            "lastTriggeredImage": ""
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             },
-            "kind": "DeploymentConfig",
-            "status": {},
-            "apiVersion": "v1",
-            "metadata": {
-                "creationTimestamp": null,
-                "name": "${DATABASE_SERVICE_NAME}"
-            }
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "description": "Maximum amount of memory the container can use.",
+            "displayName": "Memory Limit",
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi"
+        },
+        {
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "displayName": "Namespace",
+            "name": "NAMESPACE",
+            "value": "openshift"
+        },
+        {
+            "description": "The name of the OpenShift Service exposed for the database.",
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true,
+            "value": "postgresql"
+        },
+        {
+            "description": "Username for PostgreSQL user that will be used for accessing the database.",
+            "displayName": "PostgreSQL Connection Username",
+            "from": "user[A-Z0-9]{3}",
+            "generate": "expression",
+            "name": "POSTGRESQL_USER",
+            "required": true
+        },
+        {
+            "description": "Password for the PostgreSQL connection user.",
+            "displayName": "PostgreSQL Connection Password",
+            "from": "[a-zA-Z0-9]{16}",
+            "generate": "expression",
+            "name": "POSTGRESQL_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Name of the PostgreSQL database accessed.",
+            "displayName": "PostgreSQL Database Name",
+            "name": "POSTGRESQL_DATABASE",
+            "required": true,
+            "value": "sampledb"
+        },
+        {
+            "description": "Version of PostgreSQL image to be used (9.2, 9.4, 9.5 or latest).",
+            "displayName": "Version of PostgreSQL Image",
+            "name": "POSTGRESQL_VERSION",
+            "required": true,
+            "value": "9.5"
         }
     ]
 }

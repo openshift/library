@@ -1,22 +1,22 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "jboss-datagrid65-openshift"
+    },
     "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-openshift",
         "tags": [
             {
                 "annotations": {
-                    "supports": "datagrid:6.5,java:8,xpaas:1.2",
                     "description": "JBoss Data Grid 6.5 S2I images.",
                     "iconClass": "icon-jboss",
+                    "supports": "datagrid:6.5,java:8,xpaas:1.2",
                     "tags": "datagrid,java,jboss,xpaas",
                     "version": "1.2"
                 },
                 "name": "1.2"
             }
-        ],
-        "dockerImageRepository": "registry.access.redhat.com/jboss-datagrid-6/datagrid65-openshift"
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "jboss-datagrid65-openshift"
+        ]
     }
 }

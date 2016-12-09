@@ -1,13 +1,19 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "jboss-webserver30-tomcat7-openshift"
+    },
     "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat7-openshift",
         "tags": [
             {
                 "annotations": {
-                    "iconClass": "icon-jboss",
-                    "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.1",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "sampleContextDir": "tomcat-websocket-chat",
                     "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.1",
                     "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
                     "version": "1.1"
                 },
@@ -15,22 +21,16 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-jboss",
-                    "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.2",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "sampleContextDir": "tomcat-websocket-chat",
                     "description": "JBoss Web Server 3.0 Tomcat 7 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat7:3.0,tomcat:7,java:8,xpaas:1.2",
                     "tags": "builder,tomcat,tomcat7,java,jboss,xpaas",
                     "version": "1.2"
                 },
                 "name": "1.2"
             }
-        ],
-        "dockerImageRepository": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat7-openshift"
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "jboss-webserver30-tomcat7-openshift"
+        ]
     }
 }

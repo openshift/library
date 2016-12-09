@@ -1,14 +1,22 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Ruby"
+        },
+        "name": "ruby"
+    },
     "spec": {
         "tags": [
             {
                 "annotations": {
+                    "description": "Build and run Ruby applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.3/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major versions updates.",
                     "iconClass": "icon-ruby",
-                    "supports": "ruby",
-                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
                     "openshift.io/display-name": "Ruby (Latest)",
-                    "tags": "builder,ruby",
-                    "description": "Build and run Ruby applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.3/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major versions updates."
+                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
+                    "supports": "ruby",
+                    "tags": "builder,ruby"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
@@ -18,11 +26,11 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-ruby",
-                    "supports": "ruby:2.0,ruby",
-                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
                     "description": "Build and run Ruby 2.0 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.0/README.md.",
+                    "iconClass": "icon-ruby",
                     "openshift.io/display-name": "Ruby 2.0",
+                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
+                    "supports": "ruby:2.0,ruby",
                     "tags": "builder,ruby",
                     "version": "2.0"
                 },
@@ -34,11 +42,11 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-ruby",
-                    "supports": "ruby:2.2,ruby",
-                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
                     "description": "Build and run Ruby 2.2 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.2/README.md.",
+                    "iconClass": "icon-ruby",
                     "openshift.io/display-name": "Ruby 2.2",
+                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
+                    "supports": "ruby:2.2,ruby",
                     "tags": "builder,ruby",
                     "version": "2.2"
                 },
@@ -50,11 +58,11 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-ruby",
-                    "supports": "ruby:2.3,ruby",
-                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
                     "description": "Build and run Ruby 2.3 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.3/README.md.",
+                    "iconClass": "icon-ruby",
                     "openshift.io/display-name": "Ruby 2.3",
+                    "sampleRepo": "https://github.com/openshift/ruby-ex.git",
+                    "supports": "ruby:2.3,ruby",
                     "tags": "builder,ruby",
                     "version": "2.3"
                 },
@@ -65,13 +73,5 @@
                 "name": "2.3"
             }
         ]
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "annotations": {
-            "openshift.io/display-name": "Ruby"
-        },
-        "name": "ruby"
     }
 }

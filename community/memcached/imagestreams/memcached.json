@@ -1,10 +1,15 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "memcached"
+    },
     "spec": {
         "tags": [
             {
                 "annotations": {
-                    "tags": "memcached",
-                    "description": "Provides a Memcached distributed memory caching system"
+                    "description": "Provides a Memcached distributed memory caching system",
+                    "tags": "memcached"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
@@ -15,8 +20,8 @@
             {
                 "annotations": {
                     "description": "Provides a Memcached v1.4.30 distributed memory caching system",
-                    "version": "1.4.30",
-                    "tags": "memcached"
+                    "tags": "memcached",
+                    "version": "1.4.30"
                 },
                 "from": {
                     "kind": "DockerImage",
@@ -25,10 +30,5 @@
                 "name": "1.4.30"
             }
         ]
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "memcached"
     }
 }

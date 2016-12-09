@@ -1,202 +1,71 @@
 {
+    "apiVersion": "v1",
+    "kind": "Template",
     "labels": {
         "template": "cakephp-mysql-persistent"
     },
+    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "CakePHP + MySQL (Persistent)",
+            "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cakephp-ex/blob/master/README.md.",
             "iconClass": "icon-php",
-            "tags": "quickstart,php,cakephp",
-            "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cakephp-ex/blob/master/README.md."
+            "openshift.io/display-name": "CakePHP + MySQL (Persistent)",
+            "tags": "quickstart,php,cakephp"
         },
         "name": "cakephp-mysql-persistent"
     },
-    "kind": "Template",
-    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
-    "apiVersion": "v1",
-    "parameters": [
-        {
-            "name": "NAME",
-            "value": "cakephp-mysql-persistent",
-            "displayName": "Name",
-            "required": true,
-            "description": "The name assigned to all of the frontend objects defined in this template."
-        },
-        {
-            "name": "NAMESPACE",
-            "value": "openshift",
-            "displayName": "Namespace",
-            "required": true,
-            "description": "The OpenShift Namespace where the ImageStream resides."
-        },
-        {
-            "name": "MEMORY_LIMIT",
-            "value": "512Mi",
-            "displayName": "Memory Limit",
-            "required": true,
-            "description": "Maximum amount of memory the CakePHP container can use."
-        },
-        {
-            "name": "MEMORY_MYSQL_LIMIT",
-            "value": "512Mi",
-            "displayName": "Memory Limit (MySQL)",
-            "required": true,
-            "description": "Maximum amount of memory the MySQL container can use."
-        },
-        {
-            "name": "VOLUME_CAPACITY",
-            "value": "1Gi",
-            "displayName": "Volume Capacity",
-            "required": true,
-            "description": "Volume space available for data, e.g. 512Mi, 2Gi"
-        },
-        {
-            "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/openshift/cakephp-ex.git",
-            "displayName": "Git Repository URL",
-            "required": true,
-            "description": "The URL of the repository with your application source code."
-        },
-        {
-            "name": "SOURCE_REPOSITORY_REF",
-            "displayName": "Git Reference",
-            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
-        },
-        {
-            "name": "CONTEXT_DIR",
-            "displayName": "Context Directory",
-            "description": "Set this to the relative path to your project if it is not in the root of your repository."
-        },
-        {
-            "value": "",
-            "displayName": "Application Hostname",
-            "name": "APPLICATION_DOMAIN",
-            "description": "The exposed hostname that will route to the CakePHP service, if left blank a value will be defaulted."
-        },
-        {
-            "from": "[a-zA-Z0-9]{40}",
-            "name": "GITHUB_WEBHOOK_SECRET",
-            "displayName": "GitHub Webhook Secret",
-            "generate": "expression",
-            "description": "A secret string used to configure the GitHub webhook."
-        },
-        {
-            "value": "mysql",
-            "displayName": "Database Service Name",
-            "name": "DATABASE_SERVICE_NAME",
-            "required": true
-        },
-        {
-            "name": "DATABASE_ENGINE",
-            "value": "mysql",
-            "displayName": "Database Engine",
-            "required": true,
-            "description": "Database engine: postgresql, mysql or sqlite (default)."
-        },
-        {
-            "value": "default",
-            "displayName": "Database Name",
-            "name": "DATABASE_NAME",
-            "required": true
-        },
-        {
-            "value": "cakephp",
-            "displayName": "Database User",
-            "name": "DATABASE_USER",
-            "required": true
-        },
-        {
-            "from": "[a-zA-Z0-9]{16}",
-            "displayName": "Database Password",
-            "generate": "expression",
-            "name": "DATABASE_PASSWORD"
-        },
-        {
-            "from": "[\\w]{50}",
-            "name": "CAKEPHP_SECRET_TOKEN",
-            "displayName": "CakePHP secret token",
-            "generate": "expression",
-            "description": "Set this to a long random string."
-        },
-        {
-            "from": "[a-zA-Z0-9]{40}",
-            "name": "CAKEPHP_SECURITY_SALT",
-            "displayName": "CakePHP Security Salt",
-            "generate": "expression",
-            "description": "Security salt for session hash."
-        },
-        {
-            "from": "[0-9]{30}",
-            "name": "CAKEPHP_SECURITY_CIPHER_SEED",
-            "displayName": "CakePHP Security Cipher Seed",
-            "generate": "expression",
-            "description": "Security cipher seed for session hash."
-        },
-        {
-            "value": "2",
-            "displayName": "OPcache Revalidation Frequency",
-            "name": "OPCACHE_REVALIDATE_FREQ",
-            "description": "How often to check script timestamps for updates, in seconds. 0 will result in OPcache checking for updates on every request."
-        },
-        {
-            "value": "",
-            "displayName": "Custom Composer Mirror URL",
-            "name": "COMPOSER_MIRROR",
-            "description": "The custom Composer mirror URL"
-        }
-    ],
     "objects": [
         {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${NAME}"
+            },
             "stringData": {
                 "databasePassword": "${DATABASE_PASSWORD}",
                 "databaseUser": "${DATABASE_USER}"
-            },
-            "kind": "Secret",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${NAME}"
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "Exposes and load balances the application pods",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]"
+                },
+                "name": "${NAME}"
+            },
             "spec": {
                 "ports": [
                     {
-                        "targetPort": 8080,
+                        "name": "web",
                         "port": 8080,
-                        "name": "web"
+                        "targetPort": 8080
                     }
                 ],
                 "selector": {
                     "name": "${NAME}"
                 }
-            },
-            "kind": "Service",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]",
-                    "description": "Exposes and load balances the application pods"
-                },
-                "name": "${NAME}"
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "Route",
+            "metadata": {
+                "name": "${NAME}"
+            },
             "spec": {
                 "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "kind": "Service",
                     "name": "${NAME}"
                 }
-            },
-            "kind": "Route",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${NAME}"
             }
         },
         {
-            "kind": "ImageStream",
             "apiVersion": "v1",
+            "kind": "ImageStream",
             "metadata": {
                 "annotations": {
                     "description": "Keeps track of changes in the application image"
@@ -205,23 +74,15 @@
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Source",
-                    "sourceStrategy": {
-                        "from": {
-                            "namespace": "${NAMESPACE}",
-                            "kind": "ImageStreamTag",
-                            "name": "php:5.6"
-                        },
-                        "env": [
-                            {
-                                "value": "${COMPOSER_MIRROR}",
-                                "name": "COMPOSER_MIRROR"
-                            }
-                        ]
-                    }
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to build the application"
                 },
+                "name": "${NAME}"
+            },
+            "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
@@ -229,12 +90,28 @@
                     }
                 },
                 "source": {
-                    "git": {
-                        "uri": "${SOURCE_REPOSITORY_URL}",
-                        "ref": "${SOURCE_REPOSITORY_REF}"
-                    },
                     "contextDir": "${CONTEXT_DIR}",
+                    "git": {
+                        "ref": "${SOURCE_REPOSITORY_REF}",
+                        "uri": "${SOURCE_REPOSITORY_URL}"
+                    },
                     "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "COMPOSER_MIRROR",
+                                "value": "${COMPOSER_MIRROR}"
+                            }
+                        ],
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "php:5.6",
+                            "namespace": "${NAMESPACE}"
+                        }
+                    },
+                    "type": "Source"
                 },
                 "triggers": [
                     {
@@ -244,161 +121,158 @@
                         "type": "ConfigChange"
                     },
                     {
-                        "type": "GitHub",
                         "github": {
                             "secret": "${GITHUB_WEBHOOK_SECRET}"
-                        }
+                        },
+                        "type": "GitHub"
                     }
                 ]
-            },
-            "kind": "BuildConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to build the application"
-                },
-                "name": "${NAME}"
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the application server"
+                },
+                "name": "${NAME}"
+            },
             "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${NAME}"
+                },
                 "strategy": {
-                    "type": "Recreate",
                     "recreateParams": {
                         "pre": {
-                            "failurePolicy": "Retry",
                             "execNewPod": {
                                 "command": [
                                     "./migrate-database.sh"
                                 ],
                                 "containerName": "cakephp-mysql-persistent"
-                            }
-                        }
-                    }
-                },
-                "selector": {
-                    "name": "${NAME}"
-                },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "${NAME}:latest"
                             },
-                            "containerNames": [
-                                "cakephp-mysql-persistent"
-                            ],
-                            "automatic": true
+                            "failurePolicy": "Retry"
                         }
                     },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${NAME}"
+                        },
+                        "name": "${NAME}"
+                    },
                     "spec": {
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "DATABASE_SERVICE_NAME",
+                                        "value": "${DATABASE_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "DATABASE_ENGINE",
+                                        "value": "${DATABASE_ENGINE}"
+                                    },
+                                    {
+                                        "name": "DATABASE_NAME",
+                                        "value": "${DATABASE_NAME}"
+                                    },
+                                    {
+                                        "name": "DATABASE_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "DATABASE_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "CAKEPHP_SECRET_TOKEN",
+                                        "value": "${CAKEPHP_SECRET_TOKEN}"
+                                    },
+                                    {
+                                        "name": "CAKEPHP_SECURITY_SALT",
+                                        "value": "${CAKEPHP_SECURITY_SALT}"
+                                    },
+                                    {
+                                        "name": "CAKEPHP_SECURITY_CIPHER_SEED",
+                                        "value": "${CAKEPHP_SECURITY_CIPHER_SEED}"
+                                    },
+                                    {
+                                        "name": "OPCACHE_REVALIDATE_FREQ",
+                                        "value": "${OPCACHE_REVALIDATE_FREQ}"
+                                    }
+                                ],
+                                "image": " ",
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080
+                                    },
+                                    "initialDelaySeconds": 30,
+                                    "timeoutSeconds": 3
+                                },
+                                "name": "cakephp-mysql-persistent",
                                 "ports": [
                                     {
                                         "containerPort": 8080
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 3,
-                                    "timeoutSeconds": 3,
                                     "httpGet": {
                                         "path": "/health.php",
                                         "port": 8080
-                                    }
+                                    },
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 3
                                 },
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_LIMIT}"
                                     }
-                                },
-                                "env": [
-                                    {
-                                        "value": "${DATABASE_SERVICE_NAME}",
-                                        "name": "DATABASE_SERVICE_NAME"
-                                    },
-                                    {
-                                        "value": "${DATABASE_ENGINE}",
-                                        "name": "DATABASE_ENGINE"
-                                    },
-                                    {
-                                        "value": "${DATABASE_NAME}",
-                                        "name": "DATABASE_NAME"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "DATABASE_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "DATABASE_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${CAKEPHP_SECRET_TOKEN}",
-                                        "name": "CAKEPHP_SECRET_TOKEN"
-                                    },
-                                    {
-                                        "value": "${CAKEPHP_SECURITY_SALT}",
-                                        "name": "CAKEPHP_SECURITY_SALT"
-                                    },
-                                    {
-                                        "value": "${CAKEPHP_SECURITY_CIPHER_SEED}",
-                                        "name": "CAKEPHP_SECURITY_CIPHER_SEED"
-                                    },
-                                    {
-                                        "value": "${OPCACHE_REVALIDATE_FREQ}",
-                                        "name": "OPCACHE_REVALIDATE_FREQ"
-                                    }
-                                ],
-                                "image": " ",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 3,
-                                    "httpGet": {
-                                        "path": "/",
-                                        "port": 8080
-                                    }
-                                },
-                                "name": "cakephp-mysql-persistent"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${NAME}"
-                        },
-                        "name": "${NAME}"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to deploy the application server"
                 },
-                "name": "${NAME}"
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "cakephp-mysql-persistent"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${NAME}:latest"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
         },
         {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
             "spec": {
                 "accessModes": [
                     "ReadWriteOnce"
@@ -408,83 +282,96 @@
                         "storage": "${VOLUME_CAPACITY}"
                     }
                 }
-            },
-            "kind": "PersistentVolumeClaim",
-            "apiVersion": "v1",
-            "metadata": {
-                "name": "${DATABASE_SERVICE_NAME}"
             }
         },
         {
-            "spec": {
-                "ports": [
-                    {
-                        "targetPort": 3306,
-                        "port": 3306,
-                        "name": "mysql"
-                    }
-                ],
-                "selector": {
-                    "name": "${DATABASE_SERVICE_NAME}"
-                }
-            },
-            "kind": "Service",
             "apiVersion": "v1",
+            "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "Exposes the database server"
                 },
                 "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "mysql",
+                        "port": 3306,
+                        "targetPort": 3306
+                    }
+                ],
+                "selector": {
+                    "name": "${DATABASE_SERVICE_NAME}"
+                }
             }
         },
         {
-            "spec": {
-                "strategy": {
-                    "type": "Recreate"
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "description": "Defines how to deploy the database"
                 },
+                "name": "${DATABASE_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
                 "selector": {
                     "name": "${DATABASE_SERVICE_NAME}"
                 },
-                "triggers": [
-                    {
-                        "type": "ImageChange",
-                        "imageChangeParams": {
-                            "from": {
-                                "namespace": "${NAMESPACE}",
-                                "kind": "ImageStreamTag",
-                                "name": "mysql:5.6"
-                            },
-                            "containerNames": [
-                                "mysql"
-                            ],
-                            "automatic": true
-                        }
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ],
-                "replicas": 1,
+                "strategy": {
+                    "type": "Recreate"
+                },
                 "template": {
+                    "metadata": {
+                        "labels": {
+                            "name": "${DATABASE_SERVICE_NAME}"
+                        },
+                        "name": "${DATABASE_SERVICE_NAME}"
+                    },
                     "spec": {
-                        "volumes": [
-                            {
-                                "persistentVolumeClaim": {
-                                    "claimName": "${DATABASE_SERVICE_NAME}"
-                                },
-                                "name": "${DATABASE_SERVICE_NAME}-data"
-                            }
-                        ],
                         "containers": [
                             {
+                                "env": [
+                                    {
+                                        "name": "MYSQL_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MYSQL_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "MYSQL_DATABASE",
+                                        "value": "${DATABASE_NAME}"
+                                    }
+                                ],
+                                "image": " ",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "mysql",
                                 "ports": [
                                     {
                                         "containerPort": 3306
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1,
                                     "exec": {
                                         "command": [
                                             "/bin/sh",
@@ -492,71 +379,184 @@
                                             "-c",
                                             "MYSQL_PWD='${DATABASE_PASSWORD}' mysql -h 127.0.0.1 -u ${DATABASE_USER} -D ${DATABASE_NAME} -e 'SELECT 1'"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
                                 },
                                 "resources": {
                                     "limits": {
                                         "memory": "${MEMORY_MYSQL_LIMIT}"
                                     }
                                 },
-                                "env": [
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databaseUser",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "MYSQL_USER"
-                                    },
-                                    {
-                                        "valueFrom": {
-                                            "secretKeyRef": {
-                                                "key": "databasePassword",
-                                                "name": "${NAME}"
-                                            }
-                                        },
-                                        "name": "MYSQL_PASSWORD"
-                                    },
-                                    {
-                                        "value": "${DATABASE_NAME}",
-                                        "name": "MYSQL_DATABASE"
-                                    }
-                                ],
-                                "image": " ",
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mysql/data",
                                         "name": "${DATABASE_SERVICE_NAME}-data"
                                     }
-                                ],
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "timeoutSeconds": 1,
-                                    "tcpSocket": {
-                                        "port": 3306
-                                    }
-                                },
-                                "name": "mysql"
+                                ]
+                            }
+                        ],
+                        "volumes": [
+                            {
+                                "name": "${DATABASE_SERVICE_NAME}-data",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${DATABASE_SERVICE_NAME}"
+                                }
                             }
                         ]
-                    },
-                    "metadata": {
-                        "labels": {
-                            "name": "${DATABASE_SERVICE_NAME}"
-                        },
-                        "name": "${DATABASE_SERVICE_NAME}"
                     }
-                }
-            },
-            "kind": "DeploymentConfig",
-            "apiVersion": "v1",
-            "metadata": {
-                "annotations": {
-                    "description": "Defines how to deploy the database"
                 },
-                "name": "${DATABASE_SERVICE_NAME}"
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "mysql"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "mysql:5.6",
+                                "namespace": "${NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
+        }
+    ],
+    "parameters": [
+        {
+            "description": "The name assigned to all of the frontend objects defined in this template.",
+            "displayName": "Name",
+            "name": "NAME",
+            "required": true,
+            "value": "cakephp-mysql-persistent"
+        },
+        {
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "displayName": "Namespace",
+            "name": "NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "Maximum amount of memory the CakePHP container can use.",
+            "displayName": "Memory Limit",
+            "name": "MEMORY_LIMIT",
+            "required": true,
+            "value": "512Mi"
+        },
+        {
+            "description": "Maximum amount of memory the MySQL container can use.",
+            "displayName": "Memory Limit (MySQL)",
+            "name": "MEMORY_MYSQL_LIMIT",
+            "required": true,
+            "value": "512Mi"
+        },
+        {
+            "description": "Volume space available for data, e.g. 512Mi, 2Gi",
+            "displayName": "Volume Capacity",
+            "name": "VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
+            "description": "The URL of the repository with your application source code.",
+            "displayName": "Git Repository URL",
+            "name": "SOURCE_REPOSITORY_URL",
+            "required": true,
+            "value": "https://github.com/openshift/cakephp-ex.git"
+        },
+        {
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
+            "displayName": "Git Reference",
+            "name": "SOURCE_REPOSITORY_REF"
+        },
+        {
+            "description": "Set this to the relative path to your project if it is not in the root of your repository.",
+            "displayName": "Context Directory",
+            "name": "CONTEXT_DIR"
+        },
+        {
+            "description": "The exposed hostname that will route to the CakePHP service, if left blank a value will be defaulted.",
+            "displayName": "Application Hostname",
+            "name": "APPLICATION_DOMAIN",
+            "value": ""
+        },
+        {
+            "description": "A secret string used to configure the GitHub webhook.",
+            "displayName": "GitHub Webhook Secret",
+            "from": "[a-zA-Z0-9]{40}",
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "displayName": "Database Service Name",
+            "name": "DATABASE_SERVICE_NAME",
+            "required": true,
+            "value": "mysql"
+        },
+        {
+            "description": "Database engine: postgresql, mysql or sqlite (default).",
+            "displayName": "Database Engine",
+            "name": "DATABASE_ENGINE",
+            "required": true,
+            "value": "mysql"
+        },
+        {
+            "displayName": "Database Name",
+            "name": "DATABASE_NAME",
+            "required": true,
+            "value": "default"
+        },
+        {
+            "displayName": "Database User",
+            "name": "DATABASE_USER",
+            "required": true,
+            "value": "cakephp"
+        },
+        {
+            "displayName": "Database Password",
+            "from": "[a-zA-Z0-9]{16}",
+            "generate": "expression",
+            "name": "DATABASE_PASSWORD"
+        },
+        {
+            "description": "Set this to a long random string.",
+            "displayName": "CakePHP secret token",
+            "from": "[\\w]{50}",
+            "generate": "expression",
+            "name": "CAKEPHP_SECRET_TOKEN"
+        },
+        {
+            "description": "Security salt for session hash.",
+            "displayName": "CakePHP Security Salt",
+            "from": "[a-zA-Z0-9]{40}",
+            "generate": "expression",
+            "name": "CAKEPHP_SECURITY_SALT"
+        },
+        {
+            "description": "Security cipher seed for session hash.",
+            "displayName": "CakePHP Security Cipher Seed",
+            "from": "[0-9]{30}",
+            "generate": "expression",
+            "name": "CAKEPHP_SECURITY_CIPHER_SEED"
+        },
+        {
+            "description": "How often to check script timestamps for updates, in seconds. 0 will result in OPcache checking for updates on every request.",
+            "displayName": "OPcache Revalidation Frequency",
+            "name": "OPCACHE_REVALIDATE_FREQ",
+            "value": "2"
+        },
+        {
+            "description": "The custom Composer mirror URL",
+            "displayName": "Custom Composer Mirror URL",
+            "name": "COMPOSER_MIRROR",
+            "value": ""
         }
     ]
 }

@@ -1,32 +1,32 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "fis-java-openshift"
+    },
     "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift",
         "tags": [
             {
                 "annotations": {
-                    "supports": "jboss-fuse:6.2.1,java:8,xpaas:1.2",
                     "description": "JBoss Fuse Integration Services 1.0 Java S2I images.",
                     "iconClass": "icon-jboss",
-                    "version": "1.0",
-                    "tags": "builder,jboss-fuse,java,xpaas"
+                    "supports": "jboss-fuse:6.2.1,java:8,xpaas:1.2",
+                    "tags": "builder,jboss-fuse,java,xpaas",
+                    "version": "1.0"
                 },
                 "name": "1.0"
             },
             {
                 "annotations": {
-                    "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
                     "description": "JBoss Fuse Integration Services 2.0 Java S2I images.",
                     "iconClass": "icon-jboss",
-                    "version": "2.0",
-                    "tags": "builder,jboss-fuse,java,xpaas"
+                    "supports": "jboss-fuse:6.3.0,java:8,xpaas:1.2",
+                    "tags": "builder,jboss-fuse,java,xpaas",
+                    "version": "2.0"
                 },
                 "name": "2.0"
             }
-        ],
-        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift"
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "name": "fis-java-openshift"
+        ]
     }
 }

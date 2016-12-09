@@ -1,14 +1,22 @@
 {
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Node.js"
+        },
+        "name": "nodejs"
+    },
     "spec": {
         "tags": [
             {
                 "annotations": {
+                    "description": "Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/4/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Node.js available on OpenShift, including major versions updates.",
                     "iconClass": "icon-nodejs",
-                    "supports": "nodejs",
-                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
                     "openshift.io/display-name": "Node.js (Latest)",
-                    "tags": "builder,nodejs",
-                    "description": "Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/4/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Node.js available on OpenShift, including major versions updates."
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs",
+                    "tags": "builder,nodejs"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
@@ -18,11 +26,11 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-nodejs",
-                    "supports": "nodejs:0.10,nodejs:0.1,nodejs",
-                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
                     "description": "DEPRECATED: Build and run Node.js 0.10 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/0.10/README.md.",
+                    "iconClass": "icon-nodejs",
                     "openshift.io/display-name": "Node.js 0.10",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:0.10,nodejs:0.1,nodejs",
                     "tags": "hidden,nodejs",
                     "version": "0.10"
                 },
@@ -34,11 +42,11 @@
             },
             {
                 "annotations": {
-                    "iconClass": "icon-nodejs",
-                    "supports": "nodejs:4,nodejs",
-                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
                     "description": "Build and run Node.js 4 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/4/README.md.",
+                    "iconClass": "icon-nodejs",
                     "openshift.io/display-name": "Node.js 4",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:4,nodejs",
                     "tags": "builder,nodejs",
                     "version": "4"
                 },
@@ -49,13 +57,5 @@
                 "name": "4"
             }
         ]
-    },
-    "kind": "ImageStream",
-    "apiVersion": "v1",
-    "metadata": {
-        "annotations": {
-            "openshift.io/display-name": "Node.js"
-        },
-        "name": "nodejs"
     }
 }

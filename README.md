@@ -62,7 +62,7 @@ Community Templates and ImageStreams are **not** provided or supported by Red Ha
 
 ### Running the Script
 
-    $ python3 scripts/import_content.py
+    $ python3 import_content.py
 
 ## Contributing
 
