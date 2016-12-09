@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """Imports templates and imagestreams from various sources"""
 
@@ -135,7 +135,7 @@ def write_data_to_file(data, path):
     """
     message('Writing', 'data to file', path)
     with open(path, 'wb') as target_file:
-        target_file.write(bytes(json.dumps(data, sort_keys=True, indent=4), 'utf-8'))
+        target_file.write(bytes(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))))
 
 def process_template(source, folder, location_list, template):
     """ Processes a template and writes it's data to a file in JSON format
@@ -171,7 +171,7 @@ def process_imagestream(source, folder, location_list, imagestream):
         imagestream (json): information abou the data to get for the image-stream
 
     """
-    message('Processing', 'image-stream', 'test')
+    message('Processing', 'image-stream', '')
     imagestreams = []
     if imagestream['kind'] == 'ImageStream':
         message('Found', 'image-stream', location_list['location'])
@@ -226,7 +226,8 @@ def main():
     SVARS['cache'] = args.cache
     SVARS['clean'] = args.clean
 
-    os.makedirs('tmp', exist_ok=True)
+    if not os.path.exists('tmp'):
+        os.makedirs('tmp')
 
     for source in SVARS['sources']:
         message('Opening', 'source file', source + '.yaml')
