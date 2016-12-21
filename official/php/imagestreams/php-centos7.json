@@ -20,7 +20,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "5.6"
+                    "name": "7.0"
                 },
                 "name": "latest"
             },
@@ -55,6 +55,22 @@
                     "name": "centos/php-56-centos7:latest"
                 },
                 "name": "5.6"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run PHP 7.0 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.0/README.md.",
+                    "iconClass": "icon-php",
+                    "openshift.io/display-name": "PHP 7.0",
+                    "sampleRepo": "https://github.com/openshift/cakephp-ex.git",
+                    "supports": "php:7.0,php",
+                    "tags": "builder,php",
+                    "version": "7.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/php-70-centos7:latest"
+                },
+                "name": "7.0"
             }
         ]
     }
