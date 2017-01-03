@@ -23,9 +23,9 @@
                 "name": "${DATABASE_SERVICE_NAME}"
             },
             "stringData": {
-                "databaseAdminPassword": "${MONGODB_ADMIN_PASSWORD}",
-                "databasePassword": "${MONGODB_PASSWORD}",
-                "databaseUser": "${MONGODB_USER}"
+                "database-admin-password": "${MONGODB_ADMIN_PASSWORD}",
+                "database-password": "${MONGODB_PASSWORD}",
+                "database-user": "${MONGODB_USER}"
             }
         },
         {
@@ -86,7 +86,7 @@
                                         "name": "MONGODB_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
@@ -95,7 +95,7 @@
                                         "name": "MONGODB_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
@@ -104,7 +104,7 @@
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseAdminPassword",
+                                                "key": "database-admin-password",
                                                 "name": "${DATABASE_SERVICE_NAME}"
                                             }
                                         }
