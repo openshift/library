@@ -4,7 +4,7 @@
     "labels": {
         "template": "laravel-mysql-example"
     },
-    "message": "The following service(s) have been created in your project: laravel-mysql-example, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
+    "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
     "metadata": {
         "annotations": {
             "description": "An example Laravel application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
@@ -17,13 +17,24 @@
     "objects": [
         {
             "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${NAME}"
+            },
+            "stringData": {
+                "databasePassword": "${DATABASE_PASSWORD}",
+                "databaseUser": "${DATABASE_USER}"
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "Service",
             "metadata": {
                 "annotations": {
                     "description": "Exposes and load balances the application pods",
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${DATABASE_SERVICE_NAME}\", \"kind\": \"Service\"}]"
                 },
-                "name": "laravel-mysql-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "ports": [
@@ -34,7 +45,7 @@
                     }
                 ],
                 "selector": {
-                    "name": "laravel-mysql-example"
+                    "name": "${NAME}"
                 }
             }
         },
@@ -42,13 +53,13 @@
             "apiVersion": "v1",
             "kind": "Route",
             "metadata": {
-                "name": "laravel-mysql-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "kind": "Service",
-                    "name": "laravel-mysql-example"
+                    "name": "${NAME}"
                 }
             }
         },
@@ -59,7 +70,7 @@
                 "annotations": {
                     "description": "Keeps track of changes in the application image"
                 },
-                "name": "laravel-mysql-example"
+                "name": "${NAME}"
             }
         },
         {
@@ -69,13 +80,13 @@
                 "annotations": {
                     "description": "Defines how to build the application"
                 },
-                "name": "laravel-mysql-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "laravel-mysql-example:latest"
+                        "name": "${NAME}:latest"
                     }
                 },
                 "source": {
@@ -91,7 +102,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "php:5.6",
+                            "name": "php:7.0",
                             "namespace": "openshift"
                         }
                     },
@@ -137,12 +148,12 @@
                 "annotations": {
                     "description": "Defines how to deploy the application server"
                 },
-                "name": "laravel-mysql-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "replicas": 1,
                 "selector": {
-                    "name": "laravel-mysql-example"
+                    "name": "${NAME}"
                 },
                 "strategy": {
                     "recreateParams": {
@@ -161,9 +172,9 @@
                 "template": {
                     "metadata": {
                         "labels": {
-                            "name": "laravel-mysql-example"
+                            "name": "${NAME}"
                         },
-                        "name": "laravel-mysql-example"
+                        "name": "${NAME}"
                     },
                     "spec": {
                         "containers": [
@@ -191,11 +202,21 @@
                                     },
                                     {
                                         "name": "DB_USERNAME",
-                                        "value": "${DATABASE_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databaseUser",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "DB_PASSWORD",
-                                        "value": "${DATABASE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "databasePassword",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "APP_KEY",
@@ -214,7 +235,7 @@
                                         "value": "${OPCACHE_REVALIDATE_FREQ}"
                                     }
                                 ],
-                                "image": "laravel-mysql-example",
+                                "image": "${NAME}",
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/",
@@ -255,7 +276,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "laravel-mysql-example:latest"
+                                "name": "${NAME}:latest"
                             }
                         },
                         "type": "ImageChange"
@@ -387,7 +408,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "mysql:5.6",
+                                "name": "mysql:5.7",
                                 "namespace": "openshift"
                             }
                         },
@@ -401,6 +422,13 @@
         }
     ],
     "parameters": [
+        {
+            "description": "The name assigned to all of the frontend objects defined in this template.",
+            "displayName": "Name",
+            "name": "NAME",
+            "required": true,
+            "value": "laravel-mysql-example"
+        },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
@@ -432,6 +460,12 @@
             "displayName": "OPcache Revalidation Frequency",
             "name": "OPCACHE_REVALIDATE_FREQ",
             "value": "0"
+        },
+        {
+            "description": "The custom Composer mirror URL",
+            "displayName": "Custom Composer Mirror URL",
+            "name": "COMPOSER_MIRROR",
+            "value": ""
         },
         {
             "description": "The name of your current OpenShift cluster (console.CLUSTER_NAME.openshift.com).",

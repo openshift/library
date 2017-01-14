@@ -4,7 +4,7 @@
     "labels": {
         "template": "laravel-sqlite-example"
     },
-    "message": "The following service(s) have been created in your project: laravel-sqlite-example.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
+    "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
     "metadata": {
         "annotations": {
             "description": "An example Laravel application with a SQLite database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
@@ -22,7 +22,7 @@
                 "annotations": {
                     "description": "Exposes and load balances the application pods"
                 },
-                "name": "laravel-sqlite-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "ports": [
@@ -33,7 +33,7 @@
                     }
                 ],
                 "selector": {
-                    "name": "laravel-sqlite-example"
+                    "name": "${NAME}"
                 }
             }
         },
@@ -41,13 +41,13 @@
             "apiVersion": "v1",
             "kind": "Route",
             "metadata": {
-                "name": "laravel-sqlite-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "host": "${APPLICATION_DOMAIN}",
                 "to": {
                     "kind": "Service",
-                    "name": "laravel-sqlite-example"
+                    "name": "${NAME}"
                 }
             }
         },
@@ -58,7 +58,7 @@
                 "annotations": {
                     "description": "Keeps track of changes in the application image"
                 },
-                "name": "laravel-sqlite-example"
+                "name": "${NAME}"
             }
         },
         {
@@ -68,13 +68,13 @@
                 "annotations": {
                     "description": "Defines how to build the application"
                 },
-                "name": "laravel-sqlite-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "laravel-sqlite-example:latest"
+                        "name": "${NAME}:latest"
                     }
                 },
                 "source": {
@@ -90,7 +90,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "php:5.6",
+                            "name": "php:7.0",
                             "namespace": "openshift"
                         }
                     },
@@ -119,12 +119,12 @@
                 "annotations": {
                     "description": "Defines how to deploy the application server"
                 },
-                "name": "laravel-sqlite-example"
+                "name": "${NAME}"
             },
             "spec": {
                 "replicas": 1,
                 "selector": {
-                    "name": "laravel-sqlite-example"
+                    "name": "${NAME}"
                 },
                 "strategy": {
                     "recreateParams": {
@@ -143,9 +143,9 @@
                 "template": {
                     "metadata": {
                         "labels": {
-                            "name": "laravel-sqlite-example"
+                            "name": "${NAME}"
                         },
-                        "name": "laravel-sqlite-example"
+                        "name": "${NAME}"
                     },
                     "spec": {
                         "containers": [
@@ -180,7 +180,7 @@
                                         "value": "${OPCACHE_REVALIDATE_FREQ}"
                                     }
                                 ],
-                                "image": "laravel-sqlite-example",
+                                "image": "${NAME}",
                                 "livenessProbe": {
                                     "httpGet": {
                                         "path": "/",
@@ -221,7 +221,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "laravel-sqlite-example:latest"
+                                "name": "${NAME}:latest"
                             }
                         },
                         "type": "ImageChange"
@@ -234,6 +234,13 @@
         }
     ],
     "parameters": [
+        {
+            "description": "The name assigned to all of the frontend objects defined in this template.",
+            "displayName": "Name",
+            "name": "NAME",
+            "required": true,
+            "value": "laravel-sqlite-example"
+        },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
@@ -265,6 +272,12 @@
             "displayName": "OPcache Revalidation Frequency",
             "name": "OPCACHE_REVALIDATE_FREQ",
             "value": "0"
+        },
+        {
+            "description": "The custom Composer mirror URL",
+            "displayName": "Custom Composer Mirror URL",
+            "name": "COMPOSER_MIRROR",
+            "value": ""
         },
         {
             "description": "The name of your current OpenShift cluster (console.CLUSTER_NAME.openshift.com).",
