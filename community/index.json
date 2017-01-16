@@ -1,36 +1,36 @@
 {
-    "memcached": {
-        "imagestreams": [
-            {
-                "docs": "https://github.com/luciddreamz/examples/blob/master/README.md",
-                "name": "memcached",
-                "path": "community/memcached/imagestreams/memcached.json",
-                "source_url": "https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json"
-            }
-        ]
-    },
-    "php": {
+    "laravel": {
         "templates": [
             {
                 "description": "An example Laravel application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
                 "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
                 "name": "laravel-mysql-example",
-                "path": "community/php/templates/laravel-mysql-example.json",
+                "path": "community/laravel/templates/laravel-mysql-example.json",
                 "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json"
             },
             {
                 "description": "An example Laravel application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
                 "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
                 "name": "laravel-pgsql-example",
-                "path": "community/php/templates/laravel-pgsql-example.json",
+                "path": "community/laravel/templates/laravel-pgsql-example.json",
                 "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-postgresql.json"
             },
             {
                 "description": "An example Laravel application with a SQLite database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
                 "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
                 "name": "laravel-sqlite-example",
-                "path": "community/php/templates/laravel-sqlite-example.json",
+                "path": "community/laravel/templates/laravel-sqlite-example.json",
                 "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json"
+            }
+        ]
+    },
+    "wildfly": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md",
+                "name": "wildfly",
+                "path": "community/wildfly/imagestreams/wildfly-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json"
             }
         ]
     }

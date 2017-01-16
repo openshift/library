@@ -1,5 +1,5 @@
 data:
-  php:
+  laravel:
     templates:
       - location: https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json
         docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
@@ -7,7 +7,9 @@ data:
         docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
       - location: https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json
         docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
-  memcached:
+  wildfly:
     imagestreams:
-      - location: https://raw.githubusercontent.com/luciddreamz/examples/master/memcached/image-streams/memcached-debian.json
-        docs: https://github.com/luciddreamz/examples/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md
+        regex: wildfly
+        suffix: centos7

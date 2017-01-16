@@ -1,0 +1,22 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "jboss-datavirt63-openshift"
+    },
+    "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-openshift",
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "supports": "datavirt:6.3,java:8,xpaas:1.4",
+                    "tags": "datavirt,java,jboss,xpaas",
+                    "version": "1.0"
+                },
+                "name": "1.0"
+            }
+        ]
+    }
+}
