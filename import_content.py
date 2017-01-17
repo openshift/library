@@ -29,28 +29,56 @@ def message(action, sub_action, text):
     """
     print('{:<10} | {:<17} | {}'.format(action, sub_action, text))
 
-def is_valid(data, data_type):
+def is_json(data):
+    """ Checks if the data is json
+
+    Args:
+        data: The data to check
+
+    Returns:
+        bool: True if the data is valid json, False otherwise
+    """
+    try:
+        json.loads(json.dumps(data))
+    except:
+        return False
+    return True
+
+def is_yaml(data):
+    """ Checks if the data is valid yaml
+
+    Args:
+        data: The data to check
+
+    Returns:
+        bool: True if the data is valid yaml, False otherwise
+    """
+    if data[0] == "{":
+        return False
+    try:
+        yaml.load(data)
+    except:
+        return False
+    return True
+
+def is_valid(data):
     """Checks the validity of a JSON or YAML document
 
     Args:
         data (string): the data to check
-        data_type (string): json|yaml
 
     Returns:
         bool: True if the data is valid, False otherwise
-        data: None if validity is False, otherwise a JSON or YAML object
+        data: None if validity is False, otherwise a Python dict object
 
     """
-    try:
-        if data_type == 'json':
-            loaded_data = json.loads(json.dumps(data))
-        elif data_type == 'yaml':
-            loaded_data = yaml.load(data)
-    except:
-        message('Error', 'validation', 'data is not valid ' + data_type)
+    if is_yaml(data):
+        return True, yaml.load(data)
+    elif is_json(data):
+        data = data.replace("\t", " ")
+        return True, json.loads(data)
+    else:
         return False, None
-    message('Success', 'validation', 'data is valid ' + data_type)
-    return True, loaded_data
 
 def append_to_index(source, folder, sub_folder, data):
     """ Appends information about a template or image-stream to the index file
@@ -90,43 +118,31 @@ def replace_variables(string):
             message('Processing', 'variables', 'replacing ' + match + ' with ' + SVARS['vars'][re.sub(r'\{|\}', '', match)])
     return string
 
-def fetch_or_retrieve_url(path):
-    """ Fetches json data from a url and caches it locally for faster access
+def fetch_url(path):
+    """ Fetches json or yaml data from a url
 
     Args:
         path (string): the github url to use for the API call
 
     Returns:
         status_code: None if successful, req.status_code if !200
-        JSON object: the JSON returned from the successful API call, or None if !200
+        Python dictionary: the data returned from the successful API call, or None if !200
 
     """
-    path_hash = hashlib.md5()
-    path_hash.update(str.encode(path))
-    cache_path = 'tmp/' + path_hash.hexdigest()
-    if os.path.exists(cache_path) and SVARS['cache']:
-        message('Retrieving', 'from cache', path)
-        with open(cache_path, 'r') as cached_file:
-            valid, json_data = is_valid(json.loads(cached_file.read()), 'json')
-            if not valid:
-                return "Error, invalid json detected", None
-            return None, json_data
+    message('Fetching', 'data', path)
+    req = requests.get(path)
+    if req.status_code == 200:
+        message('Caching', '', path)
+        valid, dict_data = is_valid(req.text)
+        if not valid:
+            message('Error', 'invalid data', path)
+            return "Error, invalid data detected", None
+        return None, dict_data
     else:
-        message('Fetching', 'data', path)
-        req = requests.get(path)
-        if req.status_code == 200:
-            message('Caching', '', path)
-            valid, json_data = is_valid(req.json(), 'json')
-            if not valid:
-                message('Error', 'invalid JSON', path)
-                return "Error, invalid json detected", None
-            write_data_to_file(json_data, cache_path)
-            return None, json_data
-        else:
-            return req.status_code, None
+        return req.status_code, None
 
 def write_data_to_file(data, path):
-    """ Writes data to a file at path
+    """ Writes formatted json data to a file at path
 
     Args:
         data (json): json data to write to the file
@@ -134,8 +150,9 @@ def write_data_to_file(data, path):
 
     """
     message('Writing', 'data to file', path)
-    with open(path, 'wb') as target_file:
-        target_file.write(bytes(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))))
+    target_file = file(path, 'w')
+    target_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
+    target_file.close()
 
 def process_template(source, folder, location_list, template):
     """ Processes a template and writes it's data to a file in JSON format
@@ -195,12 +212,12 @@ def process_imagestream(source, folder, location_list, imagestream):
             write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json")
 
 def create_indexes():
-    """ Creates the index.json and index.md files """
+    """ Creates the index.json and README.md files """
 
     for source in SVARS['sources']:
         write_data_to_file(SVARS['index'][source], source + '/index.json')
 
-        with open(source + '/index.md', 'a') as index_file:
+        with open(source + '/README.md', 'a') as index_file:
             for folder, sections in sorted(SVARS['index'][source].items()):
                 index_file.write('# ' + folder + '\n')
                 for section, items in sorted(sections.items()):
@@ -219,12 +236,7 @@ def main():
     """
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
-    parser.add_argument('--no-clean', dest='clean', action='store_false', help='Do not remove the tmp directory')
-    parser.add_argument('--no-cache', dest='cache', action='store_false', help='Disable caching of github api requests')
     args = parser.parse_args()
-
-    SVARS['cache'] = args.cache
-    SVARS['clean'] = args.clean
 
     if not os.path.exists('tmp'):
         os.makedirs('tmp')
@@ -235,7 +247,7 @@ def main():
             SVARS['base_dir'] = os.path.dirname(os.path.realpath(__file__)) + '/' + source
             message('Opening', 'file path', SVARS['base_dir'])
             raw_yaml = source_file.read()
-            valid, doc = is_valid(raw_yaml, 'yaml')
+            valid, doc = is_valid(raw_yaml)
             if not valid:
                 message('Error', 'file', 'unable to load file ' + args.source)
                 exit(1)
@@ -245,7 +257,7 @@ def main():
             else:
                 message('Info', '', 'No variables found in source document')
 
-            valid, doc = is_valid(replace_variables(raw_yaml), 'yaml')
+            valid, doc = is_valid(replace_variables(raw_yaml))
             if not valid:
                 message('Error', 'YAML', 'Variable replacement caused invalid YAML')
                 exit(1)
@@ -261,15 +273,12 @@ def main():
                         for item in contents[item_type]:
                             if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
                                 os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
-                            status, json_data = fetch_or_retrieve_url(item['location'])
+                            status, dict_data = fetch_url(item['location'])
                             if item_type == 'templates':
-                                process_template(source, folder, item, json_data)
+                                process_template(source, folder, item, dict_data)
                             elif item_type == 'imagestreams':
-                                process_imagestream(source, folder, item, json_data)
+                                process_imagestream(source, folder, item, dict_data)
     create_indexes()
-    if SVARS['clean'] and os.path.exists('tmp'):
-        message('Removing', 'directory', 'tmp')
-        shutil.rmtree('tmp')
 
 if __name__ == '__main__':
     main()
