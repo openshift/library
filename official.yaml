@@ -1,5 +1,5 @@
 variables:
-  xpaas_version: ose-v1.3.3
+  xpaas_version: ose-v1.3.5
 data:
   ruby:
     imagestreams:
@@ -148,197 +148,254 @@ data:
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
         regex: postgresql
         suffix: rhel7
+  redis:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/redis-container/blob/master/README.md
+        regex: redis
+        suffix: centos7
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/redis-container/blob/master/README.md
+        regex: redis
+        suffix: rhel7
   amq:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-basic.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-basic.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-persistent-ssl.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-ssl.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/
         regex: jboss-amq
         suffix: rhel7
   datagrid:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-basic.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-basic.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-https.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-https.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-mysql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-mysql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-mysql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-mysql.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-postgresql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-postgresql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-postgresql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-postgresql.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/
         regex: jboss-datagrid
+        suffix: rhel7
+  datavirt:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datavirt/datavirt63-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datavirt/datavirt63-basic-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datavirt/datavirt63-extensions-support-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datavirt/datavirt63-extensions-support-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datavirt/datavirt63-secure-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datavirt/datavirt63-secure-s2i.adoc
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/
+        regex: jboss-datavirt
         suffix: rhel7
   decisionserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver62-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver62-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver62-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver62-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver63-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver63-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver63-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver63-https-s2i.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/
         regex: jboss-decisionserver
         suffix: rhel7
   eap:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-amq-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-amq-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mongodb-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-sso-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-sso-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-amq-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mongodb-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-sso-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-sso-s2i.adoc
 
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/
         regex: jboss-eap
         suffix: rhel7
   processserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-amq-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-amq-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-amq-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-amq-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver63-postgresql-s2i.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/
         regex: jboss-processserver
         suffix: rhel7
   sso:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-https.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso70-https.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-mysql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso70-mysql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-mysql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso70-mysql.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-postgresql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso70-postgresql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso70-postgresql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso70-postgresql.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/
         regex: redhat-sso
         suffix: rhel7
   webserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mongodb-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-mongodb-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mongodb-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat7-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mongodb-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-mongodb-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mongodb-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-mysql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-postgresql-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-postgresql-s2i.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
         regex: jboss-webserver
         suffix: rhel7
   fis:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-log-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-rest-sql-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-amq-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-brms-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdg-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdv-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-rest-sql-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-xml-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxrs-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxws-template.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json
-        docs: https://github.com/jboss-fuse/application-templates/blob/master/README.md
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
+        suffix: rhel7
   dotnet:
     imagestreams:
       - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json
         docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
+        suffix: rhel7

@@ -1,0 +1,642 @@
+{
+    "apiVersion": "v1",
+    "kind": "Template",
+    "labels": {
+        "template": "datavirt63-secure-s2i",
+        "xpaas": "1.4.0"
+    },
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "metadata": {
+        "annotations": {
+            "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.  Includes ability to configure certificates for serving secure content.",
+            "iconClass": "icon-jboss",
+            "tags": "jdv,datavirt,jboss,xpaas",
+            "version": "1.4.0"
+        },
+        "name": "datavirt63-secure-s2i"
+    },
+    "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The data virtualization services."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "targetPort": "http"
+                    },
+                    {
+                        "name": "https",
+                        "port": 8443,
+                        "targetPort": "https"
+                    },
+                    {
+                        "name": "jdbc",
+                        "port": 31000,
+                        "targetPort": "jdbc"
+                    },
+                    {
+                        "name": "jdbcs",
+                        "port": 31443,
+                        "targetPort": "jdbcs"
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-http",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's http (REST) service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTP}",
+                "port": {
+                    "targetPort": "http"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-https",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's https (REST) service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "secure-${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_HTTPS}",
+                "port": {
+                    "targetPort": "https"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-jdbc",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for application's JDBC service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "jdbc-${APPLICATION_NAME}"
+            },
+            "spec": {
+                "host": "${HOSTNAME_JDBC}",
+                "port": {
+                    "targetPort": "jdbcs"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "contextDir": "${CONTEXT_DIR}",
+                    "git": {
+                        "ref": "${SOURCE_REPOSITORY_REF}",
+                        "uri": "${SOURCE_REPOSITORY_URL}"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-datavirt63-openshift:1.0",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                        }
+                    },
+                    "type": "Source"
+                },
+                "triggers": [
+                    {
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        },
+                        "type": "GitHub"
+                    },
+                    {
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        },
+                        "type": "Generic"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}"
+                        },
+                        "name": "${APPLICATION_NAME}"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
+                                        "value": "application=${APPLICATION_NAME}"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/datavirt-secret-volume"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
+                                    },
+                                    {
+                                        "name": "HTTPS_NAME",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_SECRET",
+                                        "value": "${JGROUPS_ENCRYPT_SECRET}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+                                        "value": "/etc/jgroups-encrypt-secret-volume"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_NAME",
+                                        "value": "${JGROUPS_ENCRYPT_NAME}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_PASSWORD",
+                                        "value": "${JGROUPS_ENCRYPT_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_CLUSTER_PASSWORD",
+                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "TEIID_USERNAME",
+                                        "value": "${TEIID_USERNAME}"
+                                    },
+                                    {
+                                        "name": "TEIID_PASSWORD",
+                                        "value": "${TEIID_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MODESHAPE_USERNAME",
+                                        "value": "${MODESHAPE_USERNAME}"
+                                    },
+                                    {
+                                        "name": "MODESHAPE_PASSWORD",
+                                        "value": "${MODESHAPE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "ENV_FILES",
+                                        "value": "/etc/datavirt-environment/*"
+                                    },
+                                    {
+                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE",
+                                        "value": "/etc/datavirt-secret-volume/${HTTPS_KEYSTORE}"
+                                    },
+                                    {
+                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
+                                    },
+                                    {
+                                        "name": "DATAVIRT_TRANSPORT_KEY_ALIAS",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "DATAVIRT_TRANSPORT_KEYSTORE_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
+                                    }
+                                ],
+                                "image": "${APPLICATION_NAME}",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/livenessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "name": "${APPLICATION_NAME}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8778,
+                                        "name": "jolokia",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8443,
+                                        "name": "https",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 31000,
+                                        "name": "jdbc",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 31443,
+                                        "name": "jdbcs",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8888,
+                                        "name": "ping",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/eap/bin/readinessProbe.sh"
+                                        ]
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/etc/datavirt-environment",
+                                        "name": "configuration",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/etc/datavirt-secret-volume",
+                                        "name": "datavirt-keystore-volume",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/etc/jgroups-encrypt-secret-volume",
+                                        "name": "datavirt-jgroups-keystore-volume",
+                                        "readOnly": true
+                                    }
+                                ]
+                            }
+                        ],
+                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
+                        "terminationGracePeriodSeconds": 60,
+                        "volumes": [
+                            {
+                                "name": "configuration",
+                                "secret": {
+                                    "secretName": "${CONFIGURATION_NAME}"
+                                }
+                            },
+                            {
+                                "name": "datavirt-keystore-volume",
+                                "secret": {
+                                    "secretName": "${HTTPS_SECRET}"
+                                }
+                            },
+                            {
+                                "name": "datavirt-jgroups-keystore-volume",
+                                "secret": {
+                                    "secretName": "${JGROUPS_ENCRYPT_SECRET}"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}:latest"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "description": "The name for the application.",
+            "displayName": "Application Name",
+            "name": "APPLICATION_NAME",
+            "required": true,
+            "value": "datavirt-app"
+        },
+        {
+            "description": "The name of the secret containing configuration properties for the data sources.",
+            "displayName": "Configuration Secret Name",
+            "name": "CONFIGURATION_NAME",
+            "required": true,
+            "value": "datavirt-app-config"
+        },
+        {
+            "description": "Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom http Route Hostname",
+            "name": "HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Specify a custom hostname for the https route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom https Route Hostname",
+            "name": "HOSTNAME_HTTPS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Specify a custom hostname for the JDBC route.  Leave blank to use default hostname, e.g.: secure-<service-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom JDBC Route Hostname",
+            "name": "HOSTNAME_JDBC",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "The URL of the repository with your application source code.",
+            "displayName": "Git Repository URL",
+            "name": "SOURCE_REPOSITORY_URL",
+            "required": true,
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts"
+        },
+        {
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
+            "displayName": "Git Reference",
+            "name": "SOURCE_REPOSITORY_REF",
+            "required": false,
+            "value": "master"
+        },
+        {
+            "description": "Set this to the relative path to your project if it is not in the root of your repository.",
+            "displayName": "Context Directory",
+            "name": "CONTEXT_DIR",
+            "required": false,
+            "value": "datavirt/dynamicvdb-datafederation/app"
+        },
+        {
+            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret(s) specified by CONFIGURATION_NAME, HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
+            "name": "SERVICE_ACCOUNT_NAME",
+            "required": true,
+            "value": "datavirt-service-account"
+        },
+        {
+            "description": "The name of the secret containing the keystore to be used for serving secure content.",
+            "displayName": "Server Keystore Secret Name",
+            "name": "HTTPS_SECRET",
+            "required": true,
+            "value": "datavirt-app-secret"
+        },
+        {
+            "description": "The name of the keystore file within the secret.",
+            "displayName": "Server Keystore Filename",
+            "name": "HTTPS_KEYSTORE",
+            "required": false,
+            "value": "keystore.jks"
+        },
+        {
+            "description": "The type of the keystore file (JKS or JCEKS).",
+            "displayName": "Server Keystore Type",
+            "name": "HTTPS_KEYSTORE_TYPE",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "The name associated with the server certificate.",
+            "displayName": "Server Certificate Name",
+            "name": "HTTPS_NAME",
+            "required": false,
+            "value": "jboss"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "displayName": "Server Keystore Password",
+            "name": "HTTPS_PASSWORD",
+            "required": false,
+            "value": "mykeystorepass"
+        },
+        {
+            "description": "Username associated with Teiid data service.",
+            "displayName": "Teiid Username",
+            "from": "[\\a]{8}",
+            "generate": "expression",
+            "name": "TEIID_USERNAME",
+            "required": true
+        },
+        {
+            "description": "Password for Teiid user.",
+            "displayName": "Teiid User Password",
+            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
+            "generate": "expression",
+            "name": "TEIID_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Username associated with ModeShape.",
+            "displayName": "ModeShape Username",
+            "from": "[\\a]{8}",
+            "generate": "expression",
+            "name": "MODESHAPE_USERNAME",
+            "required": true
+        },
+        {
+            "description": "Password for ModeShape user.",
+            "displayName": "ModeShape User Password",
+            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
+            "generate": "expression",
+            "name": "MODESHAPE_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "A secret string used to configure the GitHub webhook.",
+            "displayName": "Github Webhook Secret",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "required": true
+        },
+        {
+            "description": "A secret string used to configure the Generic webhook.",
+            "displayName": "Generic Webhook Secret",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "required": true
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "displayName": "ImageStream Namespace",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "The name of the secret containing the keystore to be used for securing JGroups communications.",
+            "displayName": "JGroups Secret Name",
+            "name": "JGROUPS_ENCRYPT_SECRET",
+            "required": false,
+            "value": "datavirt-app-secret"
+        },
+        {
+            "description": "The name of the keystore file within the JGroups secret.",
+            "displayName": "JGroups Keystore Filename",
+            "name": "JGROUPS_ENCRYPT_KEYSTORE",
+            "required": false,
+            "value": "jgroups.jceks"
+        },
+        {
+            "description": "The name associated with the JGroups server certificate",
+            "displayName": "JGroups Certificate Name",
+            "name": "JGROUPS_ENCRYPT_NAME",
+            "required": false,
+            "value": "secret-key"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "displayName": "JGroups Keystore Password",
+            "name": "JGROUPS_ENCRYPT_PASSWORD",
+            "required": false,
+            "value": "password"
+        },
+        {
+            "description": "Password used by JGroups to authenticate nodes in the cluster.",
+            "displayName": "JGroups Cluster Password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "JGROUPS_CLUSTER_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Controls whether exploded deployment content should be automatically deployed",
+            "displayName": "Deploy Exploded Archives",
+            "name": "AUTO_DEPLOY_EXPLODED",
+            "required": false,
+            "value": "false"
+        }
+    ]
+}
