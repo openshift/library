@@ -22,11 +22,11 @@
                 "name": "${NAME}"
             },
             "stringData": {
-                "applicationPassword": "${APPLICATION_PASSWORD}",
-                "applicationUser": "${APPLICATION_USER}",
-                "databasePassword": "${DATABASE_PASSWORD}",
-                "databaseUser": "${DATABASE_USER}",
-                "keyBase": "${SECRET_KEY_BASE}"
+                "application-password": "${APPLICATION_PASSWORD}",
+                "application-user": "${APPLICATION_USER}",
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}",
+                "keybase": "${SECRET_KEY_BASE}"
             }
         },
         {
@@ -182,7 +182,7 @@
                                         "name": "POSTGRESQL_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -191,7 +191,7 @@
                                         "name": "POSTGRESQL_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -204,7 +204,7 @@
                                         "name": "SECRET_KEY_BASE",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "keyBase",
+                                                "key": "keybase",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -225,7 +225,7 @@
                                         "name": "APPLICATION_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "applicationUser",
+                                                "key": "application-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -234,7 +234,7 @@
                                         "name": "APPLICATION_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "applicationPassword",
+                                                "key": "application-password",
                                                 "name": "${NAME}"
                                             }
                                         }

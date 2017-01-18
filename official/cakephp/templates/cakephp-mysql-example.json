@@ -22,8 +22,8 @@
                 "name": "${NAME}"
             },
             "stringData": {
-                "databasePassword": "${DATABASE_PASSWORD}",
-                "databaseUser": "${DATABASE_USER}"
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}"
             }
         },
         {
@@ -184,7 +184,7 @@
                                         "name": "DATABASE_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -193,7 +193,7 @@
                                         "name": "DATABASE_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -321,7 +321,7 @@
                                         "name": "MYSQL_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -330,7 +330,7 @@
                                         "name": "MYSQL_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }

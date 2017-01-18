@@ -22,9 +22,9 @@
                 "name": "${NAME}"
             },
             "stringData": {
-                "databaseAdminPassword": "${DATABASE_ADMIN_PASSWORD}",
-                "databasePassword": "${DATABASE_PASSWORD}",
-                "databaseUser": "${DATABASE_USER}"
+                "database-admin-password": "${DATABASE_ADMIN_PASSWORD}",
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}"
             }
         },
         {
@@ -175,7 +175,7 @@
                                         "name": "MONGODB_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -184,7 +184,7 @@
                                         "name": "MONGODB_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -197,7 +197,7 @@
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseAdminPassword",
+                                                "key": "database-admin-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -309,7 +309,7 @@
                                         "name": "MONGODB_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -318,7 +318,7 @@
                                         "name": "MONGODB_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -331,7 +331,7 @@
                                         "name": "MONGODB_ADMIN_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseAdminPassword",
+                                                "key": "database-admin-password",
                                                 "name": "${NAME}"
                                             }
                                         }
