@@ -17,6 +17,20 @@
     "objects": [
         {
             "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${NAME}"
+            },
+            "stringData": {
+                "application-password": "${APPLICATION_PASSWORD}",
+                "application-user": "${APPLICATION_USER}",
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}",
+                "keybase": "${SECRET_KEY_BASE}"
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "Service",
             "metadata": {
                 "annotations": {
@@ -166,19 +180,34 @@
                                     },
                                     {
                                         "name": "POSTGRESQL_USER",
-                                        "value": "${DATABASE_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "database-user",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DATABASE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "database-password",
+                                                "name": "${NAME}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "SECRET_KEY_BASE",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "keybase",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_DATABASE",
                                         "value": "${DATABASE_NAME}"
-                                    },
-                                    {
-                                        "name": "SECRET_KEY_BASE",
-                                        "value": "${SECRET_KEY_BASE}"
                                     },
                                     {
                                         "name": "POSTGRESQL_MAX_CONNECTIONS",
@@ -194,11 +223,21 @@
                                     },
                                     {
                                         "name": "APPLICATION_USER",
-                                        "value": "${APPLICATION_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "application-user",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "APPLICATION_PASSWORD",
-                                        "value": "${APPLICATION_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "application-password",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "RAILS_ENV",
@@ -326,11 +365,21 @@
                                 "env": [
                                     {
                                         "name": "POSTGRESQL_USER",
-                                        "value": "${DATABASE_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "database-user",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DATABASE_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "database-password",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "POSTGRESQL_DATABASE",

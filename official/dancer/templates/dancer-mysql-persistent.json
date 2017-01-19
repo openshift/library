@@ -22,8 +22,9 @@
                 "name": "${NAME}"
             },
             "stringData": {
-                "databasePassword": "${DATABASE_PASSWORD}",
-                "databaseUser": "${DATABASE_USER}"
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}",
+                "keybase": "${SECRET_KEY_BASE}"
             }
         },
         {
@@ -165,7 +166,7 @@
                                         "name": "MYSQL_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -174,7 +175,7 @@
                                         "name": "MYSQL_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -185,7 +186,12 @@
                                     },
                                     {
                                         "name": "SECRET_KEY_BASE",
-                                        "value": "${SECRET_KEY_BASE}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "keybase",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "PERL_APACHE2_RELOAD",
@@ -315,7 +321,7 @@
                                         "name": "MYSQL_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -324,7 +330,7 @@
                                         "name": "MYSQL_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }

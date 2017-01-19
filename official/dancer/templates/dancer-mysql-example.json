@@ -23,7 +23,8 @@
             },
             "stringData": {
                 "database-password": "${DATABASE_PASSWORD}",
-                "database-user": "${DATABASE_USER}"
+                "database-user": "${DATABASE_USER}",
+                "keybase": "${SECRET_KEY_BASE}"
             }
         },
         {
@@ -185,7 +186,12 @@
                                     },
                                     {
                                         "name": "SECRET_KEY_BASE",
-                                        "value": "${SECRET_KEY_BASE}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "keybase",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "PERL_APACHE2_RELOAD",

@@ -22,6 +22,9 @@
                 "name": "${NAME}"
             },
             "stringData": {
+                "cakephp-secret-token": "${CAKEPHP_SECRET_TOKEN}",
+                "cakephp-security-cipher-seed": "${CAKEPHP_SECURITY_CIPHER_SEED}",
+                "cakephp-security-salt": "${CAKEPHP_SECURITY_SALT}",
                 "database-password": "${DATABASE_PASSWORD}",
                 "database-user": "${DATABASE_USER}"
             }
@@ -200,15 +203,30 @@
                                     },
                                     {
                                         "name": "CAKEPHP_SECRET_TOKEN",
-                                        "value": "${CAKEPHP_SECRET_TOKEN}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "cakephp-secret-token",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "CAKEPHP_SECURITY_SALT",
-                                        "value": "${CAKEPHP_SECURITY_SALT}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "cakephp-security-salt",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "CAKEPHP_SECURITY_CIPHER_SEED",
-                                        "value": "${CAKEPHP_SECURITY_CIPHER_SEED}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "cakephp-security-cipher-seed",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "OPCACHE_REVALIDATE_FREQ",

@@ -22,8 +22,9 @@
                 "name": "${NAME}"
             },
             "stringData": {
-                "databasePassword": "${DATABASE_PASSWORD}",
-                "databaseUser": "${DATABASE_USER}"
+                "database-password": "${DATABASE_PASSWORD}",
+                "database-user": "${DATABASE_USER}",
+                "django-secret-key": "${DJANGO_SECRET_KEY}"
             }
         },
         {
@@ -176,7 +177,7 @@
                                         "name": "DATABASE_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -185,7 +186,7 @@
                                         "name": "DATABASE_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -196,7 +197,12 @@
                                     },
                                     {
                                         "name": "DJANGO_SECRET_KEY",
-                                        "value": "${DJANGO_SECRET_KEY}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "django-secret-key",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     }
                                 ],
                                 "image": " ",
@@ -322,7 +328,7 @@
                                         "name": "POSTGRESQL_USER",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databaseUser",
+                                                "key": "database-user",
                                                 "name": "${NAME}"
                                             }
                                         }
@@ -331,7 +337,7 @@
                                         "name": "POSTGRESQL_PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
-                                                "key": "databasePassword",
+                                                "key": "database-password",
                                                 "name": "${NAME}"
                                             }
                                         }

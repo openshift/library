@@ -17,6 +17,16 @@
     "objects": [
         {
             "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "${NAME}"
+            },
+            "stringData": {
+                "django-secret-key": "${DJANGO_SECRET_KEY}"
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "Service",
             "metadata": {
                 "annotations": {
@@ -154,7 +164,12 @@
                                     },
                                     {
                                         "name": "DJANGO_SECRET_KEY",
-                                        "value": "${DJANGO_SECRET_KEY}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "django-secret-key",
+                                                "name": "${NAME}"
+                                            }
+                                        }
                                     }
                                 ],
                                 "image": " ",
