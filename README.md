@@ -51,14 +51,12 @@ Community templates and image streams are **not** provided or supported by Red H
 
 ### Command Line Options
 
-    usage: import_content.py [-h] [--no-clean] [--no-cache]
+    usage: import_content.py [-h]
 
     Build OpenShift template and image-stream library
 
     optional arguments:
       -h, --help       show this help message and exit
-      --no-clean       Do not remove the tmp directory
-      --no-cache       Disable caching of github api requests
 
 ### Running the Script
 
@@ -110,10 +108,7 @@ The **folder_name** is a folder which represents a logical grouping for a set of
 
 #### location
 
-Location must be a github url that points to either a:
-
-- template, image-stream, or image-stream list file in JSON format
-- folder containing template, image-stream, or image-stream list files in JSON format
+The **location** must be a publicly available url that points to either a template, image-stream, or image-stream list file in JSON or YAML format
 
 #### docs
 
