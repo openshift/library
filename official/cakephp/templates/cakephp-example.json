@@ -89,6 +89,9 @@
                         "name": "${NAME}:latest"
                     }
                 },
+                "postCommit": {
+                    "script": "./lib/Cake/Console/cake test app AllTests"
+                },
                 "source": {
                     "contextDir": "${CONTEXT_DIR}",
                     "git": {
