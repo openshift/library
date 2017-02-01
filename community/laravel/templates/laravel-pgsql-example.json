@@ -99,11 +99,16 @@
                 },
                 "strategy": {
                     "sourceStrategy": {
-                        "forcePull": true,
+                        "env": [
+                            {
+                                "name": "COMPOSER_MIRROR",
+                                "value": "${COMPOSER_MIRROR}"
+                            }
+                        ],
                         "from": {
                             "kind": "ImageStreamTag",
                             "name": "php:7.0",
-                            "namespace": "openshift"
+                            "namespace": "${NAMESPACE}"
                         }
                     },
                     "type": "Source"
@@ -404,7 +409,7 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "name": "postgresql:9.5",
-                                "namespace": "openshift"
+                                "namespace": "${NAMESPACE}"
                             }
                         },
                         "type": "ImageChange"
@@ -423,6 +428,13 @@
             "name": "NAME",
             "required": true,
             "value": "laravel-pgsql-example"
+        },
+        {
+            "description": "The OpenShift Namespace where the ImageStream resides.",
+            "displayName": "Namespace",
+            "name": "NAMESPACE",
+            "required": true,
+            "value": "openshift"
         },
         {
             "description": "The URL of the repository with your application source code.",
