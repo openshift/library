@@ -1,0 +1,235 @@
+{
+    "apiVersion": "v1",
+    "kind": "Template",
+    "metadata": {
+        "annotations": {
+            "description": "3scale API Gateway",
+            "iconClass": "icon-load-balancer",
+            "tags": "api,gateway,3scale"
+        },
+        "creationTimestamp": null,
+        "name": "3scale-gateway"
+    },
+    "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "name": "${THREESCALE_GATEWAY_NAME}"
+            },
+            "spec": {
+                "replicas": 2,
+                "selector": {
+                    "deploymentconfig": "${THREESCALE_GATEWAY_NAME}"
+                },
+                "strategy": {
+                    "resources": {},
+                    "rollingParams": {
+                        "intervalSeconds": 1,
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%",
+                        "timeoutSeconds": 600,
+                        "updatePeriodSeconds": 1
+                    },
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "deploymentconfig": "${THREESCALE_GATEWAY_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "THREESCALE_PORTAL_ENDPOINT",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "password",
+                                                "name": "${THREESCALE_PORTAL_ENDPOINT_SECRET}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "THREESCALE_CONFIG_FILE",
+                                        "value": "${THREESCALE_CONFIG_FILE}"
+                                    },
+                                    {
+                                        "name": "RESOLVER",
+                                        "value": "${RESOLVER}"
+                                    },
+                                    {
+                                        "name": "APICAST_SERVICES",
+                                        "value": "${APICAST_SERVICES}"
+                                    },
+                                    {
+                                        "name": "APICAST_MISSING_CONFIGURATION",
+                                        "value": "${MISSING_CONFIGURATION}"
+                                    },
+                                    {
+                                        "name": "APICAST_LOG_LEVEL",
+                                        "value": "${APICAST_LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "APICAST_PATH_ROUTING_ENABLED",
+                                        "value": "${PATH_ROUTING}"
+                                    },
+                                    {
+                                        "name": "APICAST_RESPONSE_CODES",
+                                        "value": "${RESPONSE_CODES}"
+                                    },
+                                    {
+                                        "name": "APICAST_REQUEST_LOGS",
+                                        "value": "${REQUEST_LOGS}"
+                                    },
+                                    {
+                                        "name": "APICAST_RELOAD_CONFIG",
+                                        "value": "${APICAST_RELOAD_CONFIG}"
+                                    }
+                                ],
+                                "image": "${THREESCALE_GATEWAY_IMAGE}",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/status/live",
+                                        "port": 8090
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "${THREESCALE_GATEWAY_NAME}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/status/ready",
+                                        "port": 8090
+                                    },
+                                    "initialDelaySeconds": 15,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 30
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {}
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "${THREESCALE_GATEWAY_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "8080-tcp",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentconfig": "${THREESCALE_GATEWAY_NAME}"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "description": "Name of the secret containing the THREESCALE_PORTAL_ENDPOINT with the access-token or provider key",
+            "name": "THREESCALE_PORTAL_ENDPOINT_SECRET",
+            "required": true,
+            "value": "threescale-portal-endpoint-secret"
+        },
+        {
+            "description": "Path to saved JSON file with configuration for the gateway. Has to be injected to the docker image as read only volume.",
+            "name": "THREESCALE_CONFIG_FILE",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "Name for the 3scale API Gateway",
+            "name": "THREESCALE_GATEWAY_NAME",
+            "required": true,
+            "value": "threescalegw"
+        },
+        {
+            "description": "Docker image to use.",
+            "name": "THREESCALE_GATEWAY_IMAGE",
+            "required": true,
+            "value": "rhamp10/apicast-gateway:1.0.0-4"
+        },
+        {
+            "description": "DNS Resolver for openresty, if empty it will be autodiscovered",
+            "name": "RESOLVER",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "Subset of services to run. Use comma separated list of service ids (eg. 42,1337)",
+            "name": "APICAST_SERVICES",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "What to do on missing or invalid configuration. Allowed values are: log, exit.",
+            "name": "MISSING_CONFIGURATION",
+            "required": false,
+            "value": "exit"
+        },
+        {
+            "description": "Log level. One of the following: debug, info, notice, warn, error, crit, alert, or emerg.",
+            "name": "APICAST_LOG_LEVEL",
+            "required": false
+        },
+        {
+            "description": "Enable path routing. Experimental feature.",
+            "name": "PATH_ROUTING",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Enable traffic logging to 3scale. Includes whole request and response.",
+            "name": "REQUEST_LOGS",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Enable logging response codes to 3scale.",
+            "name": "RESPONSE_CODES",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Reload config on every request",
+            "name": "APICAST_RELOAD_CONFIG",
+            "required": false,
+            "value": "false"
+        }
+    ]
+}
