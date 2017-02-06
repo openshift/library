@@ -1,3 +1,9 @@
+# 3scale
+## templates
+### 3scale-gateway
+Source URL: [https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast-gateway-template.yml](https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast-gateway-template.yml )  
+Docs: [https://support.3scale.net/docs/deployment-options/apicast-openshift](https://support.3scale.net/docs/deployment-options/apicast-openshift)  
+Path: official/3scale/templates/3scale-gateway.json  
 # amq
 ## imagestreams
 ### jboss-amq-62
