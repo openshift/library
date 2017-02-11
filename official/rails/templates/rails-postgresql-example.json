@@ -253,7 +253,7 @@
                                     "initialDelaySeconds": 10,
                                     "timeoutSeconds": 3
                                 },
-                                "name": "rails-postgresql-example",
+                                "name": "${NAME}",
                                 "ports": [
                                     {
                                         "containerPort": 8080
@@ -281,7 +281,7 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "rails-postgresql-example"
+                                "${NAME}"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",

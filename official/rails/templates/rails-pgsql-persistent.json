@@ -253,7 +253,7 @@
                                     "initialDelaySeconds": 10,
                                     "timeoutSeconds": 3
                                 },
-                                "name": "rails-pgsql-persistent",
+                                "name": "${NAME}",
                                 "ports": [
                                     {
                                         "containerPort": 8080
@@ -281,7 +281,7 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "rails-pgsql-persistent"
+                                "${NAME}"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
