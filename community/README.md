@@ -12,6 +12,12 @@ Path: community/laravel/templates/laravel-pgsql-example.json
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/laravel/templates/laravel-sqlite-example.json  
+# swift
+## imagestreams
+### swift-ubuntu
+Source URL: [https://raw.githubusercontent.com/dudash/s2i-swift/master/openshift-resources/swift-all-ubuntu14-imagestreamlist.json](https://raw.githubusercontent.com/dudash/s2i-swift/master/openshift-resources/swift-all-ubuntu14-imagestreamlist.json )  
+Docs: [https://github.com/dudash/s2i-swift/blob/master/README.md](https://github.com/dudash/s2i-swift/blob/master/README.md)  
+Path: community/swift/imagestreams/swift-ubuntu-ubuntu14.json  
 # wildfly
 ## imagestreams
 ### wildfly
