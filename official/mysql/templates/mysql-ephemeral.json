@@ -10,7 +10,11 @@
             "description": "MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
             "iconClass": "icon-mysql-database",
             "openshift.io/display-name": "MySQL (Ephemeral)",
-            "tags": "database,mysql"
+            "tags": "database,mysql",
+            "template.openshift.io/documentation-url": "https://docs.openshift.org/latest/using_images/db_images/mysql.html",
+            "template.openshift.io/long-description": "This template provides a standalone MySQL server with a database created.  The database is not stored on persistent storage, so any restart of the service will result in all data being lost.  The database name, username, and password are chosen via parameters when provisioning this service.",
+            "template.openshift.io/provider-display-name": "Red Hat, Inc.",
+            "template.openshift.io/support-url": "https://access.redhat.com"
         },
         "name": "mysql-ephemeral"
     },
