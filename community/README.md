@@ -12,6 +12,12 @@ Path: community/laravel/templates/laravel-pgsql-example.json
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/laravel/templates/laravel-sqlite-example.json  
+# mailcatcher
+## templates
+### mailcatcher
+Source URL: [https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/mailcatcher/mailcatcher.yaml](https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/mailcatcher/mailcatcher.yaml )  
+Docs: [https://github.com/oprudkyi/openshift-templates/blob/master/mailcatcher/README.md](https://github.com/oprudkyi/openshift-templates/blob/master/mailcatcher/README.md)  
+Path: community/mailcatcher/templates/mailcatcher.json  
 # swift
 ## imagestreams
 ### swift-ubuntu
