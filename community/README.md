@@ -12,6 +12,12 @@ Path: community/laravel/templates/laravel-pgsql-example.json
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/laravel/templates/laravel-sqlite-example.json  
+# memcached
+## templates
+### memcached
+Source URL: [https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml](https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml )  
+Docs: [https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md](https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md)  
+Path: community/memcached/templates/memcached.json  
 # swift
 ## imagestreams
 ### swift-ubuntu
