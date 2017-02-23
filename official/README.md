@@ -325,10 +325,6 @@ Path: official/fis/templates/s2i-springboot-cxf-jaxws.json
 # mariadb
 ## imagestreams
 ### mariadb
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
-Path: official/mariadb/imagestreams/mariadb-centos7.json  
-### mariadb
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/imagestreams/mariadb-rhel7.json  
@@ -343,10 +339,6 @@ Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/REA
 Path: official/mariadb/templates/mariadb-persistent.json  
 # mongodb
 ## imagestreams
-### mongodb
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
-Path: official/mongodb/imagestreams/mongodb-centos7.json  
 ### mongodb
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
@@ -363,10 +355,6 @@ Path: official/mongodb/templates/mongodb-persistent.json
 # mysql
 ## imagestreams
 ### mysql
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/mysql-container/blob/master/README.md](https://github.com/sclorg/mysql-container/blob/master/README.md)  
-Path: official/mysql/imagestreams/mysql-centos7.json  
-### mysql
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/mysql-container/blob/master/README.md](https://github.com/sclorg/mysql-container/blob/master/README.md)  
 Path: official/mysql/imagestreams/mysql-rhel7.json  
@@ -381,10 +369,6 @@ Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/REA
 Path: official/mysql/templates/mysql-persistent.json  
 # nodejs
 ## imagestreams
-### nodejs
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md](https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md)  
-Path: official/nodejs/imagestreams/nodejs-centos7.json  
 ### nodejs
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md](https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md)  
@@ -405,29 +389,17 @@ Path: official/nodejs/templates/nodejs-mongo-persistent.json
 # perl
 ## imagestreams
 ### perl
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/s2i-perl-container/blob/master/README.md](https://github.com/sclorg/s2i-perl-container/blob/master/README.md)  
-Path: official/perl/imagestreams/perl-centos7.json  
-### perl
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-perl-container/blob/master/README.md](https://github.com/sclorg/s2i-perl-container/blob/master/README.md)  
 Path: official/perl/imagestreams/perl-rhel7.json  
 # php
 ## imagestreams
 ### php
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/s2i-php-container/blob/master/README.md](https://github.com/sclorg/s2i-php-container/blob/master/README.md)  
-Path: official/php/imagestreams/php-centos7.json  
-### php
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-php-container/blob/master/README.md](https://github.com/sclorg/s2i-php-container/blob/master/README.md)  
 Path: official/php/imagestreams/php-rhel7.json  
 # postgresql
 ## imagestreams
-### postgresql
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
-Path: official/postgresql/imagestreams/postgresql-centos7.json  
 ### postgresql
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
@@ -487,10 +459,6 @@ Path: official/processserver/templates/processserver63-postgresql-s2i.json
 # python
 ## imagestreams
 ### python
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/s2i-python-container/blob/master/README.md](https://github.com/sclorg/s2i-python-container/blob/master/README.md)  
-Path: official/python/imagestreams/python-centos7.json  
-### python
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-python-container/blob/master/README.md](https://github.com/sclorg/s2i-python-container/blob/master/README.md)  
 Path: official/python/imagestreams/python-rhel7.json  
@@ -507,10 +475,6 @@ Path: official/rails/templates/rails-pgsql-persistent.json
 # redis
 ## imagestreams
 ### redis
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://github.com/sclorg/redis-container/blob/master/README.md)  
-Path: official/redis/imagestreams/redis-centos7.json  
-### redis
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://github.com/sclorg/redis-container/blob/master/README.md)  
 Path: official/redis/imagestreams/redis-rhel7.json  
@@ -525,10 +489,6 @@ Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/REA
 Path: official/redis/templates/redis-persistent.json  
 # ruby
 ## imagestreams
-### ruby
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
-Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
-Path: official/ruby/imagestreams/ruby-centos7.json  
 ### ruby
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  

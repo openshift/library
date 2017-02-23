@@ -3,10 +3,6 @@ variables:
 data:
   ruby:
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
-        regex: ruby
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
         regex: ruby
@@ -19,10 +15,6 @@ data:
         docs: https://github.com/openshift/rails-ex/blob/master/README.md
   python:
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
-        regex: python
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
         regex: python
@@ -44,20 +36,12 @@ data:
       - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
         docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
-        regex: nodejs
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
         regex: nodejs
         suffix: rhel7
   perl:
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
-        regex: perl
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
         regex: perl
@@ -72,10 +56,6 @@ data:
         docs: https://github.com/openshift/dancer-ex/blob/master/README.md
   php:
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
-        regex: php
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
         regex: php
@@ -95,10 +75,6 @@ data:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
-        regex: mariadb
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
         regex: mariadb
@@ -110,10 +86,6 @@ data:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-        regex: mongodb
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
         regex: mongodb
@@ -125,10 +97,6 @@ data:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
-        regex: mysql
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
         regex: mysql
@@ -140,10 +108,6 @@ data:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
-        regex: postgresql
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
         regex: postgresql
@@ -155,10 +119,6 @@ data:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
-        docs: https://github.com/sclorg/redis-container/blob/master/README.md
-        regex: redis
-        suffix: centos7
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
         regex: redis
