@@ -1,0 +1,188 @@
+{
+    "apiVersion": "v1",
+    "kind": "Template",
+    "labels": {
+        "template": "mailcatcher-template"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "MailCatcher ( https://mailcatcher.me ) runs a super simple SMTP server which catches any message sent to it to display in a web interface.\nIt uses mailcatcher image from unofficial repository at docker hub. https://hub.docker.com/r/schickling/mailcatcher/",
+            "tags": "mailcatcher"
+        },
+        "creationTimestamp": null,
+        "name": "mailcatcher"
+    },
+    "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "mailcatcher"
+                },
+                "name": "is-mailcatcher"
+            },
+            "spec": {
+                "dockerImageRepository": "",
+                "tags": [
+                    {
+                        "from": {
+                            "kind": "DockerImage",
+                            "name": "schickling/mailcatcher:latest"
+                        },
+                        "importPolicy": {
+                            "scheduled": true
+                        },
+                        "name": "mailcatcher_pseudo_tag"
+                    }
+                ]
+            },
+            "status": {
+                "dockerImageRepository": ""
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "${MAILCATCHER_SERVICE_NAME}"
+            },
+            "spec": {
+                "portalIP": "",
+                "ports": [
+                    {
+                        "name": "80-http",
+                        "port": 80,
+                        "protocol": "TCP",
+                        "targetPort": 1080
+                    },
+                    {
+                        "name": "25-smtp",
+                        "port": 25,
+                        "protocol": "TCP",
+                        "targetPort": 1025
+                    }
+                ],
+                "selector": {
+                    "name": "${MAILCATCHER_SERVICE_NAME}"
+                },
+                "sessionAffinity": "None",
+                "type": "ClusterIP"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "creationTimestamp": null,
+                "name": "dc-${MAILCATCHER_SERVICE_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "name": "${MAILCATCHER_SERVICE_NAME}"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "name": "${MAILCATCHER_SERVICE_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "capabilities": {},
+                                "image": " ",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 5,
+                                    "tcpSocket": {
+                                        "port": 1025
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "cnt-mailcatcher",
+                                "ports": [
+                                    {
+                                        "containerPort": 1025,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 1080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/usr/bin/pgrep",
+                                            "mailcatcher"
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
+                                "securityContext": {
+                                    "capabilities": {},
+                                    "privileged": false
+                                },
+                                "terminationMessagePath": "/dev/termination-log"
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always"
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "cnt-mailcatcher"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "is-mailcatcher:mailcatcher_pseudo_tag"
+                            },
+                            "lastTriggeredImage": ""
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            },
+            "status": {}
+        }
+    ],
+    "parameters": [
+        {
+            "description": "Maximum amount of memory the container can use.",
+            "displayName": "Memory Limit",
+            "name": "MEMORY_LIMIT",
+            "value": "512Mi"
+        },
+        {
+            "description": "The name of the OpenShift Service exposed for the Mailcatcher.",
+            "displayName": "Mailcatcher Service Name",
+            "name": "MAILCATCHER_SERVICE_NAME",
+            "required": true,
+            "value": "mailcatcher"
+        }
+    ]
+}
