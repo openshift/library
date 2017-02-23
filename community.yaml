@@ -23,3 +23,125 @@ data:
         docs: https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md
         regex: wildfly
         suffix: centos7
+  ruby:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: centos7
+  rails:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json
+        docs: https://github.com/openshift/rails-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
+        docs: https://github.com/openshift/rails-ex/blob/master/README.md
+  python:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
+        regex: python
+        suffix: centos7
+  django:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json
+        docs: https://github.com/openshift/django-ex/blob/master/README.md
+  nodejs:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
+        docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
+        regex: nodejs
+        suffix: centos7
+  perl:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
+        regex: perl
+        suffix: centos7
+  dancer:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
+        docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+  php:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
+        regex: php
+        suffix: centos7
+  cakephp:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
+        docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+  mariadb:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        regex: mariadb
+        suffix: centos7
+  mongodb:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        regex: mongodb
+        suffix: centos7
+  mysql:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+        regex: mysql
+        suffix: centos7
+  postgresql:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        regex: postgresql
+        suffix: centos7
+  redis:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
+        docs: https://github.com/sclorg/redis-container/blob/master/README.md
+        regex: redis
+        suffix: centos7
