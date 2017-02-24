@@ -99,18 +99,6 @@
             }
         ]
     },
-
-    "memcached": {
-        "templates": [
-            {
-                "description": "Memcached service. It uses memcached image from official repository at docker hub. https://hub.docker.com/r/library/memcached/",
-                "docs": "https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md",
-                "name": "memcached",
-                "path": "community/memcached/templates/memcached.json",
-                "source_url": "https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml"
-            }
-        ]   
-    },
     "mailcatcher": {
         "templates": [
             {
@@ -120,7 +108,7 @@
                 "path": "community/mailcatcher/templates/mailcatcher.json",
                 "source_url": "https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/mailcatcher/mailcatcher.yaml"
             }
-        ]   
+        ]
     },
     "mariadb": {
         "imagestreams": [
@@ -145,6 +133,17 @@
                 "name": "mariadb-persistent",
                 "path": "community/mariadb/templates/mariadb-persistent.json",
                 "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json"
+            }
+        ]
+    },
+    "memcached": {
+        "templates": [
+            {
+                "description": "Memcached service. It uses memcached image from official repository at docker hub. https://hub.docker.com/r/library/memcached/",
+                "docs": "https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md",
+                "name": "memcached",
+                "path": "community/memcached/templates/memcached.json",
+                "source_url": "https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml"
             }
         ]
     },

@@ -54,12 +54,6 @@ Path: community/laravel/templates/laravel-pgsql-example.json
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/laravel/templates/laravel-sqlite-example.json  
-# memcached
-## templates
-### memcached
-Source URL: [https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml](https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml )  
-Docs: [https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md](https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md)  
-Path: community/memcached/templates/memcached.json  
 # mailcatcher
 ## templates
 ### mailcatcher
@@ -81,6 +75,12 @@ Path: community/mariadb/templates/mariadb-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
 Path: community/mariadb/templates/mariadb-persistent.json  
+# memcached
+## templates
+### memcached
+Source URL: [https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml](https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml )  
+Docs: [https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md](https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md)  
+Path: community/memcached/templates/memcached.json  
 # mongodb
 ## imagestreams
 ### mongodb
