@@ -7,7 +7,6 @@ This repository contains a curated set of image streams and templates for OpenSh
     - [Official](#official)
     - [Community](#community)
 - [Building the Library](#building-the-library)
-    - [Environment Variables](#environment-variables)
     - [Python Dependencies](#python-dependencies)
     - [Command Line Options](#command-line-options)
     - [Running the Script](#running-the-script)
@@ -19,7 +18,6 @@ This repository contains a curated set of image streams and templates for OpenSh
         - [docs](#docs)
         - [regex](#regex)
         - [suffix](#suffix)
-                
     - [Adding Your Template or ImageStream](#adding-your-template-or-imagestream)
 - [Additional Information](#additional-information)
 
@@ -34,7 +32,6 @@ You can check to see which of the official Templates and ImageStreams are availa
 
 - Log into the web console and click **Add to Project**
 - List them for the openshift project using the **Command Line Interface**
-
 
     $ oc get templates -n openshift  
     $ oc get imagestreams -n openshift
@@ -77,12 +74,12 @@ That's it!  Your pull request will be reviewed by a member of the OpenShift Team
 
 ### YAML file structure:
 
-    variables: (optional) top level block item
+    variables: # (optional) top level block item
       <variable_name>: <value> # (optional)
-    data: # top level block item
+    data: # (required) top level block item
       <folder_name>: # (required) folder that the below items will be stored in
         imagestreams: # (optional) list of image-streams to process into the above folder
-          - location: # (required) github url to a json file or folder of json files 
+          - location: # (required) github url to a json file or folder of json files
             regex: # (optional) matched against ['metadata']['name'] in the json file
             suffix: # (optional) suffix for the file that is created ex: ruby-<suffix>.json
             docs: # (optional) web address of the documentation for this image-stream
