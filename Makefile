@@ -18,6 +18,7 @@ verify:
 #
 # Example:
 #   make import
+#   make import TAGS=online-starter,online-professional
 import:
-	python import_content.py
+	python import_content.py -t ${TAGS}
 .PHONY: import
