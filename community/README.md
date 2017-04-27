@@ -42,18 +42,18 @@ Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://git
 Path: community/django/templates/django-psql-persistent.json  
 # laravel
 ## templates
-### laravel-mysql-example
+### laravel-mysql-persistent
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
-Path: community/laravel/templates/laravel-mysql-example.json  
-### laravel-pgsql-example
+Path: community/laravel/templates/laravel-mysql-persistent.json  
+### laravel-pgsql-persistent
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-postgresql.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-postgresql.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
-Path: community/laravel/templates/laravel-pgsql-example.json  
-### laravel-sqlite-example
+Path: community/laravel/templates/laravel-pgsql-persistent.json  
+### laravel-sqlite
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
-Path: community/laravel/templates/laravel-sqlite-example.json  
+Path: community/laravel/templates/laravel-sqlite.json  
 # mailcatcher
 ## templates
 ### mailcatcher
