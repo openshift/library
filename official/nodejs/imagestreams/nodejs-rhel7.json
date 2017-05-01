@@ -20,7 +20,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "4"
+                    "name": "6"
                 },
                 "name": "latest"
             },
@@ -55,6 +55,22 @@
                     "name": "registry.access.redhat.com/rhscl/nodejs-4-rhel7:latest"
                 },
                 "name": "4"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 6 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 6",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:6,nodejs",
+                    "tags": "builder,nodejs",
+                    "version": "6"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/rhscl/nodejs-6-rhel7:latest"
+                },
+                "name": "6"
             }
         ]
     }
