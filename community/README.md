@@ -118,7 +118,7 @@ Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/
 Docs: [https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md](https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md)  
 Path: community/nodejs/imagestreams/nodejs-centos7.json  
 ### centos7-s2i-nodejs
-Source URL: [https://raw.githubusercontent.com/bucharest-gold/origin-s2i-nodejs/master/image-streams.json](https://raw.githubusercontent.com/bucharest-gold/origin-s2i-nodejs/master/image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/bucharest-gold/origin-s2i-nodejs/master/image-streams.centos7.json](https://raw.githubusercontent.com/bucharest-gold/origin-s2i-nodejs/master/image-streams.centos7.json )  
 Docs: [https://github.com/bucharest-gold/origin-s2i-nodejs/blob/master/README.md](https://github.com/bucharest-gold/origin-s2i-nodejs/blob/master/README.md)  
 Path: community/nodejs/imagestreams/centos7-s2i-nodejs-bucharest-gold.json  
 ## templates
