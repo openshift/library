@@ -3,7 +3,6 @@
 """Imports templates and imagestreams from various sources"""
 
 import argparse
-import hashlib
 import json
 import os
 import re
@@ -11,12 +10,14 @@ import shutil
 import requests
 import yaml
 
+
 SVARS = {
-    "base_dir"      : os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-    "sources"       : ['official', 'community'],
-    "vars"          : {},
-    "index"         : {}
+    "base_dir": os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
+    "sources": ['official', 'community'],
+    "vars": {},
+    "index": {}
     }
+
 
 def message(action, sub_action, text):
     """ Outputs a formatted message to stdout
@@ -28,6 +29,7 @@ def message(action, sub_action, text):
 
     """
     print('{:<10} | {:<17} | {}'.format(action, sub_action, text))
+
 
 def is_json(data):
     """ Checks if the data is json
@@ -43,6 +45,7 @@ def is_json(data):
     except:
         return False
     return True
+
 
 def is_yaml(data):
     """ Checks if the data is valid yaml
@@ -60,6 +63,7 @@ def is_yaml(data):
     except:
         return False
     return True
+
 
 def is_valid(data):
     """Checks the validity of a JSON or YAML document
@@ -80,6 +84,7 @@ def is_valid(data):
     else:
         return False, None
 
+
 def append_to_index(source, folder, sub_folder, data):
     """ Appends information about a template or image-stream to the index file
         that users can script against to find the templates and image-streams listed
@@ -92,13 +97,14 @@ def append_to_index(source, folder, sub_folder, data):
         data (dictionary): data that should be included in the listing
 
     """
-    if not source in SVARS['index']:
+    if source not in SVARS['index']:
         SVARS['index'][source] = {}
-    if not folder in SVARS['index'][source]:
+    if folder not in SVARS['index'][source]:
         SVARS['index'][source][folder] = {}
-    if not sub_folder in SVARS['index'][source][folder]:
+    if sub_folder not in SVARS['index'][source][folder]:
         SVARS['index'][source][folder][sub_folder] = []
     SVARS['index'][source][folder][sub_folder].append(data)
+
 
 def replace_variables(string):
     """ Replaces the {variables} in a YAML document based on the data
@@ -118,6 +124,7 @@ def replace_variables(string):
             message('Processing', 'variables', 'replacing ' + match + ' with ' + SVARS['vars'][re.sub(r'\{|\}', '', match)])
     return string
 
+
 def fetch_url(path):
     """ Fetches json or yaml data from a url
 
@@ -125,7 +132,7 @@ def fetch_url(path):
         path (string): the github url to use for the API call
 
     Returns:
-        status_code: None if successful, req.status_code if !200
+        status_code: The HTTP status code from the response
         Python dictionary: the data returned from the successful API call, or None if !200
 
     """
@@ -137,9 +144,10 @@ def fetch_url(path):
         if not valid:
             message('Error', 'invalid data', path)
             return "Error, invalid data detected", None
-        return None, dict_data
+        return req.status_code, dict_data
     else:
         return req.status_code, None
+
 
 def write_data_to_file(data, path):
     """ Writes formatted json data to a file at path
@@ -154,10 +162,12 @@ def write_data_to_file(data, path):
     target_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
     target_file.close()
 
+
 def process_template(source, folder, location_list, template):
     """ Processes a template and writes it's data to a file in JSON format
 
     Args:
+        source (string): item from the sources list
         folder (string): the folder to place the file in
         location_list (dictionary): information about the template from the YAML file
         template (json): information about the data to get for the template
@@ -166,8 +176,7 @@ def process_template(source, folder, location_list, template):
     message('Processing', 'template', template['metadata']['name'])
     matches = False
     if 'regex' in location_list:
-        if valid:
-            matches = re.search(r'(^' + location_list['regex'] + ')', template["metadata"]["name"])
+        matches = re.search(r'(^' + location_list['regex'] + ')', template["metadata"]["name"])
     if matches or 'regex' not in location_list:
         index_data = {
             'name': template['metadata']['name'],
@@ -179,13 +188,15 @@ def process_template(source, folder, location_list, template):
         append_to_index(source, folder, 'templates', index_data)
         write_data_to_file(template, SVARS['base_dir'] + '/' + folder + '/templates/' + template['metadata']['name'] + '.json')
 
+
 def process_imagestream(source, folder, location_list, imagestream):
     """ Processes an image-stream and writes it's data to a file in JSON format
 
     Args:
+        source (string): item from the sources list
         folder (string): the folder to place the file in
         location_list (dictionary): information about the image-stream from the YAML file
-        imagestream (json): information abou the data to get for the image-stream
+        imagestream (json): information about the data to get for the image-stream
 
     """
     message('Processing', 'image-stream', '')
@@ -206,10 +217,11 @@ def process_imagestream(source, folder, location_list, imagestream):
                 'name': stream['metadata']['name'],
                 'docs': location_list['docs'] if 'docs' in location_list else '',
                 'source_url': location_list['location'],
-                'path': source + '/' + folder + '/imagestreams/' +  stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json"
+                'path': source + '/' + folder + '/imagestreams/' + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json"
                 }
             append_to_index(source, folder, 'imagestreams', index_data)
             write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json")
+
 
 def create_indexes():
     """ Creates the index.json and README.md files """
@@ -228,6 +240,7 @@ def create_indexes():
                         if 'docs' in item and item['docs'] != '':
                             index_file.write('Docs: [' + item['docs'] + '](' + item['docs'] + ')  \n')
                         index_file.write('Path: ' + item['path'] + '  \n')
+
 
 def main():
     """ Runs the main program, gets the data from the YAML file(s)
@@ -274,6 +287,9 @@ def main():
                             if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
                                 os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
                             status, dict_data = fetch_url(item['location'])
+                            if status != 200:
+                                message('Error', 'Not Found', item['location'])
+                                exit(1)
                             if item_type == 'templates':
                                 process_template(source, folder, item, dict_data)
                             elif item_type == 'imagestreams':
