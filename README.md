@@ -11,12 +11,13 @@ This repository contains a curated set of image streams and templates for OpenSh
     - [Community](#community)
 - [Building the Library](#building-the-library)
     - [Python Dependencies](#python-dependencies)
-    - [Command Line Options](#command-line-options)
     - [Running the Script](#running-the-script)
+    - [Verifying Your Updates](#verifying-your-updates)
 - [Contributing](#contributing)
     - [YAML File Structure](#yaml-file-structure)
         - [Variables](#variables)
         - [Organization](#organization)
+        - [folder_name](#folder_name)
         - [location](#location)
         - [docs](#docs)
         - [regex](#regex)
@@ -49,28 +50,30 @@ Community templates and image streams are **not** provided or supported by Red H
 
     $ pip install -r requirements.txt
 
-### Command Line Options
-
-    usage: import_content.py [-h]
-
-    Build OpenShift template and image-stream library
-
-    optional arguments:
-      -h, --help       show this help message and exit
-
 ### Running the Script
 
-    $ python import_content.py
+    $ make import
+    
+## Verifying Your Updates
+
+    $ make verify
+    
+The `make verify` command runs the following checks:
+ - verifies YAML syntax
+ - verifies the Python script *(using pylint)* 
+ - verifies that make import has been run
 
 ## Contributing
 
 ### Adding Your Template or ImageStream
 
-- Fork the https://github.com/openshift/library on github
+- Fork the [openshift/library](https://github.com/openshift/library) repository on github
 - Add your template or image stream to the **community.yaml** file in the top level of this project
-- Run the **import_content.py** script and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** folder and that no errors have occurred.
-- Commit your changes to your fork of the github repo
-- Create a pull request against the https://github.com/openshift/library upstream repository
+- Run the `make import` command and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** folder and that no errors have occurred.
+- Run the `make verify` command and ensure that no errors occur
+- Commit and push your changes to your fork of the github repository
+  - Make sure to commit any changes in the **community** folder
+- Create a pull request against the [openshift/library](https://github.com/openshift/library) upstream repository
 
 That's it!  Your pull request will be reviewed by a member of the OpenShift Team and merged if everything looks good.
 
@@ -104,7 +107,11 @@ You must also specify a value for that variable name under the **variables** blo
 
 #### Organization
 
-The **folder_name** is a folder which represents a logical grouping for a set of templates or image-streams.  Listings in the **community.yaml** file will be created in a sub folder of the  **community** top level folder.
+Listings in the **official.yaml** file will be created in a sub folder of the  **official** top level folder.  Listings in the **community.yaml** file will be created in a sub folder of the **community** top level folder.
+
+#### folder_name
+
+The **folder_name** is a sub folder which represents a logical grouping for a set of templates or image-streams in the top level **official** or **community** folders.
 
 #### location
 
@@ -116,7 +123,7 @@ The **docs** is a field to list the web address of the documentation for the tem
 
 #### regex
 
-The **regex** is a plain string that is matched against the ['metadata']['name'] element in the template or image-stream.  Make sure that the **regex** string that you provide is descriptive enough to only match the ['metadata']['name'] that you are trying to target.
+The **regex** is a plain string that is matched against the `['metadata']['name']` element in the template or image-stream.  Make sure that the **regex** string that you provide is descriptive enough to only match the `['metadata']['name']` that you are trying to target.
 
 #### suffix
 
