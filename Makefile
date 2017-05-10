@@ -10,6 +10,7 @@
 #   make verify
 verify:
 	hack/verify-python.sh
+	hack/verify-yaml.sh
 	hack/verify-pullrequest.sh
 .PHONY: verify
 
