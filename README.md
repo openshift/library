@@ -1,5 +1,8 @@
 # OpenShift Image Streams and Templates
 
+[![Build Status](https://travis-ci.org/openshift/library.svg?branch=master)](https://travis-ci.org/openshift/library)
+[![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=update_openshift_library)](https://ci.openshift.redhat.com/jenkins/job/update_openshift_library/)
+
 This repository contains a curated set of image streams and templates for OpenShift 3. See the official OpenShift documentation for more information about **[image streams](https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)** and **[templates](https://docs.openshift.org/latest/dev_guide/templates.html)**.
 
 
