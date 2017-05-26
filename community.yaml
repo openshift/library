@@ -27,6 +27,15 @@ data:
         docs: https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md
         regex: wildfly
         suffix: centos7
+  infinispan:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json
+        docs: https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md
+        regex: infinispan
+        suffix: centos7
+    templates:
+      - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json
+        docs: https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md
   ruby:
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json
