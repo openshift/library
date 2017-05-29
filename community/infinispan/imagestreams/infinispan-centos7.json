@@ -1,0 +1,54 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Infinispan"
+        },
+        "name": "infinispan"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Infinispan 9, a high performance data grid solution",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan 9 (Latest)",
+                    "tags": "java,database,datagrid,jboss"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "9.0"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "description": "Infinispan 9, a high performance data grid solution",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan 9 (Latest)",
+                    "tags": "java,database,datagrid,jboss"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "jboss/infinispan-server:9.0.1.Final"
+                },
+                "name": "9.0"
+            },
+            {
+                "annotations": {
+                    "description": "Infinispan 8, a high performance data grid solution",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan 8",
+                    "tags": "java,database,datagrid,jboss",
+                    "version": "8.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "jboss/infinispan-server:8.2.6.Final"
+                },
+                "name": "8.2"
+            }
+        ]
+    }
+}
