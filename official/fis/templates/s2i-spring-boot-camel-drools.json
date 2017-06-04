@@ -2,16 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-springboot-cxf-jaxrs"
+        "template": "s2i-spring-boot-camel-drools"
     },
     "metadata": {
         "annotations": {
-            "description": "Spring-Boot and CXF JAXRS QuickStart. This example demonstrates how you can use Apache CXF JAXRS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXRS endpoint with Swagger enabled.",
+            "description": "Spring-Boot, Camel and JBoss BRMS QuickStart. This example demonstrates how you can use Apache Camel and JBoss BRMS with Spring Boot on OpenShift. DRL files contain simple rules which are used to create knowledge session via Spring configuration file. Camel routes, defined via Spring as well, are then used to e.g. pass (insert) the Body of the message as a POJO to Drools engine for execution. A Kie Server should be deployed and configured before running the application, more information about how to configure it can be found at https://github.com/fabric8-quickstarts/spring-boot-camel-drools/blob/master/README.redhat.md",
             "iconClass": "icon-jboss",
             "tags": "quickstart,java,springboot,fis",
             "version": "2.0"
         },
-        "name": "s2i-springboot-cxf-jaxrs"
+        "name": "s2i-spring-boot-camel-drools"
     },
     "objects": [
         {
@@ -168,6 +168,18 @@
                                                 "fieldPath": "metadata.namespace"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "KIESERVER_SERVICE",
+                                        "value": "${KIESERVER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIESERVER_USERNAME",
+                                        "value": "${KIESERVER_USERNAME}"
+                                    },
+                                    {
+                                        "name": "KIESERVER_PASSWORD",
+                                        "value": "${KIESERVER_PASSWORD}"
                                     }
                                 ],
                                 "image": "library/${APP_NAME}:latest",
@@ -232,20 +244,40 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-springboot-cxf-jaxrs"
+            "value": "s2i-spring-boot-camel-drools"
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "GIT_REPO",
             "required": true,
-            "value": "https://github.com/fabric8-quickstarts/spring-boot-cxf-jaxrs.git"
+            "value": "https://github.com/fabric8-quickstarts/spring-boot-camel-drools.git"
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "GIT_REF",
             "value": "master"
+        },
+        {
+            "description": "Set this to the name of the Decision Server. You may need to create an instance before.",
+            "displayName": "Decision Server Name",
+            "name": "KIESERVER_SERVICE",
+            "required": true,
+            "value": "kie-app"
+        },
+        {
+            "description": "The username used to authenticate with the Decision Server.",
+            "displayName": "Decision Server Username",
+            "name": "KIESERVER_USERNAME",
+            "required": true,
+            "value": "kieserver"
+        },
+        {
+            "description": "The password used to authenticate with the Decision Server.",
+            "displayName": "Decision Server Password",
+            "name": "KIESERVER_PASSWORD",
+            "required": true
         },
         {
             "description": "The version of the FIS S2I builder image to use.",

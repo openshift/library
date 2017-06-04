@@ -2,16 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-springboot-cxf-jaxws"
+        "template": "s2i-spring-boot-camel"
     },
     "metadata": {
         "annotations": {
-            "description": "Spring-Boot and CXF JAXWS QuickStart. This example demonstrates how you can use Apache CXF JAXWS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXWS endpoint.",
+            "description": "Spring-Boot and Camel QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a Camel route that triggeres a message every 5th second, and routes the message to a log.",
             "iconClass": "icon-jboss",
             "tags": "quickstart,java,springboot,fis",
             "version": "2.0"
         },
-        "name": "s2i-springboot-cxf-jaxws"
+        "name": "s2i-spring-boot-camel"
     },
     "objects": [
         {
@@ -232,14 +232,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-springboot-cxf-jaxws"
+            "value": "s2i-spring-boot-camel"
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "GIT_REPO",
             "required": true,
-            "value": "https://github.com/fabric8-quickstarts/spring-boot-cxf-jaxws.git"
+            "value": "https://github.com/fabric8-quickstarts/spring-boot-camel.git"
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",

@@ -286,42 +286,42 @@ Path: official/fis/templates/s2i-karaf2-camel-rest-sql.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/templates/s2i-karaf2-cxf-rest.json  
-### s2i-springboot-camel-amq
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-amq-template.json )  
+### s2i-spring-boot-camel-amq
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-amq.json  
-### s2i-springboot-camel-brms
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-brms-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-brms-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-amq.json  
+### s2i-spring-boot-camel-drools
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-drools-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-drools-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-brms.json  
-### s2i-springboot-camel-jdg
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdg-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdg-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-drools.json  
+### s2i-spring-boot-camel-infinispan
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-infinispan-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-infinispan-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-jdg.json  
-### s2i-springboot-camel-jdv
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdv-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdv-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-infinispan.json  
+### s2i-spring-boot-camel-teiid
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-teiid-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-teiid-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-jdv.json  
-### s2i-springboot-camel-rest-sql
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-rest-sql-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-rest-sql-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-teiid.json  
+### s2i-spring-boot-camel-rest-sql
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-rest-sql-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-rest-sql-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-rest-sql.json  
-### s2i-springboot-camel
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-rest-sql.json  
+### s2i-spring-boot-camel
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel.json  
-### s2i-springboot-camel-xml
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-xml-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel.json  
+### s2i-spring-boot-camel-xml
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-camel-xml.json  
-### s2i-springboot-cxf-jaxrs
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxrs-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxrs-template.json )  
+Path: official/fis/templates/s2i-spring-boot-camel-xml.json  
+### s2i-spring-boot-cxf-jaxrs
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxrs-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxrs-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-cxf-jaxrs.json  
-### s2i-springboot-cxf-jaxws
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxws-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxws-template.json )  
+Path: official/fis/templates/s2i-spring-boot-cxf-jaxrs.json  
+### s2i-spring-boot-cxf-jaxws
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxws-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxws-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-springboot-cxf-jaxws.json  
+Path: official/fis/templates/s2i-spring-boot-cxf-jaxws.json  
 # mariadb
 ## imagestreams
 ### mariadb

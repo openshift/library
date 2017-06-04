@@ -2,16 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-springboot-camel-brms"
+        "template": "s2i-spring-boot-camel-amq"
     },
     "metadata": {
         "annotations": {
-            "description": "Spring-Boot, Camel and JBoss BRMS QuickStart. This example demonstrates how you can use Apache Camel and JBoss BRMS with Spring Boot on OpenShift. DRL files contain simple rules which are used to create knowledge session via Spring configuration file. Camel routes, defined via Spring as well, are then used to e.g. pass (insert) the Body of the message as a POJO to Drools engine for execution.",
+            "description": "Spring Boot, Camel and ActiveMQ QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using OpenShift. In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes are running. This quickstart requires the ActiveMQ broker has been deployed and running first, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq62-basic template",
             "iconClass": "icon-jboss",
             "tags": "quickstart,java,springboot,fis",
             "version": "2.0"
         },
-        "name": "s2i-springboot-camel-brms"
+        "name": "s2i-spring-boot-camel-amq"
     },
     "objects": [
         {
@@ -170,16 +170,16 @@
                                         }
                                     },
                                     {
-                                        "name": "KIESERVER_SERVICE",
-                                        "value": "${KIESERVER_SERVICE}"
+                                        "name": "ACTIVEMQ_SERVICE_NAME",
+                                        "value": "${ACTIVEMQ_SERVICE_NAME}"
                                     },
                                     {
-                                        "name": "KIESERVER_USERNAME",
-                                        "value": "${KIESERVER_USERNAME}"
+                                        "name": "ACTIVEMQ_BROKER_USERNAME",
+                                        "value": "${ACTIVEMQ_BROKER_USERNAME}"
                                     },
                                     {
-                                        "name": "KIESERVER_PASSWORD",
-                                        "value": "${KIESERVER_PASSWORD}"
+                                        "name": "ACTIVEMQ_BROKER_PASSWORD",
+                                        "value": "${ACTIVEMQ_BROKER_PASSWORD}"
                                     }
                                 ],
                                 "image": "library/${APP_NAME}:latest",
@@ -244,14 +244,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-springboot-camel-brms"
+            "value": "s2i-spring-boot-camel-amq"
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "GIT_REPO",
             "required": true,
-            "value": "https://github.com/fabric8-quickstarts/spring-boot-camel-drools.git"
+            "value": "https://github.com/fabric8-quickstarts/spring-boot-camel-amq.git"
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
@@ -260,24 +260,21 @@
             "value": "master"
         },
         {
-            "description": "Set this to the name of the Decision Server. You may need to create an instance before.",
-            "displayName": "Decision Server Name",
-            "name": "KIESERVER_SERVICE",
+            "description": "Set this to the name of the TCP service of the ActiveMQ broker. You may need to create a broker first.",
+            "displayName": "ActiveMQ Broker Service",
+            "name": "ACTIVEMQ_SERVICE_NAME",
             "required": true,
-            "value": "kie-app"
+            "value": "broker-amq-tcp"
         },
         {
-            "description": "The username used to authenticate with the Decision Server.",
-            "displayName": "Decision Server Username",
-            "name": "KIESERVER_USERNAME",
-            "required": true,
-            "value": "kieserver"
+            "description": "The username used to authenticate with the ActiveMQ broker. Leave it empty if authentication is disabled.",
+            "displayName": "ActiveMQ Broker Username",
+            "name": "ACTIVEMQ_BROKER_USERNAME"
         },
         {
-            "description": "The password used to authenticate with the Decision Server.",
-            "displayName": "Decision Server Password",
-            "name": "KIESERVER_PASSWORD",
-            "required": true
+            "description": "The password used to authenticate with the ActiveMQ broker. Leave it empty if authentication is disabled.",
+            "displayName": "ActiveMQ Broker Password",
+            "name": "ACTIVEMQ_BROKER_PASSWORD"
         },
         {
             "description": "The version of the FIS S2I builder image to use.",

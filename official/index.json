@@ -471,95 +471,95 @@
         ],
         "templates": [
             {
-                "description": "Camel route using ActiveMQ in Karaf container.",
+                "description": "Camel route using ActiveMQ in Karaf container. This quickstart shows how to use Camel in a Karaf Container using Blueprint to connect to the A-MQ xPaaS message broker on OpenShift that should already be installed, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq62-basic template.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
                 "name": "s2i-karaf2-camel-amq",
                 "path": "official/fis/templates/s2i-karaf2-camel-amq.json",
                 "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json"
             },
             {
-                "description": "A simple Camel route in Karaf container.",
+                "description": "A simple Camel route in Karaf container. This quickstart shows a simple Apache Camel application that logs a message to the server log every 5th second.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
                 "name": "s2i-karaf2-camel-log",
                 "path": "official/fis/templates/s2i-karaf2-camel-log.json",
                 "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-log-template.json"
             },
             {
-                "description": "Camel example using Rest DSL with SQL Database in Karaf container.",
+                "description": "Camel example using Rest DSL with SQL Database in Karaf container.  This example demonstrates how to use SQL via JDBC along with Camel's REST DSL to expose a RESTful API. The OpenShift MySQL container image should already be installed and running on your OpenShift installation, one simple way to run a MySQL service is following the documentation of the Openshift MySQL container image related to the mysql-ephemeral template..",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
                 "name": "s2i-karaf2-camel-rest-sql",
                 "path": "official/fis/templates/s2i-karaf2-camel-rest-sql.json",
                 "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-rest-sql-template.json"
             },
             {
-                "description": "REST example using CXF in Karaf container.",
+                "description": "REST example using CXF in Karaf container. This quickstart demonstrates how to create a RESTful (JAX-RS) web service using CXF and expose it through the OSGi HTTP Service",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
                 "name": "s2i-karaf2-cxf-rest",
                 "path": "official/fis/templates/s2i-karaf2-cxf-rest.json",
                 "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json"
             },
             {
-                "description": "Spring Boot, Camel and ActiveMQ QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using OpenShift. In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes are running. This quickstart requires the ActiveMQ broker has been deployed and running first.",
+                "description": "Spring Boot, Camel and ActiveMQ QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to an ActiveMQ broker and use JMS messaging between two Camel routes using OpenShift. In this example we will use two containers, one container to run as a ActiveMQ broker, and another as a client to the broker, where the Camel routes are running. This quickstart requires the ActiveMQ broker has been deployed and running first, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq62-basic template",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-amq",
-                "path": "official/fis/templates/s2i-springboot-camel-amq.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-amq-template.json"
+                "name": "s2i-spring-boot-camel-amq",
+                "path": "official/fis/templates/s2i-spring-boot-camel-amq.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json"
             },
             {
-                "description": "Spring-Boot, Camel and JBoss BRMS QuickStart. This example demonstrates how you can use Apache Camel and JBoss BRMS with Spring Boot on OpenShift. DRL files contain simple rules which are used to create knowledge session via Spring configuration file. Camel routes, defined via Spring as well, are then used to e.g. pass (insert) the Body of the message as a POJO to Drools engine for execution.",
+                "description": "Spring-Boot, Camel and JBoss BRMS QuickStart. This example demonstrates how you can use Apache Camel and JBoss BRMS with Spring Boot on OpenShift. DRL files contain simple rules which are used to create knowledge session via Spring configuration file. Camel routes, defined via Spring as well, are then used to e.g. pass (insert) the Body of the message as a POJO to Drools engine for execution. A Kie Server should be deployed and configured before running the application, more information about how to configure it can be found at https://github.com/fabric8-quickstarts/spring-boot-camel-drools/blob/master/README.redhat.md",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-brms",
-                "path": "official/fis/templates/s2i-springboot-camel-brms.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-brms-template.json"
+                "name": "s2i-spring-boot-camel-drools",
+                "path": "official/fis/templates/s2i-spring-boot-camel-drools.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-drools-template.json"
             },
             {
-                "description": "Spring Boot, Camel and JBoss Data Grid QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to a JBoss Data Grid (or Infinispan) server using the Hot Rod protocol. It requires that the data grid server (or cluster) has been deployed first.",
+                "description": "Spring Boot, Camel and JBoss Data Grid QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to a JBoss Data Grid (or Infinispan) server using the Hot Rod protocol. It requires that the data grid server (or cluster) has been deployed first, one simple way to run a JDG service is following the documentation of the JDG xPaaS image for OpenShift related to the datagrid65-basic template.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-jdg",
-                "path": "official/fis/templates/s2i-springboot-camel-jdg.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdg-template.json"
+                "name": "s2i-spring-boot-camel-infinispan",
+                "path": "official/fis/templates/s2i-spring-boot-camel-infinispan.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-infinispan-template.json"
             },
             {
-                "description": "Spring-Boot, Camel and JBoss Data Virtualization QuickStart. This example demonstrates how to connect Apache Camel to a remote JBoss Data Virtualization (or Teiid) Server using the JDBC protocol.",
+                "description": "Spring-Boot, Camel and JBoss Data Virtualization QuickStart. This example demonstrates how to connect Apache Camel to a remote JBoss Data Virtualization (or Teiid) Server using the JDBC protocol. This quickstart assumes that the JDV server is already running and configured on OpenShift, more information about to setup a JDV server can be found at https://github.com/fabric8-quickstarts/spring-boot-camel-teiid/blob/master/README.redhat.md",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-jdv",
-                "path": "official/fis/templates/s2i-springboot-camel-jdv.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-jdv-template.json"
+                "name": "s2i-spring-boot-camel-teiid",
+                "path": "official/fis/templates/s2i-spring-boot-camel-teiid.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-teiid-template.json"
             },
             {
-                "description": "Spring Boot, Camel REST DSL and MySQL QuickStart. This quickstart demonstrates how to connect a Spring Boot application to a MySQL database and expose a REST API with Camel on OpenShift. In this example we will use two containers, one container to run as a MySQL server, and another as a client to the database, where the Camel routes are running. This quickstart requires the MySQL server to be deployed and started first.",
+                "description": "Spring Boot, Camel REST DSL and MySQL QuickStart. This quickstart demonstrates how to connect a Spring Boot application to a MySQL database and expose a REST API with Camel on OpenShift. In this example we will use two containers, one container to run as a MySQL server, and another as a client to the database, where the Camel routes are running. This quickstart requires the MySQL server to be deployed and started first, one simple way to run a MySQL service is following the documentation of the OpenShift MySQL container image related to the mysql-ephemeral template.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-rest-sql",
-                "path": "official/fis/templates/s2i-springboot-camel-rest-sql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-rest-sql-template.json"
+                "name": "s2i-spring-boot-camel-rest-sql",
+                "path": "official/fis/templates/s2i-spring-boot-camel-rest-sql.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-rest-sql-template.json"
             },
             {
                 "description": "Spring-Boot and Camel QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a Camel route that triggeres a message every 5th second, and routes the message to a log.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel",
-                "path": "official/fis/templates/s2i-springboot-camel.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-template.json"
+                "name": "s2i-spring-boot-camel",
+                "path": "official/fis/templates/s2i-spring-boot-camel.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-template.json"
             },
             {
                 "description": "Spring-Boot and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a Camel route (in Spring xml) that triggeres a message every 5th second, and routes the message to a log.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-camel-xml",
-                "path": "official/fis/templates/s2i-springboot-camel-xml.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-camel-xml-template.json"
+                "name": "s2i-spring-boot-camel-xml",
+                "path": "official/fis/templates/s2i-spring-boot-camel-xml.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-xml-template.json"
             },
             {
                 "description": "Spring-Boot and CXF JAXRS QuickStart. This example demonstrates how you can use Apache CXF JAXRS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXRS endpoint with Swagger enabled.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-cxf-jaxrs",
-                "path": "official/fis/templates/s2i-springboot-cxf-jaxrs.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxrs-template.json"
+                "name": "s2i-spring-boot-cxf-jaxrs",
+                "path": "official/fis/templates/s2i-spring-boot-cxf-jaxrs.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxrs-template.json"
             },
             {
                 "description": "Spring-Boot and CXF JAXWS QuickStart. This example demonstrates how you can use Apache CXF JAXWS with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a CXF JAXWS endpoint.",
                 "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/",
-                "name": "s2i-springboot-cxf-jaxws",
-                "path": "official/fis/templates/s2i-springboot-cxf-jaxws.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/springboot-cxf-jaxws-template.json"
+                "name": "s2i-spring-boot-cxf-jaxws",
+                "path": "official/fis/templates/s2i-spring-boot-cxf-jaxws.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxws-template.json"
             }
         ]
     },
