@@ -2,16 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-springboot-camel-jdg"
+        "template": "s2i-spring-boot-camel-infinispan"
     },
     "metadata": {
         "annotations": {
-            "description": "Spring Boot, Camel and JBoss Data Grid QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to a JBoss Data Grid (or Infinispan) server using the Hot Rod protocol. It requires that the data grid server (or cluster) has been deployed first.",
+            "description": "Spring Boot, Camel and JBoss Data Grid QuickStart. This quickstart demonstrates how to connect a Spring-Boot application to a JBoss Data Grid (or Infinispan) server using the Hot Rod protocol. It requires that the data grid server (or cluster) has been deployed first, one simple way to run a JDG service is following the documentation of the JDG xPaaS image for OpenShift related to the datagrid65-basic template.",
             "iconClass": "icon-jboss",
             "tags": "quickstart,java,springboot,fis",
             "version": "2.0"
         },
-        "name": "s2i-springboot-camel-jdg"
+        "name": "s2i-spring-boot-camel-infinispan"
     },
     "objects": [
         {
@@ -236,7 +236,7 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-springboot-camel-jdg"
+            "value": "s2i-spring-boot-camel-infinispan"
         },
         {
             "description": "The URL of the repository with your application source code.",
