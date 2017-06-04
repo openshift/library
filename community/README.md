@@ -40,6 +40,17 @@ Path: community/django/templates/django-psql-example.json
 Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json )  
 Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
 Path: community/django/templates/django-psql-persistent.json  
+# infinispan
+## imagestreams
+### infinispan
+Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json )  
+Docs: [https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md](https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md)  
+Path: community/infinispan/imagestreams/infinispan-centos7.json  
+## templates
+### infinispan-ephemeral
+Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json )  
+Docs: [https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md](https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md)  
+Path: community/infinispan/templates/infinispan-ephemeral.json  
 # laravel
 ## templates
 ### laravel-mysql-persistent
