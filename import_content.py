@@ -14,10 +14,10 @@ import yaml
 SVARS = {
     "base_dir": os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
     "sources": ['official', 'community'],
+    "tags": [],
     "vars": {},
     "index": {}
     }
-
 
 def message(action, sub_action, text):
     """ Outputs a formatted message to stdout
@@ -162,6 +162,25 @@ def write_data_to_file(data, path):
     target_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
     target_file.close()
 
+def check_file_name(path, file_name, extension):
+    """ Check if the file already exists in the directory and return an valid file name
+
+    Args:
+        path (string): the path to write the file to, includes folder and file name
+        file_name (string): the file name
+        extension (string): the name of file extension (such as .json)
+
+    Returns:
+        file_name (string): The valid file name that can be written into
+
+    """
+    i = 1
+    name = file_name
+    while os.path.exists(path + name + extension):
+        name = file_name + "_" + str(i)
+        i = i + 1
+    return name
+
 
 def process_template(source, folder, location_list, template):
     """ Processes a template and writes it's data to a file in JSON format
@@ -178,15 +197,16 @@ def process_template(source, folder, location_list, template):
     if 'regex' in location_list:
         matches = re.search(r'(^' + location_list['regex'] + ')', template["metadata"]["name"])
     if matches or 'regex' not in location_list:
+        file_name = check_file_name(SVARS['base_dir'] + '/' + folder + '/templates/', template['metadata']['name'], '.json')
         index_data = {
             'name': template['metadata']['name'],
             'docs': location_list['docs'] if 'docs' in location_list else '',
             'source_url': location_list['location'],
             'description': template['metadata']['annotations']['description'] if 'description' in template['metadata']['annotations'] else '',
-            'path': source + '/' + folder + '/templates/' + template['metadata']['name'] + '.json'
+            'path': (source + '/' if source in SVARS["sources"] else '') + folder + '/templates/' + file_name + '.json'
             }
         append_to_index(source, folder, 'templates', index_data)
-        write_data_to_file(template, SVARS['base_dir'] + '/' + folder + '/templates/' + template['metadata']['name'] + '.json')
+        write_data_to_file(template, SVARS['base_dir'] + '/' + folder + '/templates/' + file_name + '.json')
 
 
 def process_imagestream(source, folder, location_list, imagestream):
@@ -213,20 +233,22 @@ def process_imagestream(source, folder, location_list, imagestream):
         if 'regex' in location_list:
             matches = re.search(r'(^' + location_list['regex'] + ')', stream["metadata"]["name"])
         if matches or 'regex' not in location_list:
+            file_name = check_file_name(SVARS['base_dir'] + "/" + folder + "/imagestreams/", \
+                                stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else ''), '.json')
             index_data = {
                 'name': stream['metadata']['name'],
                 'docs': location_list['docs'] if 'docs' in location_list else '',
                 'source_url': location_list['location'],
-                'path': source + '/' + folder + '/imagestreams/' + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json"
+                'path': (source + '/' if source in SVARS["sources"] else '') + folder + '/imagestreams/' + file_name + ".json"
                 }
             append_to_index(source, folder, 'imagestreams', index_data)
-            write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json")
+            write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + file_name + '.json')
 
 
 def create_indexes():
     """ Creates the index.json and README.md files """
 
-    for source in SVARS['sources']:
+    for source in SVARS['tags']:
         write_data_to_file(SVARS['index'][source], source + '/index.json')
 
         with open(source + '/README.md', 'a') as index_file:
@@ -249,15 +271,32 @@ def main():
     """
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
+    parser.add_argument("-t", "--tags", nargs='?', help="Select specific tag(s) to import templates/imagestreams (separated by comma ',')")
     args = parser.parse_args()
 
     if not os.path.exists('tmp'):
         os.makedirs('tmp')
 
+    # Get custom tags information and add to SVARS["tags"]
+    # Otherwise, use the default tags as community and official
+    tags = args.tags
+    if tags:
+        SVARS['tags'] = tags.split(",")
+        # Delete the custom tag(s) directori(es)
+        for tag in SVARS['tags']:
+            if os.path.exists(tag):
+                message("Deleting", "folder", tag)
+                shutil.rmtree(tag)
+    else:
+        SVARS['tags'] = SVARS['sources']
+
     for source in SVARS['sources']:
         message('Opening', 'source file', source + '.yaml')
         with open(source + '.yaml', 'r') as source_file:
-            SVARS['base_dir'] = os.path.dirname(os.path.realpath(__file__)) + '/' + source
+            if not tags:
+                SVARS['base_dir'] = os.path.dirname(os.path.realpath(__file__)) + '/' + source
+            else:
+                SVARS['base_dir'] = os.path.dirname(os.path.realpath(__file__))
             message('Opening', 'file path', SVARS['base_dir'])
             raw_yaml = source_file.read()
             valid, doc = is_valid(raw_yaml)
@@ -279,21 +318,45 @@ def main():
                 message("Deleting", "folder", source)
                 shutil.rmtree(source)
             for folder, contents in doc['data'].items():
-                if not os.path.exists(os.path.join(SVARS['base_dir'], folder)):
-                    os.makedirs(os.path.join(SVARS['base_dir'], folder))
+                if not tags:
+                    if not os.path.exists(os.path.join(SVARS['base_dir'], folder)):
+                        os.makedirs(os.path.join(SVARS['base_dir'], folder))
                 for item_type in ['imagestreams', 'templates']:
                     if item_type in contents and len(contents[item_type]) > 0:
                         for item in contents[item_type]:
-                            if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
-                                os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
-                            status, dict_data = fetch_url(item['location'])
-                            if status != 200:
-                                message('Error', 'Not Found', item['location'])
-                                exit(1)
-                            if item_type == 'templates':
-                                process_template(source, folder, item, dict_data)
-                            elif item_type == 'imagestreams':
-                                process_imagestream(source, folder, item, dict_data)
+                            # Check if custom tags are provided:
+                            if tags:
+                                # Check for the "openshift" tag in YAML file
+                                if "openshift" in item:
+                                    for tag in SVARS["tags"]:
+                                        if not os.path.exists(os.path.join(SVARS['base_dir'], tag)):
+                                            os.makedirs(os.path.join(SVARS['base_dir'], tag))
+                                        status, dict_data = fetch_url(item['location'])
+                                        if status != 200:
+                                            message('Error', 'Not Found', item['location'])
+                                            exit(1)
+                                        options = item.get("openshift")
+                                        # Import imagestreams/templates for the option
+                                        if tag in options:
+                                            if item_type == 'templates':
+                                                if not os.path.exists(os.path.join(SVARS['base_dir'], tag, "templates")):
+                                                    os.makedirs(os.path.join(SVARS['base_dir'], tag, "templates"))
+                                                process_template(tag, tag, item, dict_data)
+                                            elif item_type == 'imagestreams':
+                                                if not os.path.exists(os.path.join(SVARS['base_dir'], tag, "imagestreams")):
+                                                    os.makedirs(os.path.join(SVARS['base_dir'], tag, "imagestreams"))
+                                                process_imagestream(tag, tag, item, dict_data)
+                                else:
+                                    message("Skip", "No 'openshift' tag found for " + item_type, item["location"])
+                            # If no custom tags are provided
+                            else:
+                                if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
+                                    os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
+                                status, dict_data = fetch_url(item['location'])
+                                if item_type == 'templates':
+                                    process_template(source, folder, item, dict_data)
+                                elif item_type == 'imagestreams':
+                                    process_imagestream(source, folder, item, dict_data)
     create_indexes()
 
 if __name__ == '__main__':

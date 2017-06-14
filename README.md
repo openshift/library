@@ -52,15 +52,15 @@ Community templates and image streams are **not** provided or supported by Red H
 
 ### Running the Script
 
-    $ make import
-    
+    $ make import TAGS=<tag>,...
+
 ## Verifying Your Updates
 
     $ make verify
-    
+
 The `make verify` command runs the following checks:
  - verifies YAML syntax
- - verifies the Python script *(using pylint)* 
+ - verifies the Python script *(using pylint)*
  - verifies that make import has been run
 
 ## Contributing
@@ -89,11 +89,19 @@ That's it!  Your pull request will be reviewed by a member of the OpenShift Team
             regex: # (optional) matched against ['metadata']['name'] in the json file
             suffix: # (optional) suffix for the file that is created ex: ruby-<suffix>.json
             docs: # (optional) web address of the documentation for this image-stream
+            # Custom tags for OpenShift are added below if needed
+            openshift: # (optional) flag for OpenShift
+                - online-starter # (optional) flag for OpenShift Online Starter
+                - online-professional # (optional) flag for OpenShift Online Professional
         templates: # (optional) list of templates to process into the above folder
           - location: # (required) github url to a template or folder of templates in json format
             regex: # (optional) matched against ['metadata']['name'] in the json file
             suffix: # (optional) suffix for the file that is created ex: ruby-<suffix>.json
             docs: # (optional) web address of the documentation for this template
+            # Custom tags for OpenShift are added below if needed
+            openshift: # (optional) flag for OpenShift
+                - online-starter # (optional) flag for OpenShift Online Starter
+                - online-professional # (optional) flag for OpenShift Online Professional
 
 #### Variables
 
@@ -112,6 +120,8 @@ Listings in the **official.yaml** file will be created in a sub folder of the  *
 #### folder_name
 
 The **folder_name** is a sub folder which represents a logical grouping for a set of templates or image-streams in the top level **official** or **community** folders.
+
+For custom tags option, templates are imported into <tag>/templates/ directory while imagestreams are imported into <tag>/imagestreams/
 
 #### location
 
