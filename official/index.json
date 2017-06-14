@@ -563,6 +563,25 @@
             }
         ]
     },
+    "httpd": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/httpd-container/blob/master/README.md",
+                "name": "httpd",
+                "path": "official/httpd/imagestreams/httpd-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Httpd application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/httpd-ex/blob/master/README.md.",
+                "docs": "https://github.com/openshift/httpd-ex/blob/master/README.md",
+                "name": "httpd-example",
+                "path": "official/httpd/templates/httpd-example.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json"
+            }
+        ]
+    },
     "mariadb": {
         "imagestreams": [
             {
