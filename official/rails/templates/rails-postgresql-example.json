@@ -23,6 +23,10 @@
             "apiVersion": "v1",
             "kind": "Secret",
             "metadata": {
+                "annotations": {
+                    "template.openshift.io/expose-password": "{.data['application-password']}",
+                    "template.openshift.io/expose-username": "{.data['application-user']}"
+                },
                 "name": "${NAME}"
             },
             "stringData": {
@@ -60,6 +64,9 @@
             "apiVersion": "v1",
             "kind": "Route",
             "metadata": {
+                "annotations": {
+                    "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
+                },
                 "name": "${NAME}"
             },
             "spec": {
