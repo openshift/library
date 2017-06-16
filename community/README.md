@@ -40,6 +40,17 @@ Path: community/django/templates/django-psql-example.json
 Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json )  
 Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
 Path: community/django/templates/django-psql-persistent.json  
+# httpd
+## imagestreams
+### httpd
+Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-centos7.json )  
+Docs: [https://github.com/sclorg/httpd-container/blob/master/README.md](https://github.com/sclorg/httpd-container/blob/master/README.md)  
+Path: community/httpd/imagestreams/httpd-centos7.json  
+## templates
+### httpd-example
+Source URL: [https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json](https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json )  
+Docs: [https://github.com/openshift/httpd-ex/blob/master/README.md](https://github.com/openshift/httpd-ex/blob/master/README.md)  
+Path: community/httpd/templates/httpd-example.json  
 # infinispan
 ## imagestreams
 ### infinispan

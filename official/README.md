@@ -322,6 +322,17 @@ Path: official/fis/templates/s2i-spring-boot-cxf-jaxrs.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxws-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-cxf-jaxws-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/templates/s2i-spring-boot-cxf-jaxws.json  
+# httpd
+## imagestreams
+### httpd
+Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Docs: [https://github.com/sclorg/httpd-container/blob/master/README.md](https://github.com/sclorg/httpd-container/blob/master/README.md)  
+Path: official/httpd/imagestreams/httpd-rhel7.json  
+## templates
+### httpd-example
+Source URL: [https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json](https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json )  
+Docs: [https://github.com/openshift/httpd-ex/blob/master/README.md](https://github.com/openshift/httpd-ex/blob/master/README.md)  
+Path: official/httpd/templates/httpd-example.json  
 # mariadb
 ## imagestreams
 ### mariadb

@@ -68,6 +68,15 @@ data:
         docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
         docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+  httpd:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/httpd-container/blob/master/README.md
+        regex: httpd
+        suffix: rhel7
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json
+        docs: https://github.com/openshift/httpd-ex/blob/master/README.md
   mariadb:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json
