@@ -1,5 +1,5 @@
 variables:
-  xpaas_version: ose-v1.3.5
+  xpaas_version: ose-v1.3.6
 data:
   ruby:
     imagestreams:
@@ -7,18 +7,27 @@ data:
         docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
         regex: ruby
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   rails:
     templates:
       - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json
         docs: https://github.com/openshift/rails-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
         docs: https://github.com/openshift/rails-ex/blob/master/README.md
+        tags:
+          - online-starter
+          - online-professional
   python:
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-python-container/blob/master/README.md
         regex: python
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   django:
     templates:
       - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json
@@ -27,6 +36,9 @@ data:
         docs: https://github.com/openshift/django-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json
         docs: https://github.com/openshift/django-ex/blob/master/README.md
+        tags:
+          - online-starter
+          - online-professional
   nodejs:
     templates:
       - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json
@@ -35,17 +47,26 @@ data:
         docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
         docs: https://github.com/openshift/nodejs-ex/blob/master/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
         regex: nodejs
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   perl:
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-perl-container/blob/master/README.md
         regex: perl
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   dancer:
     templates:
       - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json
@@ -54,12 +75,18 @@ data:
         docs: https://github.com/openshift/dancer-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
         docs: https://github.com/openshift/dancer-ex/blob/master/README.md
+        tags:
+          - online-starter
+          - online-professional
   php:
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
         regex: php
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   cakephp:
     templates:
       - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json
@@ -68,6 +95,26 @@ data:
         docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
         docs: https://github.com/openshift/cakephp-ex/blob/master/README.md
+        tags:
+          - online-starter
+          - online-professional
+  jenkins:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-persistent-template.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        tags:
+          - online-starter
+          - online-professional
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins
+        suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   httpd:
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
@@ -83,55 +130,88 @@ data:
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
         regex: mariadb
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   mongodb:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
         regex: mongodb
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   mysql:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
         regex: mysql
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   postgresql:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
         regex: postgresql
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   redis:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-ephemeral-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json
         docs: https://github.com/openshift/origin/blob/master/examples/db-templates/README.md
+        tags:
+          - online-starter
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
         regex: redis
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   amq:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-basic.json
@@ -244,12 +324,26 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-sso-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-sso-s2i.adoc
-
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/
         regex: jboss-eap
         suffix: rhel7
+  java:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/openjdk/openjdk18-web-basic-s2i.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
+        tags:
+          - online-starter
+          - online-professional
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
+        regex: redhat-openjdk18
+        suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   processserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver63-amq-mysql-persistent-s2i.json
@@ -312,6 +406,9 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat7-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-basic-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws30-tomcat8-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws30-tomcat8-mongodb-persistent-s2i.json
@@ -331,6 +428,9 @@ data:
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
         regex: jboss-webserver
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   fis:
     templates:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json
@@ -368,6 +468,9 @@ data:
       - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json
         docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
         suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   3scale:
     templates:
       - location: https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast-gateway-template.yml

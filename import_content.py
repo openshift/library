@@ -223,24 +223,38 @@ def process_imagestream(source, folder, location_list, imagestream):
             write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json")
 
 
-def create_indexes():
+def create_indexes(filter_tags):
     """ Creates the index.json and README.md files """
 
     for source in SVARS['sources']:
-        write_data_to_file(SVARS['index'][source], source + '/index.json')
+        if source in SVARS['index']:
+            write_data_to_file(SVARS['index'][source], source + '/index.json')
 
-        with open(source + '/README.md', 'a') as index_file:
-            for folder, sections in sorted(SVARS['index'][source].items()):
-                index_file.write('# ' + folder + '\n')
-                for section, items in sorted(sections.items()):
-                    index_file.write('## ' + section + '\n')
-                    for item in items:
-                        index_file.write('### ' + item['name'] + '\n')
-                        index_file.write('Source URL: [' + item['source_url'] + '](' + item['source_url'] + ' )  \n')
-                        if 'docs' in item and item['docs'] != '':
-                            index_file.write('Docs: [' + item['docs'] + '](' + item['docs'] + ')  \n')
-                        index_file.write('Path: ' + item['path'] + '  \n')
+            with open(source + '/README.md', 'a') as index_file:
+                for folder, sections in sorted(SVARS['index'][source].items()):
+                    index_file.write('# ' + folder + '\n')
+                    for section, items in sorted(sections.items()):
+                        index_file.write('## ' + section + '\n')
+                        for item in items:
+                            index_file.write('### ' + item['name'] + '\n')
+                            index_file.write('Source URL: [' + item['source_url'] + '](' + item['source_url'] + ' )  \n')
+                            if 'docs' in item and item['docs'] != '':
+                                index_file.write('Docs: [' + item['docs'] + '](' + item['docs'] + ')  \n')
+                            index_file.write('Path: ' + item['path'] + '  \n')
 
+
+def has_tag(item, filter_tags):
+    """ Check if an item has a tag that matches one of the tags in filter_tags """
+    if not filter_tags:
+        return True
+    # Check for the tags in YAML file
+    if "tags" in item:
+        for tag in filter_tags.split(","):
+            options = item.get("tags")
+            # Import imagestreams/templates that have the requested tags.
+            if tag in options:
+                return True
+        return False
 
 def main():
     """ Runs the main program, gets the data from the YAML file(s)
@@ -249,6 +263,7 @@ def main():
     """
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
+    parser.add_argument("-t", "--tags", nargs='?', help="Select specific tag(s) to import templates/imagestreams (separated by comma ',')")
     args = parser.parse_args()
 
     if not os.path.exists('tmp'):
@@ -279,11 +294,11 @@ def main():
                 message("Deleting", "folder", source)
                 shutil.rmtree(source)
             for folder, contents in doc['data'].items():
-                if not os.path.exists(os.path.join(SVARS['base_dir'], folder)):
-                    os.makedirs(os.path.join(SVARS['base_dir'], folder))
                 for item_type in ['imagestreams', 'templates']:
                     if item_type in contents and len(contents[item_type]) > 0:
                         for item in contents[item_type]:
+                            if not has_tag(item, args.tags):
+                                continue
                             if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
                                 os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
                             status, dict_data = fetch_url(item['location'])
@@ -294,7 +309,7 @@ def main():
                                 process_template(source, folder, item, dict_data)
                             elif item_type == 'imagestreams':
                                 process_imagestream(source, folder, item, dict_data)
-    create_indexes()
+    create_indexes(args.tags)
 
 if __name__ == '__main__':
     main()
