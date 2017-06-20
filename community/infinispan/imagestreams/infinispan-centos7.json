@@ -11,16 +11,29 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "Infinispan 9, a high performance data grid solution",
+                    "description": "Infinispan 9.1, a high performance data grid solution",
                     "iconClass": "icon-infinispan",
-                    "openshift.io/display-name": "Infinispan 9 (Latest)",
+                    "openshift.io/display-name": "Infinispan 9",
                     "tags": "java,database,datagrid,jboss"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "9.0"
+                    "name": "9.1"
                 },
                 "name": "latest"
+            },
+            {
+                "annotations": {
+                    "description": "Infinispan 9, a high performance data grid solution",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan 9.1 (Latest)",
+                    "tags": "java,database,datagrid,jboss"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "jboss/infinispan-server:9.1.0.Alpha1"
+                },
+                "name": "9.1"
             },
             {
                 "annotations": {
