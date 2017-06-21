@@ -223,7 +223,7 @@ def process_imagestream(source, folder, location_list, imagestream):
             write_data_to_file(stream, SVARS['base_dir'] + "/" + folder + "/imagestreams/" + stream["metadata"]["name"] + ("-" + location_list["suffix"] if 'suffix' in location_list else '') + ".json")
 
 
-def create_indexes(filter_tags):
+def create_indexes():
     """ Creates the index.json and README.md files """
 
     for source in SVARS['sources']:
@@ -248,13 +248,11 @@ def has_tag(item, filter_tags):
     if not filter_tags:
         return True
     # Check for the tags in YAML file
-    if "tags" in item:
-        for tag in filter_tags.split(","):
-            options = item.get("tags")
-            # Import imagestreams/templates that have the requested tags.
-            if tag in options:
-                return True
-        return False
+    options = item.get("tags")
+    if options:
+        if list(set(options) & set(filter_tags)):
+            return True
+    return False
 
 def main():
     """ Runs the main program, gets the data from the YAML file(s)
@@ -268,6 +266,8 @@ def main():
 
     if not os.path.exists('tmp'):
         os.makedirs('tmp')
+
+    tags = args.tags.split(",") if args.tags != None else []
 
     for source in SVARS['sources']:
         message('Opening', 'source file', source + '.yaml')
@@ -297,7 +297,7 @@ def main():
                 for item_type in ['imagestreams', 'templates']:
                     if item_type in contents and len(contents[item_type]) > 0:
                         for item in contents[item_type]:
-                            if not has_tag(item, args.tags):
+                            if not has_tag(item, tags):
                                 continue
                             if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
                                 os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
@@ -309,7 +309,7 @@ def main():
                                 process_template(source, folder, item, dict_data)
                             elif item_type == 'imagestreams':
                                 process_imagestream(source, folder, item, dict_data)
-    create_indexes(args.tags)
+    create_indexes()
 
 if __name__ == '__main__':
     main()
