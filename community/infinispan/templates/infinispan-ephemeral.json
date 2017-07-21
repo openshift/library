@@ -29,7 +29,7 @@
             "groupNames": null,
             "kind": "RoleBinding",
             "metadata": {
-                "name": "view"
+                "name": "view-${APPLICATION_NAME}"
             },
             "roleRef": {
                 "name": "view"
@@ -138,6 +138,18 @@
                                     },
                                     {
                                         "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "KUBERNETES_LABELS",
+                                        "value": "application=${APPLICATION_NAME}"
+                                    },
+                                    {
+                                        "name": "KUBERNETES_NAMESPACE",
                                         "valueFrom": {
                                             "fieldRef": {
                                                 "fieldPath": "metadata.namespace"
