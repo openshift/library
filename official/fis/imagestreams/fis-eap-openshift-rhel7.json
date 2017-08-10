@@ -1,0 +1,22 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "name": "fis-eap-openshift"
+    },
+    "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-fuse-7/fis-eap-openshift",
+        "tags": [
+            {
+                "annotations": {
+                    "description": "JBoss Fuse Integration Services 2.0 EAP S2I images.",
+                    "iconClass": "icon-jboss",
+                    "supports": "jboss-fuse:7.0.0,java:8,xpaas:1.2",
+                    "tags": "builder,jboss-fuse,java,eap,xpaas",
+                    "version": "1.0"
+                },
+                "name": "1.0"
+            }
+        ]
+    }
+}

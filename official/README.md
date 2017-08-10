@@ -269,6 +269,10 @@ Path: official/fis/imagestreams/fis-java-openshift-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/imagestreams/fis-karaf-openshift-rhel7.json  
+### fis-eap-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
+Path: official/fis/imagestreams/fis-eap-openshift-rhel7.json  
 ## templates
 ### s2i-karaf2-camel-amq
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json )  
