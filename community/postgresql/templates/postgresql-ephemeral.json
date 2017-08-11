@@ -25,12 +25,14 @@
             "kind": "Secret",
             "metadata": {
                 "annotations": {
+                    "template.openshift.io/expose-database_name": "{.data['database-name']}",
                     "template.openshift.io/expose-password": "{.data['database-password']}",
                     "template.openshift.io/expose-username": "{.data['database-user']}"
                 },
                 "name": "${DATABASE_SERVICE_NAME}"
             },
             "stringData": {
+                "database-name": "${POSTGRESQL_DATABASE}",
                 "database-password": "${POSTGRESQL_PASSWORD}",
                 "database-user": "${POSTGRESQL_USER}"
             }
@@ -112,7 +114,12 @@
                                     },
                                     {
                                         "name": "POSTGRESQL_DATABASE",
-                                        "value": "${POSTGRESQL_DATABASE}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "database-name",
+                                                "name": "${DATABASE_SERVICE_NAME}"
+                                            }
+                                        }
                                     }
                                 ],
                                 "image": " ",
