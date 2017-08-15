@@ -10,6 +10,7 @@
         "annotations": {
             "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.",
             "iconClass": "icon-jboss",
+            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3 (no SSL)",
             "tags": "jdv,datavirt,jboss,xpaas",
             "version": "1.4.0"
         },
@@ -101,14 +102,47 @@
                         "ref": "${SOURCE_REPOSITORY_REF}",
                         "uri": "${SOURCE_REPOSITORY_URL}"
                     },
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "jboss-datagrid65-client-openshift:1.0",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                            },
+                            "paths": [
+                                {
+                                    "destinationDir": "./${CONTEXT_DIR}/extensions/datagrid65",
+                                    "sourcePath": "/extensions/."
+                                }
+                            ]
+                        }
+                    ],
                     "type": "Git"
                 },
                 "strategy": {
                     "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                "value": "extensions/*"
+                            },
+                            {
+                                "name": "VDB_DIRS",
+                                "value": "${VDB_DIRS}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
+                            }
+                        ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-datavirt63-openshift:1.0",
+                            "name": "jboss-datavirt63-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -129,6 +163,15 @@
                     },
                     {
                         "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "jboss-datagrid65-client-openshift:1.0"
+                            }
+                        },
                         "type": "ImageChange"
                     },
                     {
@@ -337,6 +380,7 @@
         },
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME.",
+            "displayName": "Service Account Name",
             "name": "SERVICE_ACCOUNT_NAME",
             "required": true,
             "value": "datavirt-service-account"
@@ -410,6 +454,27 @@
             "name": "AUTO_DEPLOY_EXPLODED",
             "required": false,
             "value": "false"
+        },
+        {
+            "description": "Comma delimited list of source directories containing VDBs for deployment",
+            "displayName": "VDB Deployment Directories",
+            "name": "VDB_DIRS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Maven mirror to use for S2I builds",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "displayName": "Artifact Directories",
+            "name": "ARTIFACT_DIR",
+            "required": false,
+            "value": ""
         }
     ]
 }

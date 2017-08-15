@@ -3,15 +3,16 @@
     "kind": "Template",
     "labels": {
         "template": "openjdk18-web-basic-s2i",
-        "xpaas": "1.0.0"
+        "xpaas": "1.4.0"
     },
     "message": "A new java application has been created in your project.",
     "metadata": {
         "annotations": {
             "description": "Application template for Java applications built using S2I.",
             "iconClass": "icon-jboss",
+            "openshift.io/display-name": "Red Hat OpenJDK 8",
             "tags": "java,xpaas",
-            "version": "1.0.0"
+            "version": "1.1.0"
         },
         "name": "openjdk18-web-basic-s2i"
     },
@@ -99,7 +100,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "redhat-openjdk18-openshift:1.0",
+                            "name": "redhat-openjdk18-openshift:1.1",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },

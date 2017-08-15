@@ -2,6 +2,9 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3"
+        },
         "name": "jboss-datavirt63-openshift"
     },
     "spec": {
@@ -11,11 +14,33 @@
                 "annotations": {
                     "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
                     "iconClass": "icon-jboss",
-                    "supports": "datavirt:6.3,java:8,xpaas:1.4",
-                    "tags": "datavirt,java,jboss,xpaas",
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3",
+                    "supports": "datavirt:6.3,xpaas:1.4",
+                    "tags": "datavirt,jboss,xpaas",
                     "version": "1.0"
                 },
                 "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.3",
+                    "supports": "datavirt:6.3,xpaas:1.4",
+                    "tags": "datavirt,jboss,xpaas",
+                    "version": "1.1"
+                },
+                "name": "1.1"
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat JBoss Data Virtualization 6.3 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "supports": "datavirt:6.3,xpaas:1.4",
+                    "tags": "datavirt,jboss,xpaas",
+                    "version": "1.2"
+                },
+                "name": "1.2"
             }
         ]
     }
