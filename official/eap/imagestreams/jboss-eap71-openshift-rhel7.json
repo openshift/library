@@ -1,0 +1,32 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.1"
+        },
+        "name": "jboss-eap71-openshift"
+    },
+    "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-eap-7/eap71-openshift",
+        "tags": [
+            {
+                "annotations": {
+                    "description": "JBoss EAP 7.1 Tech Preview.",
+                    "iconClass": "icon-jboss",
+                    "sampleContextDir": "kitchensink",
+                    "sampleRef": "7.0.0.GA",
+                    "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                    "supports": "eap:7.1,javaee:7,java:8,xpaas:1.0",
+                    "tags": "builder,eap,javaee,java,jboss,xpaas",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-eap-7-tech-preview/eap71-openshift:1.0"
+                },
+                "name": "1.0-TP"
+            }
+        ]
+    }
+}
