@@ -3,14 +3,16 @@
     "kind": "Template",
     "labels": {
         "template": "decisionserver63-amq-s2i",
-        "xpaas": "1.3.3"
+        "xpaas": "1.4.0"
     },
+    "message": "A new BRMS/A-MQ application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the A-MQ service use the credentials ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the \"decisionserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
             "description": "Application template for Red Hat JBoss BRMS 6.3 decision server A-MQ applications built using S2I.",
             "iconClass": "icon-jboss",
-            "tags": "decisionserver,amq,java,messaging,jboss,xpaas",
-            "version": "1.3.3"
+            "openshift.io/display-name": "Red Hat JBoss BRMS 6.3 decision server + A-MQ (with https)",
+            "tags": "decisionserver,jboss,xpaas",
+            "version": "1.4.0"
         },
         "name": "decisionserver63-amq-s2i"
     },
@@ -20,7 +22,8 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's HTTP port."
+                    "description": "The web server's HTTP port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -44,7 +47,8 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's HTTPS port."
+                    "description": "The web server's HTTPS port.",
+                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}]"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -170,12 +174,20 @@
                             {
                                 "name": "KIE_CONTAINER_DEPLOYMENT",
                                 "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
                             }
                         ],
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-decisionserver63-openshift:1.3",
+                            "name": "jboss-decisionserver63-openshift:1.4",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -511,7 +523,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:1.3",
+                                "name": "jboss-amq-62:1.4",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -527,18 +539,21 @@
     "parameters": [
         {
             "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
+            "displayName": "KIE Container Deployment",
             "name": "KIE_CONTAINER_DEPLOYMENT",
             "required": false,
             "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final"
         },
         {
             "description": "The user name to access the KIE Server REST or JMS interface.",
+            "displayName": "KIE Server Username",
             "name": "KIE_SERVER_USER",
             "required": false,
             "value": "kieserver"
         },
         {
             "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
+            "displayName": "KIE Server Password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
             "name": "KIE_SERVER_PASSWORD",
@@ -546,108 +561,126 @@
         },
         {
             "description": "JAAS LoginContext domain that shall be used to authenticate users when using JMS.",
+            "displayName": "KIE Server Domain",
             "name": "KIE_SERVER_DOMAIN",
             "required": false,
             "value": "other"
         },
         {
             "description": "JNDI name of request queue for JMS.",
+            "displayName": "KIE Server JMS Queues Request",
             "name": "KIE_SERVER_JMS_QUEUES_REQUEST",
             "required": false,
             "value": "queue/KIE.SERVER.REQUEST"
         },
         {
             "description": "JNDI name of response queue for JMS.",
+            "displayName": "KIE Server JMS Queues Response",
             "name": "KIE_SERVER_JMS_QUEUES_RESPONSE",
             "required": false,
             "value": "queue/KIE.SERVER.RESPONSE"
         },
         {
             "description": "The name for the application.",
+            "displayName": "Application Name",
             "name": "APPLICATION_NAME",
             "required": true,
             "value": "kie-app"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom http Route Hostname",
             "name": "HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom https Route Hostname",
             "name": "HOSTNAME_HTTPS",
             "required": false,
             "value": ""
         },
         {
             "description": "Git source URI for application",
+            "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
             "required": true,
             "value": "https://github.com/jboss-openshift/openshift-quickstarts.git"
         },
         {
             "description": "Git branch/tag reference",
+            "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false,
             "value": "1.3"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
+            "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
             "required": false,
             "value": "decisionserver/hellorules"
         },
         {
             "description": "JNDI name for connection factory used by applications to connect to the broker, e.g. java:/JmsXA",
+            "displayName": "JMS Connection Factory JNDI Name",
             "name": "MQ_JNDI",
             "required": false,
             "value": "java:/JmsXA"
         },
         {
             "description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
+            "displayName": "A-MQ Protocols",
             "name": "MQ_PROTOCOL",
             "required": false,
             "value": "openwire"
         },
         {
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
+            "displayName": "Queues",
             "name": "MQ_QUEUES",
             "required": false,
             "value": "KIE.SERVER.REQUEST,KIE.SERVER.RESPONSE"
         },
         {
             "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP.",
+            "displayName": "Topics",
             "name": "MQ_TOPICS",
             "required": false,
             "value": ""
         },
         {
             "description": "The name of the secret containing the keystore file",
+            "displayName": "Server Keystore Secret Name",
             "name": "HTTPS_SECRET",
             "required": false,
             "value": "decisionserver-app-secret"
         },
         {
             "description": "The name of the keystore file within the secret",
+            "displayName": "Server Keystore Filename",
             "name": "HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
         },
         {
             "description": "The name associated with the server certificate",
+            "displayName": "Server Certificate Name",
             "name": "HTTPS_NAME",
             "required": false,
             "value": "jboss"
         },
         {
             "description": "The password for the keystore and certificate",
+            "displayName": "Server Keystore Password",
             "name": "HTTPS_PASSWORD",
             "required": false,
             "value": "mykeystorepass"
         },
         {
             "description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "displayName": "A-MQ Username",
             "from": "user[a-zA-Z0-9]{3}",
             "generate": "expression",
             "name": "MQ_USERNAME",
@@ -655,6 +688,7 @@
         },
         {
             "description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
+            "displayName": "A-MQ Password",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "MQ_PASSWORD",
@@ -662,18 +696,21 @@
         },
         {
             "description": "The discovery agent type to use for discovering mesh endpoints.  'dns' will use OpenShift's DNS service to resolve endpoints.  'kube' will use Kubernetes REST API to resolve service endpoints.  If using 'kube' the service account for the pod must have the 'view' role, which can be added via 'oc policy add-role-to-user view system:serviceaccount:<namespace>:default' where <namespace> is the project namespace.",
+            "displayName": "A-MQ Mesh Discovery Type",
             "name": "AMQ_MESH_DISCOVERY_TYPE",
             "required": false,
             "value": "kube"
         },
         {
             "description": "The A-MQ storage usage limit",
+            "displayName": "A-MQ Storage Limit",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "required": false,
             "value": "100 gb"
         },
         {
             "description": "GitHub trigger secret",
+            "displayName": "Github Webhook Secret",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "GITHUB_WEBHOOK_SECRET",
@@ -681,6 +718,7 @@
         },
         {
             "description": "Generic build trigger secret",
+            "displayName": "Generic Webhook Secret",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "GENERIC_WEBHOOK_SECRET",
@@ -688,9 +726,23 @@
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
+        },
+        {
+            "description": "Maven mirror to use for S2I builds",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "required": false,
+            "value": ""
         }
     ]
 }

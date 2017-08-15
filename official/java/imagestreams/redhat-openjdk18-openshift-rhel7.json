@@ -2,6 +2,9 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat OpenJDK 8"
+        },
         "name": "redhat-openjdk18-openshift"
     },
     "spec": {
@@ -19,6 +22,19 @@
                     "version": "1.0"
                 },
                 "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Java applications using Maven and OpenJDK 8.",
+                    "iconClass": "icon-jboss",
+                    "openshift.io/display-name": "Red Hat OpenJDK 8",
+                    "sampleContextDir": "undertow-servlet",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+                    "supports": "java:8,xpaas:1.4",
+                    "tags": "builder,java,xpaas,openjdk",
+                    "version": "1.1"
+                },
+                "name": "1.1"
             }
         ]
     }

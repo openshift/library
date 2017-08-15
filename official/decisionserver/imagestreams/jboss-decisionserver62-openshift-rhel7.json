@@ -2,6 +2,9 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server"
+        },
         "name": "jboss-decisionserver62-openshift"
     },
     "spec": {
@@ -11,11 +14,12 @@
                 "annotations": {
                     "description": "Red Hat JBoss BRMS 6.2 decision server S2I images.",
                     "iconClass": "icon-jboss",
+                    "openshift.io/display-name": "Red Hat JBoss BRMS 6.2 decision server",
                     "sampleContextDir": "decisionserver/hellorules",
                     "sampleRef": "1.2",
                     "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "supports": "decisionserver:6.2,java:8,xpaas:1.2",
-                    "tags": "builder,decisionserver,java,xpaas",
+                    "supports": "decisionserver:6.2,xpaas:1.2",
+                    "tags": "builder,decisionserver,xpaas",
                     "version": "1.2"
                 },
                 "name": "1.2"

@@ -2,6 +2,9 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.0"
+        },
         "name": "jboss-eap70-openshift"
     },
     "spec": {
@@ -11,6 +14,7 @@
                 "annotations": {
                     "description": "JBoss EAP 7.0 S2I images.",
                     "iconClass": "icon-jboss",
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.0",
                     "sampleContextDir": "kitchensink",
                     "sampleRef": "7.0.0.GA",
                     "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
@@ -24,6 +28,7 @@
                 "annotations": {
                     "description": "JBoss EAP 7.0 S2I images.",
                     "iconClass": "icon-jboss",
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.0",
                     "sampleContextDir": "kitchensink",
                     "sampleRef": "7.0.0.GA",
                     "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
@@ -32,6 +37,19 @@
                     "version": "1.4"
                 },
                 "name": "1.4"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss EAP 7.0 S2I images.",
+                    "iconClass": "icon-jboss",
+                    "sampleContextDir": "kitchensink",
+                    "sampleRef": "7.0.0.GA",
+                    "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                    "supports": "eap:7.0,javaee:7,java:8,xpaas:1.5",
+                    "tags": "builder,eap,javaee,java,jboss,xpaas",
+                    "version": "1.5"
+                },
+                "name": "1.5"
             }
         ]
     }
