@@ -16,7 +16,6 @@
             "template.openshift.io/provider-display-name": "Red Hat, Inc.",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "creationTimestamp": null,
         "name": "jenkins-ephemeral"
     },
     "objects": [
@@ -27,7 +26,6 @@
                 "annotations": {
                     "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
                 },
-                "creationTimestamp": null,
                 "name": "${JENKINS_SERVICE_NAME}"
             },
             "spec": {
@@ -45,7 +43,9 @@
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
-                "creationTimestamp": null,
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "name": "${JENKINS_SERVICE_NAME}"
             },
             "spec": {
@@ -58,7 +58,6 @@
                 },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "name": "${JENKINS_SERVICE_NAME}"
                         }
@@ -224,7 +223,6 @@
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${JNLP_SERVICE_NAME}\", \"namespace\": \"\", \"kind\": \"Service\"}]",
                     "service.openshift.io/infrastructure": "true"
                 },
-                "creationTimestamp": null,
                 "name": "${JENKINS_SERVICE_NAME}"
             },
             "spec": {

@@ -92,7 +92,8 @@
             "kind": "BuildConfig",
             "metadata": {
                 "annotations": {
-                    "description": "Defines how to build the application"
+                    "description": "Defines how to build the application",
+                    "template.alpha.openshift.io/wait-for-ready": "true"
                 },
                 "name": "${NAME}"
             },
@@ -151,7 +152,8 @@
             "kind": "DeploymentConfig",
             "metadata": {
                 "annotations": {
-                    "description": "Defines how to deploy the application server"
+                    "description": "Defines how to deploy the application server",
+                    "template.alpha.openshift.io/wait-for-ready": "true"
                 },
                 "name": "${NAME}"
             },

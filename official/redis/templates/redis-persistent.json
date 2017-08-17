@@ -16,7 +16,6 @@
             "template.openshift.io/provider-display-name": "Red Hat, Inc.",
             "template.openshift.io/support-url": "https://access.redhat.com"
         },
-        "creationTimestamp": null,
         "name": "redis-persistent"
     },
     "objects": [
@@ -40,7 +39,6 @@
                 "annotations": {
                     "template.openshift.io/expose-uri": "redis://{.spec.clusterIP}:{.spec.ports[?(.name==\"redis\")].port}"
                 },
-                "creationTimestamp": null,
                 "name": "${DATABASE_SERVICE_NAME}"
             },
             "spec": {
@@ -84,7 +82,9 @@
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
-                "creationTimestamp": null,
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "name": "${DATABASE_SERVICE_NAME}"
             },
             "spec": {
@@ -97,7 +97,6 @@
                 },
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "name": "${DATABASE_SERVICE_NAME}"
                         }
