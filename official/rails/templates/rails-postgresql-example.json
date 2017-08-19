@@ -336,7 +336,8 @@
             "kind": "DeploymentConfig",
             "metadata": {
                 "annotations": {
-                    "description": "Defines how to deploy the database"
+                    "description": "Defines how to deploy the database",
+                    "template.alpha.openshift.io/wait-for-ready": "true"
                 },
                 "name": "${DATABASE_SERVICE_NAME}"
             },
