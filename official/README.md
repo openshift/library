@@ -184,6 +184,10 @@ Path: official/django/templates/django-psql-persistent.json
 Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json )  
 Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
 Path: official/dotnet/imagestreams/dotnet-rhel7.json  
+### dotnet-runtime
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: official/dotnet/imagestreams/dotnet-runtime-rhel7.json  
 # eap
 ## imagestreams
 ### jboss-eap64-openshift
