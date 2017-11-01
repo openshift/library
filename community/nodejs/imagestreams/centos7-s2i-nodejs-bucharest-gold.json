@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "metadata": {
-        "creationTimestamp": "2017-10-20T21:05:00.122Z",
+        "creationTimestamp": "2017-10-31T20:05:54.408Z",
         "name": "centos7-s2i-nodejs"
     },
     "spec": {
@@ -68,20 +68,6 @@
                     "description": "Build and run Node.js applications",
                     "iconClass": "icon-nodejs",
                     "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
-                    "supports": "nodejs:4.x, nodejs",
-                    "tags": "builder, node, nodejs, nodejs-4.x"
-                },
-                "from": {
-                    "kind": "ImageStreamTag",
-                    "name": "4.x"
-                },
-                "name": "latest"
-            },
-            {
-                "annotations": {
-                    "description": "Build and run Node.js applications",
-                    "iconClass": "icon-nodejs",
-                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
                     "supports": "nodejs:5.x, nodejs",
                     "tags": "builder, node, nodejs, nodejs-5.x"
                 },
@@ -104,6 +90,20 @@
                     "name": "5.x"
                 },
                 "name": "5.x"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications",
+                    "iconClass": "icon-nodejs",
+                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
+                    "supports": "nodejs:5.x, nodejs",
+                    "tags": "builder, node, nodejs, nodejs-5.x"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "5.x"
+                },
+                "name": "latest"
             },
             {
                 "annotations": {
@@ -216,6 +216,62 @@
                     "name": "8.x"
                 },
                 "name": "8.x"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications",
+                    "iconClass": "icon-nodejs",
+                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
+                    "supports": "nodejs:8.x, nodejs",
+                    "tags": "builder, node, nodejs, nodejs-8.x"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "8.x"
+                },
+                "name": "lts"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications",
+                    "iconClass": "icon-nodejs",
+                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
+                    "supports": "nodejs:8.x, nodejs",
+                    "tags": "builder, node, nodejs, nodejs-8.x"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "8.x"
+                },
+                "name": "Carbon"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications",
+                    "iconClass": "icon-nodejs",
+                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
+                    "supports": "nodejs:9.x, nodejs",
+                    "tags": "builder, node, nodejs, nodejs-9.x"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "bucharestgold/centos7-s2i-nodejs:9.x"
+                },
+                "name": "9.x"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications",
+                    "iconClass": "icon-nodejs",
+                    "sampleRepo": "https://github.com/bucharest-gold/s2i-nodejs.git",
+                    "supports": "nodejs:9.x, nodejs",
+                    "tags": "builder, node, nodejs, nodejs-9.x"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "9.x"
+                },
+                "name": "9.x"
             }
         ]
     }
