@@ -14,7 +14,8 @@
             "openshift.io/long-description": "This template defines resources needed to develop a Dancer based application, including a build configuration and application deployment configuration.  It does not include a database.",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "openshift.io/support-url": "https://access.redhat.com",
-            "tags": "quickstart,perl,dancer"
+            "tags": "quickstart,perl,dancer",
+            "template.openshift.io/bindable": "false"
         },
         "name": "dancer-example"
     },
@@ -45,9 +46,6 @@
             "apiVersion": "v1",
             "kind": "Route",
             "metadata": {
-                "annotations": {
-                    "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
-                },
                 "name": "${NAME}"
             },
             "spec": {
