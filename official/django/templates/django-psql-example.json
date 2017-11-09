@@ -14,7 +14,8 @@
             "openshift.io/long-description": "This template defines resources needed to develop a Django based application, including a build configuration, application deployment configuration, and database deployment configuration.  The database is stored in non-persistent storage, so this configuration should be used for experimental purposes only.",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "openshift.io/support-url": "https://access.redhat.com",
-            "tags": "quickstart,python,django"
+            "tags": "quickstart,python,django",
+            "template.openshift.io/bindable": "false"
         },
         "name": "django-psql-example"
     },
@@ -58,9 +59,6 @@
             "apiVersion": "v1",
             "kind": "Route",
             "metadata": {
-                "annotations": {
-                    "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
-                },
                 "name": "${NAME}"
             },
             "spec": {
