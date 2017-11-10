@@ -1,46 +1,24 @@
 {
     "apiVersion": "v1",
     "kind": "ImageStream",
-    "labels": {
-        "xpaas": "1.4.7"
-    },
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
-            "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "1.4.7"
+            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP"
         },
         "name": "jboss-datavirt63-driver-openshift"
     },
     "spec": {
+        "dockerImageRepository": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift",
         "tags": [
             {
                 "annotations": {
                     "description": "JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP.",
-                    "iconClass": "icon-datavirt",
+                    "iconClass": "icon-jboss",
                     "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
-                    "tags": "client,jboss,hidden",
+                    "tags": "client,jboss,xpaas",
                     "version": "1.0"
                 },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift:1.0"
-                },
                 "name": "1.0"
-            },
-            {
-                "annotations": {
-                    "description": "JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP.",
-                    "iconClass": "icon-datavirt",
-                    "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.5 JDBC Driver Modules for EAP",
-                    "tags": "client,jboss,hidden",
-                    "version": "1.1"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-datavirt-6/datavirt63-driver-openshift:1.1"
-                },
-                "name": "1.1"
             }
         ]
     }

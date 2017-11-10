@@ -3,17 +3,16 @@
     "kind": "Template",
     "labels": {
         "template": "amq62-ssl",
-        "xpaas": "1.4.7"
+        "xpaas": "1.5.0"
     },
     "message": "A new messaging service with SSL support has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the \"amq-service-account\" service account and a secret named \"${AMQ_SECRET}\" containing the trust store and key store files (\"${AMQ_TRUSTSTORE}\" and \"${AMQ_KEYSTORE}\") used for serving secure content.",
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss A-MQ brokers. These can be deployed as standalone or in a mesh. This template supports SSL and requires usage of OpenShift secrets.",
-            "iconClass": "icon-amq",
-            "openshift.io/display-name": "JBoss A-MQ 6.2 (Ephemeral with SSL)",
-            "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "messaging,amq,jboss,hidden",
-            "version": "1.4.7"
+            "iconClass": "icon-jboss",
+            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.2 (Ephemeral with SSL)",
+            "tags": "messaging,amq,jboss,xpaas",
+            "version": "1.5.0"
         },
         "name": "amq62-ssl"
     },
@@ -306,10 +305,6 @@
                                     {
                                         "name": "AMQ_STORAGE_USAGE_LIMIT",
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
-                                    },
-                                    {
-                                        "name": "AMQ_QUEUE_MEMORY_LIMIT",
-                                        "value": "${AMQ_QUEUE_MEMORY_LIMIT}"
                                     }
                                 ],
                                 "image": "jboss-amq-62",
@@ -401,7 +396,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:1.6",
+                                "name": "jboss-amq-62:1.5",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -514,13 +509,6 @@
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "required": false,
             "value": "100 gb"
-        },
-        {
-            "description": "The queue memory limit (default is 1mb)",
-            "displayName": "Queue Memory Limit",
-            "name": "AMQ_QUEUE_MEMORY_LIMIT",
-            "required": false,
-            "value": ""
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
