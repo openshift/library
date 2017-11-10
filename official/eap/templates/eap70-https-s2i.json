@@ -3,20 +3,16 @@
     "kind": "Template",
     "labels": {
         "template": "eap70-https-s2i",
-        "xpaas": "1.4.7"
+        "xpaas": "1.4.0"
     },
     "message": "A new EAP 7 based application with SSL support has been created in your project. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
-            "description": "An example EAP 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP 7.0 (with https)",
-            "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "eap,javaee,java,jboss,hidden",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.0 based application, including a build configuration, application deployment configuration and secure communication using https.",
-            "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.7"
+            "description": "Application template for EAP 7 applications built using S2I.",
+            "iconClass": "icon-jboss",
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 (with https)",
+            "tags": "eap,javaee,java,jboss,xpaas",
+            "version": "1.4.0"
         },
         "name": "eap70-https-s2i"
     },
@@ -161,7 +157,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap70-openshift:1.6",
+                            "name": "jboss-eap70-openshift:1.5",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -294,6 +290,17 @@
                                 ],
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
+                                "lifecycle": {
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/opt/eap/bin/jboss-cli.sh",
+                                                "-c",
+                                                ":shutdown(timeout=60)"
+                                            ]
+                                        }
+                                    }
+                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
