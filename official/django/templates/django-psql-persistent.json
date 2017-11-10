@@ -2,6 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
+        "app": "django-psql-persistent",
         "template": "django-psql-persistent"
     },
     "message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
@@ -9,7 +10,7 @@
         "annotations": {
             "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/django-ex/blob/master/README.md.",
             "iconClass": "icon-python",
-            "openshift.io/display-name": "Django + PostgreSQL (Persistent)",
+            "openshift.io/display-name": "Django + PostgreSQL",
             "openshift.io/documentation-url": "https://github.com/openshift/django-ex",
             "openshift.io/long-description": "This template defines resources needed to develop a Django based application, including a build configuration, application deployment configuration, and database deployment configuration.",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
