@@ -1,36 +1,63 @@
 {
     "apiVersion": "v1",
     "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.7"
+    },
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3"
+            "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.7"
         },
         "name": "jboss-amq-63"
     },
     "spec": {
-        "dockerImageRepository": "registry.access.redhat.com/jboss-amq-6/amq63-openshift",
         "tags": [
             {
                 "annotations": {
                     "description": "JBoss A-MQ 6.3 broker image.",
-                    "iconClass": "icon-jboss",
+                    "iconClass": "icon-amq",
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
-                    "supports": "amq:6.3,messaging,xpaas:1.0",
-                    "tags": "messaging,amq,jboss,xpaas",
+                    "supports": "amq:6.3,messaging",
+                    "tags": "messaging,amq,jboss,hidden",
                     "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.0"
                 },
                 "name": "1.0"
             },
             {
                 "annotations": {
                     "description": "JBoss A-MQ 6.3 broker image.",
-                    "iconClass": "icon-jboss",
+                    "iconClass": "icon-amq",
                     "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
-                    "supports": "amq:6.3,messaging,xpaas:1.1",
-                    "tags": "messaging,amq,jboss,xpaas",
+                    "supports": "amq:6.3,messaging",
+                    "tags": "messaging,amq,jboss,hidden",
                     "version": "1.1"
                 },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.1"
+                },
                 "name": "1.1"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss A-MQ 6.3 broker image.",
+                    "iconClass": "icon-amq",
+                    "openshift.io/display-name": "Red Hat JBoss A-MQ 6.3",
+                    "supports": "amq:6.3,messaging",
+                    "tags": "messaging,amq,jboss,hidden",
+                    "version": "1.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-amq-6/amq63-openshift:1.2"
+                },
+                "name": "1.2"
             }
         ]
     }

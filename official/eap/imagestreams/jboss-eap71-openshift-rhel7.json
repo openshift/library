@@ -1,24 +1,47 @@
 {
     "apiVersion": "v1",
     "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.7"
+    },
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "Red Hat JBoss EAP 7.1"
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.1",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.7"
         },
         "name": "jboss-eap71-openshift"
     },
     "spec": {
-        "dockerImageRepository": "registry.access.redhat.com/jboss-eap-7/eap71-openshift",
         "tags": [
             {
                 "annotations": {
                     "description": "JBoss EAP 7.1 Tech Preview.",
-                    "iconClass": "icon-jboss",
+                    "iconClass": "icon-eap",
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.1 (Tech Preview)",
                     "sampleContextDir": "kitchensink",
                     "sampleRef": "7.0.0.GA",
                     "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
-                    "supports": "eap:7.1,javaee:7,java:8,xpaas:1.0",
-                    "tags": "builder,eap,javaee,java,jboss,xpaas",
+                    "supports": "eap:7.1,javaee:7,java:8,xpass:1.0",
+                    "tags": "builder,eap,javaee,java,jboss,hidden",
+                    "version": "TP"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "1.0-TP"
+                },
+                "name": "TP"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss EAP 7.1 Tech Preview.",
+                    "iconClass": "icon-eap",
+                    "openshift.io/display-name": "Red Hat JBoss EAP 7.1 (Tech Preview)",
+                    "sampleContextDir": "kitchensink",
+                    "sampleRef": "7.0.0.GA",
+                    "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                    "supports": "eap:7.1,javaee:7,java:8",
+                    "tags": "builder,eap,javaee,java,jboss,hidden",
                     "version": "1.0"
                 },
                 "from": {
