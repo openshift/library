@@ -3,16 +3,17 @@
     "kind": "Template",
     "labels": {
         "template": "datagrid65-postgresql",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.7"
     },
     "message": "A new data grid service (using PostgreSQL) has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\". The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the \"datagrid-service-account\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
             "description": "Application template for JDG 6.5 and PostgreSQL applications built using.",
-            "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat JBoss Data Grid 6.5 + PostgreSQL (Ephemeral with https)",
-            "tags": "datagrid,jboss,xpaas",
-            "version": "1.4.0"
+            "iconClass": "icon-datagrid",
+            "openshift.io/display-name": "JBoss Data Grid 6.5 + PostgreSQL (Ephemeral with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "datagrid,jboss,hidden",
+            "version": "1.4.7"
         },
         "name": "datagrid65-postgresql"
     },
@@ -324,6 +325,10 @@
                                         "value": "${APPLICATION_NAME}-hotrod"
                                     },
                                     {
+                                        "name": "HOTROD_ENCRYPTION",
+                                        "value": "${HTTPS_NAME}"
+                                    },
+                                    {
                                         "name": "MEMCACHED_CACHE",
                                         "value": "${MEMCACHED_CACHE}"
                                     },
@@ -455,7 +460,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-datagrid65-openshift:1.4",
+                                "name": "jboss-datagrid65-openshift:1.5",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },

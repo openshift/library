@@ -3,16 +3,20 @@
     "kind": "Template",
     "labels": {
         "template": "eap70-sso-s2i",
-        "xpaas": "1.4.0"
+        "xpaas": "1.4.7"
     },
     "message": "A new EAP 7 based application with SSL and SSO support has been created in your project. Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
-            "description": "Application template for EAP 6 applications built using S2I, enabled for SSO.",
-            "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 + Single Sign-On (with https)",
-            "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0"
+            "description": "An example EAP 7 Single Sign-On application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "iconClass": "icon-eap",
+            "openshift.io/display-name": "JBoss EAP 7.0 + Single Sign-On (with https)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "eap,javaee,java,jboss,hidden",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.0 based application, including a build configuration, application deployment configuration and integrated with Red Hat Single Sign-On.",
+            "template.openshift.io/support-url": "https://access.redhat.com",
+            "version": "1.4.7"
         },
         "name": "eap70-sso-s2i"
     },
@@ -161,7 +165,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap70-openshift:1.5",
+                            "name": "jboss-eap70-openshift:1.6",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -260,16 +264,16 @@
                                         "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                        "name": "MQ_CLUSTER_PASSWORD",
+                                        "value": "${MQ_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
                                     },
                                     {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
@@ -378,17 +382,6 @@
                                 ],
                                 "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
-                                "lifecycle": {
-                                    "preStop": {
-                                        "exec": {
-                                            "command": [
-                                                "/opt/eap/bin/jboss-cli.sh",
-                                                "-c",
-                                                ":shutdown(timeout=60)"
-                                            ]
-                                        }
-                                    }
-                                },
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
@@ -551,16 +544,24 @@
         {
             "description": "Queue names",
             "displayName": "Queues",
-            "name": "HORNETQ_QUEUES",
+            "name": "MQ_QUEUES",
             "required": false,
             "value": ""
         },
         {
             "description": "Topic names",
             "displayName": "Topics",
-            "name": "HORNETQ_TOPICS",
+            "name": "MQ_TOPICS",
             "required": false,
             "value": ""
+        },
+        {
+            "description": "A-MQ cluster admin password",
+            "displayName": "A-MQ cluster password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "MQ_CLUSTER_PASSWORD",
+            "required": true
         },
         {
             "description": "The name of the service account to use for the deployment.  The service account should be configured to allow useage of the secret(s) specified by HTTPS_SECRET and JGROUPS_ENCRYPT_SECRET.",
@@ -603,14 +604,6 @@
             "name": "HTTPS_PASSWORD",
             "required": false,
             "value": ""
-        },
-        {
-            "description": "HornetQ cluster admin password",
-            "displayName": "HornetQ Password",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
-            "required": true
         },
         {
             "description": "GitHub trigger secret",

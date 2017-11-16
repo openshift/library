@@ -1,37 +1,64 @@
 {
     "apiVersion": "v1",
     "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.7"
+    },
     "metadata": {
         "annotations": {
             "description": "Red Hat SSO 7.1",
-            "openshift.io/display-name": "Red Hat Single Sign-On 7.1"
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.7"
         },
         "name": "redhat-sso71-openshift"
     },
     "spec": {
-        "dockerImageRepository": "registry.access.redhat.com/redhat-sso-7/sso71-openshift",
         "tags": [
             {
                 "annotations": {
                     "description": "Red Hat SSO 7.1",
-                    "iconClass": "icon-jboss",
+                    "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
-                    "supports": "sso:7.1,xpaas:1.4",
-                    "tags": "sso,keycloak,redhat",
+                    "supports": "sso:7.1",
+                    "tags": "sso,keycloak,redhat,hidden",
                     "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.0"
                 },
                 "name": "1.0"
             },
             {
                 "annotations": {
                     "description": "Red Hat SSO 7.1",
-                    "iconClass": "icon-jboss",
+                    "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
-                    "supports": "sso:7.1,xpaas:1.4",
-                    "tags": "sso,keycloak,redhat",
+                    "supports": "sso:7.1",
+                    "tags": "sso,keycloak,redhat,hidden",
                     "version": "1.1"
                 },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.1"
+                },
                 "name": "1.1"
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat SSO 7.1",
+                    "iconClass": "icon-sso",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.1",
+                    "supports": "sso:7.1",
+                    "tags": "sso,keycloak,redhat,hidden",
+                    "version": "1.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/redhat-sso-7/sso71-openshift:1.2"
+                },
+                "name": "1.2"
             }
         ]
     }
