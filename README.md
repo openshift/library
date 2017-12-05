@@ -138,6 +138,6 @@ You can find more information about creating templates and image-streams in the 
 
 - [Writing Image Streams](https://docs.openshift.org/latest/dev_guide/managing_images.html#writing-image-streams-for-s2i-builders)
 - [Writing Templates](https://docs.openshift.org/latest/dev_guide/templates.html#writing-templates)
-- [Quickstart Templates](https://docs.openshift.org/latest/dev_guide/app_tutorials/quickstarts.html)
+- [Quickstart Templates](https://docs.openshift.org/latest/dev_guide/dev_tutorials/quickstarts.html)
 - [Image Streams](https://docs.openshift.org/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)
 - [Managing Images](https://docs.openshift.org/latest/dev_guide/managing_images.html#dev-guide-managing-images)
