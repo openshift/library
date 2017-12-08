@@ -271,19 +271,39 @@
                                     },
                                     {
                                         "name": "MGMT_USER",
-                                        "value": "${MANAGEMENT_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "management-user",
+                                                "name": "${APPLICATION_NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MGMT_PASS",
-                                        "value": "${MANAGEMENT_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "management-password",
+                                                "name": "${APPLICATION_NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "APP_USER",
-                                        "value": "${APPLICATION_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "application-user",
+                                                "name": "${APPLICATION_NAME}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "APP_PASS",
-                                        "value": "${APPLICATION_PASSWORD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "application-password",
+                                                "name": "${APPLICATION_NAME}"
+                                            }
+                                        }
                                     }
                                 ],
                                 "image": "${IMAGE}",
