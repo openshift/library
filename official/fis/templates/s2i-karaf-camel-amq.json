@@ -2,16 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-karaf2-camel-log"
+        "template": "s2i-karaf-camel-amq"
     },
     "metadata": {
         "annotations": {
-            "description": "A simple Camel route in Karaf container. This quickstart shows a simple Apache Camel application that logs a message to the server log every 5th second.",
+            "description": "Camel route using ActiveMQ in Karaf container. This quickstart shows how to use Camel in a Karaf Container using Blueprint to connect to the A-MQ xPaaS message broker on OpenShift that should already be installed, one simple way to run a A-MQ service is following the documentation of the A-MQ xPaaS image for OpenShift related to the amq62-basic template.",
             "iconClass": "icon-jboss",
             "tags": "quickstart,java,karaf,fis",
             "version": "2.0"
         },
-        "name": "s2i-karaf2-camel-log"
+        "name": "s2i-karaf-camel-amq"
     },
     "objects": [
         {
@@ -173,6 +173,18 @@
                                                 "fieldPath": "metadata.namespace"
                                             }
                                         }
+                                    },
+                                    {
+                                        "name": "ACTIVEMQ_SERVICE_NAME",
+                                        "value": "${ACTIVEMQ_SERVICE_NAME}"
+                                    },
+                                    {
+                                        "name": "ACTIVEMQ_USERNAME",
+                                        "value": "${ACTIVEMQ_USERNAME}"
+                                    },
+                                    {
+                                        "name": "ACTIVEMQ_PASSWORD",
+                                        "value": "${ACTIVEMQ_PASSWORD}"
                                     }
                                 ],
                                 "image": "library/${APP_NAME}:latest",
@@ -243,14 +255,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-karaf2-camel-log"
+            "value": "s2i-karaf-camel-amq"
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "GIT_REPO",
             "required": true,
-            "value": "https://github.com/fabric8-quickstarts/karaf2-camel-log.git"
+            "value": "https://github.com/fabric8-quickstarts/karaf-camel-amq.git"
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
@@ -262,7 +274,7 @@
             "description": "Exposed Service name.",
             "displayName": "Service Name",
             "name": "SERVICE_NAME",
-            "value": "s2i-karaf2-camel-log"
+            "value": "s2i-karaf-camel-amq"
         },
         {
             "description": "The version of the FIS S2I builder image to use.",
@@ -305,6 +317,23 @@
             "from": "[a-zA-Z0-9]{40}",
             "generate": "expression",
             "name": "BUILD_SECRET"
+        },
+        {
+            "description": "Set this to the name of the TCP service of the ActiveMQ broker. You may need to create a broker first.",
+            "displayName": "ActiveMQ Broker Service",
+            "name": "ACTIVEMQ_SERVICE_NAME",
+            "required": true,
+            "value": "broker-amq-tcp"
+        },
+        {
+            "description": "The username used to authenticate with the ActiveMQ broker. Leave it empty if authentication is disabled.",
+            "displayName": "ActiveMQ Broker Username",
+            "name": "ACTIVEMQ_USERNAME"
+        },
+        {
+            "description": "The password used to authenticate with the ActiveMQ broker. Leave it empty if authentication is disabled.",
+            "displayName": "ActiveMQ Broker Password",
+            "name": "ACTIVEMQ_PASSWORD"
         },
         {
             "description": "The amount of CPU to requests.",

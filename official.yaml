@@ -469,13 +469,13 @@ data:
           - online-professional
   fis:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-amq-template.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
-      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-log-template.json
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-log-template.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
-      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-rest-sql-template.json
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-rest-sql-template.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
-      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json
+      - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-cxf-rest-template.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/
@@ -509,5 +509,14 @@ data:
           - online-professional
   3scale:
     templates:
-      - location: https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast.yml
-        docs: https://support.3scale.net/docs/deployment-options/apicast-openshift
+      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/apicast.yml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift
+        tags:
+          - online-starter
+          - online-professional
+    imagestreams:
+      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/3scale-image-streams.yml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift
+        tags:
+          - online-starter
+          - online-professional

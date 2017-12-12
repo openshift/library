@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-karaf2-camel-rest-sql"
+        "template": "s2i-karaf-camel-rest-sql"
     },
     "metadata": {
         "annotations": {
@@ -11,7 +11,7 @@
             "tags": "quickstart,java,karaf,fis",
             "version": "2.0"
         },
-        "name": "s2i-karaf2-camel-rest-sql"
+        "name": "s2i-karaf-camel-rest-sql"
     },
     "objects": [
         {
@@ -314,14 +314,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-karaf2-camel-rest-sql"
+            "value": "s2i-karaf-camel-rest-sql"
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "GIT_REPO",
             "required": true,
-            "value": "https://github.com/fabric8-quickstarts/karaf2-camel-rest-sql.git"
+            "value": "https://github.com/fabric8-quickstarts/karaf-camel-rest-sql.git"
         },
         {
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
@@ -333,7 +333,7 @@
             "description": "Exposed Service name.",
             "displayName": "Service Name",
             "name": "SERVICE_NAME",
-            "value": "s2i-karaf2-camel-rest"
+            "value": "s2i-karaf-camel-rest"
         },
         {
             "description": "Set this to the name of the TCP service of the MySQL server. You may need to create a server first.",
