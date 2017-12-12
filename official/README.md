@@ -1,8 +1,13 @@
 # 3scale
+## imagestreams
+### apicast-gateway
+Source URL: [https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/3scale-image-streams.yml](https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/3scale-image-streams.yml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift](https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift)  
+Path: official/3scale/imagestreams/apicast-gateway.json  
 ## templates
 ### 3scale-gateway
-Source URL: [https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast.yml](https://raw.githubusercontent.com/openshift/openshift-ansible/master/roles/openshift_examples/files/examples/v1.5/quickstart-templates/apicast.yml )  
-Docs: [https://support.3scale.net/docs/deployment-options/apicast-openshift](https://support.3scale.net/docs/deployment-options/apicast-openshift)  
+Source URL: [https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/apicast.yml](https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/apicast.yml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift](https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift)  
 Path: official/3scale/templates/3scale-gateway.json  
 # amq
 ## imagestreams
@@ -342,22 +347,22 @@ Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/imagestreams/fis-eap-openshift-rhel7.json  
 ## templates
-### s2i-karaf2-camel-amq
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-amq-template.json )  
+### s2i-karaf-camel-amq
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-amq-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-karaf2-camel-amq.json  
-### s2i-karaf2-camel-log
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-log-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-log-template.json )  
+Path: official/fis/templates/s2i-karaf-camel-amq.json  
+### s2i-karaf-camel-log
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-log-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-log-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-karaf2-camel-log.json  
-### s2i-karaf2-camel-rest-sql
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-rest-sql-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-camel-rest-sql-template.json )  
+Path: official/fis/templates/s2i-karaf-camel-log.json  
+### s2i-karaf-camel-rest-sql
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-rest-sql-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-camel-rest-sql-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-karaf2-camel-rest-sql.json  
-### s2i-karaf2-cxf-rest
-Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf2-cxf-rest-template.json )  
+Path: official/fis/templates/s2i-karaf-camel-rest-sql.json  
+### s2i-karaf-cxf-rest
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-cxf-rest-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/karaf-cxf-rest-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-karaf2-cxf-rest.json  
+Path: official/fis/templates/s2i-karaf-cxf-rest.json  
 ### s2i-spring-boot-camel-amq
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/master/quickstarts/spring-boot-camel-amq-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
