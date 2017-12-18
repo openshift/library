@@ -8,7 +8,7 @@
         "annotations": {
             "description": "Spring-Boot and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on Openshift. The quickstart uses Spring Boot to configure a little application that includes a Camel route (in Spring xml) that triggeres a message every 5th second, and routes the message to a log.",
             "iconClass": "icon-jboss",
-            "tags": "quickstart,java,springboot,fis,jboss-fuse",
+            "tags": "quickstart,java,springboot,fis",
             "version": "2.0"
         },
         "name": "s2i-spring-boot-camel-xml"
@@ -54,6 +54,7 @@
                         "name": "${APP_NAME}:latest"
                     }
                 },
+                "resources": {},
                 "source": {
                     "git": {
                         "ref": "${GIT_REF}",
@@ -140,6 +141,9 @@
                     "project": "${APP_NAME}",
                     "provider": "s2i",
                     "version": "${APP_VERSION}"
+                },
+                "strategy": {
+                    "resources": {}
                 },
                 "template": {
                     "metadata": {
@@ -241,7 +245,7 @@
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "GIT_REF",
-            "value": "master"
+            "value": "spring-boot-camel-xml-1.0.0.redhat-000064"
         },
         {
             "description": "The version of the FIS S2I builder image to use.",
@@ -253,7 +257,7 @@
             "description": "The application version.",
             "displayName": "Application Version",
             "name": "APP_VERSION",
-            "value": "2.2.64-SNAPSHOT"
+            "value": "1.0.0.redhat-000064"
         },
         {
             "description": "Arguments passed to mvn in the build.",
