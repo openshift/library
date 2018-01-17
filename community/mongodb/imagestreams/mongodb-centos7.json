@@ -11,15 +11,15 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "Provides a MongoDB database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/tree/master/3.2/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MongoDB available on OpenShift, including major versions updates.",
+                    "description": "Provides a MongoDB database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/tree/master/3.4/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MongoDB available on OpenShift, including major versions updates.",
                     "iconClass": "icon-mongodb",
                     "openshift.io/display-name": "MongoDB (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "mongodb"
+                    "tags": "database,mongodb"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "3.2"
+                    "name": "3.4"
                 },
                 "name": "latest"
             },
@@ -44,7 +44,7 @@
                     "iconClass": "icon-mongodb",
                     "openshift.io/display-name": "MongoDB 2.6",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "mongodb",
+                    "tags": "database,mongodb",
                     "version": "2.6"
                 },
                 "from": {
@@ -59,7 +59,7 @@
                     "iconClass": "icon-mongodb",
                     "openshift.io/display-name": "MongoDB 3.2",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "mongodb",
+                    "tags": "database,mongodb",
                     "version": "3.2"
                 },
                 "from": {
@@ -67,6 +67,21 @@
                     "name": "centos/mongodb-32-centos7:latest"
                 },
                 "name": "3.2"
+            },
+            {
+                "annotations": {
+                    "description": "Provides a MongoDB 3.4 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/tree/master/3.4/README.md.",
+                    "iconClass": "icon-mongodb",
+                    "openshift.io/display-name": "MongoDB 3.4",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "database,mongodb",
+                    "version": "3.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "centos/mongodb-34-centos7:latest"
+                },
+                "name": "3.4"
             }
         ]
     }
