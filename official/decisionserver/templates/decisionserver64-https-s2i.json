@@ -3,9 +3,9 @@
     "kind": "Template",
     "labels": {
         "template": "decisionserver64-https-s2i",
-        "xpaas": "1.4.7"
+        "xpaas": "1.4.8"
     },
-    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the \"decisionserver-service-account\" service account and the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
             "description": "An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-brms/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss BRMS 6.4 decision server, including a build configuration,  application deployment configuration and secured using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.7"
+            "version": "1.4.8"
         },
         "name": "decisionserver64-https-s2i"
     },
@@ -165,7 +165,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-decisionserver64-openshift:1.1",
+                            "name": "jboss-decisionserver64-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -281,7 +281,8 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "name": "${APPLICATION_NAME}",
                                 "ports": [
@@ -310,6 +311,11 @@
                                         ]
                                     }
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/etc/decisionserver-secret-volume",
@@ -319,7 +325,6 @@
                                 ]
                             }
                         ],
-                        "serviceAccountName": "decisionserver-service-account",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
@@ -516,6 +521,12 @@
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "required": false,
+            "value": "1Gi"
         }
     ]
 }

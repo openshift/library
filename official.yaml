@@ -1,5 +1,5 @@
 variables:
-  xpaas_version: ose-v1.4.7
+  xpaas_version: ose-v1.4.8-1
 data:
   ruby:
     imagestreams:
@@ -216,6 +216,8 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-basic.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-basic.adoc
+        tags:
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent-ssl.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-persistent-ssl.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent.json
@@ -230,11 +232,15 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq63-ssl.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-ssl.adoc
+        tags:
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/
         regex: jboss-amq
         suffix: rhel7
+        tags:
+          - online-professional
   datagrid:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-basic.json
@@ -251,14 +257,22 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-postgresql.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-basic.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-basic.adoc
+        tags:
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-https.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-https.adoc
+        tags:
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-mysql-persistent.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-mysql-persistent.adoc
+        tags:
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-mysql.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-mysql.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-postgresql-persistent.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-postgresql-persistent.adoc
+        tags:
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-postgresql.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-postgresql.adoc
     imagestreams:
@@ -266,6 +280,8 @@ data:
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/
         regex: jboss-datagrid
         suffix: rhel7
+        tags:
+          - online-professional
   datavirt:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datavirt/datavirt63-basic-s2i.json
@@ -300,64 +316,88 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-basic-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mongodb-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mongodb-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mysql-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-mysql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-postgresql-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-postgresql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-sso-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-sso-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-third-party-db-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-third-party-db-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap64-tx-recovery-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap64-tx-recovery-s2i.json
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-amq-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-amq-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-amq-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-basic-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mongodb-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mongodb-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mysql-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-mysql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-postgresql-persistent-s2i.adoc
-        tags:
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-postgresql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-sso-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-sso-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-third-party-db-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-third-party-db-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap70-tx-recovery-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap70-tx-recovery-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-amq-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-amq-persistent-s2i.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-amq-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-basic-s2i.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-https-s2i.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-mongodb-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-mongodb-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-mongodb-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-mongodb-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-mysql-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-mysql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-postgresql-persistent-s2i.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-postgresql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-sso-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-sso-s2i.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-third-party-db-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-third-party-db-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/eap/eap71-tx-recovery-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/eap/eap71-tx-recovery-s2i.json
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/
@@ -428,6 +468,9 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat7-basic-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat7-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat7-https-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat7-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat7-mongodb-s2i.json
@@ -442,21 +485,30 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-basic-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-https-s2i.adoc
         tags:
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-https-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-mongodb-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-mysql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-mysql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-mysql-s2i.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-postgresql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/webserver/jws31-tomcat8-postgresql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc
     imagestreams:

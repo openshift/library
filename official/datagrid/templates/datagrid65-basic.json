@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "datagrid65-basic",
-        "xpaas": "1.4.7"
+        "xpaas": "1.4.8"
     },
     "message": "A new data grid service has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\".",
     "metadata": {
@@ -13,7 +13,7 @@
             "openshift.io/display-name": "JBoss Data Grid 6.5 (Ephemeral, no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "datagrid,jboss,hidden",
-            "version": "1.4.7"
+            "version": "1.4.8"
         },
         "name": "datagrid65-basic"
     },
@@ -92,6 +92,32 @@
         },
         {
             "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The JGroups ping port for clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
             "id": "${APPLICATION_NAME}-http",
             "kind": "Route",
             "metadata": {
@@ -148,16 +174,16 @@
                                         "value": "${PASSWORD}"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
-                                        "value": "application=${APPLICATION_NAME}"
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "metadata.namespace"
-                                            }
-                                        }
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "INFINISPAN_CONNECTORS",
@@ -205,7 +231,8 @@
                                             "-c",
                                             "/opt/datagrid/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "name": "${APPLICATION_NAME}",
                                 "ports": [
@@ -248,6 +275,11 @@
                                             "/opt/datagrid/bin/readinessProbe.sh"
                                         ]
                                     }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
                                 }
                             }
                         ],
@@ -263,7 +295,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-datagrid65-openshift:1.5",
+                                "name": "jboss-datagrid65-openshift:1.6",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -368,6 +400,12 @@
             "generate": "expression",
             "name": "JGROUPS_CLUSTER_PASSWORD",
             "required": true
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "required": false,
+            "value": "1Gi"
         }
     ]
 }
