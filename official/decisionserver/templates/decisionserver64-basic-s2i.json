@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "decisionserver64-basic-s2i",
-        "xpaas": "1.4.7"
+        "xpaas": "1.4.8"
     },
     "message": "A new BRMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "metadata": {
@@ -12,7 +12,7 @@
             "iconClass": "icon-decisionserver",
             "openshift.io/display-name": "Red Hat JBoss BRMS 6.4 decision server (no https)",
             "tags": "decisionserver,jboss,xpaas",
-            "version": "1.4.7"
+            "version": "1.4.8"
         },
         "name": "decisionserver64-basic-s2i"
     },
@@ -114,7 +114,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-decisionserver64-openshift:1.1",
+                            "name": "jboss-decisionserver64-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -206,7 +206,8 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "name": "${APPLICATION_NAME}",
                                 "ports": [
@@ -228,6 +229,11 @@
                                             "-c",
                                             "/opt/eap/bin/readinessProbe.sh"
                                         ]
+                                    }
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
                                     }
                                 }
                             }
@@ -371,6 +377,12 @@
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "required": false,
+            "value": "1Gi"
         }
     ]
 }

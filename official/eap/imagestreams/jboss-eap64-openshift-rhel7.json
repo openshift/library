@@ -2,13 +2,13 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "labels": {
-        "xpaas": "1.4.7"
+        "xpaas": "1.4.8"
     },
     "metadata": {
         "annotations": {
             "openshift.io/display-name": "Red Hat JBoss EAP 6.4",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "1.4.7"
+            "version": "1.4.8"
         },
         "name": "jboss-eap64-openshift"
     },
@@ -121,6 +121,24 @@
                     "name": "registry.access.redhat.com/jboss-eap-6/eap64-openshift:1.6"
                 },
                 "name": "1.6"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss EAP 6.4 S2I images.",
+                    "iconClass": "icon-eap",
+                    "openshift.io/display-name": "Red Hat JBoss EAP 6.4",
+                    "sampleContextDir": "kitchensink",
+                    "sampleRef": "6.4.x",
+                    "sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+                    "supports": "eap:6.4,javaee:6,java:8",
+                    "tags": "builder,eap,javaee,java,jboss,hidden",
+                    "version": "1.7"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-eap-6/eap64-openshift:1.7"
+                },
+                "name": "1.7"
             }
         ]
     }

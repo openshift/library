@@ -12,45 +12,45 @@ Path: official/3scale/templates/3scale-gateway.json
 # amq
 ## imagestreams
 ### jboss-amq-62
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/)  
 Path: official/amq/imagestreams/jboss-amq-62-rhel7.json  
 ### jboss-amq-63
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/)  
 Path: official/amq/imagestreams/jboss-amq-63-rhel7.json  
 ## templates
 ### amq62-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-basic.adoc)  
 Path: official/amq/templates/amq62-basic.json  
 ### amq62-persistent-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-persistent-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-persistent-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-persistent-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-persistent-ssl.adoc)  
 Path: official/amq/templates/amq62-persistent-ssl.json  
 ### amq62-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-persistent.adoc)  
 Path: official/amq/templates/amq62-persistent.json  
 ### amq62-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq62-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq62-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq62-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq62-ssl.adoc)  
 Path: official/amq/templates/amq62-ssl.json  
 ### amq63-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-basic.adoc)  
 Path: official/amq/templates/amq63-basic.json  
 ### amq63-persistent-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-persistent-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-persistent-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-persistent-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-persistent-ssl.adoc)  
 Path: official/amq/templates/amq63-persistent-ssl.json  
 ### amq63-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-persistent.adoc)  
 Path: official/amq/templates/amq63-persistent.json  
 ### amq63-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/amq/amq63-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/amq/amq63-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/amq/amq63-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/amq/amq63-ssl.adoc)  
 Path: official/amq/templates/amq63-ssl.json  
 # cakephp
 ## templates
@@ -83,119 +83,119 @@ Path: official/dancer/templates/dancer-mysql-persistent.json
 # datagrid
 ## imagestreams
 ### jboss-datagrid65-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid65-openshift-rhel7.json  
 ### jboss-datagrid71-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid71-openshift-rhel7.json  
 ### jboss-datagrid65-client-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid65-client-openshift-rhel7.json  
 ### jboss-datagrid71-client-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid71-client-openshift-rhel7.json  
 ## templates
 ### datagrid65-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-basic.adoc)  
 Path: official/datagrid/templates/datagrid65-basic.json  
 ### datagrid65-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-https.adoc)  
 Path: official/datagrid/templates/datagrid65-https.json  
 ### datagrid65-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-mysql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-mysql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-mysql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid65-mysql-persistent.json  
 ### datagrid65-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-mysql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-mysql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-mysql.adoc)  
 Path: official/datagrid/templates/datagrid65-mysql.json  
 ### datagrid65-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid65-postgresql-persistent.json  
 ### datagrid65-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid65-postgresql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid65-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-postgresql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid65-postgresql.json  
 ### datagrid71-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-basic.adoc)  
 Path: official/datagrid/templates/datagrid71-basic.json  
 ### datagrid71-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-https.adoc)  
 Path: official/datagrid/templates/datagrid71-https.json  
 ### datagrid71-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-mysql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid71-mysql-persistent.json  
 ### datagrid71-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-mysql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql.adoc)  
 Path: official/datagrid/templates/datagrid71-mysql.json  
 ### datagrid71-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid71-postgresql-persistent.json  
 ### datagrid71-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datagrid/datagrid71-postgresql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datagrid/datagrid71-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid71-postgresql.json  
 # datavirt
 ## imagestreams
 ### jboss-datavirt63-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
 Path: official/datavirt/imagestreams/jboss-datavirt63-openshift-rhel7.json  
 ### jboss-datavirt63-driver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
 Path: official/datavirt/imagestreams/jboss-datavirt63-driver-openshift-rhel7.json  
 ## templates
 ### datavirt63-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-basic-s2i.adoc)  
 Path: official/datavirt/templates/datavirt63-basic-s2i.json  
 ### datavirt63-extensions-support-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-extensions-support-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-extensions-support-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-extensions-support-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-extensions-support-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-extensions-support-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-extensions-support-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-extensions-support-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-extensions-support-s2i.adoc)  
 Path: official/datavirt/templates/datavirt63-extensions-support-s2i.json  
 ### datavirt63-secure-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-secure-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/datavirt/datavirt63-secure-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-secure-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/datavirt/datavirt63-secure-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-secure-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-secure-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-secure-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-secure-s2i.adoc)  
 Path: official/datavirt/templates/datavirt63-secure-s2i.json  
 # decisionserver
 ## imagestreams
 ### jboss-decisionserver62-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
 Path: official/decisionserver/imagestreams/jboss-decisionserver62-openshift-rhel7.json  
 ### jboss-decisionserver63-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
 Path: official/decisionserver/imagestreams/jboss-decisionserver63-openshift-rhel7.json  
 ### jboss-decisionserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
 Path: official/decisionserver/imagestreams/jboss-decisionserver64-openshift-rhel7.json  
 ## templates
 ### decisionserver64-amq-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-amq-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-amq-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-amq-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-amq-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-amq-s2i.json  
 ### decisionserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-basic-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-basic-s2i.json  
 ### decisionserver64-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/decisionserver/decisionserver64-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/decisionserver/decisionserver64-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/decisionserver/decisionserver64-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/decisionserver/decisionserver64-https-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-https-s2i.json  
 # django
 ## templates
@@ -224,114 +224,174 @@ Path: official/dotnet/imagestreams/dotnet-runtime-rhel7.json
 # eap
 ## imagestreams
 ### jboss-eap64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
 Path: official/eap/imagestreams/jboss-eap64-openshift-rhel7.json  
 ### jboss-eap70-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
 Path: official/eap/imagestreams/jboss-eap70-openshift-rhel7.json  
 ### jboss-eap71-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
 Path: official/eap/imagestreams/jboss-eap71-openshift-rhel7.json  
 ## templates
 ### eap64-amq-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-amq-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-amq-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-amq-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-amq-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-amq-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-amq-persistent-s2i.adoc)  
 Path: official/eap/templates/eap64-amq-persistent-s2i.json  
 ### eap64-amq-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-amq-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-amq-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-amq-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-amq-s2i.adoc)  
 Path: official/eap/templates/eap64-amq-s2i.json  
 ### eap64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-basic-s2i.adoc)  
 Path: official/eap/templates/eap64-basic-s2i.json  
 ### eap64-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-https-s2i.adoc)  
 Path: official/eap/templates/eap64-https-s2i.json  
 ### eap64-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mongodb-persistent-s2i.adoc)  
 Path: official/eap/templates/eap64-mongodb-persistent-s2i.json  
 ### eap64-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mongodb-s2i.adoc)  
 Path: official/eap/templates/eap64-mongodb-s2i.json  
 ### eap64-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mysql-persistent-s2i.adoc)  
 Path: official/eap/templates/eap64-mysql-persistent-s2i.json  
 ### eap64-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-mysql-s2i.adoc)  
 Path: official/eap/templates/eap64-mysql-s2i.json  
 ### eap64-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-postgresql-persistent-s2i.adoc)  
 Path: official/eap/templates/eap64-postgresql-persistent-s2i.json  
 ### eap64-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-postgresql-s2i.adoc)  
 Path: official/eap/templates/eap64-postgresql-s2i.json  
 ### eap64-sso-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-sso-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-sso-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-sso-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-sso-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-sso-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-sso-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-sso-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-sso-s2i.adoc)  
 Path: official/eap/templates/eap64-sso-s2i.json  
 ### eap64-third-party-db-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap64-third-party-db-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-third-party-db-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap64-third-party-db-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-third-party-db-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-third-party-db-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-third-party-db-s2i.adoc)  
 Path: official/eap/templates/eap64-third-party-db-s2i.json  
+### eap64-tx-recovery-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-tx-recovery-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap64-tx-recovery-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-tx-recovery-s2i.json](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap64-tx-recovery-s2i.json)  
+Path: official/eap/templates/eap64-tx-recovery-s2i.json  
 ### eap70-amq-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-amq-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-amq-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-amq-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-amq-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-amq-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-amq-persistent-s2i.adoc)  
 Path: official/eap/templates/eap70-amq-persistent-s2i.json  
 ### eap70-amq-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-amq-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-amq-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-amq-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-amq-s2i.adoc)  
 Path: official/eap/templates/eap70-amq-s2i.json  
 ### eap70-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-basic-s2i.adoc)  
 Path: official/eap/templates/eap70-basic-s2i.json  
 ### eap70-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-https-s2i.adoc)  
 Path: official/eap/templates/eap70-https-s2i.json  
 ### eap70-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mongodb-persistent-s2i.adoc)  
 Path: official/eap/templates/eap70-mongodb-persistent-s2i.json  
 ### eap70-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mongodb-s2i.adoc)  
 Path: official/eap/templates/eap70-mongodb-s2i.json  
 ### eap70-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mysql-persistent-s2i.adoc)  
 Path: official/eap/templates/eap70-mysql-persistent-s2i.json  
 ### eap70-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-mysql-s2i.adoc)  
 Path: official/eap/templates/eap70-mysql-s2i.json  
 ### eap70-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-postgresql-persistent-s2i.adoc)  
 Path: official/eap/templates/eap70-postgresql-persistent-s2i.json  
 ### eap70-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-postgresql-s2i.adoc)  
 Path: official/eap/templates/eap70-postgresql-s2i.json  
 ### eap70-sso-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-sso-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-sso-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-sso-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-sso-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-sso-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-sso-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-sso-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-sso-s2i.adoc)  
 Path: official/eap/templates/eap70-sso-s2i.json  
 ### eap70-third-party-db-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/eap/eap70-third-party-db-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-third-party-db-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/eap/eap70-third-party-db-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-third-party-db-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-third-party-db-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-third-party-db-s2i.adoc)  
 Path: official/eap/templates/eap70-third-party-db-s2i.json  
+### eap70-tx-recovery-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-tx-recovery-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap70-tx-recovery-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-tx-recovery-s2i.json](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap70-tx-recovery-s2i.json)  
+Path: official/eap/templates/eap70-tx-recovery-s2i.json  
+### eap71-amq-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-amq-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-amq-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-amq-persistent-s2i.adoc)  
+Path: official/eap/templates/eap71-amq-persistent-s2i.json  
+### eap71-amq-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-amq-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-amq-s2i.adoc)  
+Path: official/eap/templates/eap71-amq-s2i.json  
+### eap71-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-basic-s2i.adoc)  
+Path: official/eap/templates/eap71-basic-s2i.json  
+### eap71-https-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-https-s2i.adoc)  
+Path: official/eap/templates/eap71-https-s2i.json  
+### eap71-mongodb-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mongodb-persistent-s2i.adoc)  
+Path: official/eap/templates/eap71-mongodb-persistent-s2i.json  
+### eap71-mongodb-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mongodb-s2i.adoc)  
+Path: official/eap/templates/eap71-mongodb-s2i.json  
+### eap71-mysql-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mysql-persistent-s2i.adoc)  
+Path: official/eap/templates/eap71-mysql-persistent-s2i.json  
+### eap71-mysql-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-mysql-s2i.adoc)  
+Path: official/eap/templates/eap71-mysql-s2i.json  
+### eap71-postgresql-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-postgresql-persistent-s2i.adoc)  
+Path: official/eap/templates/eap71-postgresql-persistent-s2i.json  
+### eap71-postgresql-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-postgresql-s2i.adoc)  
+Path: official/eap/templates/eap71-postgresql-s2i.json  
+### eap71-sso-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-sso-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-sso-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-sso-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-sso-s2i.adoc)  
+Path: official/eap/templates/eap71-sso-s2i.json  
+### eap71-third-party-db-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-third-party-db-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-third-party-db-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-third-party-db-s2i.adoc)  
+Path: official/eap/templates/eap71-third-party-db-s2i.json  
+### eap71-tx-recovery-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-tx-recovery-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/eap/eap71-tx-recovery-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-tx-recovery-s2i.json](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/eap/eap71-tx-recovery-s2i.json)  
+Path: official/eap/templates/eap71-tx-recovery-s2i.json  
 # fis
 ## imagestreams
 ### fis-java-openshift
@@ -365,12 +425,12 @@ Path: official/httpd/templates/httpd-example.json
 # java
 ## imagestreams
 ### redhat-openjdk18-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7.json  
 ## templates
 ### openjdk18-web-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/openjdk/openjdk18-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/openjdk/openjdk18-web-basic-s2i.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/openjdk/openjdk18-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/openjdk/openjdk18-web-basic-s2i.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/templates/openjdk18-web-basic-s2i.json  
 # jenkins
@@ -482,49 +542,49 @@ Path: official/postgresql/templates/postgresql-persistent.json
 # processserver
 ## imagestreams
 ### jboss-processserver63-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/)  
 Path: official/processserver/imagestreams/jboss-processserver63-openshift-rhel7.json  
 ### jboss-processserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/)  
 Path: official/processserver/imagestreams/jboss-processserver64-openshift-rhel7.json  
 ## templates
 ### processserver64-amq-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-mysql-persistent-s2i.json  
 ### processserver64-amq-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-mysql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-mysql-s2i.json  
 ### processserver64-amq-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-postgresql-persistent-s2i.json  
 ### processserver64-amq-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-amq-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-amq-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-amq-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-amq-postgresql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-postgresql-s2i.json  
 ### processserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-basic-s2i.adoc)  
 Path: official/processserver/templates/processserver64-basic-s2i.json  
 ### processserver64-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-mysql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-mysql-persistent-s2i.json  
 ### processserver64-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-mysql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-mysql-s2i.json  
 ### processserver64-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-postgresql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-postgresql-persistent-s2i.json  
 ### processserver64-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/processserver/processserver64-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/processserver/processserver64-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/processserver/processserver64-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/processserver/processserver64-postgresql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-postgresql-s2i.json  
 # python
 ## imagestreams
@@ -566,114 +626,114 @@ Path: official/ruby/imagestreams/ruby-rhel7.json
 # sso
 ## imagestreams
 ### redhat-sso70-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
 Path: official/sso/imagestreams/redhat-sso70-openshift-rhel7.json  
 ### redhat-sso71-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
 Path: official/sso/imagestreams/redhat-sso71-openshift-rhel7.json  
 ## templates
 ### sso71-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-https.adoc)  
 Path: official/sso/templates/sso71-https.json  
 ### sso71-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-mysql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-mysql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-mysql-persistent.adoc)  
 Path: official/sso/templates/sso71-mysql-persistent.json  
 ### sso71-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-mysql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-mysql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-mysql.adoc)  
 Path: official/sso/templates/sso71-mysql.json  
 ### sso71-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql-persistent.adoc)  
 Path: official/sso/templates/sso71-postgresql-persistent.json  
 ### sso71-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/sso/sso71-postgresql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/sso/sso71-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql.adoc)  
 Path: official/sso/templates/sso71-postgresql.json  
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver30-tomcat7-openshift-rhel7.json  
 ### jboss-webserver30-tomcat8-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver30-tomcat8-openshift-rhel7.json  
 ### jboss-webserver31-tomcat7-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver31-tomcat7-openshift-rhel7.json  
 ### jboss-webserver31-tomcat8-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver31-tomcat8-openshift-rhel7.json  
 ## templates
 ### jws31-tomcat7-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-basic-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-basic-s2i.json  
 ### jws31-tomcat7-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-https-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-https-s2i.json  
 ### jws31-tomcat7-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mongodb-persistent-s2i.json  
 ### jws31-tomcat7-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mongodb-s2i.json  
 ### jws31-tomcat7-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mysql-persistent-s2i.json  
 ### jws31-tomcat7-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mysql-s2i.json  
 ### jws31-tomcat7-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-postgresql-persistent-s2i.json  
 ### jws31-tomcat7-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat7-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-postgresql-s2i.json  
 ### jws31-tomcat8-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-basic-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-basic-s2i.json  
 ### jws31-tomcat8-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-https-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-https-s2i.json  
 ### jws31-tomcat8-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mongodb-persistent-s2i.json  
 ### jws31-tomcat8-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mongodb-s2i.json  
 ### jws31-tomcat8-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mysql-persistent-s2i.json  
 ### jws31-tomcat8-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mysql-s2i.json  
 ### jws31-tomcat8-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-postgresql-persistent-s2i.json  
 ### jws31-tomcat8-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/webserver/jws31-tomcat8-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.7/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-postgresql-s2i.json  
