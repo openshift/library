@@ -493,6 +493,12 @@ Path: official/mysql/templates/mysql-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
 Path: official/mysql/templates/mysql-persistent.json  
+# nginx
+## templates
+### nginx-example
+Source URL: [https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json](https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json )  
+Docs: [https://github.com/sclorg/nginx-ex/blob/master/README.md](https://github.com/sclorg/nginx-ex/blob/master/README.md)  
+Path: official/nginx/templates/nginx-example.json  
 # nodejs
 ## imagestreams
 ### nodejs
