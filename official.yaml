@@ -176,6 +176,11 @@ data:
           - online-starter
           - online-professional
   nginx:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+        docs: https://github.com/sclorg/nginx-container/blob/master/README.md
+        regex: nginx
+        suffix: rhel7
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json
         docs: https://github.com/sclorg/nginx-ex/blob/master/README.md

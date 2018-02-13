@@ -494,6 +494,11 @@ Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/
 Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
 Path: official/mysql/templates/mysql-persistent.json  
 # nginx
+## imagestreams
+### nginx
+Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
+Path: official/nginx/imagestreams/nginx-rhel7.json  
 ## templates
 ### nginx-example
 Source URL: [https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json](https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json )  
