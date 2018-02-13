@@ -100,15 +100,15 @@ data:
           - online-professional
   jenkins:
     templates:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-persistent-template.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         tags:
           - online-starter
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins
         suffix: rhel7

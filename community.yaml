@@ -123,6 +123,12 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json
         docs: https://github.com/openshift/httpd-ex/blob/master/README.md
+  jenkins:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins
+        suffix: centos7
   mariadb:
     templates:
       - location: https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json
