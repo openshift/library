@@ -40,6 +40,16 @@ Path: community/django/templates/django-psql-example.json
 Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json )  
 Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
 Path: community/django/templates/django-psql-persistent.json  
+# dotnet
+## imagestreams
+### dotnet
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: community/dotnet/imagestreams/dotnet-centos7.json  
+### dotnet-runtime
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: community/dotnet/imagestreams/dotnet-runtime-centos7.json  
 # httpd
 ## imagestreams
 ### httpd
