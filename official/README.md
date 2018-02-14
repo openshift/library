@@ -436,16 +436,16 @@ Path: official/java/templates/openjdk18-web-basic-s2i.json
 # jenkins
 ## imagestreams
 ### jenkins
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: official/jenkins/imagestreams/jenkins-rhel7.json  
 ## templates
 ### jenkins-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-ephemeral-template.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: official/jenkins/templates/jenkins-ephemeral.json  
 ### jenkins-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/jenkins/jenkins-persistent-template.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: official/jenkins/templates/jenkins-persistent.json  
 # mariadb
@@ -494,6 +494,11 @@ Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/
 Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
 Path: official/mysql/templates/mysql-persistent.json  
 # nginx
+## imagestreams
+### nginx
+Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
+Path: official/nginx/imagestreams/nginx-rhel7.json  
 ## templates
 ### nginx-example
 Source URL: [https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json](https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json )  
