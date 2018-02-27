@@ -21,7 +21,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "10.1"
+                    "name": "12"
                 },
                 "name": "latest"
             },
@@ -92,6 +92,40 @@
                     "name": "docker.io/openshift/wildfly-101-centos7:latest"
                 },
                 "name": "10.1"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run WildFly 11 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.",
+                    "iconClass": "icon-wildfly",
+                    "openshift.io/display-name": "WildFly 11",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+                    "supports": "wildfly:11,jee,java",
+                    "tags": "builder,wildfly,java",
+                    "version": "11"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/openshift/wildfly-110-centos7:latest"
+                },
+                "name": "11"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run WildFly 12 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.",
+                    "iconClass": "icon-wildfly",
+                    "openshift.io/display-name": "WildFly 12",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+                    "supports": "wildfly:12,jee,java",
+                    "tags": "builder,wildfly,java",
+                    "version": "12"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/openshift/wildfly-120-centos7:latest"
+                },
+                "name": "12"
             }
         ]
     }
