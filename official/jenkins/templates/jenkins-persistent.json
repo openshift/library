@@ -25,6 +25,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
+                    "haproxy.router.openshift.io/timeout": "2m",
                     "template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
                 },
                 "name": "${JENKINS_SERVICE_NAME}"
@@ -113,13 +114,14 @@
                                 "image": " ",
                                 "imagePullPolicy": "IfNotPresent",
                                 "livenessProbe": {
-                                    "failureThreshold": 30,
+                                    "failureThreshold": 2,
                                     "httpGet": {
                                         "path": "/login",
                                         "port": 8080
                                     },
                                     "initialDelaySeconds": 420,
-                                    "timeoutSeconds": 3
+                                    "periodSeconds": 360,
+                                    "timeoutSeconds": 240
                                 },
                                 "name": "jenkins",
                                 "readinessProbe": {
@@ -128,7 +130,7 @@
                                         "port": 8080
                                     },
                                     "initialDelaySeconds": 3,
-                                    "timeoutSeconds": 3
+                                    "timeoutSeconds": 240
                                 },
                                 "resources": {
                                     "limits": {
