@@ -454,6 +454,28 @@ data:
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/
         regex: jboss-processserver
         suffix: rhel7
+  rhdm:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{xpaas_version}/templates/rhdm70-full.yaml
+        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{xpaas_version}/templates/docs/rhdm/rhdm70-full.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{xpaas_version}/templates/rhdm70-kieserver-https-s2i.yaml
+        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{xpaas_version}/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc
+        tags:
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{xpaas_version}/templates/rhdm70-kieserver.yaml
+        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{xpaas_version}/templates/docs/rhdm/rhdm70-kieserver.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{xpaas_version}/templates/rhdm70-kieserver-basic-s2i.yaml
+        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{xpaas_version}/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{xpaas_version}/rhdm70-image-streams.yaml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index
+        suffix: rhel7
+        tags:
+          - online-starter
+          - online-professional
   sso:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-https.json
