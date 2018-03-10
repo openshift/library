@@ -55,30 +55,30 @@ Path: official/amq/templates/amq63-ssl.json
 # cakephp
 ## templates
 ### cakephp-example
-Source URL: [https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json](https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp.json )  
-Docs: [https://github.com/openshift/cakephp-ex/blob/master/README.md](https://github.com/openshift/cakephp-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp.json](https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp.json )  
+Docs: [https://github.com/sclorg/cakephp-ex/blob/master/README.md](https://github.com/sclorg/cakephp-ex/blob/master/README.md)  
 Path: official/cakephp/templates/cakephp-example.json  
 ### cakephp-mysql-example
-Source URL: [https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql.json](https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql.json )  
-Docs: [https://github.com/openshift/cakephp-ex/blob/master/README.md](https://github.com/openshift/cakephp-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql.json](https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql.json )  
+Docs: [https://github.com/sclorg/cakephp-ex/blob/master/README.md](https://github.com/sclorg/cakephp-ex/blob/master/README.md)  
 Path: official/cakephp/templates/cakephp-mysql-example.json  
 ### cakephp-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json](https://raw.githubusercontent.com/openshift/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json )  
-Docs: [https://github.com/openshift/cakephp-ex/blob/master/README.md](https://github.com/openshift/cakephp-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json](https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json )  
+Docs: [https://github.com/sclorg/cakephp-ex/blob/master/README.md](https://github.com/sclorg/cakephp-ex/blob/master/README.md)  
 Path: official/cakephp/templates/cakephp-mysql-persistent.json  
 # dancer
 ## templates
 ### dancer-example
-Source URL: [https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json](https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer.json )  
-Docs: [https://github.com/openshift/dancer-ex/blob/master/README.md](https://github.com/openshift/dancer-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer.json](https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer.json )  
+Docs: [https://github.com/sclorg/dancer-ex/blob/master/README.md](https://github.com/sclorg/dancer-ex/blob/master/README.md)  
 Path: official/dancer/templates/dancer-example.json  
 ### dancer-mysql-example
-Source URL: [https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql.json](https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql.json )  
-Docs: [https://github.com/openshift/dancer-ex/blob/master/README.md](https://github.com/openshift/dancer-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql.json](https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql.json )  
+Docs: [https://github.com/sclorg/dancer-ex/blob/master/README.md](https://github.com/sclorg/dancer-ex/blob/master/README.md)  
 Path: official/dancer/templates/dancer-mysql-example.json  
 ### dancer-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json](https://raw.githubusercontent.com/openshift/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json )  
-Docs: [https://github.com/openshift/dancer-ex/blob/master/README.md](https://github.com/openshift/dancer-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json](https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json )  
+Docs: [https://github.com/sclorg/dancer-ex/blob/master/README.md](https://github.com/sclorg/dancer-ex/blob/master/README.md)  
 Path: official/dancer/templates/dancer-mysql-persistent.json  
 # datagrid
 ## imagestreams
@@ -200,16 +200,16 @@ Path: official/decisionserver/templates/decisionserver64-https-s2i.json
 # django
 ## templates
 ### django-example
-Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django.json )  
-Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django.json](https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django.json )  
+Docs: [https://github.com/sclorg/django-ex/blob/master/README.md](https://github.com/sclorg/django-ex/blob/master/README.md)  
 Path: official/django/templates/django-example.json  
 ### django-psql-example
-Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql.json )  
-Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json](https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json )  
+Docs: [https://github.com/sclorg/django-ex/blob/master/README.md](https://github.com/sclorg/django-ex/blob/master/README.md)  
 Path: official/django/templates/django-psql-example.json  
 ### django-psql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json](https://raw.githubusercontent.com/openshift/django-ex/master/openshift/templates/django-postgresql-persistent.json )  
-Docs: [https://github.com/openshift/django-ex/blob/master/README.md](https://github.com/openshift/django-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json](https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json )  
+Docs: [https://github.com/sclorg/django-ex/blob/master/README.md](https://github.com/sclorg/django-ex/blob/master/README.md)  
 Path: official/django/templates/django-psql-persistent.json  
 # dotnet
 ## imagestreams
@@ -414,13 +414,13 @@ Path: official/fis/templates/s2i-spring-boot-camel-xml.json
 # httpd
 ## imagestreams
 ### httpd
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-rhel7.json](https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-rhel7.json )  
 Docs: [https://github.com/sclorg/httpd-container/blob/master/README.md](https://github.com/sclorg/httpd-container/blob/master/README.md)  
 Path: official/httpd/imagestreams/httpd-rhel7.json  
 ## templates
 ### httpd-example
-Source URL: [https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json](https://raw.githubusercontent.com/openshift/httpd-ex/master/openshift/templates/httpd.json )  
-Docs: [https://github.com/openshift/httpd-ex/blob/master/README.md](https://github.com/openshift/httpd-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json](https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json )  
+Docs: [https://github.com/sclorg/httpd-ex/blob/master/README.md](https://github.com/sclorg/httpd-ex/blob/master/README.md)  
 Path: official/httpd/templates/httpd-example.json  
 # java
 ## imagestreams
@@ -451,52 +451,52 @@ Path: official/jenkins/templates/jenkins-persistent.json
 # mariadb
 ## imagestreams
 ### mariadb
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/imagestreams/mariadb-rhel7.json  
 ## templates
 ### mariadb-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-ephemeral-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json )  
+Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/templates/mariadb-ephemeral.json  
 ### mariadb-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mariadb-persistent-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json )  
+Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/templates/mariadb-persistent.json  
 # mongodb
 ## imagestreams
 ### mongodb
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json )  
 Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
 Path: official/mongodb/imagestreams/mongodb-rhel7.json  
 ## templates
 ### mongodb-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-ephemeral-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json )  
+Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
 Path: official/mongodb/templates/mongodb-ephemeral.json  
 ### mongodb-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mongodb-persistent-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json )  
+Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
 Path: official/mongodb/templates/mongodb-persistent.json  
 # mysql
 ## imagestreams
 ### mysql
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-rhel7.json](https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-rhel7.json )  
 Docs: [https://github.com/sclorg/mysql-container/blob/master/README.md](https://github.com/sclorg/mysql-container/blob/master/README.md)  
 Path: official/mysql/imagestreams/mysql-rhel7.json  
 ## templates
 ### mysql-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-ephemeral-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json )  
+Docs: [https://github.com/sclorg/mysql-container/blob/master/README.md](https://github.com/sclorg/mysql-container/blob/master/README.md)  
 Path: official/mysql/templates/mysql-ephemeral.json  
 ### mysql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/mysql-persistent-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json](https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json )  
+Docs: [https://github.com/sclorg/mysql-container/blob/master/README.md](https://github.com/sclorg/mysql-container/blob/master/README.md)  
 Path: official/mysql/templates/mysql-persistent.json  
 # nginx
 ## imagestreams
 ### nginx
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json](https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json )  
 Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
 Path: official/nginx/imagestreams/nginx-rhel7.json  
 ## templates
@@ -507,48 +507,48 @@ Path: official/nginx/templates/nginx-example.json
 # nodejs
 ## imagestreams
 ### nodejs
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md](https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md)  
 Path: official/nodejs/imagestreams/nodejs-rhel7.json  
 ## templates
 ### nodejs-example
-Source URL: [https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json](https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs.json )  
-Docs: [https://github.com/openshift/nodejs-ex/blob/master/README.md](https://github.com/openshift/nodejs-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json](https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json )  
+Docs: [https://github.com/sclorg/nodejs-ex/blob/master/README.md](https://github.com/sclorg/nodejs-ex/blob/master/README.md)  
 Path: official/nodejs/templates/nodejs-example.json  
 ### nodejs-mongodb-example
-Source URL: [https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json](https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb.json )  
-Docs: [https://github.com/openshift/nodejs-ex/blob/master/README.md](https://github.com/openshift/nodejs-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json](https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json )  
+Docs: [https://github.com/sclorg/nodejs-ex/blob/master/README.md](https://github.com/sclorg/nodejs-ex/blob/master/README.md)  
 Path: official/nodejs/templates/nodejs-mongodb-example.json  
 ### nodejs-mongo-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json](https://raw.githubusercontent.com/openshift/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json )  
-Docs: [https://github.com/openshift/nodejs-ex/blob/master/README.md](https://github.com/openshift/nodejs-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json](https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json )  
+Docs: [https://github.com/sclorg/nodejs-ex/blob/master/README.md](https://github.com/sclorg/nodejs-ex/blob/master/README.md)  
 Path: official/nodejs/templates/nodejs-mongo-persistent.json  
 # perl
 ## imagestreams
 ### perl
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-perl-container/blob/master/README.md](https://github.com/sclorg/s2i-perl-container/blob/master/README.md)  
 Path: official/perl/imagestreams/perl-rhel7.json  
 # php
 ## imagestreams
 ### php
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-php-container/blob/master/README.md](https://github.com/sclorg/s2i-php-container/blob/master/README.md)  
 Path: official/php/imagestreams/php-rhel7.json  
 # postgresql
 ## imagestreams
 ### postgresql
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json )  
 Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
 Path: official/postgresql/imagestreams/postgresql-rhel7.json  
 ## templates
 ### postgresql-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-ephemeral-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json )  
+Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
 Path: official/postgresql/templates/postgresql-ephemeral.json  
 ### postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/postgresql-persistent-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json )  
+Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
 Path: official/postgresql/templates/postgresql-persistent.json  
 # processserver
 ## imagestreams
@@ -600,33 +600,33 @@ Path: official/processserver/templates/processserver64-postgresql-s2i.json
 # python
 ## imagestreams
 ### python
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-python-container/blob/master/README.md](https://github.com/sclorg/s2i-python-container/blob/master/README.md)  
 Path: official/python/imagestreams/python-rhel7.json  
 # rails
 ## templates
 ### rails-postgresql-example
-Source URL: [https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json](https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql.json )  
-Docs: [https://github.com/openshift/rails-ex/blob/master/README.md](https://github.com/openshift/rails-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json](https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json )  
+Docs: [https://github.com/sclorg/rails-ex/blob/master/README.md](https://github.com/sclorg/rails-ex/blob/master/README.md)  
 Path: official/rails/templates/rails-postgresql-example.json  
 ### rails-pgsql-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json](https://raw.githubusercontent.com/openshift/rails-ex/master/openshift/templates/rails-postgresql-persistent.json )  
-Docs: [https://github.com/openshift/rails-ex/blob/master/README.md](https://github.com/openshift/rails-ex/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json](https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json )  
+Docs: [https://github.com/sclorg/rails-ex/blob/master/README.md](https://github.com/sclorg/rails-ex/blob/master/README.md)  
 Path: official/rails/templates/rails-pgsql-persistent.json  
 # redis
 ## imagestreams
 ### redis
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-rhel7.json](https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-rhel7.json )  
 Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://github.com/sclorg/redis-container/blob/master/README.md)  
 Path: official/redis/imagestreams/redis-rhel7.json  
 ## templates
 ### redis-ephemeral
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-ephemeral-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-ephemeral-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json )  
+Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://github.com/sclorg/redis-container/blob/master/README.md)  
 Path: official/redis/templates/redis-ephemeral.json  
 ### redis-persistent
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json](https://raw.githubusercontent.com/openshift/origin/master/examples/db-templates/redis-persistent-template.json )  
-Docs: [https://github.com/openshift/origin/blob/master/examples/db-templates/README.md](https://github.com/openshift/origin/blob/master/examples/db-templates/README.md)  
+Source URL: [https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json](https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json )  
+Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://github.com/sclorg/redis-container/blob/master/README.md)  
 Path: official/redis/templates/redis-persistent.json  
 # rhdm
 ## imagestreams
@@ -658,7 +658,7 @@ Path: official/rhdm/templates/rhdm70-kieserver-basic-s2i.json
 # ruby
 ## imagestreams
 ### ruby
-Source URL: [https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json](https://raw.githubusercontent.com/openshift/origin/master/examples/image-streams/image-streams-rhel7.json )  
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
 Path: official/ruby/imagestreams/ruby-rhel7.json  
 # sso
