@@ -388,14 +388,11 @@
                                 ],
                                 "image": " ",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/usr/libexec/check-container",
-                                            "--live"
-                                        ]
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 5432
                                     },
-                                    "initialDelaySeconds": 120,
-                                    "timeoutSeconds": 10
+                                    "timeoutSeconds": 1
                                 },
                                 "name": "postgresql",
                                 "ports": [
@@ -406,7 +403,10 @@
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
-                                            "/usr/libexec/check-container"
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "psql -h 127.0.0.1 -U ${POSTGRESQL_USER} -q -d ${POSTGRESQL_DATABASE} -c 'SELECT 1'"
                                         ]
                                     },
                                     "initialDelaySeconds": 5,
