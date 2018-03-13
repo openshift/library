@@ -1,0 +1,59 @@
+{
+    "apiVersion": "image.openshift.io/v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "description": "Build and run Node.js applications on CentOS 7.\n",
+            "openshift.io/display-name": "Red Hat Community Node.js"
+        },
+        "name": "centos7-s2i-nodejs"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications on CentOS 7.\n",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js latest",
+                    "sampleRepo": "https://github.com/bucharest-gold/nodejs-rest-http.git",
+                    "tags": "builder,node,nodejs,node.js"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "bucharestgold/centos7-s2i-nodejs:latest"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 9.x applications on CentOS 7.\n",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 9.x",
+                    "sampleRepo": "https://github.com/bucharest-gold/nodejs-rest-http.git",
+                    "tags": "builder,node,nodejs,node.js",
+                    "version": "9.4.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "bucharestgold/centos7-s2i-nodejs:9.x"
+                },
+                "name": "9.x"
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 8.x applications on CentOS 7.\n",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 8.x",
+                    "sampleRepo": "https://github.com/bucharest-gold/nodejs-rest-http.git",
+                    "tags": "builder,node,nodejs,node.js",
+                    "version": "8.9.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "bucharestgold/centos7-s2i-nodejs:8.x"
+                },
+                "name": "8.x"
+            }
+        ]
+    }
+}
