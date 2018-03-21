@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "9.6"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,7 +39,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/openshift/postgresql-92-centos7:latest"
                 },
-                "name": "9.2"
+                "name": "9.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -44,14 +50,17 @@
                     "iconClass": "icon-postgresql",
                     "openshift.io/display-name": "PostgreSQL 9.4",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "database,postgresql",
+                    "tags": "hidden,database,postgresql",
                     "version": "9.4"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "docker.io/centos/postgresql-94-centos7:latest"
                 },
-                "name": "9.4"
+                "name": "9.4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -66,7 +75,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/postgresql-95-centos7:latest"
                 },
-                "name": "9.5"
+                "name": "9.5",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -81,7 +93,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/postgresql-96-centos7:latest"
                 },
-                "name": "9.6"
+                "name": "9.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

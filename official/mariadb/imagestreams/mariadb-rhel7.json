@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "10.2"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,7 +39,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mariadb-101-rhel7:latest"
                 },
-                "name": "10.1"
+                "name": "10.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -51,7 +57,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mariadb-102-rhel7:latest"
                 },
-                "name": "10.2"
+                "name": "10.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

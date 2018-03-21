@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "3.2"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,7 +39,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/redis-32-rhel7:latest"
                 },
-                "name": "3.2"
+                "name": "3.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
