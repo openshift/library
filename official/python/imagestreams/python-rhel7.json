@@ -23,7 +23,10 @@
                     "kind": "ImageStreamTag",
                     "name": "3.6"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -40,7 +43,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/openshift3/python-33-rhel7:latest"
                 },
-                "name": "3.3"
+                "name": "3.3",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -57,7 +63,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/python-27-rhel7:latest"
                 },
-                "name": "2.7"
+                "name": "2.7",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -67,14 +76,17 @@
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/openshift/django-ex.git",
                     "supports": "python:3.4,python",
-                    "tags": "builder,python",
+                    "tags": "hidden,builder,python",
                     "version": "3.4"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/python-34-rhel7:latest"
                 },
-                "name": "3.4"
+                "name": "3.4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -91,7 +103,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/python-35-rhel7:latest"
                 },
-                "name": "3.5"
+                "name": "3.5",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -108,7 +123,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/python-36-rhel7:latest"
                 },
-                "name": "3.6"
+                "name": "3.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

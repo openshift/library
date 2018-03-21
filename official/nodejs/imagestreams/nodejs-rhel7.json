@@ -23,7 +23,10 @@
                     "kind": "ImageStreamTag",
                     "name": "8"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -40,7 +43,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/openshift3/nodejs-010-rhel7:latest"
                 },
-                "name": "0.10"
+                "name": "0.10",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -50,14 +56,17 @@
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
                     "supports": "nodejs:4,nodejs",
-                    "tags": "builder,nodejs",
+                    "tags": "hidden,builder,nodejs",
                     "version": "4"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/nodejs-4-rhel7:latest"
                 },
-                "name": "4"
+                "name": "4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -74,7 +83,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/nodejs-6-rhel7:latest"
                 },
-                "name": "6"
+                "name": "6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -90,7 +102,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/nodejs-8-rhel7:latest"
                 },
-                "name": "8"
+                "name": "8",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

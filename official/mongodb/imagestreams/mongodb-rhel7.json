@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "3.4"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,7 +39,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/openshift3/mongodb-24-rhel7:latest"
                 },
-                "name": "2.4"
+                "name": "2.4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -44,14 +50,17 @@
                     "iconClass": "icon-mongodb",
                     "openshift.io/display-name": "MongoDB 2.6",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "database,mongodb",
+                    "tags": "hidden,database,mongodb",
                     "version": "2.6"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mongodb-26-rhel7:latest"
                 },
-                "name": "2.6"
+                "name": "2.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -66,7 +75,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mongodb-32-rhel7:latest"
                 },
-                "name": "3.2"
+                "name": "3.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -81,7 +93,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mongodb-34-rhel7:latest"
                 },
-                "name": "3.4"
+                "name": "3.4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
