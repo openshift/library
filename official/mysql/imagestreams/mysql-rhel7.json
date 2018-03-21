@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "5.7"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,7 +39,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/openshift3/mysql-55-rhel7:latest"
                 },
-                "name": "5.5"
+                "name": "5.5",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -44,14 +50,17 @@
                     "iconClass": "icon-mysql-database",
                     "openshift.io/display-name": "MySQL 5.6",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "tags": "mysql",
+                    "tags": "hidden,mysql",
                     "version": "5.6"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mysql-56-rhel7:latest"
                 },
-                "name": "5.6"
+                "name": "5.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -66,7 +75,10 @@
                     "kind": "DockerImage",
                     "name": "registry.access.redhat.com/rhscl/mysql-57-rhel7:latest"
                 },
-                "name": "5.7"
+                "name": "5.7",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

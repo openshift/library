@@ -23,7 +23,10 @@
                     "kind": "ImageStreamTag",
                     "name": "7.1"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -40,7 +43,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/openshift/php-55-centos7:latest"
                 },
-                "name": "5.5"
+                "name": "5.5",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -50,14 +56,17 @@
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/openshift/cakephp-ex.git",
                     "supports": "php:5.6,php",
-                    "tags": "builder,php",
+                    "tags": "hidden,builder,php",
                     "version": "5.6"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "docker.io/centos/php-56-centos7:latest"
                 },
-                "name": "5.6"
+                "name": "5.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -74,7 +83,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/php-70-centos7:latest"
                 },
-                "name": "7.0"
+                "name": "7.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -91,7 +103,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/php-71-centos7:latest"
                 },
-                "name": "7.1"
+                "name": "7.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

@@ -23,7 +23,10 @@
                     "kind": "ImageStreamTag",
                     "name": "8"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -40,7 +43,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/openshift/nodejs-010-centos7:latest"
                 },
-                "name": "0.10"
+                "name": "0.10",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -50,14 +56,17 @@
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
                     "supports": "nodejs:4,nodejs",
-                    "tags": "builder,nodejs",
+                    "tags": "hidden,builder,nodejs",
                     "version": "4"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "docker.io/centos/nodejs-4-centos7:latest"
                 },
-                "name": "4"
+                "name": "4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -74,7 +83,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/nodejs-6-centos7:latest"
                 },
-                "name": "6"
+                "name": "6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -90,7 +102,10 @@
                     "kind": "DockerImage",
                     "name": "docker.io/centos/nodejs-8-centos7:latest"
                 },
-                "name": "8"
+                "name": "8",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
