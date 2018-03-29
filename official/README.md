@@ -221,6 +221,19 @@ Path: official/dotnet/imagestreams/dotnet-rhel7.json
 Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json )  
 Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
 Path: official/dotnet/imagestreams/dotnet-runtime-rhel7.json  
+## templates
+### dotnet-example
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-example.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-example.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: official/dotnet/templates/dotnet-example.json  
+### dotnet-pgsql-persistent
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-pgsql-persistent.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-pgsql-persistent.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: official/dotnet/templates/dotnet-pgsql-persistent.json  
+### dotnet-runtime-example
+Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-runtime-example.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-runtime-example.json )  
+Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
+Path: official/dotnet/templates/dotnet-runtime-example.json  
 # eap
 ## imagestreams
 ### jboss-eap64-openshift

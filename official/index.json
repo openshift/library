@@ -379,6 +379,29 @@
                 "path": "official/dotnet/imagestreams/dotnet-runtime-rhel7.json",
                 "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json"
             }
+        ],
+        "templates": [
+            {
+                "description": "An example .NET Core application.",
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet-example",
+                "path": "official/dotnet/templates/dotnet-example.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-example.json"
+            },
+            {
+                "description": "An example .NET Core application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore.",
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet-pgsql-persistent",
+                "path": "official/dotnet/templates/dotnet-pgsql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-pgsql-persistent.json"
+            },
+            {
+                "description": "An example .NET Core Runtime example application.",
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet-runtime-example",
+                "path": "official/dotnet/templates/dotnet-runtime-example.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-runtime-example.json"
+            }
         ]
     },
     "eap": {
