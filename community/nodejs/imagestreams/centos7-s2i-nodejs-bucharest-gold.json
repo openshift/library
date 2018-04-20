@@ -26,6 +26,21 @@
             },
             {
                 "annotations": {
+                    "description": "Build and run Node.js 10.0.0-cr applications on CentOS 7.\n",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 10.0.0-cr",
+                    "sampleRepo": "https://github.com/bucharest-gold/nodejs-rest-http.git",
+                    "tags": "builder,node,nodejs,node.js",
+                    "version": "10.0.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "bucharestgold/centos7-s2i-nodejs:10.x"
+                },
+                "name": "10.x-cr"
+            },
+            {
+                "annotations": {
                     "description": "Build and run Node.js 9.x applications on CentOS 7.\n",
                     "iconClass": "icon-nodejs",
                     "openshift.io/display-name": "Node.js 9.x",
