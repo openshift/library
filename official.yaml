@@ -1,5 +1,6 @@
 variables:
   xpaas_version: ose-v1.4.8-1
+  sso72_version: ose-v1.4.11
 data:
   ruby:
     imagestreams:
@@ -517,9 +518,31 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-postgresql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-postgresql.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-mysql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-mysql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-postgresql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-x509-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-x509-https.adoc
+        tags:
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-x509-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-x509-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{sso72_version}/docs/sso/sso72-x509-postgresql-persistent.adoc
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso70-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso71-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{sso72_version}/sso/sso72-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/
         regex: redhat-sso
         suffix: rhel7
   webserver:
