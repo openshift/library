@@ -117,11 +117,12 @@ def replace_variables(string):
         string: the string with all of the variables replaced
 
     """
-    matches = re.search(r'(\{[a-zA-Z0-9-_]+\})', string)
-    if matches:
-        for match in matches.groups():
-            string = string.replace(match, SVARS['vars'][re.sub(r'\{|\}', '', match)])
-            message('Processing', 'variables', 'replacing ' + match + ' with ' + SVARS['vars'][re.sub(r'\{|\}', '', match)])
+    for k in SVARS['vars']:
+        matches = re.search(r'(\{'+k+'\})', string)
+        if matches:
+            for match in matches.groups():
+                string = string.replace(match, SVARS['vars'][k])
+                message('Processing', 'variables', 'replacing ' + match + ' with ' + SVARS['vars'][k])
     return string
 
 
