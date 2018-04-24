@@ -1,0 +1,70 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.8"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.8"
+        },
+        "name": "jboss-webserver30-tomcat8-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                    "iconClass": "icon-rh-tomcat",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat8:3.0,tomcat:8,java:8",
+                    "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                    "version": "1.1"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat8-openshift:1.1"
+                },
+                "name": "1.1"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                    "iconClass": "icon-rh-tomcat",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat8:3.0,tomcat:8,java:8",
+                    "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                    "version": "1.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat8-openshift:1.2"
+                },
+                "name": "1.2"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss Web Server 3.0 Apache Tomcat 8 S2I images.",
+                    "iconClass": "icon-rh-tomcat",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.0 Apache Tomcat 8",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat8:3.0,tomcat:8,java:8",
+                    "tags": "builder,tomcat,tomcat8,java,jboss,hidden",
+                    "version": "1.3"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver30-tomcat8-openshift:1.3"
+                },
+                "name": "1.3"
+            }
+        ]
+    }
+}

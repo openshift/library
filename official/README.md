@@ -699,14 +699,85 @@ Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https
 Path: official/ruby/imagestreams/ruby-rhel7.json  
 # sso
 ## imagestreams
+### jboss-webserver30-tomcat7-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-webserver30-tomcat7-openshift.json  
+### jboss-webserver30-tomcat8-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-webserver30-tomcat8-openshift.json  
+### jboss-webserver31-tomcat7-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-webserver31-tomcat7-openshift.json  
+### jboss-webserver31-tomcat8-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-webserver31-tomcat8-openshift.json  
+### jboss-eap64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-eap64-openshift.json  
+### jboss-eap70-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-eap70-openshift.json  
+### jboss-eap71-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-eap71-openshift.json  
+### jboss-decisionserver62-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-decisionserver62-openshift.json  
+### jboss-decisionserver63-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-decisionserver63-openshift.json  
+### jboss-decisionserver64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-decisionserver64-openshift.json  
+### jboss-processserver63-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-processserver63-openshift.json  
+### jboss-processserver64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-processserver64-openshift.json  
+### jboss-datagrid65-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datagrid65-openshift.json  
+### jboss-datagrid71-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datagrid71-openshift.json  
+### jboss-datagrid65-client-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datagrid65-client-openshift.json  
+### jboss-datagrid71-client-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datagrid71-client-openshift.json  
+### jboss-datavirt63-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datavirt63-openshift.json  
+### jboss-datavirt63-driver-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-datavirt63-driver-openshift.json  
+### jboss-amq-62
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-amq-62.json  
+### jboss-amq-63
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/jboss-amq-63.json  
 ### redhat-sso70-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
-Path: official/sso/imagestreams/redhat-sso70-openshift-rhel7.json  
+Path: official/sso/imagestreams/redhat-sso70-openshift.json  
 ### redhat-sso71-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
-Path: official/sso/imagestreams/redhat-sso71-openshift-rhel7.json  
+Path: official/sso/imagestreams/redhat-sso71-openshift.json  
+### redhat-openjdk18-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Path: official/sso/imagestreams/redhat-openjdk18-openshift.json  
+### redhat-sso70-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso70-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso70-image-stream.json )  
+Path: official/sso/imagestreams/redhat-sso70-openshift.json  
+### redhat-sso71-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso71-image-stream.json )  
+Path: official/sso/imagestreams/redhat-sso71-openshift.json  
+### redhat-sso72-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso72-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso72-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/)  
+Path: official/sso/imagestreams/redhat-sso72-openshift-rhel7.json  
 ## templates
 ### sso71-https
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-https.json )  
@@ -728,6 +799,10 @@ Path: official/sso/templates/sso71-postgresql-persistent.json
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/sso/sso71-postgresql.json )  
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/sso/sso71-postgresql.adoc)  
 Path: official/sso/templates/sso71-postgresql.json  
+### sso72-x509-https
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso72-x509-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/sso/sso72-x509-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/sso/sso72-x509-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/sso/sso72-x509-https.adoc)  
+Path: official/sso/templates/sso72-x509-https.json  
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift

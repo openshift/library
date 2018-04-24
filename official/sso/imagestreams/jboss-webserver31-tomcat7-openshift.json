@@ -1,0 +1,53 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.8"
+    },
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.8"
+        },
+        "name": "jboss-webserver31-tomcat7-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "JBoss Web Server 3.1 Apache Tomcat 7 S2I images.",
+                    "iconClass": "icon-rh-tomcat",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat7:3.1,tomcat:7,java:8",
+                    "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat7-openshift:1.0"
+                },
+                "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "description": "JBoss Web Server 3.1 Apache Tomcat 7 S2I images.",
+                    "iconClass": "icon-rh-tomcat",
+                    "openshift.io/display-name": "Red Hat JBoss Web Server 3.1 Apache Tomcat 7",
+                    "sampleContextDir": "tomcat-websocket-chat",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+                    "supports": "tomcat7:3.1,tomcat:7,java:8",
+                    "tags": "builder,tomcat,tomcat7,java,jboss,hidden",
+                    "version": "1.1"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat7-openshift:1.1"
+                },
+                "name": "1.1"
+            }
+        ]
+    }
+}
