@@ -20,7 +20,7 @@ if [[ $ret -eq 0 ]]
 then
   echo "SUCCESS: Generated official directory up to date."
 else
-  echo "FAILURE: Generated official directory out of date. Please run import_content.py"
+  echo "FAILURE: Generated official directory out of date. Please run make import"
   exit 1
 fi
 
@@ -31,6 +31,6 @@ if [[ $ret -eq 0 ]]
 then
   echo "SUCCESS: Generated community directory up to date."
 else
-  echo "FAILURE: Generated community directory out of date. Please run import_content.py"
+  echo "FAILURE: Generated community directory out of date. Please run make import"
   exit 1
 fi
