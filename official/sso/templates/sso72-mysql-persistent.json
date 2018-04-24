@@ -2,23 +2,23 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "sso71-mysql",
-        "xpaas": "1.4.8"
+        "template": "sso72-mysql-persistent",
+        "xpaas": "1.4.11"
     },
-    "message": "A new SSO service (using MySQL) has been created in your project. The admin username/password for accessing the master realm via the SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing SSO requests.",
+    "message": "A new persistent RH-SSO service (using MySQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
     "metadata": {
         "annotations": {
-            "description": "An example SSO 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "description": "An example RH-SSO 7 application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
             "iconClass": "icon-sso",
-            "openshift.io/display-name": "Single Sign-On 7.1 + MySQL (Ephemeral)",
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.2 + MySQL (Persistent with passthrough TLS)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "sso,keycloak,jboss,hidden",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.1 server based deployment and deployment configuration for MySQL using ephemeral (temporary) storage.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.2 server based deployment, deployment configuration for MySQL using persistence, and securing RH-SSO communication using passthrough TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.11"
         },
-        "name": "sso71-mysql"
+        "name": "sso72-mysql-persistent"
     },
     "objects": [
         {
@@ -30,8 +30,7 @@
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
             },
@@ -56,8 +55,7 @@
                     "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "secure-${APPLICATION_NAME}"
             },
@@ -81,8 +79,7 @@
                     "description": "The database server's port."
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "database"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}-mysql"
             },
@@ -133,8 +130,7 @@
                     "description": "Route for application's http service."
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
             },
@@ -154,8 +150,7 @@
                     "description": "Route for application's https service."
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "secure-${APPLICATION_NAME}"
             },
@@ -174,8 +169,7 @@
             "kind": "DeploymentConfig",
             "metadata": {
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "server"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
             },
@@ -191,7 +185,6 @@
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "component": "server",
                             "deploymentConfig": "${APPLICATION_NAME}"
                         },
                         "name": "${APPLICATION_NAME}"
@@ -425,7 +418,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "redhat-sso71-openshift:1.3",
+                                "name": "redhat-sso72-openshift:1.1",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -442,8 +435,7 @@
             "kind": "DeploymentConfig",
             "metadata": {
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "component": "database"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}-mysql"
             },
@@ -459,7 +451,6 @@
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "component": "database",
                             "deploymentConfig": "${APPLICATION_NAME}-mysql"
                         },
                         "name": "${APPLICATION_NAME}-mysql"
@@ -503,6 +494,13 @@
                                 ],
                                 "image": "mysql",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 1
+                                },
                                 "name": "${APPLICATION_NAME}-mysql",
                                 "ports": [
                                     {
@@ -510,10 +508,22 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mysql/data",
-                                        "name": "${APPLICATION_NAME}-data"
+                                        "name": "${APPLICATION_NAME}-mysql-pvol"
                                     }
                                 ]
                             }
@@ -521,10 +531,10 @@
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
-                                "emptyDir": {
-                                    "medium": ""
-                                },
-                                "name": "${APPLICATION_NAME}-data"
+                                "name": "${APPLICATION_NAME}-mysql-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-mysql-claim"
+                                }
                             }
                         ]
                     }
@@ -549,6 +559,26 @@
                     }
                 ]
             }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-mysql-claim"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${VOLUME_CAPACITY}"
+                    }
+                }
+            }
         }
     ],
     "parameters": [
@@ -560,14 +590,14 @@
             "value": "sso"
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "displayName": "Custom http Route Hostname",
             "name": "HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: <application-name>.<project>.<default-domain-suffix>",
             "displayName": "Custom https Route Hostname",
             "name": "HOSTNAME_HTTPS",
             "required": false,
@@ -687,6 +717,13 @@
             "required": true
         },
         {
+            "description": "Size of persistent storage for database volume.",
+            "displayName": "Database Volume Capacity",
+            "name": "VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
             "description": "The name of the secret containing the keystore file",
             "displayName": "JGroups Secret Name",
             "name": "JGROUPS_ENCRYPT_SECRET",
@@ -730,72 +767,73 @@
             "value": "openshift"
         },
         {
-            "description": "SSO Server admin username",
-            "displayName": "SSO Admin Username",
+            "description": "RH-SSO Server administrator username",
+            "displayName": "RH-SSO Administrator Username",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "SSO_ADMIN_USERNAME",
             "required": true
         },
         {
-            "description": "SSO Server admin  password",
-            "displayName": "SSO Admin Password",
+            "description": "RH-SSO Server administrator password",
+            "displayName": "RH-SSO Administrator Password",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "SSO_ADMIN_PASSWORD",
             "required": true
         },
         {
-            "description": "Realm to be created in the SSO server (e.g. demo).",
-            "displayName": "SSO Realm",
+            "description": "Realm to be created in the RH-SSO server (e.g. demorealm).",
+            "displayName": "RH-SSO Realm",
             "name": "SSO_REALM",
             "required": false,
             "value": ""
         },
         {
-            "description": "The username used to access the SSO service.  This is used by clients to create the appliction client(s) within the specified SSO realm.",
-            "displayName": "SSO Service Username",
+            "description": "The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm.",
+            "displayName": "RH-SSO Service Username",
             "name": "SSO_SERVICE_USERNAME",
             "required": false,
             "value": ""
         },
         {
-            "description": "The password for the SSO service user.",
-            "displayName": "SSO Service Password",
+            "description": "The password for the RH-SSO service user.",
+            "displayName": "RH-SSO Service Password",
             "name": "SSO_SERVICE_PASSWORD",
             "required": false,
             "value": ""
         },
         {
             "description": "The name of the truststore file within the secret (e.g. truststore.jks)",
-            "displayName": "SSO Trust Store",
+            "displayName": "RH-SSO Trust Store",
             "name": "SSO_TRUSTSTORE",
             "required": false,
             "value": ""
         },
         {
             "description": "The password for the truststore and certificate (e.g. mykeystorepass)",
-            "displayName": "SSO Trust Store Password",
+            "displayName": "RH-SSO Trust Store Password",
             "name": "SSO_TRUSTSTORE_PASSWORD",
             "required": false,
             "value": ""
         },
         {
             "description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
-            "displayName": "SSO Trust Store Secret",
+            "displayName": "RH-SSO Trust Store Secret",
             "name": "SSO_TRUSTSTORE_SECRET",
             "required": false,
             "value": "sso-app-secret"
         },
         {
-            "description": "The tag to use for the \"mysql\" image stream.  Typically, this aligns with the major.minor version of MySQL.",
+            "description": "The tag to use for the \"mysql\" image stream. Typically, this aligns with the major.minor version of MySQL.",
             "displayName": "MySQL Image Stream Tag",
             "name": "MYSQL_IMAGE_STREAM_TAG",
             "required": true,
             "value": "5.7"
         },
         {
-            "description": "Container memory limit",
+            "description": "Container memory limit.",
+            "displayName": "Container Memory Limit",
             "name": "MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"
