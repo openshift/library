@@ -115,7 +115,7 @@
                         ],
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "python:3.5",
+                            "name": "python:${PYTHON_VERSION}",
                             "namespace": "${NAMESPACE}"
                         }
                     },
@@ -247,6 +247,13 @@
             "name": "NAMESPACE",
             "required": true,
             "value": "openshift"
+        },
+        {
+            "description": "Version of Python image to be used (3.4, 3.5, 3.6 or latest).",
+            "displayName": "Version of Python Image",
+            "name": "PYTHON_VERSION",
+            "required": true,
+            "value": "3.6"
         },
         {
             "description": "Maximum amount of memory the container can use.",

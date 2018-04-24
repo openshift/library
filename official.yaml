@@ -508,28 +508,30 @@ data:
           - online-professional
   sso:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-https.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-https.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-mysql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-mysql-persistent.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-mysql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-mysql.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-postgresql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-postgresql-persistent.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/sso/sso71-postgresql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/sso/sso71-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-mysql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-mysql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-postgresql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-postgresql.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-x509-https.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{rhsso_version}/docs/sso/sso72-x509-https.adoc
         tags:
           - online-starter
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso70-image-stream.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/
+        suffix: rhel7
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso71-image-stream.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/
+        suffix: rhel7
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{rhsso_version}/sso/sso72-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/
-        regex: redhat-sso
         suffix: rhel7
   webserver:
     templates:
