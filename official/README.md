@@ -99,6 +99,10 @@ Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templ
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid71-client-openshift-rhel7.json  
 ## templates
+### caching-service
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json](https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json )  
+Docs: [https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc](https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc)  
+Path: official/datagrid/templates/caching-service.json  
 ### datagrid65-basic
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json )  
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-basic.adoc)  
