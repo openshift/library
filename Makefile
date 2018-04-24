@@ -1,16 +1,20 @@
 .DEFAULT_GOAL := help
 
 verify: ## Run core verification. Example: make verify
+	python -V
+	pip -V
 	hack/verify-python.sh
 	hack/verify-yaml.sh
 	hack/verify-pullrequest.sh
 .PHONY: verify
 
 import: ## Run the import script. Example: make import
+	python -V
+	pip -V
 	python import_content.py
 .PHONY: import
 
-dep: ## Install Dependencies. Example: make dep 
+dep: ## Install Dependencies. Example: make dep
 	pip install -r requirements.txt
 .PHONY: dependencies
 

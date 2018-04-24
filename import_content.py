@@ -159,7 +159,7 @@ def write_data_to_file(data, path):
 
     """
     message('Writing', 'data to file', path)
-    target_file = file(path, 'w')
+    target_file = open(path, 'w')
     target_file.write(json.dumps(data, sort_keys=True, indent=4, separators=(',', ': ')))
     target_file.close()
 
