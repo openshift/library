@@ -43,18 +43,14 @@ data:
   nodejs:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json
-        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
-      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
-        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
-      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
-        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
+        docs: https://appdev.openshift.io/docs/nodejs-runtime.html
         tags:
           - online-starter
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json
-        docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
-        regex: nodejs
+      - location: https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.yml
+        docs: https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md
+        regex: rhoar-nodejs
         suffix: rhel7
         tags:
           - online-starter
