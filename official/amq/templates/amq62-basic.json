@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "amq62-basic",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.11"
     },
     "message": "A new messaging service has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}.",
     "metadata": {
@@ -13,7 +13,7 @@
             "openshift.io/display-name": "JBoss A-MQ 6.2 (Ephemeral, no SSL)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "messaging,amq,jboss,hidden",
-            "version": "1.4.8"
+            "version": "1.4.11"
         },
         "name": "amq62-basic"
     },
@@ -348,8 +348,8 @@
             "value": "dns"
         },
         {
-            "description": "The A-MQ storage usage limit",
-            "displayName": "A-MQ Storage Limit",
+            "description": "Sets the store disk limit usage in activemq.xml. If the value set is greater than the disk size, it will be resized to the available disk space.",
+            "displayName": "A-MQ Store Usage Limit",
             "name": "AMQ_STORAGE_USAGE_LIMIT",
             "required": false,
             "value": "100 gb"
