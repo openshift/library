@@ -1,0 +1,30 @@
+{
+    "apiVersion": "image.openshift.io/v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "description": "Build and run Node.js applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift/source-to-image/blob/master/README.md.\n",
+            "openshift.io/display-name": "OpenShift Application Runtimes Node.js"
+        },
+        "name": "rhoar-nodejs"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 8.x applications on RHEL 7.\n",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "OpenShift Application Runtimes Node.js",
+                    "sampleRepo": "https://github.com/bucharest-gold/nodejs-rest-http.git",
+                    "tags": "builder,node,nodejs,node.js",
+                    "version": "8.9.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/rhoar-nodejs/nodejs-8"
+                },
+                "name": "8.x"
+            }
+        ]
+    }
+}
