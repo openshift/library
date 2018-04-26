@@ -542,10 +542,6 @@ Docs: [https://github.com/sclorg/nginx-ex/blob/master/README.md](https://github.
 Path: official/nginx/templates/nginx-example.json  
 # nodejs
 ## imagestreams
-### rhoar-nodejs
-Source URL: [https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.yml](https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.yml )  
-Docs: [https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md](https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md)  
-Path: official/nodejs/imagestreams/rhoar-nodejs-rhel7.json  
 ### nodejs
 Source URL: [https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md](https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md)  
