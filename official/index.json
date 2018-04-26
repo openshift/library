@@ -266,39 +266,39 @@
     "datavirt": {
         "imagestreams": [
             {
-                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/",
-                "name": "jboss-datavirt63-openshift",
-                "path": "official/datavirt/imagestreams/jboss-datavirt63-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/",
+                "name": "jboss-datavirt64-openshift",
+                "path": "official/datavirt/imagestreams/jboss-datavirt64-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json"
             },
             {
-                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/",
-                "name": "jboss-datavirt63-driver-openshift",
-                "path": "official/datavirt/imagestreams/jboss-datavirt63-driver-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/",
+                "name": "jboss-datavirt64-driver-openshift",
+                "path": "official/datavirt/imagestreams/jboss-datavirt64-driver-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json"
             }
         ],
         "templates": [
             {
-                "description": "Application template for JBoss Data Virtualization 6.3 services built using S2I.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-basic-s2i.adoc",
-                "name": "datavirt63-basic-s2i",
-                "path": "official/datavirt/templates/datavirt63-basic-s2i.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-basic-s2i.json"
+                "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.",
+                "docs": "https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-basic-s2i.adoc",
+                "name": "datavirt64-basic-s2i",
+                "path": "official/datavirt/templates/datavirt64-basic-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json"
             },
             {
-                "description": "An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-extensions-support-s2i.adoc",
-                "name": "datavirt63-extensions-support-s2i",
-                "path": "official/datavirt/templates/datavirt63-extensions-support-s2i.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-extensions-support-s2i.json"
+                "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
+                "docs": "https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc",
+                "name": "datavirt64-extensions-support-s2i",
+                "path": "official/datavirt/templates/datavirt64-extensions-support-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-extensions-support-s2i.json"
             },
             {
-                "description": "An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-secure-s2i.adoc",
-                "name": "datavirt63-secure-s2i",
-                "path": "official/datavirt/templates/datavirt63-secure-s2i.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-secure-s2i.json"
+                "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.  Includes ability to configure certificates for serving secure content.",
+                "docs": "https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-secure-s2i.adoc",
+                "name": "datavirt64-secure-s2i",
+                "path": "official/datavirt/templates/datavirt64-secure-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-secure-s2i.json"
             }
         ]
     },

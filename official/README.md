@@ -153,27 +153,27 @@ Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-
 Path: official/datagrid/templates/datagrid71-postgresql.json  
 # datavirt
 ## imagestreams
-### jboss-datavirt63-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
-Path: official/datavirt/imagestreams/jboss-datavirt63-openshift-rhel7.json  
-### jboss-datavirt63-driver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
-Path: official/datavirt/imagestreams/jboss-datavirt63-driver-openshift-rhel7.json  
+### jboss-datavirt64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/)  
+Path: official/datavirt/imagestreams/jboss-datavirt64-openshift-rhel7.json  
+### jboss-datavirt64-driver-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/)  
+Path: official/datavirt/imagestreams/jboss-datavirt64-driver-openshift-rhel7.json  
 ## templates
-### datavirt63-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-basic-s2i.adoc)  
-Path: official/datavirt/templates/datavirt63-basic-s2i.json  
-### datavirt63-extensions-support-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-extensions-support-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-extensions-support-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-extensions-support-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-extensions-support-s2i.adoc)  
-Path: official/datavirt/templates/datavirt63-extensions-support-s2i.json  
-### datavirt63-secure-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-secure-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datavirt/datavirt63-secure-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-secure-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datavirt/datavirt63-secure-s2i.adoc)  
-Path: official/datavirt/templates/datavirt63-secure-s2i.json  
+### datavirt64-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-basic-s2i.adoc)  
+Path: official/datavirt/templates/datavirt64-basic-s2i.json  
+### datavirt64-extensions-support-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-extensions-support-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-extensions-support-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc)  
+Path: official/datavirt/templates/datavirt64-extensions-support-s2i.json  
+### datavirt64-secure-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-secure-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-secure-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-secure-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-secure-s2i.adoc)  
+Path: official/datavirt/templates/datavirt64-secure-s2i.json  
 # decisionserver
 ## imagestreams
 ### jboss-decisionserver62-openshift
