@@ -106,6 +106,25 @@
                 "referencePolicy": {
                     "type": "Local"
                 }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 8 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "OpenShift Application Runtimes Node.js 8",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "tags": "builder,nodejs",
+                    "version": "8"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/rhoar-nodejs/nodejs-8"
+                },
+                "name": "8-RHOAR",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

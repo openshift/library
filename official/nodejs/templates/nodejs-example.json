@@ -105,7 +105,7 @@
                         ],
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "nodejs:6",
+                            "name": "nodejs:${NODEJS_VERSION}",
                             "namespace": "${NAMESPACE}"
                         }
                     },
@@ -229,6 +229,13 @@
             "name": "NAMESPACE",
             "required": true,
             "value": "openshift"
+        },
+        {
+            "description": "Version of NodeJS image to be used (6, 8, or latest).",
+            "displayName": "Version of NodeJS Image",
+            "name": "NODEJS_VERSION",
+            "required": true,
+            "value": "8"
         },
         {
             "description": "Maximum amount of memory the container can use.",
