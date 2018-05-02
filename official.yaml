@@ -1,5 +1,6 @@
 variables:
   xpaas_version: ose-v1.4.8-1
+  amq_version: ose-v1.4.12
   rhsso_version: ose-v1.4.11
 data:
   ruby:
@@ -224,28 +225,32 @@ data:
           - online-professional
   amq:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-basic.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-basic.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-persistent-ssl.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-persistent.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq62-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq62-ssl.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq63-basic.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-basic.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq62-basic.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq62-basic.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq62-persistent-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq62-persistent-ssl.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq62-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq62-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq62-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq62-ssl.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-basic.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq63-basic.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq63-persistent-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-persistent-ssl.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq63-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-persistent.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/amq/amq63-ssl.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/amq/amq63-ssl.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-persistent-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq63-persistent-ssl.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq63-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-ssl.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{amq_version}/docs/amq/amq63-ssl.adoc
         tags:
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq62-image-stream.json
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/
+        regex: jboss-amq
+        suffix: rhel7    
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/
         regex: jboss-amq
         suffix: rhel7
