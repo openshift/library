@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "jws31-tomcat8-mongodb-persistent-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.11"
     },
     "message": "A new persistent JWS application for Apache Tomcat 8 (using MongoDB) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MongoDB database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 3.1 Apache Tomcat 8 based application, including a build configuration, application deployment configuration, database deployment configuration for MongoDB using persistence and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.11"
         },
         "name": "jws31-tomcat8-mongodb-persistent-s2i"
     },
@@ -187,7 +187,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-webserver31-tomcat8-openshift:1.1",
+                            "name": "jboss-webserver31-tomcat8-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -435,6 +435,13 @@
                                 ],
                                 "image": "mongodb",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 27017
+                                    },
+                                    "timeoutSeconds": 1
+                                },
                                 "name": "${APPLICATION_NAME}-mongodb",
                                 "ports": [
                                     {
@@ -442,6 +449,18 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 1
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mongodb/data",
