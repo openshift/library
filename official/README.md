@@ -738,6 +738,14 @@ Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11
 Path: official/sso/templates/sso72-x509-https.json  
 # webserver
 ## imagestreams
+### jboss-webserver30-tomcat7-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat7-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat7-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
+Path: official/webserver/imagestreams/jboss-webserver30-tomcat7-openshift-rhel7.json  
+### jboss-webserver30-tomcat8-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat8-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat8-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
+Path: official/webserver/imagestreams/jboss-webserver30-tomcat8-openshift-rhel7.json  
 ### jboss-webserver31-tomcat7-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
