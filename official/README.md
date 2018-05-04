@@ -739,83 +739,83 @@ Path: official/sso/templates/sso72-x509-https.json
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat7-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat7-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver30-tomcat7-openshift-rhel7.json  
 ### jboss-webserver30-tomcat8-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat8-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws30-tomcat8-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver30-tomcat8-openshift-rhel7.json  
 ### jboss-webserver31-tomcat7-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver31-tomcat7-openshift-rhel7.json  
 ### jboss-webserver31-tomcat8-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/)  
 Path: official/webserver/imagestreams/jboss-webserver31-tomcat8-openshift-rhel7.json  
 ## templates
 ### jws31-tomcat7-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-basic-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-basic-s2i.json  
 ### jws31-tomcat7-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-https-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-https-s2i.json  
 ### jws31-tomcat7-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mongodb-persistent-s2i.json  
 ### jws31-tomcat7-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mongodb-s2i.json  
 ### jws31-tomcat7-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mysql-persistent-s2i.json  
 ### jws31-tomcat7-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-mysql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-mysql-s2i.json  
 ### jws31-tomcat7-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-postgresql-persistent-s2i.json  
 ### jws31-tomcat7-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat7-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat7-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat7-postgresql-s2i.json  
 ### jws31-tomcat8-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-basic-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-basic-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-basic-s2i.json  
 ### jws31-tomcat8-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-https-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-https-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-https-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-https-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-https-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-https-s2i.json  
 ### jws31-tomcat8-mongodb-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mongodb-persistent-s2i.json  
 ### jws31-tomcat8-mongodb-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mongodb-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mongodb-s2i.json  
 ### jws31-tomcat8-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mysql-persistent-s2i.json  
 ### jws31-tomcat8-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-mysql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-mysql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-mysql-s2i.json  
 ### jws31-tomcat8-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-postgresql-persistent-s2i.json  
 ### jws31-tomcat8-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/webserver/jws31-tomcat8-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.11/webserver/jws31-tomcat8-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.11/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc)  
 Path: official/webserver/templates/jws31-tomcat8-postgresql-s2i.json  
