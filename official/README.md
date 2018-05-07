@@ -424,10 +424,6 @@ Path: official/eap-cd/templates/eap-cd-amq-persistent-s2i.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json )  
 Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd/docs/templates/eap-cd-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd/docs/templates/eap-cd-postgresql-persistent-s2i.adoc)  
 Path: official/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json  
-### eap-cd-tx-recovery-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-tx-recovery-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-tx-recovery-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd/docs/templates/eap-cd-tx-recovery-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd/docs/templates/eap-cd-tx-recovery-s2i.adoc)  
-Path: official/eap-cd/templates/eap-cd-tx-recovery-s2i.json  
 # fis
 ## imagestreams
 ### fis-java-openshift
