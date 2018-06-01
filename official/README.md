@@ -459,6 +459,10 @@ Path: official/fis/templates/s2i-fuse70-spring-boot-camel.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse70-spring-boot-camel-xml.json  
+### fuse70-console
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/)  
+Path: official/fis/templates/fuse70-console.json  
 # httpd
 ## imagestreams
 ### httpd
