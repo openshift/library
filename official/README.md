@@ -430,19 +430,35 @@ Path: official/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/imagestreams/fis-java-openshift-rhel7.json  
+### jboss-fuse70-java-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
+Path: official/fis/imagestreams/jboss-fuse70-java-openshift-rhel7.json  
 ### fis-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
 Path: official/fis/imagestreams/fis-karaf-openshift-rhel7.json  
+### jboss-fuse70-karaf-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
+Path: official/fis/imagestreams/jboss-fuse70-karaf-openshift-rhel7.json  
+### jboss-fuse70-eap-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
+Path: official/fis/imagestreams/jboss-fuse70-eap-openshift-rhel7.json  
+### jboss-fuse70-console
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
+Path: official/fis/imagestreams/jboss-fuse70-console-rhel7.json  
 ## templates
-### s2i-spring-boot-camel
+### s2i-fuse70-spring-boot-camel
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-spring-boot-camel.json  
-### s2i-spring-boot-camel-xml
+Path: official/fis/templates/s2i-fuse70-spring-boot-camel.json  
+### s2i-fuse70-spring-boot-camel-xml
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-fuse-integration-services-for-openshift/)  
-Path: official/fis/templates/s2i-spring-boot-camel-xml.json  
+Path: official/fis/templates/s2i-fuse70-spring-boot-camel-xml.json  
 # httpd
 ## imagestreams
 ### httpd
