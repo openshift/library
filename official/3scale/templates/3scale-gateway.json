@@ -99,7 +99,7 @@
                                         "value": "${APICAST_WORKERS}"
                                     }
                                 ],
-                                "image": "registry.access.redhat.com/3scale-amp22/apicast-gateway:1.8",
+                                "image": "amp-apicast:latest",
                                 "imagePullPolicy": "IfNotPresent",
                                 "livenessProbe": {
                                     "httpGet": {
@@ -147,6 +147,19 @@
                 "triggers": [
                     {
                         "type": "ConfigChange"
+                    },
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APICAST_NAME}"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "apicast-gateway:latest"
+                            }
+                        },
+                        "type": "ImageChange"
                     }
                 ]
             }

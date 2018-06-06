@@ -6,7 +6,7 @@ Docs: [https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/
 Path: official/3scale/imagestreams/apicast-gateway.json  
 ## templates
 ### 3scale-gateway
-Source URL: [https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/apicast.yml](https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/apicast.yml )  
+Source URL: [https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/library/apicast.yml](https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/library/apicast.yml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift](https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift)  
 Path: official/3scale/templates/3scale-gateway.json  
 # amq
