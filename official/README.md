@@ -20,22 +20,6 @@ Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templ
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/)  
 Path: official/amq/imagestreams/jboss-amq-63-rhel7.json  
 ## templates
-### amq62-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-basic.adoc)  
-Path: official/amq/templates/amq62-basic.json  
-### amq62-persistent-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-persistent-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-persistent-ssl.adoc)  
-Path: official/amq/templates/amq62-persistent-ssl.json  
-### amq62-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-persistent.adoc)  
-Path: official/amq/templates/amq62-persistent.json  
-### amq62-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq62-ssl.adoc)  
-Path: official/amq/templates/amq62-ssl.json  
 ### amq63-basic
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-basic.json )  
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-basic.adoc)  
