@@ -42,7 +42,7 @@
                                         "valueFrom": {
                                             "secretKeyRef": {
                                                 "key": "password",
-                                                "name": "${CONFIGURATION_URL_SECRET}"
+                                                "name": "apicast-configuration-url-secret"
                                             }
                                         }
                                     },
@@ -190,14 +190,31 @@
                     "deploymentconfig": "${APICAST_NAME}"
                 }
             }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "apicast-configuration-url-secret"
+            },
+            "stringData": {
+                "password": "https://${ACCESS_TOKEN}@${DOMAIN}-admin.3scale.net"
+            },
+            "type": "Opaque"
         }
     ],
     "parameters": [
         {
-            "description": "Name of the secret containing the THREESCALE_PORTAL_ENDPOINT with the access-token or provider key",
-            "name": "CONFIGURATION_URL_SECRET",
+            "description": "Access Token (not a Service Token) for the 3scale Account Management API",
+            "name": "ACCESS_TOKEN",
             "required": true,
-            "value": "apicast-configuration-url-secret"
+            "value": null
+        },
+        {
+            "description": "The domain found on the URL of your 3scale Admin Portal: https://<domain>-admin.3scale.net",
+            "name": "DOMAIN",
+            "required": true,
+            "value": null
         },
         {
             "description": "Path to saved JSON file with configuration for the gateway. Has to be injected to the docker image as read only volume.",
