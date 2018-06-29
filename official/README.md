@@ -82,6 +82,10 @@ Path: official/datagrid/imagestreams/jboss-datagrid65-client-openshift-rhel7.jso
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid71-client-openshift-rhel7.json  
+### jboss-datagrid72-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
+Path: official/datagrid/imagestreams/jboss-datagrid72-openshift-rhel7.json  
 ## templates
 ### caching-service
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json](https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json )  
@@ -135,6 +139,30 @@ Path: official/datagrid/templates/datagrid71-postgresql-persistent.json
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json )  
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid71-postgresql.json  
+### datagrid72-basic
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-basic.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-basic.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-basic.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-basic.adoc)  
+Path: official/datagrid/templates/datagrid72-basic.json  
+### datagrid72-https
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-https.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-https.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-https.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-https.adoc)  
+Path: official/datagrid/templates/datagrid72-https.json  
+### datagrid72-mysql-persistent
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql-persistent.adoc)  
+Path: official/datagrid/templates/datagrid72-mysql-persistent.json  
+### datagrid72-mysql
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql.adoc)  
+Path: official/datagrid/templates/datagrid72-mysql.json  
+### datagrid72-postgresql-persistent
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql-persistent.adoc)  
+Path: official/datagrid/templates/datagrid72-postgresql-persistent.json  
+### datagrid72-postgresql
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql.adoc)  
+Path: official/datagrid/templates/datagrid72-postgresql.json  
 # datavirt
 ## imagestreams
 ### jboss-datavirt64-openshift
