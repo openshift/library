@@ -229,9 +229,9 @@ def create_indexes():
 
     for source in SVARS['sources']:
         if source in SVARS['index']:
-            write_data_to_file(SVARS['index'][source], source + '/index.json')
+            write_data_to_file(SVARS['index'][source], SVARS['base_dir'] + "/" + source + '/index.json')
 
-            with open(source + '/README.md', 'a') as index_file:
+            with open(SVARS['base_dir'] + "/" + source + '/README.md', 'a') as index_file:
                 for folder, sections in sorted(SVARS['index'][source].items()):
                     index_file.write('# ' + folder + '\n')
                     for section, items in sorted(sections.items()):
@@ -250,6 +250,17 @@ def has_tag(item, filter_tags):
         return True
     # Check for the tags in YAML file
     options = item.get("tags")
+    arch_found = False
+    if options == None:
+        options=[]
+    # if the tags do not include an architecture indication,
+    # default to x86_64.
+    for tag in options:
+        if tag.startswith('arch_'):
+            arch_found = True
+            break
+    if not arch_found:
+        options.append('arch_x86_64')
     if options:
         if list(set(options) & set(filter_tags)):
             return True
@@ -263,17 +274,19 @@ def main():
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
     parser.add_argument("-t", "--tags", nargs='?', help="Select specific tag(s) to import templates/imagestreams (separated by comma ',')")
+    parser.add_argument("-d","--dir",nargs='?',help="Specify a target directory for the imported content")
     args = parser.parse_args()
 
     if not os.path.exists('tmp'):
         os.makedirs('tmp')
 
     tags = args.tags.split(",") if args.tags != None else []
-
+    root = args.dir if args.dir != None else os.path.dirname(os.path.realpath(__file__))
+    
     for source in SVARS['sources']:
         message('Opening', 'source file', source + '.yaml')
         with open(source + '.yaml', 'r') as source_file:
-            SVARS['base_dir'] = os.path.dirname(os.path.realpath(__file__)) + '/' + source
+            SVARS['base_dir'] = root + '/' + source
             message('Opening', 'file path', SVARS['base_dir'])
             raw_yaml = source_file.read()
             valid, doc = is_valid(raw_yaml)
@@ -291,9 +304,9 @@ def main():
                 message('Error', 'YAML', 'Variable replacement caused invalid YAML')
                 exit(1)
         if 'data' in doc:
-            if os.path.exists(source):
-                message("Deleting", "folder", source)
-                shutil.rmtree(source)
+            if os.path.exists(SVARS['base_dir']):
+                message("Deleting", "folder", SVARS['base_dir'])
+                shutil.rmtree(SVARS['base_dir'])
             for folder, contents in doc['data'].items():
                 for item_type in ['imagestreams', 'templates']:
                     if item_type in contents and len(contents[item_type]) > 0:
@@ -310,6 +323,7 @@ def main():
                                 process_template(source, folder, item, dict_data)
                             elif item_type == 'imagestreams':
                                 process_imagestream(source, folder, item, dict_data)
+    SVARS['base_dir'] = root
     create_indexes()
 
 if __name__ == '__main__':
