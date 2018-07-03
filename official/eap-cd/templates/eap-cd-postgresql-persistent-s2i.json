@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap-cd-postgresql-persistent-s2i",
-        "xpaas": "1.4.10"
+        "xpaas": "1.5.0"
     },
     "message": "A new JBoss EAP CD and PostgreSQL persistent based application with SSL support has been created in your project. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration, database deployment configuration for PostgreSQL using persistence and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.10"
+            "version": "1.5.0"
         },
         "name": "eap-cd-postgresql-persistent-s2i"
     },
@@ -216,7 +216,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-openshift:12",
+                            "name": "eap-cd-openshift:13",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -692,14 +692,14 @@
             "value": "1Gi"
         },
         {
-            "description": "Queue names",
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "displayName": "Queues",
             "name": "MQ_QUEUES",
             "required": false,
             "value": ""
         },
         {
-            "description": "Topic names",
+            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "displayName": "Topics",
             "name": "MQ_TOPICS",
             "required": false,
@@ -771,8 +771,8 @@
             "required": false
         },
         {
-            "description": "A-MQ cluster admin password",
-            "displayName": "A-MQ cluster password",
+            "description": "AMQ cluster admin password",
+            "displayName": "AMQ cluster password",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "MQ_CLUSTER_PASSWORD",

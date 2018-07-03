@@ -421,7 +421,7 @@ Path: official/eap/templates/eap71-tx-recovery-s2i.json
 ## imagestreams
 ### eap-cd-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-image-stream.json )  
-Docs: [https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/12/html/getting_started_with_jboss_eap_for_openshift_container_platform/](https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/12/html/getting_started_with_jboss_eap_for_openshift_container_platform/)  
+Docs: [https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/13/html/getting_started_with_jboss_eap_for_openshift_container_platform/](https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/13/html/getting_started_with_jboss_eap_for_openshift_container_platform/)  
 Path: official/eap-cd/imagestreams/eap-cd-openshift-rhel7.json  
 ## templates
 ### eap-cd-basic-s2i
