@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap-cd-basic-s2i",
-        "xpaas": "1.4.10"
+        "xpaas": "1.5.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and insecure communication using http.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.10"
+            "version": "1.5.0"
         },
         "name": "eap-cd-basic-s2i"
     },
@@ -143,7 +143,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-openshift:12",
+                            "name": "eap-cd-openshift:13",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -334,22 +334,22 @@
             "value": "kitchensink"
         },
         {
-            "description": "Queue names",
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "displayName": "Queues",
             "name": "MQ_QUEUES",
             "required": false,
             "value": ""
         },
         {
-            "description": "Topic names",
+            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
             "displayName": "Topics",
             "name": "MQ_TOPICS",
             "required": false,
             "value": ""
         },
         {
-            "description": "A-MQ cluster admin password",
-            "displayName": "A-MQ cluster password",
+            "description": "AMQ cluster admin password",
+            "displayName": "AMQ cluster password",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
             "name": "MQ_CLUSTER_PASSWORD",
