@@ -4,6 +4,7 @@ variables:
   amq_version: ose-v1.4.12
   rhsso_version: ose-v1.4.11
   webserver_version: ose-v1.4.11
+  rhpam_version: 7.0.0.GA
 data:
   ruby:
     imagestreams:
@@ -525,6 +526,31 @@ data:
         suffix: rhel7
         tags:
           - online-starter
+          - online-professional
+  rhpam:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam70-authoring.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam70-authoring.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam70-kieserver-mysql.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam70-kieserver-mysql.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam70-kieserver-postgresql.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam70-kieserver-postgresql.adoc
+        tags:
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam70-prod-immutable-kieserver.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam70-prod-immutable-kieserver.adoc
+        tags:
+          - online-professional
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam70-image-streams.yaml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index
+        regex: rhpam70-kieserver-openshift|rhpam70-businesscentral-openshift
+        suffix: rhel7
+        tags:
           - online-professional
   sso:
     templates:
