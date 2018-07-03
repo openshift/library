@@ -274,7 +274,7 @@ def main():
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
     parser.add_argument("-t", "--tags", nargs='?', help="Select specific tag(s) to import templates/imagestreams (separated by comma ',')")
-    parser.add_argument("-d","--dir",nargs='?',help="Specify a target directory for the imported content")
+    parser.add_argument("-d", "--dir", nargs='?', help="Specify a target directory for the imported content")
     args = parser.parse_args()
 
     if not os.path.exists('tmp'):
