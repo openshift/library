@@ -699,29 +699,29 @@ Path: official/redis/templates/redis-persistent.json
 # rhdm
 ## imagestreams
 ### rhdm70-decisioncentral-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/rhdm70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/rhdm70-image-streams.yaml )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index)  
 Path: official/rhdm/imagestreams/rhdm70-decisioncentral-openshift-rhel7.json  
 ### rhdm70-kieserver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/rhdm70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/rhdm70-image-streams.yaml )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index)  
 Path: official/rhdm/imagestreams/rhdm70-kieserver-openshift-rhel7.json  
 ## templates
 ### rhdm70-full-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-full.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-full.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-full.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-full.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-full.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-full.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-full.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-full.adoc)  
 Path: official/rhdm/templates/rhdm70-full-persistent.json  
 ### rhdm70-kieserver-https-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver-https-s2i.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver-https-s2i.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-https-s2i.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-https-s2i.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc)  
 Path: official/rhdm/templates/rhdm70-kieserver-https-s2i.json  
 ### rhdm70-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver.adoc)  
 Path: official/rhdm/templates/rhdm70-kieserver.json  
 ### rhdm70-kieserver-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver-basic-s2i.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/ose-v1.4.8-1/templates/rhdm70-kieserver-basic-s2i.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/ose-v1.4.8-1/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-basic-s2i.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-basic-s2i.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc)  
 Path: official/rhdm/templates/rhdm70-kieserver-basic-s2i.json  
 # rhpam
 ## imagestreams
