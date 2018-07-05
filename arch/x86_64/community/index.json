@@ -1,0 +1,241 @@
+{
+    "dotnet": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet",
+                "path": "community/dotnet/imagestreams/dotnet-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json"
+            },
+            {
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet-runtime",
+                "path": "community/dotnet/imagestreams/dotnet-runtime-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json"
+            }
+        ]
+    },
+    "httpd": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/httpd-container/blob/master/README.md",
+                "name": "httpd",
+                "path": "community/httpd/imagestreams/httpd-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-centos7.json"
+            }
+        ]
+    },
+    "infinispan": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md",
+                "name": "infinispan",
+                "path": "community/infinispan/imagestreams/infinispan-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Infinispan 9 (Ephemeral)",
+                "docs": "https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc",
+                "name": "infinispan-ephemeral",
+                "path": "community/infinispan/templates/infinispan-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json"
+            },
+            {
+                "description": "Infinispan 9 (Persistent)",
+                "docs": "https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc",
+                "name": "infinispan-persistent",
+                "path": "community/infinispan/templates/infinispan-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-persistent.json"
+            }
+        ]
+    },
+    "jenkins": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins",
+                "path": "community/jenkins/imagestreams/jenkins-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json"
+            }
+        ]
+    },
+    "laravel": {
+        "templates": [
+            {
+                "description": "An example Laravel application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
+                "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
+                "name": "laravel-mysql-persistent",
+                "path": "community/laravel/templates/laravel-mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json"
+            },
+            {
+                "description": "An example Laravel application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.",
+                "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
+                "name": "laravel-pgsql-persistent",
+                "path": "community/laravel/templates/laravel-pgsql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-postgresql.json"
+            },
+            {
+                "description": "An example Laravel application with a SQLite database. For more information about using this template, including OpenShift considerations, see https://github.com/luciddreamz/laravel-ex/blob/master/readme.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/luciddreamz/laravel-ex/blob/master/readme.md",
+                "name": "laravel-sqlite",
+                "path": "community/laravel/templates/laravel-sqlite.json",
+                "source_url": "https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json"
+            }
+        ]
+    },
+    "mailcatcher": {
+        "templates": [
+            {
+                "description": "MailCatcher ( https://mailcatcher.me ) runs a super simple SMTP server which catches any message sent to it to display in a web interface.\nIt uses mailcatcher image from unofficial repository at docker hub. https://hub.docker.com/r/schickling/mailcatcher/",
+                "docs": "https://github.com/oprudkyi/openshift-templates/blob/master/mailcatcher/README.md",
+                "name": "mailcatcher",
+                "path": "community/mailcatcher/templates/mailcatcher.json",
+                "source_url": "https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/mailcatcher/mailcatcher.yaml"
+            }
+        ]
+    },
+    "mariadb": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb",
+                "path": "community/mariadb/imagestreams/mariadb-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos7.json"
+            }
+        ]
+    },
+    "memcached": {
+        "templates": [
+            {
+                "description": "Memcached service. It uses memcached image from official repository at docker hub. https://hub.docker.com/r/library/memcached/",
+                "docs": "https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md",
+                "name": "memcached",
+                "path": "community/memcached/templates/memcached.json",
+                "source_url": "https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml"
+            }
+        ]
+    },
+    "mongodb": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb",
+                "path": "community/mongodb/imagestreams/mongodb-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-centos7.json"
+            }
+        ]
+    },
+    "mysql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql",
+                "path": "community/mysql/imagestreams/mysql-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-centos7.json"
+            }
+        ]
+    },
+    "nginx": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/nginx-container/blob/master/README.md",
+                "name": "nginx",
+                "path": "community/nginx/imagestreams/nginx-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-centos7.json"
+            }
+        ]
+    },
+    "nodejs": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md",
+                "name": "nodejs",
+                "path": "community/nodejs/imagestreams/nodejs-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-centos7.json"
+            }
+        ]
+    },
+    "perl": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-perl-container/blob/master/README.md",
+                "name": "perl",
+                "path": "community/perl/imagestreams/perl-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-centos7.json"
+            }
+        ]
+    },
+    "php": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-php-container/blob/master/README.md",
+                "name": "php",
+                "path": "community/php/imagestreams/php-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-centos7.json"
+            }
+        ]
+    },
+    "postgresql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql",
+                "path": "community/postgresql/imagestreams/postgresql-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-centos7.json"
+            }
+        ]
+    },
+    "python": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-python-container/blob/master/README.md",
+                "name": "python",
+                "path": "community/python/imagestreams/python-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-centos7.json"
+            }
+        ]
+    },
+    "redis": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis",
+                "path": "community/redis/imagestreams/redis-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-centos7.json"
+            }
+        ]
+    },
+    "ruby": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-ruby-container/blob/master/README.md",
+                "name": "ruby",
+                "path": "community/ruby/imagestreams/ruby-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-centos7.json"
+            }
+        ]
+    },
+    "swift": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/dudash/s2i-swift/blob/master/README.md",
+                "name": "swift-ubuntu",
+                "path": "community/swift/imagestreams/swift-ubuntu-ubuntu14.json",
+                "source_url": "https://raw.githubusercontent.com/dudash/s2i-swift/master/openshift-resources/swift-all-ubuntu14-imagestreamlist.json"
+            }
+        ]
+    },
+    "wildfly": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md",
+                "name": "wildfly",
+                "path": "community/wildfly/imagestreams/wildfly-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift-s2i/s2i-wildfly/master/imagestreams/wildfly-centos7.json"
+            }
+        ]
+    }
+}

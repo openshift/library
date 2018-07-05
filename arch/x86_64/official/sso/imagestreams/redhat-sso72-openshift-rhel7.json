@@ -1,0 +1,50 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "labels": {
+        "xpaas": "1.4.11"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Red Hat SSO 7.2",
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.2",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.4.11"
+        },
+        "name": "redhat-sso72-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat SSO 7.2",
+                    "iconClass": "icon-sso",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.2",
+                    "supports": "sso:7.2",
+                    "tags": "sso,keycloak,redhat,hidden",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/redhat-sso-7/sso72-openshift:1.0"
+                },
+                "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat SSO 7.2",
+                    "iconClass": "icon-sso",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.2",
+                    "supports": "sso:7.2",
+                    "tags": "sso,keycloak,redhat,hidden",
+                    "version": "1.1"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/redhat-sso-7/sso72-openshift:1.1"
+                },
+                "name": "1.1"
+            }
+        ]
+    }
+}
