@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap71-amq-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.14"
     },
     "message": "A new EAP 7 and A-MQ based application with SSL support has been created in your project. The username/password for accessing the A-MQ service is ${MQ_USERNAME}/${MQ_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration, using Red Hat JBoss A-MQ and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.14"
         },
         "name": "eap71-amq-s2i"
     },
@@ -232,6 +232,10 @@
                                 "value": "${MAVEN_MIRROR_URL}"
                             },
                             {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
                             }
@@ -239,7 +243,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap71-openshift:1.1",
+                            "name": "jboss-eap71-openshift:1.3",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -564,7 +568,7 @@
                                         "value": "${AMQ_STORAGE_USAGE_LIMIT}"
                                     }
                                 ],
-                                "image": "jboss-amq-62",
+                                "image": "jboss-amq-63",
                                 "imagePullPolicy": "Always",
                                 "name": "${APPLICATION_NAME}-amq",
                                 "ports": [
@@ -632,7 +636,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-62:1.7",
+                                "name": "jboss-amq-63:1.3",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -858,6 +862,13 @@
             "description": "Maven mirror to use for S2I builds",
             "displayName": "Maven mirror URL",
             "name": "MAVEN_MIRROR_URL",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Maven additional arguments to use for S2I builds",
+            "displayName": "Maven Additional Arguments",
+            "name": "MAVEN_ARGS_APPEND",
             "required": false,
             "value": ""
         },
