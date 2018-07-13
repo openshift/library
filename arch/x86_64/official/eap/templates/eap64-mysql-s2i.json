@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap64-mysql-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.14"
     },
     "message": "A new EAP 6 and MySQL based application with SSL support has been created in your project. The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using ephemeral (temporary) storage and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.14"
         },
         "name": "eap64-mysql-s2i"
     },
@@ -213,7 +213,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap64-openshift:1.7",
+                            "name": "jboss-eap64-openshift:1.8",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -548,6 +548,13 @@
                                 ],
                                 "image": "mysql",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 1
+                                },
                                 "name": "${APPLICATION_NAME}-mysql",
                                 "ports": [
                                     {
@@ -555,6 +562,18 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mysql/data",

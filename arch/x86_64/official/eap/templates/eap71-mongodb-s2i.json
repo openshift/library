@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap71-mongodb-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.14"
     },
     "message": "A new EAP 7 and MongoDB based application with SSL support has been created in your project. The username/password for accessing the MongoDB database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration, database deployment configuration for MongoDB using ephemeral (temporary) storage and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.14"
         },
         "name": "eap71-mongodb-s2i"
     },
@@ -206,6 +206,10 @@
                                 "value": "${MAVEN_MIRROR_URL}"
                             },
                             {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
                             }
@@ -213,7 +217,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap71-openshift:1.1",
+                            "name": "jboss-eap71-openshift:1.3",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -540,6 +544,13 @@
                                 ],
                                 "image": "mongodb",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 27017
+                                    },
+                                    "timeoutSeconds": 1
+                                },
                                 "name": "${APPLICATION_NAME}-mongodb",
                                 "ports": [
                                     {
@@ -547,6 +558,18 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 3,
+                                    "timeoutSeconds": 1
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mongodb/data",
@@ -832,6 +855,13 @@
             "description": "Maven mirror to use for S2I builds",
             "displayName": "Maven mirror URL",
             "name": "MAVEN_MIRROR_URL",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Maven additional arguments to use for S2I builds",
+            "displayName": "Maven Additional Arguments",
+            "name": "MAVEN_ARGS_APPEND",
             "required": false,
             "value": ""
         },
