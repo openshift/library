@@ -1,0 +1,49 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Redis"
+        },
+        "name": "redis"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Provides a Redis database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/3.2/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major versions updates.",
+                    "iconClass": "icon-redis",
+                    "openshift.io/display-name": "Redis (Latest)",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "redis"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "3.2"
+                },
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Provides a Redis 3.2 database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/3.2/README.md.",
+                    "iconClass": "icon-redis",
+                    "openshift.io/display-name": "Redis 3.2",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "redis",
+                    "version": "3.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/rhscl/redis-32-rhel7:latest"
+                },
+                "name": "3.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Infinispan"
+        },
+        "name": "infinispan"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Infinispan (Latest), a high performance data grid solution.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Infinispan available on OpenShift, including major versions updates.",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan (Latest)",
+                    "tags": "java,database,datagrid,jboss"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "9.2"
+                },
+                "name": "latest"
+            },
+            {
+                "annotations": {
+                    "description": "Infinispan 9, a high performance data grid solution",
+                    "iconClass": "icon-infinispan",
+                    "openshift.io/display-name": "Infinispan 9",
+                    "tags": "java,database,datagrid,jboss"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "jboss/infinispan-server:9.2.0.Final"
+                },
+                "name": "9.2"
+            }
+        ]
+    }
+}
