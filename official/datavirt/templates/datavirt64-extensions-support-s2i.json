@@ -2,17 +2,21 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "datavirt64-extensions-support-s2i",
-        "xpaas": "1.4.0"
+        "jdv64": "1.1.0",
+        "template": "datavirt64-extensions-support-s2i"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
-            "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.  Includes support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
-            "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.4 (with SSL and Extensions)",
-            "tags": "jdv,datavirt,jboss,xpaas",
-            "version": "1.4.0"
+            "description": "An example JBoss Data Virtualization application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "iconClass": "icon-datavirt",
+            "openshift.io/display-name": "JBoss Data Virtualization 6.4 (with SSL and Extensions)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "jdv,datavirt,database,jboss",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-virtualization/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Data Virtualization based application, including a build configuration, application deployment configuration, support for installing extensions (e.g. third-party DB drivers) and the ability to configure certificates for serving secure content.",
+            "template.openshift.io/support-url": "https://access.redhat.com",
+            "version": "1.1.0"
         },
         "name": "datavirt64-extensions-support-s2i"
     },
@@ -275,7 +279,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-datavirt64-openshift:1.0",
+                            "name": "jboss-datavirt64-openshift:1.1",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },

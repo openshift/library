@@ -2,15 +2,16 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "datavirt64-basic-s2i",
-        "xpaas": "1.4.0"
+        "jdv64": "1.1.0",
+        "template": "datavirt64-basic-s2i"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.",
-            "iconClass": "icon-jboss",
+            "iconClass": "icon-datavirt",
             "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.4 (no SSL)",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "jdv,datavirt,jboss,xpaas",
             "version": "1.4.0"
         },
@@ -142,7 +143,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-datavirt64-openshift:1.0",
+                            "name": "jboss-datavirt64-openshift:1.1",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
