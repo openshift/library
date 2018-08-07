@@ -674,29 +674,29 @@ Path: official/rhdm/templates/rhdm70-kieserver-basic-s2i.json
 # rhpam
 ## imagestreams
 ### rhpam70-businesscentral-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/rhpam70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/rhpam70-image-streams.yaml )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index)  
 Path: official/rhpam/imagestreams/rhpam70-businesscentral-openshift-rhel7.json  
 ### rhpam70-kieserver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/rhpam70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/rhpam70-image-streams.yaml )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index)  
 Path: official/rhpam/imagestreams/rhpam70-kieserver-openshift-rhel7.json  
 ## templates
 ### rhpam70-authoring
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-authoring.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-authoring.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-authoring.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-authoring.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-authoring.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-authoring.adoc)  
 Path: official/rhpam/templates/rhpam70-authoring.json  
 ### rhpam70-kieserver-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-kieserver-mysql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-kieserver-mysql.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-kieserver-mysql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-kieserver-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-mysql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-mysql.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-mysql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-mysql.adoc)  
 Path: official/rhpam/templates/rhpam70-kieserver-mysql.json  
 ### rhpam70-kieserver-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-kieserver-postgresql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-kieserver-postgresql.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-kieserver-postgresql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-kieserver-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-postgresql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-postgresql.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-postgresql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-postgresql.adoc)  
 Path: official/rhpam/templates/rhpam70-kieserver-postgresql.json  
 ### rhpam70-prod-immutable-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.0.GA/templates/rhpam70-prod-immutable-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.0.GA/templates/docs/rhpam70-prod-immutable-kieserver.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-prod-immutable-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-prod-immutable-kieserver.adoc)  
 Path: official/rhpam/templates/rhpam70-prod-immutable-kieserver.json  
 # ruby
 ## imagestreams
