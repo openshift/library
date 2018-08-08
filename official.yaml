@@ -17,6 +17,12 @@ data:
         tags:
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: rhel7
+        tags:
+          - arch_ppc64le
   rails:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json
