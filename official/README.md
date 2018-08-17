@@ -377,10 +377,6 @@ Path: official/eap/templates/eap72-mongodb-persistent-s2i.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-s2i.json )  
 Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-s2i.adoc)  
 Path: official/eap/templates/eap72-postgresql-s2i.json  
-### eap72-amq-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-amq-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-amq-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-amq-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-amq-s2i.adoc)  
-Path: official/eap/templates/eap72-amq-s2i.json  
 ### eap72-mongodb-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-s2i.json )  
 Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-s2i.adoc)  
