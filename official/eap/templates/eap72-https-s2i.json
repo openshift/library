@@ -2,22 +2,23 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "datagrid72-https"
+        "template": "eap72-https-s2i",
+        "xpaas": "1.0.0"
     },
-    "message": "A new data grid service has been created in your project. It supports connector type(s) \"${INFINISPAN_CONNECTORS}\". Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+    "message": "A new EAP based application with SSL support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
-            "description": "An example Red Hat JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "iconClass": "icon-datagrid",
-            "openshift.io/display-name": "Red Hat JBoss Data Grid 7.2 (Ephemeral with https)",
+            "description": "An example Red Hat JBoss EAP 7 application configured with secure communication using HTTPS. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
+            "iconClass": "icon-eap",
+            "openshift.io/display-name": "JBoss EAP 7.2 (with https) [Tech Preview]",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "datagrid,jboss,hidden",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-grid/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Data Grid 7.2 based applications, including a deployment configuration, using ephemeral (temporary) storage and secure communication using https.",
+            "tags": "eap,javaee,java,jboss,hidden",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 application, including a build configuration, application deployment configuration and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0.0"
         },
-        "name": "datagrid72-https"
+        "name": "eap72-https-s2i"
     },
     "objects": [
         {
@@ -25,7 +26,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's HTTP port."
+                    "description": "The web server's http port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -49,7 +50,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's HTTPS port."
+                    "description": "The web server's https port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -61,54 +62,6 @@
                     {
                         "port": 8443,
                         "targetPort": 8443
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "Memcached service for clustered applications."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-memcached"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "port": 11211,
-                        "targetPort": 11211
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "Hot Rod service for clustered applications."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-hotrod"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "port": 11333,
-                        "targetPort": 11333
                     }
                 ],
                 "selector": {
@@ -148,7 +101,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for application's HTTP service."
+                    "description": "Route for application's http service."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -156,7 +109,6 @@
                 "name": "${APPLICATION_NAME}"
             },
             "spec": {
-                "host": "${HOSTNAME_HTTP}",
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }
@@ -168,7 +120,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for application's HTTPS service."
+                    "description": "Route for application's https service."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -183,6 +135,88 @@
                 "to": {
                     "name": "secure-${APPLICATION_NAME}"
                 }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "contextDir": "${CONTEXT_DIR}",
+                    "git": {
+                        "ref": "${SOURCE_REPOSITORY_REF}",
+                        "uri": "${SOURCE_REPOSITORY_URL}"
+                    },
+                    "type": "Git"
+                },
+                "strategy": {
+                    "sourceStrategy": {
+                        "env": [
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
+                                "name": "ARTIFACT_DIR",
+                                "value": "${ARTIFACT_DIR}"
+                            }
+                        ],
+                        "forcePull": true,
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "jboss-eap72-openshift:1.0",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                        }
+                    },
+                    "type": "Source"
+                },
+                "triggers": [
+                    {
+                        "github": {
+                            "secret": "${GITHUB_WEBHOOK_SECRET}"
+                        },
+                        "type": "GitHub"
+                    },
+                    {
+                        "generic": {
+                            "secret": "${GENERIC_WEBHOOK_SECRET}"
+                        },
+                        "type": "Generic"
+                    },
+                    {
+                        "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
             }
         },
         {
@@ -215,46 +249,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "USERNAME",
-                                        "value": "${USERNAME}"
-                                    },
-                                    {
-                                        "name": "PASSWORD",
-                                        "value": "${PASSWORD}"
-                                    },
-                                    {
-                                        "name": "ADMIN_GROUP",
-                                        "value": "${ADMIN_GROUP}"
-                                    },
-                                    {
-                                        "name": "HOTROD_AUTHENTICATION",
-                                        "value": "${HOTROD_AUTHENTICATION}"
-                                    },
-                                    {
-                                        "name": "CONTAINER_SECURITY_ROLE_MAPPER",
-                                        "value": "${CONTAINER_SECURITY_ROLE_MAPPER}"
-                                    },
-                                    {
-                                        "name": "CONTAINER_SECURITY_ROLES",
-                                        "value": "${CONTAINER_SECURITY_ROLES}"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/datagrid-secret-volume"
-                                    },
-                                    {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
-                                    },
-                                    {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
-                                    },
-                                    {
                                         "name": "JGROUPS_PING_PROTOCOL",
                                         "value": "openshift.DNS_PING"
                                     },
@@ -267,52 +261,48 @@
                                         "value": "8888"
                                     },
                                     {
-                                        "name": "INFINISPAN_CONNECTORS",
-                                        "value": "${INFINISPAN_CONNECTORS}"
+                                        "name": "HTTPS_KEYSTORE_DIR",
+                                        "value": "/etc/eap-secret-volume"
                                     },
                                     {
-                                        "name": "CACHE_NAMES",
-                                        "value": "${CACHE_NAMES}"
+                                        "name": "HTTPS_KEYSTORE",
+                                        "value": "${HTTPS_KEYSTORE}"
                                     },
                                     {
-                                        "name": "DATAVIRT_CACHE_NAMES",
-                                        "value": "${DATAVIRT_CACHE_NAMES}"
+                                        "name": "HTTPS_KEYSTORE_TYPE",
+                                        "value": "${HTTPS_KEYSTORE_TYPE}"
                                     },
                                     {
-                                        "name": "CACHE_TYPE_DEFAULT",
-                                        "value": "${CACHE_TYPE_DEFAULT}"
-                                    },
-                                    {
-                                        "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
-                                        "value": "${ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH}"
-                                    },
-                                    {
-                                        "name": "HOTROD_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-hotrod"
-                                    },
-                                    {
-                                        "name": "HOTROD_ENCRYPTION",
+                                        "name": "HTTPS_NAME",
                                         "value": "${HTTPS_NAME}"
                                     },
                                     {
-                                        "name": "MEMCACHED_CACHE",
-                                        "value": "${MEMCACHED_CACHE}"
+                                        "name": "HTTPS_PASSWORD",
+                                        "value": "${HTTPS_PASSWORD}"
                                     },
                                     {
-                                        "name": "REST_SECURITY_DOMAIN",
-                                        "value": "${REST_SECURITY_DOMAIN}"
+                                        "name": "MQ_CLUSTER_PASSWORD",
+                                        "value": "${MQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "MQ_QUEUES",
+                                        "value": "${MQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "MQ_TOPICS",
+                                        "value": "${MQ_TOPICS}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_SECRET",
                                         "value": "${JGROUPS_ENCRYPT_SECRET}"
                                     },
                                     {
-                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
-                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-                                    },
-                                    {
                                         "name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
                                         "value": "/etc/jgroups-encrypt-secret-volume"
+                                    },
+                                    {
+                                        "name": "JGROUPS_ENCRYPT_KEYSTORE",
+                                        "value": "${JGROUPS_ENCRYPT_KEYSTORE}"
                                     },
                                     {
                                         "name": "JGROUPS_ENCRYPT_NAME",
@@ -325,16 +315,20 @@
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
                                     }
                                 ],
-                                "image": "jboss-datagrid72-openshift",
+                                "image": "${APPLICATION_NAME}",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                            "/opt/eap/bin/livenessProbe.sh"
                                         ]
                                     },
                                     "initialDelaySeconds": 60
@@ -360,21 +354,6 @@
                                         "containerPort": 8888,
                                         "name": "ping",
                                         "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 11211,
-                                        "name": "memcached",
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 11222,
-                                        "name": "hotrod-internal",
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 11333,
-                                        "name": "hotrod",
-                                        "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -382,7 +361,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/datagrid/bin/readinessProbe.sh"
+                                            "/opt/eap/bin/readinessProbe.sh"
                                         ]
                                     }
                                 },
@@ -393,28 +372,28 @@
                                 },
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/etc/datagrid-secret-volume",
-                                        "name": "datagrid-keystore-volume",
+                                        "mountPath": "/etc/eap-secret-volume",
+                                        "name": "eap-keystore-volume",
                                         "readOnly": true
                                     },
                                     {
                                         "mountPath": "/etc/jgroups-encrypt-secret-volume",
-                                        "name": "datagrid-jgroups-keystore-volume",
+                                        "name": "eap-jgroups-keystore-volume",
                                         "readOnly": true
                                     }
                                 ]
                             }
                         ],
-                        "terminationGracePeriodSeconds": 60,
+                        "terminationGracePeriodSeconds": 75,
                         "volumes": [
                             {
-                                "name": "datagrid-keystore-volume",
+                                "name": "eap-keystore-volume",
                                 "secret": {
                                     "secretName": "${HTTPS_SECRET}"
                                 }
                             },
                             {
-                                "name": "datagrid-jgroups-keystore-volume",
+                                "name": "eap-jgroups-keystore-volume",
                                 "secret": {
                                     "secretName": "${JGROUPS_ENCRYPT_SECRET}"
                                 }
@@ -431,8 +410,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-datagrid72-openshift:1.1",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                                "name": "${APPLICATION_NAME}:latest"
                             }
                         },
                         "type": "ImageChange"
@@ -450,14 +428,7 @@
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
             "required": true,
-            "value": "datagrid-app"
-        },
-        {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
-            "displayName": "Custom http Route Hostname",
-            "name": "HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
+            "value": "eap-app"
         },
         {
             "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
@@ -467,44 +438,37 @@
             "value": ""
         },
         {
-            "description": "User name for JDG user.",
-            "displayName": "Username",
-            "name": "USERNAME",
+            "description": "Git source URI for application",
+            "displayName": "Git Repository URL",
+            "name": "SOURCE_REPOSITORY_URL",
+            "required": true,
+            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts.git"
+        },
+        {
+            "description": "Git branch/tag reference",
+            "displayName": "Git Reference",
+            "name": "SOURCE_REPOSITORY_REF",
+            "required": false,
+            "value": "openshift"
+        },
+        {
+            "description": "Path within Git project to build; empty for root project directory.",
+            "displayName": "Context Directory",
+            "name": "CONTEXT_DIR",
+            "required": false,
+            "value": "kitchensink"
+        },
+        {
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
+            "displayName": "Queues",
+            "name": "MQ_QUEUES",
             "required": false,
             "value": ""
         },
         {
-            "description": "The password to access the JDG Caches. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s). (optional)",
-            "displayName": "Password",
-            "name": "PASSWORD",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Comma delimited list of roles/groups associated with the JDG user",
-            "displayName": "JDG User Roles/Groups",
-            "name": "ADMIN_GROUP",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Enable Hotrod Authentication",
-            "displayName": "Hotrod Authentication",
-            "name": "HOTROD_AUTHENTICATION",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Defines which role mapper to use for cache authentication",
-            "displayName": "Container Security Role Mapper",
-            "name": "CONTAINER_SECURITY_ROLE_MAPPER",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Comma delimited list of role names and assigned permissions",
-            "displayName": "Container Security Roles",
-            "name": "CONTAINER_SECURITY_ROLES",
+            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
+            "displayName": "Topics",
+            "name": "MQ_TOPICS",
             "required": false,
             "value": ""
         },
@@ -513,7 +477,7 @@
             "displayName": "Server Keystore Secret Name",
             "name": "HTTPS_SECRET",
             "required": true,
-            "value": "datagrid-app-secret"
+            "value": "eap7-app-secret"
         },
         {
             "description": "The name of the keystore file within the secret",
@@ -521,6 +485,13 @@
             "name": "HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
+        },
+        {
+            "description": "The type of the keystore file (JKS or JCEKS)",
+            "displayName": "Server Keystore Type",
+            "name": "HTTPS_KEYSTORE_TYPE",
+            "required": false,
+            "value": ""
         },
         {
             "description": "The name associated with the server certificate",
@@ -537,6 +508,30 @@
             "value": ""
         },
         {
+            "description": "AMQ cluster admin password",
+            "displayName": "AMQ cluster password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "MQ_CLUSTER_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "GitHub trigger secret",
+            "displayName": "Github Webhook Secret",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "GITHUB_WEBHOOK_SECRET",
+            "required": true
+        },
+        {
+            "description": "Generic build trigger secret",
+            "displayName": "Generic Webhook Secret",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "GENERIC_WEBHOOK_SECRET",
+            "required": true
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
@@ -544,60 +539,11 @@
             "value": "openshift"
         },
         {
-            "description": "Comma-separated list of connector types that should be configured (defaults to 'memcached,hotrod,rest')",
-            "displayName": "Infinispan Connectors",
-            "name": "INFINISPAN_CONNECTORS",
-            "required": false,
-            "value": "hotrod,memcached,rest"
-        },
-        {
-            "description": "Comma-separated list of caches to configure.  By default, a distributed-cache, with a mode of SYNC will be configured for each entry.",
-            "displayName": "Cache Names",
-            "name": "CACHE_NAMES",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Comma-separated list of caches to configure for use by Red Hat JBoss Data Virtualization for materialization of views.  Three caches will be created for each named cache: <name>, <name>_staging and <name>_alias.",
-            "displayName": "Datavirt Cache Names",
-            "name": "DATAVIRT_CACHE_NAMES",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Default cache type for all caches. If empty then distributed will be the default",
-            "displayName": "Default Cache Type",
-            "name": "CACHE_TYPE_DEFAULT",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Whether to require client certificate authentication. Defaults to false",
-            "displayName": "Encryption Requires SSL Client Authentication?",
-            "name": "ENCRYPTION_REQUIRE_SSL_CLIENT_AUTH",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "The name of the cache to expose through this memcached connector",
-            "displayName": "Memcached Cache Name",
-            "name": "MEMCACHED_CACHE",
-            "required": false,
-            "value": "default_memcached"
-        },
-        {
-            "description": "The domain, declared in the security subsystem, that should be used to authenticate access to the REST endpoint",
-            "displayName": "REST Security Domain",
-            "name": "REST_SECURITY_DOMAIN",
-            "required": false,
-            "value": ""
-        },
-        {
             "description": "The name of the secret containing the keystore file",
             "displayName": "JGroups Secret Name",
             "name": "JGROUPS_ENCRYPT_SECRET",
             "required": false,
-            "value": "datagrid-app-secret"
+            "value": "eap7-app-secret"
         },
         {
             "description": "The name of the keystore file within the secret",
@@ -627,6 +573,33 @@
             "generate": "expression",
             "name": "JGROUPS_CLUSTER_PASSWORD",
             "required": true
+        },
+        {
+            "description": "Controls whether exploded deployment content should be automatically deployed",
+            "displayName": "Deploy Exploded Archives",
+            "name": "AUTO_DEPLOY_EXPLODED",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Maven mirror to use for S2I builds",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Maven additional arguments to use for S2I builds",
+            "displayName": "Maven Additional Arguments",
+            "name": "MAVEN_ARGS_APPEND",
+            "required": false,
+            "value": "-Dcom.redhat.xpaas.repo.jbossorg"
+        },
+        {
+            "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "name": "ARTIFACT_DIR",
+            "required": false,
+            "value": ""
         },
         {
             "description": "Container memory limit",
