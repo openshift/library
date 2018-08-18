@@ -250,16 +250,20 @@ Path: official/dotnet/templates/dotnet-pgsql-persistent.json
 ## imagestreams
 ### jboss-eap64-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap64-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap64-image-stream.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
+Docs: [https://docs.openshift.com/enterprise/3.0/using_images/xpaas_images/eap.html](https://docs.openshift.com/enterprise/3.0/using_images/xpaas_images/eap.html)  
 Path: official/eap/imagestreams/jboss-eap64-openshift-rhel7.json  
 ### jboss-eap70-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap70-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap70-image-stream.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/html/red-hat-jboss-enterprise-application-platform-for-openshift](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/html/red-hat-jboss-enterprise-application-platform-for-openshift)  
 Path: official/eap/imagestreams/jboss-eap70-openshift-rhel7.json  
 ### jboss-eap71-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap71-image-stream.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-enterprise-application-platform-for-openshift/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/red_hat_jboss_enterprise_application_platform_for_openshift_online/](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.1/html/red_hat_jboss_enterprise_application_platform_for_openshift_online/)  
 Path: official/eap/imagestreams/jboss-eap71-openshift-rhel7.json  
+### jboss-eap72-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2.beta/html-single/getting_started_with_jboss_eap_for_openshift_online/](https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.2.beta/html-single/getting_started_with_jboss_eap_for_openshift_online/)  
+Path: official/eap/imagestreams/jboss-eap72-openshift-rhel7.json  
 ## templates
 ### eap64-amq-persistent-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap64-amq-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap64-amq-persistent-s2i.json )  
@@ -365,6 +369,50 @@ Path: official/eap/templates/eap71-third-party-db-s2i.json
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap71-tx-recovery-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/eap/eap71-tx-recovery-s2i.json )  
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/eap/eap71-tx-recovery-s2i.json](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/eap/eap71-tx-recovery-s2i.json)  
 Path: official/eap/templates/eap71-tx-recovery-s2i.json  
+### eap72-mongodb-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-persistent-s2i.adoc)  
+Path: official/eap/templates/eap72-mongodb-persistent-s2i.json  
+### eap72-postgresql-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-s2i.adoc)  
+Path: official/eap/templates/eap72-postgresql-s2i.json  
+### eap72-amq-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-amq-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-amq-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-amq-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-amq-s2i.adoc)  
+Path: official/eap/templates/eap72-amq-s2i.json  
+### eap72-mongodb-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mongodb-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mongodb-s2i.adoc)  
+Path: official/eap/templates/eap72-mongodb-s2i.json  
+### eap72-sso-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-sso-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-sso-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-sso-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-sso-s2i.adoc)  
+Path: official/eap/templates/eap72-sso-s2i.json  
+### eap72-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-basic-s2i.adoc)  
+Path: official/eap/templates/eap72-basic-s2i.json  
+### eap72-mysql-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mysql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mysql-persistent-s2i.adoc)  
+Path: official/eap/templates/eap72-mysql-persistent-s2i.json  
+### eap72-https-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-https-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-https-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-https-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-https-s2i.adoc)  
+Path: official/eap/templates/eap72-https-s2i.json  
+### eap72-mysql-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mysql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-mysql-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mysql-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-mysql-s2i.adoc)  
+Path: official/eap/templates/eap72-mysql-s2i.json  
+### eap72-third-party-db-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-third-party-db-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-third-party-db-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-third-party-db-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-third-party-db-s2i.adoc)  
+Path: official/eap/templates/eap72-third-party-db-s2i.json  
+### eap72-postgresql-persistent-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap72/templates/eap72-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/docs/templates/eap72-postgresql-persistent-s2i.adoc)  
+Path: official/eap/templates/eap72-postgresql-persistent-s2i.json  
 # eap-cd
 ## imagestreams
 ### eap-cd-openshift

@@ -21,7 +21,10 @@
                     "kind": "ImageStreamTag",
                     "name": "2.2.0.GA"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -34,9 +37,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/3scale-amp21/apicast-gateway:1.4-2"
+                    "name": "registry.redhat.io/3scale-amp21/apicast-gateway:1.4-2"
                 },
-                "name": "2.1.0.GA"
+                "name": "2.1.0.GA",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -49,9 +55,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/3scale-amp22/apicast-gateway:1.8"
+                    "name": "registry.redhat.io/3scale-amp22/apicast-gateway:1.8"
                 },
-                "name": "2.2.0.GA"
+                "name": "2.2.0.GA",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
