@@ -24,7 +24,10 @@
                     "kind": "ImageStreamTag",
                     "name": "2.1"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -40,9 +43,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/dotnet/dotnet-21-rhel7:2.1"
+                    "name": "registry.redhat.io/dotnet/dotnet-21-rhel7:2.1"
                 },
-                "name": "2.1"
+                "name": "2.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -58,9 +64,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/dotnet/dotnet-20-rhel7:2.0"
+                    "name": "registry.redhat.io/dotnet/dotnet-20-rhel7:2.0"
                 },
-                "name": "2.0"
+                "name": "2.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -76,9 +85,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/dotnet/dotnetcore-11-rhel7:1.1"
+                    "name": "registry.redhat.io/dotnet/dotnetcore-11-rhel7:1.1"
                 },
-                "name": "1.1"
+                "name": "1.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -94,9 +106,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/dotnet/dotnetcore-10-rhel7:1.0"
+                    "name": "registry.redhat.io/dotnet/dotnetcore-10-rhel7:1.0"
                 },
-                "name": "1.0"
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
