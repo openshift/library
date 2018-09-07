@@ -2,7 +2,7 @@ variables:
   xpaas_version: ose-v1.4.8-1
   openjdk_version: ose-v1.4.14
   amq_version: ose-v1.4.12
-  eap_version: ose-v1.4.14
+  eap_version: ose-v1.4.15
   rhsso_version: ose-v1.4.14
   webserver_version: ose-v1.4.11
   rhdm_version: 7.0.1.GA
@@ -370,6 +370,9 @@ data:
         docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/eap-cd/docs/templates/eap-cd-postgresql-persistent-s2i.adoc
         tags:
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-basic-s2i.json
+        tags:
+          - online-starter
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/13/html/getting_started_with_jboss_eap_for_openshift_container_platform/

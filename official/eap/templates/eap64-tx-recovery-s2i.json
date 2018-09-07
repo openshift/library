@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap64-tx-recovery-s2i",
-        "xpaas": "1.4.14"
+        "xpaas": "1.4.15"
     },
     "message": "A new EAP 6 based application has been created in your project.",
     "metadata": {
@@ -16,11 +16,35 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.14"
+            "version": "1.4.15"
         },
         "name": "eap64-tx-recovery-s2i"
     },
     "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-sa"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-role-binding"
+            },
+            "roleRef": {
+                "kind": "Role",
+                "name": "view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-sa"
+                }
+            ]
+        },
         {
             "apiVersion": "v1",
             "kind": "Service",
@@ -287,6 +311,7 @@
                                 ]
                             }
                         ],
+                        "serviceAccountName": "${APPLICATION_NAME}-sa",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
@@ -420,6 +445,7 @@
                                 ]
                             }
                         ],
+                        "serviceAccountName": "${APPLICATION_NAME}-sa",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
