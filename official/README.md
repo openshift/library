@@ -435,56 +435,56 @@ Path: official/eap-cd/templates/eap-cd-basic-s2i.json
 ## imagestreams
 ### fis-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fis-java-openshift-rhel7.json  
 ### jboss-fuse70-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-java-openshift-rhel7.json  
 ### fis-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fis-karaf-openshift-rhel7.json  
 ### jboss-fuse70-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-karaf-openshift-rhel7.json  
 ### jboss-fuse70-eap-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-eap-openshift-rhel7.json  
 ### jboss-fuse70-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-console-rhel7.json  
 ### fuse7-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-java-openshift-rhel7.json  
 ### fuse7-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-karaf-openshift-rhel7.json  
 ### fuse7-eap-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-eap-openshift-rhel7.json  
 ### fuse7-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-console-rhel7.json  
 ## templates
 ### s2i-fuse71-spring-boot-camel
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse71-spring-boot-camel.json  
 ### s2i-fuse71-spring-boot-camel-xml
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse71-spring-boot-camel-xml.json  
 ### fuse71-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.1/html/managing_fuse/)  
 Path: official/fis/templates/fuse71-console.json  
 # httpd
 ## imagestreams
@@ -500,16 +500,16 @@ Path: official/httpd/templates/httpd-example.json
 # java
 ## imagestreams
 ### redhat-openjdk18-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7.json  
 ### java
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7.json  
 ## templates
 ### openjdk18-web-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/openjdk/openjdk18-web-basic-s2i.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-web-basic-s2i.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/templates/openjdk18-web-basic-s2i.json  
 # jenkins
