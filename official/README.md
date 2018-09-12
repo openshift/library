@@ -457,19 +457,35 @@ Path: official/fis/imagestreams/jboss-fuse70-eap-openshift-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-console-rhel7.json  
+### fuse7-java-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Path: official/fis/imagestreams/fuse7-java-openshift-rhel7.json  
+### fuse7-karaf-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Path: official/fis/imagestreams/fuse7-karaf-openshift-rhel7.json  
+### fuse7-eap-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Path: official/fis/imagestreams/fuse7-eap-openshift-rhel7.json  
+### fuse7-console
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
+Path: official/fis/imagestreams/fuse7-console-rhel7.json  
 ## templates
-### s2i-fuse70-spring-boot-camel
+### s2i-fuse71-spring-boot-camel
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
-Path: official/fis/templates/s2i-fuse70-spring-boot-camel.json  
-### s2i-fuse70-spring-boot-camel-xml
+Path: official/fis/templates/s2i-fuse71-spring-boot-camel.json  
+### s2i-fuse71-spring-boot-camel-xml
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/fuse_on_openshift_guide/)  
-Path: official/fis/templates/s2i-fuse70-spring-boot-camel-xml.json  
-### fuse70-console
+Path: official/fis/templates/s2i-fuse71-spring-boot-camel-xml.json  
+### fuse71-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.0/html/managing_fuse/)  
-Path: official/fis/templates/fuse70-console.json  
+Path: official/fis/templates/fuse71-console.json  
 # httpd
 ## imagestreams
 ### httpd
