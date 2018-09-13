@@ -2,13 +2,13 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "labels": {
-        "xpaas": "1.4.14"
+        "xpaas": "1.4.16"
     },
     "metadata": {
         "annotations": {
             "openshift.io/display-name": "Red Hat OpenJDK 8",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "1.4.14"
+            "version": "1.4.16"
         },
         "name": "java"
     },
@@ -27,9 +27,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift:latest"
+                    "name": "registry.redhat.io/redhat-openjdk-18/openjdk18-openshift:latest"
                 },
-                "name": "8"
+                "name": "8",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -46,7 +49,10 @@
                     "kind": "ImageStreamTag",
                     "name": "java:8"
                 },
-                "name": "latest"
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
