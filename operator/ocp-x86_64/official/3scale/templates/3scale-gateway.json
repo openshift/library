@@ -1,0 +1,302 @@
+{
+    "apiVersion": "v1",
+    "kind": "Template",
+    "metadata": {
+        "annotations": {
+            "description": "3scale's APIcast is an NGINX based API gateway used to integrate your internal and external API services with 3scale's API Management Platform. It supports OpenID connect to integrate with external Identity Providers such as Red Hat Single Sign On, for API traffic authentication",
+            "iconClass": "icon-3scale",
+            "openshift.io/display-name": "3scale APIcast API Gateway",
+            "openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "api,gateway,3scale"
+        },
+        "name": "3scale-gateway"
+    },
+    "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "name": "${APICAST_NAME}"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "deploymentconfig": "${APICAST_NAME}"
+                },
+                "strategy": {
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "deploymentconfig": "${APICAST_NAME}"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "THREESCALE_PORTAL_ENDPOINT",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "password",
+                                                "name": "apicast-configuration-url-secret"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "THREESCALE_CONFIG_FILE",
+                                        "value": "${CONFIGURATION_FILE_PATH}"
+                                    },
+                                    {
+                                        "name": "THREESCALE_DEPLOYMENT_ENV",
+                                        "value": "${DEPLOYMENT_ENVIRONMENT}"
+                                    },
+                                    {
+                                        "name": "RESOLVER",
+                                        "value": "${RESOLVER}"
+                                    },
+                                    {
+                                        "name": "APICAST_SERVICES_LIST",
+                                        "value": "${SERVICES_LIST}"
+                                    },
+                                    {
+                                        "name": "APICAST_CONFIGURATION_LOADER",
+                                        "value": "${CONFIGURATION_LOADER}"
+                                    },
+                                    {
+                                        "name": "APICAST_LOG_LEVEL",
+                                        "value": "${LOG_LEVEL}"
+                                    },
+                                    {
+                                        "name": "APICAST_PATH_ROUTING",
+                                        "value": "${PATH_ROUTING}"
+                                    },
+                                    {
+                                        "name": "APICAST_RESPONSE_CODES",
+                                        "value": "${RESPONSE_CODES}"
+                                    },
+                                    {
+                                        "name": "APICAST_CONFIGURATION_CACHE",
+                                        "value": "${CONFIGURATION_CACHE}"
+                                    },
+                                    {
+                                        "name": "REDIS_URL",
+                                        "value": "${REDIS_URL}"
+                                    },
+                                    {
+                                        "name": "APICAST_MANAGEMENT_API",
+                                        "value": "${MANAGEMENT_API}"
+                                    },
+                                    {
+                                        "name": "OPENSSL_VERIFY",
+                                        "value": "${OPENSSL_VERIFY}"
+                                    },
+                                    {
+                                        "name": "APICAST_WORKERS",
+                                        "value": "${APICAST_WORKERS}"
+                                    }
+                                ],
+                                "image": "amp-apicast:latest",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "httpGet": {
+                                        "path": "/status/live",
+                                        "port": "management"
+                                    },
+                                    "initialDelaySeconds": 10,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "${APICAST_NAME}",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "proxy",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8090,
+                                        "name": "management",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/status/ready",
+                                        "port": "management"
+                                    },
+                                    "initialDelaySeconds": 15,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "1",
+                                        "memory": "128Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "500m",
+                                        "memory": "64Mi"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    },
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APICAST_NAME}"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "apicast-gateway:latest",
+                                "namespace": "openshift"
+                            }
+                        },
+                        "type": "ImageChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "name": "${APICAST_NAME}"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "proxy",
+                        "port": 8080,
+                        "protocol": "TCP",
+                        "targetPort": 8080
+                    },
+                    {
+                        "name": "management",
+                        "port": 8090,
+                        "protocol": "TCP",
+                        "targetPort": 8090
+                    }
+                ],
+                "selector": {
+                    "deploymentconfig": "${APICAST_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Secret",
+            "metadata": {
+                "name": "apicast-configuration-url-secret"
+            },
+            "stringData": {
+                "password": "https://${ACCESS_TOKEN}@${DOMAIN}-admin.3scale.net"
+            },
+            "type": "Opaque"
+        }
+    ],
+    "parameters": [
+        {
+            "description": "Access Token (not a Service Token) for the 3scale Account Management API",
+            "name": "ACCESS_TOKEN",
+            "required": true,
+            "value": null
+        },
+        {
+            "description": "The domain found on the URL of your 3scale Admin Portal: https://<domain>-admin.3scale.net",
+            "name": "DOMAIN",
+            "required": true,
+            "value": null
+        },
+        {
+            "description": "Path to saved JSON file with configuration for the gateway. Has to be injected to the docker image as read only volume.",
+            "name": "CONFIGURATION_FILE_PATH",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "Deployment environment. Can be sandbox or production.",
+            "name": "DEPLOYMENT_ENVIRONMENT",
+            "required": true,
+            "value": "production"
+        },
+        {
+            "description": "Name for the 3scale API Gateway",
+            "name": "APICAST_NAME",
+            "required": true,
+            "value": "apicast"
+        },
+        {
+            "description": "Number of worker processes to start.",
+            "name": "APICAST_WORKERS",
+            "required": true,
+            "value": "1"
+        },
+        {
+            "description": "DNS Resolver for openresty, if empty it will be autodiscovered",
+            "name": "RESOLVER",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "Subset of services to run. Use comma separated list of service ids (eg. 42,1337)",
+            "name": "SERVICES_LIST",
+            "required": false,
+            "value": null
+        },
+        {
+            "description": "When to load configuration. If on gateway start or incoming request. Allowed values are: lazy, boot.",
+            "name": "CONFIGURATION_LOADER",
+            "required": false,
+            "value": "boot"
+        },
+        {
+            "description": "Log level. One of the following: debug, info, notice, warn, error, crit, alert, or emerg.",
+            "name": "LOG_LEVEL",
+            "required": false
+        },
+        {
+            "description": "Enable path routing. Experimental feature.",
+            "name": "PATH_ROUTING",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Enable logging response codes to 3scale.",
+            "name": "RESPONSE_CODES",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "For how long to cache the downloaded configuration in seconds. Can be left empty, 0 or greater than 60.",
+            "name": "CONFIGURATION_CACHE",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Redis URL. Required for OAuth2 integration. ex: redis://PASSWORD@127.0.0.1:6379/0",
+            "name": "REDIS_URL",
+            "required": false
+        },
+        {
+            "description": "Scope of the Management API. Can be disabled, status or debug. At least status required for health checks.",
+            "name": "MANAGEMENT_API",
+            "required": false,
+            "value": "status"
+        },
+        {
+            "description": "Turn on/off the OpenSSL peer verification. Can be set to true/false.",
+            "name": "OPENSSL_VERIFY",
+            "required": true,
+            "value": "false"
+        }
+    ]
+}

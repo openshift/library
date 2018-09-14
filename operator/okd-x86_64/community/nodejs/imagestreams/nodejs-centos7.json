@@ -1,0 +1,150 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Node.js"
+        },
+        "name": "nodejs"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Build and run Node.js applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Node.js available on OpenShift, including major versions updates.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js (Latest)",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs",
+                    "tags": "builder,nodejs"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "10"
+                },
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "DEPRECATED: Build and run Node.js 0.10 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/0.10/README.md.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 0.10",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:0.10,nodejs:0.1,nodejs",
+                    "tags": "hidden,nodejs",
+                    "version": "0.10"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/openshift/nodejs-010-centos7:latest"
+                },
+                "name": "0.10",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 4 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/4/README.md.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 4",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:4,nodejs",
+                    "tags": "hidden,builder,nodejs",
+                    "version": "4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/nodejs-4-centos7:latest"
+                },
+                "name": "4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 6 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/6/README.md.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 6",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "supports": "nodejs:6,nodejs",
+                    "tags": "builder,nodejs",
+                    "version": "6"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/nodejs-6-centos7:latest"
+                },
+                "name": "6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 8 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/8/README.md.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 8",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "tags": "builder,nodejs",
+                    "version": "8"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/nodejs-8-centos7:latest"
+                },
+                "name": "8",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 8 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 8 (RHOAR)",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "tags": "builder,nodejs",
+                    "version": "8"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/bucharestgold/centos7-s2i-nodejs:8.x"
+                },
+                "name": "8-RHOAR",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Node.js 10 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/bucharest-gold/centos7-s2i-nodejs.",
+                    "iconClass": "icon-nodejs",
+                    "openshift.io/display-name": "Node.js 10",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/nodejs-ex.git",
+                    "tags": "builder,nodejs",
+                    "version": "10"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/bucharestgold/centos7-s2i-nodejs:10.x"
+                },
+                "name": "10",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}

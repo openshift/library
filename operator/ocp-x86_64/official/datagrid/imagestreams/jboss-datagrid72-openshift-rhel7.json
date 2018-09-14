@@ -1,0 +1,46 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat JBoss Data Grid 7.2",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "1.1"
+        },
+        "name": "jboss-datagrid72-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat JBoss Data Grid 7.2 S2I images.",
+                    "iconClass": "icon-datagrid",
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.2",
+                    "supports": "datagrid:7.2",
+                    "tags": "datagrid,jboss,hidden",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.0"
+                },
+                "name": "1.0"
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat JBoss Data Grid 7.2 S2I images.",
+                    "iconClass": "icon-datagrid",
+                    "openshift.io/display-name": "Red Hat JBoss Data Grid 7.2",
+                    "supports": "datagrid:7.2",
+                    "tags": "datagrid,jboss,hidden",
+                    "version": "1.1"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.1"
+                },
+                "name": "1.1"
+            }
+        ]
+    }
+}
