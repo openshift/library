@@ -244,7 +244,7 @@ def create_indexes():
                             index_file.write('Path: ' + item['path'] + '  \n')
 
 
-def has_tag(item, filter_tags):
+def has_tag(item, filter_tags, match_all):
     """ Check if an item has a tag that matches one of the tags in filter_tags """
     if not filter_tags:
         return True
@@ -261,10 +261,17 @@ def has_tag(item, filter_tags):
             break
     if not arch_found:
         options.append('arch_x86_64')
-    if options:
-        if list(set(options) & set(filter_tags)):
-            return True
-    return False
+    
+    if not match_all:
+        if options:
+            if list(set(options) & set(filter_tags)):
+                return True
+        return False
+    else:
+        if options:
+            if set(options) >= set(filter_tags):
+                return True
+        return False
 
 def main():
     """ Runs the main program, gets the data from the YAML file(s)
@@ -273,7 +280,8 @@ def main():
     """
     # parse command line options
     parser = argparse.ArgumentParser(description='Build OpenShift template and image-stream library')
-    parser.add_argument("-t", "--tags", nargs='?', help="Select specific tag(s) to import templates/imagestreams (separated by comma ',')")
+    parser.add_argument("-t", "--tags", nargs='?', help="Select only content with at least one of the specified tag(s) to import templates/imagestreams (separated by comma ',')")
+    parser.add_argument("--match-all-tags", nargs='?', help="Select only content with all specified tags to import templates/imagestreams (separated by comma ',')")
     parser.add_argument("-d", "--dir", nargs='?', help="Specify a target directory for the imported content")
     args = parser.parse_args()
 
@@ -281,6 +289,7 @@ def main():
         os.makedirs('tmp')
 
     tags = args.tags.split(",") if args.tags != None else []
+    alltags = args.match_all_tags.split(",") if args.match_all_tags != None else []
     root = args.dir if args.dir != None else os.path.dirname(os.path.realpath(__file__))
     
     for source in SVARS['sources']:
@@ -311,7 +320,9 @@ def main():
                 for item_type in ['imagestreams', 'templates']:
                     if item_type in contents and len(contents[item_type]) > 0:
                         for item in contents[item_type]:
-                            if not has_tag(item, tags):
+                            if not has_tag(item, tags, False):
+                                continue
+                            if not has_tag(item, alltags, True):
                                 continue
                             if not os.path.exists(os.path.join(SVARS['base_dir'], folder, item_type)):
                                 os.makedirs(os.path.join(SVARS['base_dir'], folder, item_type))
