@@ -53,6 +53,14 @@ data:
         suffix: centos7
         tags:
           - okd
+  rails:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json
+        docs: https://github.com/sclorg/rails-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
+        docs: https://github.com/sclorg/rails-ex/blob/master/README.md
+        tags:
+          - okd
   python:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-centos7.json
@@ -61,7 +69,26 @@ data:
         suffix: centos7
         tags:
           - okd
+  django:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django.json
+        docs: https://github.com/sclorg/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json
+        docs: https://github.com/sclorg/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json
+        docs: https://github.com/sclorg/django-ex/blob/master/README.md
+        tags:
+          - okd
   nodejs:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json
+        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
+        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
+        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-centos7.json
         docs: https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md
@@ -77,12 +104,32 @@ data:
         suffix: centos7
         tags:
           - okd
+  dancer:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer.json
+        docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql.json
+        docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
+        docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
+        tags:
+          - okd
   php:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-centos7.json
         docs: https://github.com/sclorg/s2i-php-container/blob/master/README.md
         regex: php
         suffix: centos7
+        tags:
+          - okd
+  cakephp:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp.json
+        docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql.json
+        docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
+        docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
         tags:
           - okd
   httpd:
@@ -93,7 +140,19 @@ data:
         suffix: centos7
         tags:
           - okd
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json
+        docs: https://github.com/sclorg/httpd-ex/blob/master/README.md
+        tags:
+          - okd
   jenkins:
+    templates:
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
@@ -102,6 +161,13 @@ data:
         tags:
           - okd
   mariadb:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos7.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
@@ -125,6 +191,13 @@ data:
         suffix: centos7
         tags:
           - okd
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json
+        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json
+        docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+        tags:
+          - okd
   nginx:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-centos7.json
@@ -133,7 +206,19 @@ data:
         suffix: centos7
         tags:
           - okd
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json
+        docs: https://github.com/sclorg/nginx-ex/blob/master/README.md
+        tags:
+          - okd
   postgresql:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-centos7.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
@@ -142,6 +227,11 @@ data:
         tags:
           - okd
   redis:
+    templates:
+      - location: https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json
+        docs: https://github.com/sclorg/redis-container/blob/master/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-centos7.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
@@ -150,6 +240,13 @@ data:
         tags:
           - okd
   dotnet:
+    templates:
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-example.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/templates/dotnet-pgsql-persistent.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
+        tags:
+          - okd
     imagestreams:
       - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json
         docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
