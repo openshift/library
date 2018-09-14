@@ -2,13 +2,13 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "labels": {
-        "xpaas": "1.4.11"
+        "xpaas": "1.4.16"
     },
     "metadata": {
         "annotations": {
             "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 8",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "1.4.11"
+            "version": "1.4.16"
         },
         "name": "jboss-webserver31-tomcat8-openshift"
     },
@@ -27,9 +27,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift:1.0"
+                    "name": "registry.redhat.io/jboss-webserver-3/webserver31-tomcat8-openshift:1.0"
                 },
-                "name": "1.0"
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -44,9 +47,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift:1.1"
+                    "name": "registry.redhat.io/jboss-webserver-3/webserver31-tomcat8-openshift:1.1"
                 },
-                "name": "1.1"
+                "name": "1.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -61,9 +67,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift:1.2"
+                    "name": "registry.redhat.io/jboss-webserver-3/webserver31-tomcat8-openshift:1.2"
                 },
-                "name": "1.2"
+                "name": "1.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
