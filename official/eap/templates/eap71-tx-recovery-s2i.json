@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap71-tx-recovery-s2i",
-        "xpaas": "1.4.15"
+        "xpaas": "1.4.16"
     },
     "message": "A new EAP 7 based application has been created in your project.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration and insecure communication using http.  The template also demonstrates how to enable automated transaction recovery on scale down of application pods.  Automated transaction recovery is currently Technology Preview.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.15"
+            "version": "1.4.16"
         },
         "name": "eap71-tx-recovery-s2i"
     },
@@ -261,6 +261,10 @@
                                     {
                                         "name": "SPLIT_DATA",
                                         "value": "${SPLIT_DATA}"
+                                    },
+                                    {
+                                        "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                        "value": "${CUSTOM_INSTALL_DIRECTORIES}"
                                     }
                                 ],
                                 "image": "${APPLICATION_NAME}",
@@ -414,6 +418,10 @@
                                     {
                                         "name": "SPLIT_DATA",
                                         "value": "${SPLIT_DATA}"
+                                    },
+                                    {
+                                        "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                        "value": "${CUSTOM_INSTALL_DIRECTORIES}"
                                     }
                                 ],
                                 "image": "${APPLICATION_NAME}",
@@ -522,21 +530,28 @@
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
             "required": true,
-            "value": "https://github.com/jboss-developer/jboss-eap-quickstarts"
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git"
         },
         {
             "description": "Git branch/tag reference",
             "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false,
-            "value": "7.1.0.GA"
+            "value": "1.4"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
             "required": false,
-            "value": "kitchensink"
+            "value": "jta-crash-rec-eap7"
+        },
+        {
+            "description": "Additional directories from which to install.",
+            "displayName": "Custom install directories (see documentation).",
+            "name": "CUSTOM_INSTALL_DIRECTORIES",
+            "required": false,
+            "value": "extensions/*"
         },
         {
             "description": "Queue names",
