@@ -8,6 +8,9 @@ variables:
   ips_ds_version: ose-v1.4.16
   rhdm_version: 7.0.1.GA
   rhpam_version: 7.0.2.GA
+  jdg_version: ose-v1.4.16
+  datagrid_version: 1.1.1
+  cacheservice_version: 1.0.TP
 data:
   ruby:
     imagestreams:
@@ -308,8 +311,8 @@ data:
           - online-professional
   datagrid:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json
-        docs: https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/{cacheservice_version}/templates/caching-service.json
+        docs: https://github.com/jboss-container-images/datagrid-7-image/blob/{cacheservice_version}/documentation/cache-service.asciidoc
         tags:
           - ocp
           - online-professional
@@ -325,64 +328,71 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-postgresql-persistent.adoc
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid65-postgresql.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid65-postgresql.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-basic.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-basic.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-basic.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-basic.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-https.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-https.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-https.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-mysql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-mysql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-mysql-persistent.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-mysql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-mysql.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-postgresql-persistent.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-mysql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-mysql.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-postgresql-persistent.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-postgresql-persistent.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/datagrid/datagrid71-postgresql.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/datagrid/datagrid71-postgresql.adoc
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-basic.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-basic.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-postgresql.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{jdg_version}/docs/datagrid/datagrid71-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-basic.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-basic.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-https.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-https.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-https.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql-persistent.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-mysql-persistent.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-mysql-persistent.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql.adoc
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-mysql.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-mysql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-postgresql-persistent.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql.json
-        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-postgresql.json
+        docs: https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/{datagrid_version}/docs/datagrid72-postgresql.adoc
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
-        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{jdg_version}/templates/deprecated/datagrid65-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/6.5/html/data_grid_for_openshift/
         regex: jboss-datagrid
         suffix: rhel7
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-image-stream.json
-        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{jdg_version}/datagrid/datagrid71-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.1/html/data_grid_for_openshift/
+        regex: jboss-datagrid
+        suffix: rhel7
+        tags:
+          - ocp
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid72-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/
         regex: jboss-datagrid
         suffix: rhel7
         tags:
