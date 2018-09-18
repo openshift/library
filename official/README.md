@@ -173,6 +173,14 @@ Path: official/datavirt/imagestreams/jboss-datavirt64-openshift-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/)  
 Path: official/datavirt/imagestreams/jboss-datavirt64-driver-openshift-rhel7.json  
+### jboss-datavirt63-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
+Path: official/datavirt/imagestreams/jboss-datavirt63-openshift-rhel7.json  
+### jboss-datavirt63-driver-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.7/jboss-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-virtualization-for-openshift/)  
+Path: official/datavirt/imagestreams/jboss-datavirt63-driver-openshift-rhel7.json  
 ## templates
 ### datavirt64-basic-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json )  
