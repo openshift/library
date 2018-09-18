@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "decisionserver64-https-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.16"
     },
     "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-brms/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss BRMS 6.4 decision server, including a build configuration,  application deployment configuration and secured using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.16"
         },
         "name": "decisionserver64-https-s2i"
     },
@@ -165,7 +165,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-decisionserver64-openshift:1.2",
+                            "name": "jboss-decisionserver64-openshift:1.3",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -363,7 +363,7 @@
             "displayName": "KIE Container Deployment",
             "name": "KIE_CONTAINER_DEPLOYMENT",
             "required": false,
-            "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.3.0.Final"
+            "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.4.0.Final"
         },
         {
             "description": "The protocol to access the KIE Server REST interface.",

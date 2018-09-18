@@ -5,6 +5,7 @@ variables:
   eap_version: ose-v1.4.16
   rhsso_version: ose-v1.4.14
   webserver_version: ose-v1.4.16
+  ips_ds_version: ose-v1.4.16
   rhdm_version: 7.0.1.GA
   rhpam_version: 7.0.2.GA
 data:
@@ -402,14 +403,14 @@ data:
         suffix: rhel7
   decisionserver:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver64-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver64-amq-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver64-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver64-basic-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/decisionserver/decisionserver64-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/decisionserver/decisionserver64-https-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/decisionserver/decisionserver64-amq-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/decisionserver/decisionserver64-amq-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/decisionserver/decisionserver64-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/decisionserver/decisionserver64-basic-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/decisionserver/decisionserver64-https-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/decisionserver/decisionserver64-https-s2i.adoc
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/decisionserver/decisionserver64-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/
         regex: jboss-decisionserver
         suffix: rhel7
@@ -589,26 +590,26 @@ data:
           - online-professional
   processserver:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-amq-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-amq-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-amq-mysql-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-amq-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-amq-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-amq-postgresql-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-basic-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-mysql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-mysql-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-postgresql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/processserver/processserver64-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{xpaas_version}/docs/processserver/processserver64-postgresql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-amq-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-amq-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-amq-mysql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-amq-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-amq-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-amq-postgresql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-basic-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-basic-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-mysql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-mysql-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-mysql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-mysql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-postgresql-persistent-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-postgresql-persistent-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-postgresql-s2i.json
+        docs: https://github.com/jboss-openshift/application-templates/blob/{ips_ds_version}/docs/processserver/processserver64-postgresql-s2i.adoc
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{xpaas_version}/jboss-image-streams.json
+      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{ips_ds_version}/processserver/processserver64-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/
         regex: jboss-processserver
         suffix: rhel7
