@@ -2,23 +2,23 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "decisionserver64-https-s2i",
-        "xpaas": "1.4.16"
+        "jdv64": "1.2.0",
+        "template": "datavirt64-ldap-s2i"
     },
-    "message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "metadata": {
         "annotations": {
-            "description": "An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-            "iconClass": "icon-decisionserver",
-            "openshift.io/display-name": "JBoss BRMS 6.4 decision server (with https)",
+            "description": "Application template for JBoss Data Virtualization 6.4 services that configures security domain using S2I.",
+            "iconClass": "icon-datavirt",
+            "openshift.io/display-name": "JBoss Data Virtualization 6.4 defining Security Domain (no SSL)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "decisionserver,jboss",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-brms/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss BRMS 6.4 decision server, including a build configuration,  application deployment configuration and secured using https.",
+            "tags": "jdv,datavirt,database,jboss,ldap",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-virtualization/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Data Virtualization based application, configuring security domain(s), including a build configuration and application deployment configuration.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.16"
+            "version": "1.2.0"
         },
-        "name": "decisionserver64-https-s2i"
+        "name": "datavirt64-ldap-s2i"
     },
     "objects": [
         {
@@ -26,7 +26,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's http port."
+                    "description": "The data virtualization services."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -36,8 +36,19 @@
             "spec": {
                 "ports": [
                     {
+                        "name": "http",
                         "port": 8080,
-                        "targetPort": 8080
+                        "targetPort": "http"
+                    },
+                    {
+                        "name": "jdbc",
+                        "port": 31000,
+                        "targetPort": "jdbc"
+                    },
+                    {
+                        "name": "odbc",
+                        "port": 35432,
+                        "targetPort": "odbc"
                     }
                 ],
                 "selector": {
@@ -50,18 +61,20 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's https port."
+                    "description": "The JGroups ping port for clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "secure-${APPLICATION_NAME}"
+                "name": "${APPLICATION_NAME}-ping"
             },
             "spec": {
+                "clusterIP": "None",
                 "ports": [
                     {
-                        "port": 8443,
-                        "targetPort": 8443
+                        "name": "ping",
+                        "port": 8888
                     }
                 ],
                 "selector": {
@@ -75,7 +88,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's http (REST) service."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -84,31 +97,11 @@
             },
             "spec": {
                 "host": "${HOSTNAME_HTTP}",
+                "port": {
+                    "targetPort": "http"
+                },
                 "to": {
                     "name": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-https",
-            "kind": "Route",
-            "metadata": {
-                "annotations": {
-                    "description": "Route for application's https service."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "secure-${APPLICATION_NAME}"
-            },
-            "spec": {
-                "host": "${HOSTNAME_HTTPS}",
-                "tls": {
-                    "termination": "passthrough"
-                },
-                "to": {
-                    "name": "secure-${APPLICATION_NAME}"
                 }
             }
         },
@@ -150,12 +143,16 @@
                     "sourceStrategy": {
                         "env": [
                             {
-                                "name": "KIE_CONTAINER_DEPLOYMENT",
-                                "value": "${KIE_CONTAINER_DEPLOYMENT}"
-                            },
-                            {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                "value": "extensions/*"
+                            },
+                            {
+                                "name": "VDB_DIRS",
+                                "value": "${VDB_DIRS}"
                             },
                             {
                                 "name": "ARTIFACT_DIR",
@@ -165,7 +162,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-decisionserver64-openshift:1.3",
+                            "name": "jboss-datavirt64-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -224,52 +221,44 @@
                             {
                                 "env": [
                                     {
-                                        "name": "KIE_CONTAINER_DEPLOYMENT",
-                                        "value": "${KIE_CONTAINER_DEPLOYMENT}"
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PROTOCOL",
-                                        "value": "${KIE_SERVER_PROTOCOL}"
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PORT",
-                                        "value": "${KIE_SERVER_PORT}"
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
+                                        "name": "JGROUPS_CLUSTER_PASSWORD",
+                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PASSWORD",
-                                        "value": "${KIE_SERVER_PASSWORD}"
+                                        "name": "AUTO_DEPLOY_EXPLODED",
+                                        "value": "${AUTO_DEPLOY_EXPLODED}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/decisionserver-secret-volume"
+                                        "name": "TEIID_USERNAME",
+                                        "value": "${TEIID_USERNAME}"
                                     },
                                     {
-                                        "name": "HTTPS_KEYSTORE",
-                                        "value": "${HTTPS_KEYSTORE}"
+                                        "name": "TEIID_PASSWORD",
+                                        "value": "${TEIID_PASSWORD}"
                                     },
                                     {
-                                        "name": "HTTPS_NAME",
-                                        "value": "${HTTPS_NAME}"
+                                        "name": "MODESHAPE_USERNAME",
+                                        "value": "${MODESHAPE_USERNAME}"
                                     },
                                     {
-                                        "name": "HTTPS_PASSWORD",
-                                        "value": "${HTTPS_PASSWORD}"
+                                        "name": "MODESHAPE_PASSWORD",
+                                        "value": "${MODESHAPE_PASSWORD}"
                                     },
                                     {
-                                        "name": "HORNETQ_CLUSTER_PASSWORD",
-                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_QUEUES",
-                                        "value": "${HORNETQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "HORNETQ_TOPICS",
-                                        "value": "${HORNETQ_TOPICS}"
+                                        "name": "ENV_FILES",
+                                        "value": "/etc/datavirt-environment/*,/etc/datavirt-security-environment/*"
                                     }
                                 ],
                                 "image": "${APPLICATION_NAME}",
@@ -297,8 +286,18 @@
                                         "protocol": "TCP"
                                     },
                                     {
-                                        "containerPort": 8443,
-                                        "name": "https",
+                                        "containerPort": 31000,
+                                        "name": "jdbc",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 35432,
+                                        "name": "odbc",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8888,
+                                        "name": "ping",
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -318,8 +317,13 @@
                                 },
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/etc/decisionserver-secret-volume",
-                                        "name": "decisionserver-keystore-volume",
+                                        "mountPath": "/etc/datavirt-environment",
+                                        "name": "configuration",
+                                        "readOnly": true
+                                    },
+                                    {
+                                        "mountPath": "/etc/datavirt-security-environment",
+                                        "name": "configuration-security-domain",
                                         "readOnly": true
                                     }
                                 ]
@@ -328,9 +332,15 @@
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
-                                "name": "decisionserver-keystore-volume",
+                                "name": "configuration",
                                 "secret": {
-                                    "secretName": "${HTTPS_SECRET}"
+                                    "secretName": "${CONFIGURATION_NAME}"
+                                }
+                            },
+                            {
+                                "name": "configuration-security-domain",
+                                "secret": {
+                                    "secretName": "${CONFIG_SECURITY_DOMAIN_NAME}"
                                 }
                             }
                         ]
@@ -344,8 +354,8 @@
                                 "${APPLICATION_NAME}"
                             ],
                             "from": {
-                                "kind": "ImageStream",
-                                "name": "${APPLICATION_NAME}"
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}:latest"
                             }
                         },
                         "type": "ImageChange"
@@ -359,135 +369,88 @@
     ],
     "parameters": [
         {
-            "description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
-            "displayName": "KIE Container Deployment",
-            "name": "KIE_CONTAINER_DEPLOYMENT",
-            "required": false,
-            "value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.4.0.Final"
-        },
-        {
-            "description": "The protocol to access the KIE Server REST interface.",
-            "displayName": "KIE Server Protocol",
-            "name": "KIE_SERVER_PROTOCOL",
-            "required": false,
-            "value": "https"
-        },
-        {
-            "description": "The port to access the KIE Server REST interface.",
-            "displayName": "KIE Server Port",
-            "name": "KIE_SERVER_PORT",
-            "required": false,
-            "value": "8443"
-        },
-        {
-            "description": "The user name to access the KIE Server REST or JMS interface.",
-            "displayName": "KIE Server Username",
-            "name": "KIE_SERVER_USER",
-            "required": false,
-            "value": "kieserver"
-        },
-        {
-            "description": "The password to access the KIE Server REST or JMS interface. Must be different than username; must not be root, admin, or administrator; must contain at least 8 characters, 1 alphabetic character(s), 1 digit(s), and 1 non-alphanumeric symbol(s).",
-            "displayName": "KIE Server Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_PASSWORD",
-            "required": false
-        },
-        {
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
             "required": true,
-            "value": "kie-app"
+            "value": "datavirt-app"
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "description": "The name of the secret containing configuration properties for the data sources.",
+            "displayName": "Configuration Secret Name",
+            "name": "CONFIGURATION_NAME",
+            "required": true,
+            "value": "datavirt-app-config"
+        },
+        {
+            "description": "The name of the secret containing security domain configuration properties.",
+            "displayName": "Security Domain Configuration Secret Name",
+            "name": "CONFIG_SECURITY_DOMAIN_NAME",
+            "required": false,
+            "value": "datavirt-security-config"
+        },
+        {
+            "description": "Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix>",
             "displayName": "Custom http Route Hostname",
             "name": "HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-<project>.<default-domain-suffix>",
-            "displayName": "Custom https Route Hostname",
-            "name": "HOSTNAME_HTTPS",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Git source URI for application",
+            "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
             "required": true,
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git"
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts"
         },
         {
-            "description": "Git branch/tag reference",
+            "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false,
-            "value": "1.3"
+            "value": "master"
         },
         {
-            "description": "Path within Git project to build; empty for root project directory.",
+            "description": "Set this to the relative path to your project if it is not in the root of your repository.",
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
             "required": false,
-            "value": "decisionserver/hellorules"
+            "value": "datavirt64/dynamicvdb-datafederation/app"
         },
         {
-            "description": "Queue names",
-            "displayName": "Queues",
-            "name": "HORNETQ_QUEUES",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Topic names",
-            "displayName": "Topics",
-            "name": "HORNETQ_TOPICS",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "The name of the secret containing the keystore file",
-            "displayName": "Server Keystore Secret Name",
-            "name": "HTTPS_SECRET",
-            "required": true,
-            "value": "decisionserver-app-secret"
-        },
-        {
-            "description": "The name of the keystore file within the secret",
-            "displayName": "Server Keystore Filename",
-            "name": "HTTPS_KEYSTORE",
-            "required": false,
-            "value": "keystore.jks"
-        },
-        {
-            "description": "The name associated with the server certificate",
-            "displayName": "Server Certificate Name",
-            "name": "HTTPS_NAME",
-            "required": false,
-            "value": "jboss"
-        },
-        {
-            "description": "The password for the keystore and certificate",
-            "displayName": "Server Keystore Password",
-            "name": "HTTPS_PASSWORD",
-            "required": false,
-            "value": "mykeystorepass"
-        },
-        {
-            "description": "HornetQ cluster admin password",
-            "displayName": "HornetQ Password",
-            "from": "[a-zA-Z0-9]{8}",
+            "description": "Username associated with Teiid data service.",
+            "displayName": "Teiid Username",
+            "from": "[\\a]{8}",
             "generate": "expression",
-            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "name": "TEIID_USERNAME",
             "required": true
         },
         {
-            "description": "GitHub trigger secret",
+            "description": "Password for Teiid user.",
+            "displayName": "Teiid User Password",
+            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
+            "generate": "expression",
+            "name": "TEIID_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Username associated with ModeShape.",
+            "displayName": "ModeShape Username",
+            "from": "[\\a]{8}",
+            "generate": "expression",
+            "name": "MODESHAPE_USERNAME",
+            "required": true
+        },
+        {
+            "description": "Password for ModeShape user.",
+            "displayName": "ModeShape User Password",
+            "from": "[\\a\\A]{8}[\\d]{1}[\\A]{1}",
+            "generate": "expression",
+            "name": "MODESHAPE_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "A secret string used to configure the GitHub webhook.",
             "displayName": "Github Webhook Secret",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -495,7 +458,7 @@
             "required": true
         },
         {
-            "description": "Generic build trigger secret",
+            "description": "A secret string used to configure the Generic webhook.",
             "displayName": "Generic Webhook Secret",
             "from": "[a-zA-Z0-9]{8}",
             "generate": "expression",
@@ -510,6 +473,28 @@
             "value": "openshift"
         },
         {
+            "description": "Password used by JGroups to authenticate nodes in the cluster.",
+            "displayName": "JGroups Cluster Password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "JGROUPS_CLUSTER_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Controls whether exploded deployment content should be automatically deployed",
+            "displayName": "Deploy Exploded Archives",
+            "name": "AUTO_DEPLOY_EXPLODED",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "Comma delimited list of source directories containing VDBs for deployment",
+            "displayName": "VDB Deployment Directories",
+            "name": "VDB_DIRS",
+            "required": false,
+            "value": ""
+        },
+        {
             "description": "Maven mirror to use for S2I builds",
             "displayName": "Maven mirror URL",
             "name": "MAVEN_MIRROR_URL",
@@ -518,6 +503,7 @@
         },
         {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "displayName": "Artifact Directories",
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
