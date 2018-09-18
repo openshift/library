@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "processserver64-basic-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.16"
     },
     "message": "A new BPMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-bpm-suite/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.16"
         },
         "name": "processserver64-basic-s2i"
     },
@@ -118,7 +118,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-processserver64-openshift:1.2",
+                            "name": "jboss-processserver64-openshift:1.3",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -272,7 +272,7 @@
             "displayName": "KIE Container Deployment",
             "name": "KIE_CONTAINER_DEPLOYMENT",
             "required": false,
-            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final"
+            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.4.0.Final"
         },
         {
             "description": "The user name to access the KIE Server REST or JMS interface.",

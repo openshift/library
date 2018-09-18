@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "processserver64-mysql-persistent-s2i",
-        "xpaas": "1.4.8"
+        "xpaas": "1.4.16"
     },
     "message": "A new persistent BPMS application (using MySQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-bpm-suite/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.8"
+            "version": "1.4.16"
         },
         "name": "processserver64-mysql-persistent-s2i"
     },
@@ -191,7 +191,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-processserver64-openshift:1.2",
+                            "name": "jboss-processserver64-openshift:1.3",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -526,6 +526,13 @@
                                 ],
                                 "image": "mysql",
                                 "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 30,
+                                    "tcpSocket": {
+                                        "port": 3306
+                                    },
+                                    "timeoutSeconds": 1
+                                },
                                 "name": "${APPLICATION_NAME}-mysql",
                                 "ports": [
                                     {
@@ -533,6 +540,18 @@
                                         "protocol": "TCP"
                                     }
                                 ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/sh",
+                                            "-i",
+                                            "-c",
+                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 5,
+                                    "timeoutSeconds": 1
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/var/lib/mysql/data",
@@ -600,7 +619,7 @@
             "displayName": "KIE Container Deployment",
             "name": "KIE_CONTAINER_DEPLOYMENT",
             "required": false,
-            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.3.0.Final"
+            "value": "processserver-library=org.openshift.quickstarts:processserver-library:1.4.0.Final"
         },
         {
             "description": "The protocol to access the KIE Server REST interface.",
