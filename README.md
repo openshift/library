@@ -68,11 +68,11 @@ The `make verify` command runs the following checks:
 ### Adding Your Template or ImageStream
 
 - Fork the [openshift/library](https://github.com/openshift/library) repository on github
-- Add your template or image stream to the **community.yaml** file in the top level of this project
-- Run the `make import` command and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** folder and that no errors have occurred.
+- Add your template or image stream to the **community.yaml** or **official.yaml** file in the top level of this project
+- Run the `make import` command and make sure that your template(s) and/or image-stream(s) are processed and written to the correct directory under the **community** or **official** folder and that no errors have occurred.
 - Run the `make verify` command and ensure that no errors occur
 - Commit and push your changes to your fork of the github repository
-  - Make sure to commit any changes in the **community** folder
+  - Make sure to commit any changes in the **community** and **official** folders
 - Create a pull request against the [openshift/library](https://github.com/openshift/library) upstream repository
 
 That's it!  Your pull request will be reviewed by a member of the OpenShift Team and merged if everything looks good.
