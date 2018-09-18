@@ -11,6 +11,7 @@ variables:
   jdg_version: ose-v1.4.16
   datagrid_version: 1.1.1
   cacheservice_version: 1.0.TP
+  rhamp_version: master
 data:
   ruby:
     imagestreams:
@@ -33,6 +34,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json
         docs: https://github.com/sclorg/rails-ex/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
         docs: https://github.com/sclorg/rails-ex/blob/master/README.md
         tags:
@@ -56,6 +60,9 @@ data:
         docs: https://github.com/sclorg/django-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json
         docs: https://github.com/sclorg/django-ex/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json
         docs: https://github.com/sclorg/django-ex/blob/master/README.md
         tags:
@@ -69,6 +76,9 @@ data:
         docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
         docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
         docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
         tags:
@@ -101,6 +111,9 @@ data:
         docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql.json
         docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
         docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
         tags:
@@ -124,6 +137,9 @@ data:
         docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql.json
         docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
         docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
         tags:
@@ -135,6 +151,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         tags:
@@ -169,6 +188,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
         tags:
@@ -189,6 +211,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
         tags:
@@ -209,6 +234,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
         tags:
@@ -231,6 +259,8 @@ data:
         docs: https://github.com/sclorg/nginx-container/blob/master/README.md
         regex: nginx
         suffix: rhel7
+        tags:
+          - ocp
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json
         docs: https://github.com/sclorg/nginx-ex/blob/master/README.md
@@ -241,6 +271,9 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        tags:
+          - okd
+          - ocp
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
         tags:
@@ -269,6 +302,7 @@ data:
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
         tags:
+          - okd
           - ocp
           - online-starter
           - online-professional
@@ -842,14 +876,14 @@ data:
           - online-professional
   3scale:
     templates:
-      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/library/apicast.yml
+      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/{rhamp_version}/apicast-gateway/library/apicast.yml
         docs: https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift
         tags:
           - ocp
           - online-starter
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/3scale-image-streams.yml
+      - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/{rhamp_version}/3scale-image-streams.yml
         docs: https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift
         tags:
           - ocp
