@@ -22,9 +22,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.0"
+                    "name": "registry.redhat.io/jboss-datagrid-7/datagrid72-openshift:1.0"
                 },
-                "name": "1.0"
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -37,9 +40,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-datagrid-7/datagrid72-openshift:1.1"
+                    "name": "registry.redhat.io/jboss-datagrid-7/datagrid72-openshift:1.1"
                 },
-                "name": "1.1"
+                "name": "1.1",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }

@@ -67,29 +67,29 @@ Path: official/dancer/templates/dancer-mysql-persistent.json
 # datagrid
 ## imagestreams
 ### jboss-datagrid65-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ose-v1.4.16/templates/deprecated/datagrid65-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ose-v1.4.16/templates/deprecated/datagrid65-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/6.5/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/6.5/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid65-openshift-rhel7.json  
-### jboss-datagrid71-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
-Path: official/datagrid/imagestreams/jboss-datagrid71-openshift-rhel7.json  
 ### jboss-datagrid65-client-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ose-v1.4.16/templates/deprecated/datagrid65-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ose-v1.4.16/templates/deprecated/datagrid65-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/6.5/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/6.5/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid65-client-openshift-rhel7.json  
+### jboss-datagrid71-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.1/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.1/html/data_grid_for_openshift/)  
+Path: official/datagrid/imagestreams/jboss-datagrid71-openshift-rhel7.json  
 ### jboss-datagrid71-client-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/jboss-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.1/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.1/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid71-client-openshift-rhel7.json  
 ### jboss-datagrid72-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-image-stream.json )  
-Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-data-grid-for-openshift/)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid72-openshift-rhel7.json  
 ## templates
 ### caching-service
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json](https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/datagrid-services-dev/templates/caching-service.json )  
-Docs: [https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc](https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/1.0.TP/templates/caching-service.json](https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/1.0.TP/templates/caching-service.json )  
+Docs: [https://github.com/jboss-container-images/datagrid-7-image/blob/1.0.TP/documentation/cache-service.asciidoc](https://github.com/jboss-container-images/datagrid-7-image/blob/1.0.TP/documentation/cache-service.asciidoc)  
 Path: official/datagrid/templates/caching-service.json  
 ### datagrid65-basic
 Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid65-basic.json )  
@@ -116,79 +116,79 @@ Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templ
 Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid65-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid65-postgresql.json  
 ### datagrid71-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-basic.adoc)  
 Path: official/datagrid/templates/datagrid71-basic.json  
 ### datagrid71-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-https.adoc)  
 Path: official/datagrid/templates/datagrid71-https.json  
 ### datagrid71-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid71-mysql-persistent.json  
 ### datagrid71-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-mysql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql.adoc)  
 Path: official/datagrid/templates/datagrid71-mysql.json  
 ### datagrid71-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid71-postgresql-persistent.json  
 ### datagrid71-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.8-1/datagrid/datagrid71-postgresql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.8-1/docs/datagrid/datagrid71-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid71-postgresql.json  
 ### datagrid72-basic
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-basic.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-basic.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-basic.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-basic.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-basic.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-basic.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-basic.adoc)  
 Path: official/datagrid/templates/datagrid72-basic.json  
 ### datagrid72-https
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-https.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-https.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-https.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-https.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-https.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-https.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-https.adoc)  
 Path: official/datagrid/templates/datagrid72-https.json  
 ### datagrid72-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql-persistent.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid72-mysql-persistent.json  
 ### datagrid72-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-mysql.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql.adoc)  
 Path: official/datagrid/templates/datagrid72-mysql.json  
 ### datagrid72-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-postgresql-persistent.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-postgresql-persistent.adoc)  
 Path: official/datagrid/templates/datagrid72-postgresql-persistent.json  
 ### datagrid72-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/datagrid72/templates/datagrid72-postgresql.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/datagrid72-dev/docs/datagrid72-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-postgresql.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-postgresql.json )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-postgresql.adoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-postgresql.adoc)  
 Path: official/datagrid/templates/datagrid72-postgresql.json  
 # datavirt
 ## imagestreams
 ### jboss-datavirt64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/)  
 Path: official/datavirt/imagestreams/jboss-datavirt64-openshift-rhel7.json  
 ### jboss-datavirt64-driver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64-dev/resources/openshift/templates/datavirt64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_virtualization/6.4/html/red_hat_jboss_data_virtualization_for_openshift/)  
 Path: official/datavirt/imagestreams/jboss-datavirt64-driver-openshift-rhel7.json  
 ## templates
 ### datavirt64-basic-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-basic-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-basic-s2i.adoc)  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-basic-s2i.adoc)  
 Path: official/datavirt/templates/datavirt64-basic-s2i.json  
 ### datavirt64-extensions-support-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-extensions-support-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-extensions-support-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc)  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-extensions-support-s2i.adoc)  
 Path: official/datavirt/templates/datavirt64-extensions-support-s2i.json  
 ### datavirt64-secure-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-secure-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-secure-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-secure-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-secure-s2i.adoc)  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-secure-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-secure-s2i.adoc)  
 Path: official/datavirt/templates/datavirt64-secure-s2i.json  
 ### datavirt64-ldap-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-ldap-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datavirt-6-openshift-image/datavirt64/resources/openshift/templates/datavirt64-ldap-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-ldap-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64-dev/resources/openshift/docs/datavirt64-ldap-s2i.adoc)  
+Docs: [https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-ldap-s2i.adoc](https://github.com/jboss-container-images/jboss-datavirt-6-openshift-image/tree/datavirt64/resources/openshift/docs/datavirt64-ldap-s2i.adoc)  
 Path: official/datavirt/templates/datavirt64-ldap-s2i.json  
 # decisionserver
 ## imagestreams
