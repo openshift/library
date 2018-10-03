@@ -1,0 +1,56 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "labels": {
+        "rhsso": "7.3.0.CD03"
+    },
+    "metadata": {
+        "annotations": {
+            "description": "Red Hat Single Sign-On 7.3 continuous delivery",
+            "openshift.io/display-name": "Red Hat Single Sign-On 7.3 continuous delivery",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "version": "7.3.0.CD03"
+        },
+        "name": "redhat-sso-cd-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Latest build of Red Hat Single Sign-On 7.3 continuous delivery Tech Preview image",
+                    "iconClass": "icon-sso",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.3 continuous delivery (Tech Preview)",
+                    "supports": "sso:7.3",
+                    "tags": "sso,keycloak,redhat,hidden",
+                    "version": "latest"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/redhat-sso-7-tech-preview/sso-cd-openshift:latest"
+                },
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat Single Sign-On 7.3 continuous delivery Tech Preview image",
+                    "iconClass": "icon-sso",
+                    "openshift.io/display-name": "Red Hat Single Sign-On 7.3 continuous delivery (Tech Preview)",
+                    "supports": "sso:7.3",
+                    "tags": "sso,keycloak,redhat,hidden",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/redhat-sso-7-tech-preview/sso-cd-openshift:1.0"
+                },
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}
