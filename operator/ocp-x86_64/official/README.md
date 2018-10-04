@@ -655,41 +655,41 @@ Path: official/ruby/imagestreams/ruby-rhel7.json
 # sso
 ## imagestreams
 ### redhat-sso70-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso70-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso70-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso70-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso70-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
 Path: official/sso/imagestreams/redhat-sso70-openshift-rhel7.json  
 ### redhat-sso71-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso71-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso71-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso71-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-sso-for-openshift/)  
 Path: official/sso/imagestreams/redhat-sso71-openshift-rhel7.json  
 ### redhat-sso72-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/)  
 Path: official/sso/imagestreams/redhat-sso72-openshift-rhel7.json  
 ## templates
 ### sso72-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-https.adoc)  
 Path: official/sso/templates/sso72-https.json  
 ### sso72-mysql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-mysql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-mysql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-mysql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-mysql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-mysql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-mysql-persistent.adoc)  
 Path: official/sso/templates/sso72-mysql-persistent.json  
 ### sso72-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-mysql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-mysql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-mysql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-mysql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-mysql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-mysql.adoc)  
 Path: official/sso/templates/sso72-mysql.json  
 ### sso72-postgresql-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-postgresql-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-postgresql-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-postgresql-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-postgresql-persistent.adoc)  
 Path: official/sso/templates/sso72-postgresql-persistent.json  
 ### sso72-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-postgresql.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-postgresql.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-postgresql.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-postgresql.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-postgresql.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-postgresql.adoc)  
 Path: official/sso/templates/sso72-postgresql.json  
 ### sso72-x509-https
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-x509-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.14/sso/sso72-x509-https.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-x509-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.14/docs/sso/sso72-x509-https.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-x509-https.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/sso/sso72-x509-https.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-x509-https.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/sso/sso72-x509-https.adoc)  
 Path: official/sso/templates/sso72-x509-https.json  
 # webserver
 ## imagestreams
