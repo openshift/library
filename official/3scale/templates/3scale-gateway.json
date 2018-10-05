@@ -29,6 +29,10 @@
                 },
                 "template": {
                     "metadata": {
+                        "annotations": {
+                            "prometheus.io/port": "9421",
+                            "prometheus.io/scrape": "true"
+                        },
                         "labels": {
                             "deploymentconfig": "${APICAST_NAME}"
                         }
@@ -93,13 +97,9 @@
                                     {
                                         "name": "OPENSSL_VERIFY",
                                         "value": "${OPENSSL_VERIFY}"
-                                    },
-                                    {
-                                        "name": "APICAST_WORKERS",
-                                        "value": "${APICAST_WORKERS}"
                                     }
                                 ],
-                                "image": "amp-apicast:latest",
+                                "image": "${AMP_APICAST_IMAGE}",
                                 "imagePullPolicy": "IfNotPresent",
                                 "livenessProbe": {
                                     "httpGet": {
@@ -119,6 +119,11 @@
                                     {
                                         "containerPort": 8090,
                                         "name": "management",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9421,
+                                        "name": "metrics",
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -205,6 +210,12 @@
     ],
     "parameters": [
         {
+            "description": "AMP release tag.",
+            "name": "AMP_RELEASE",
+            "required": true,
+            "value": "2.3.0"
+        },
+        {
             "description": "Access Token (not a Service Token) for the 3scale Account Management API",
             "name": "ACCESS_TOKEN",
             "required": true,
@@ -217,7 +228,12 @@
             "value": null
         },
         {
-            "description": "Path to saved JSON file with configuration for the gateway. Has to be injected to the docker image as read only volume.",
+            "name": "AMP_APICAST_IMAGE",
+            "required": true,
+            "value": "amp-apicast:latest"
+        },
+        {
+            "description": "Path to saved JSON file with configuration for the gateway. Has to be injected to the container image as read only volume.",
             "name": "CONFIGURATION_FILE_PATH",
             "required": false,
             "value": null
@@ -233,12 +249,6 @@
             "name": "APICAST_NAME",
             "required": true,
             "value": "apicast"
-        },
-        {
-            "description": "Number of worker processes to start.",
-            "name": "APICAST_WORKERS",
-            "required": true,
-            "value": "1"
         },
         {
             "description": "DNS Resolver for openresty, if empty it will be autodiscovered",
