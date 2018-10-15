@@ -67,7 +67,7 @@
     "cakephp": {
         "templates": [
             {
-                "description": "An example CakePHP application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/openshift/cake-ex/blob/master/README.md.",
+                "description": "An example CakePHP application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
                 "docs": "https://github.com/sclorg/cakephp-ex/blob/master/README.md",
                 "name": "cakephp-example",
                 "path": "official/cakephp/templates/cakephp-example.json",
@@ -1206,92 +1206,165 @@
     "rhdm": {
         "imagestreams": [
             {
-                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index",
-                "name": "rhdm70-decisioncentral-openshift",
-                "path": "official/rhdm/imagestreams/rhdm70-decisioncentral-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform",
+                "name": "rhdm71-decisioncentral-openshift",
+                "path": "official/rhdm/imagestreams/rhdm71-decisioncentral-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/rhdm71-image-streams.yaml"
             },
             {
-                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.0/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index",
-                "name": "rhdm70-kieserver-openshift",
-                "path": "official/rhdm/imagestreams/rhdm70-kieserver-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/rhdm70-image-streams.yaml"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform",
+                "name": "rhdm71-kieserver-openshift",
+                "path": "official/rhdm/imagestreams/rhdm71-kieserver-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/rhdm71-image-streams.yaml"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform",
+                "name": "rhdm71-decisioncentral-indexing-openshift",
+                "path": "official/rhdm/imagestreams/rhdm71-decisioncentral-indexing-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/rhdm71-image-streams.yaml"
             }
         ],
         "templates": [
             {
-                "description": "Application template for Red Hat Decision Manager 7.0 applications with persistent storage.",
-                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-full.adoc",
-                "name": "rhdm70-full-persistent",
-                "path": "official/rhdm/templates/rhdm70-full-persistent.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-full.yaml"
+                "description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.1.0.GA/templates/docs/rhdm71-authoring-ha.adoc",
+                "name": "rhdm71-authoring-ha",
+                "path": "official/rhdm/templates/rhdm71-authoring-ha.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/templates/rhdm71-authoring-ha.yaml"
             },
             {
-                "description": "Application template for Red Hat Decision Manager Execution Server 7.0 application built using S2I.",
-                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-https-s2i.adoc",
-                "name": "rhdm70-kieserver-https-s2i",
-                "path": "official/rhdm/templates/rhdm70-kieserver-https-s2i.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-https-s2i.yaml"
+                "description": "Application template for a non-HA persistent authoring environment, for Red Hat Decision Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.1.0.GA/templates/docs/rhdm71-authoring.adoc",
+                "name": "rhdm71-authoring",
+                "path": "official/rhdm/templates/rhdm71-authoring.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/templates/rhdm71-authoring.yaml"
             },
             {
-                "description": "Application template for Red Hat Decision Manager Execution Server 7.0 application.",
-                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver.adoc",
-                "name": "rhdm70-kieserver",
-                "path": "official/rhdm/templates/rhdm70-kieserver.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver.yaml"
+                "description": "Application template for a managed KIE Server, for Red Hat Decision Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.1.0.GA/templates/docs/rhdm71-kieserver.adoc",
+                "name": "rhdm71-kieserver",
+                "path": "official/rhdm/templates/rhdm71-kieserver.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/templates/rhdm71-kieserver.yaml"
             },
             {
-                "description": "Application template for Red Hat Decision Manager Execution Server 7.0 application built using S2I.",
-                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.0.1.GA/templates/docs/rhdm/rhdm70-kieserver-basic-s2i.adoc",
-                "name": "rhdm70-kieserver-basic-s2i",
-                "path": "official/rhdm/templates/rhdm70-kieserver-basic-s2i.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.0.1.GA/templates/rhdm70-kieserver-basic-s2i.yaml"
+                "description": "Application template for an immultable KIE server in a production environment, for Red Hat Decision Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.1.0.GA/templates/docs/rhdm71-prod-immutable-kieserver.adoc",
+                "name": "rhdm71-prod-immutable-kieserver",
+                "path": "official/rhdm/templates/rhdm71-prod-immutable-kieserver.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/templates/rhdm71-prod-immutable-kieserver.yaml"
+            },
+            {
+                "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.1.0.GA/templates/docs/rhdm71-trial-ephemeral.adoc",
+                "name": "rhdm71-trial-ephemeral",
+                "path": "official/rhdm/templates/rhdm71-trial-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.1.0.GA/templates/rhdm71-trial-ephemeral.yaml"
             }
         ]
     },
     "rhpam": {
         "imagestreams": [
             {
-                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index",
-                "name": "rhpam70-businesscentral-openshift",
-                "path": "official/rhpam/imagestreams/rhpam70-businesscentral-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/index",
+                "name": "rhpam71-businesscentral-openshift",
+                "path": "official/rhpam/imagestreams/rhpam71-businesscentral-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/rhpam71-image-streams.yaml"
             },
             {
-                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.0/html/deploying_a_red_hat_process_automation_manager_7.0_authoring_environment_on_red_hat_openshift_container_platform/index",
-                "name": "rhpam70-kieserver-openshift",
-                "path": "official/rhpam/imagestreams/rhpam70-kieserver-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/rhpam70-image-streams.yaml"
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/index",
+                "name": "rhpam71-kieserver-openshift",
+                "path": "official/rhpam/imagestreams/rhpam71-kieserver-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/rhpam71-image-streams.yaml"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/",
+                "name": "rhpam71-businesscentral-monitoring-openshift",
+                "path": "official/rhpam/imagestreams/rhpam71-businesscentral-monitoring-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/rhpam71-image-streams.yaml"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/",
+                "name": "rhpam71-smartrouter-openshift",
+                "path": "official/rhpam/imagestreams/rhpam71-smartrouter-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/rhpam71-image-streams.yaml"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/",
+                "name": "rhpam71-businesscentral-indexing-openshift",
+                "path": "official/rhpam/imagestreams/rhpam71-businesscentral-indexing-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/rhpam71-image-streams.yaml"
             }
         ],
         "templates": [
             {
-                "description": "Application template for a non-HA persistent authoring environment, for Red Hat Process Automation Manager 7.0",
-                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-authoring.adoc",
-                "name": "rhpam70-authoring",
-                "path": "official/rhpam/templates/rhpam70-authoring.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-authoring.yaml"
+                "description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-authoring-ha.adoc",
+                "name": "rhpam71-authoring-ha",
+                "path": "official/rhpam/templates/rhpam71-authoring-ha.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-authoring-ha.yaml"
             },
             {
-                "description": "Application template for a managed KIE server with a MySQL database, for Red Hat Process Automation Manager 7.0",
-                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-mysql.adoc",
-                "name": "rhpam70-kieserver-mysql",
-                "path": "official/rhpam/templates/rhpam70-kieserver-mysql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-mysql.yaml"
+                "description": "Application template for a non-HA persistent authoring environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-authoring.adoc",
+                "name": "rhpam71-authoring",
+                "path": "official/rhpam/templates/rhpam71-authoring.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-authoring.yaml"
             },
             {
-                "description": "Application template for a managed KIE server with a PostgreSQL database, for Red Hat Process Automation Manager 7.0",
-                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-kieserver-postgresql.adoc",
-                "name": "rhpam70-kieserver-postgresql",
-                "path": "official/rhpam/templates/rhpam70-kieserver-postgresql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-kieserver-postgresql.yaml"
+                "description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-kieserver-externaldb.adoc",
+                "name": "rhpam71-kieserver-externaldb",
+                "path": "official/rhpam/templates/rhpam71-kieserver-externaldb.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-kieserver-externaldb.yaml"
             },
             {
-                "description": "Application template for an immultable KIE server in a production environment, for Red Hat Process Automation Manager 7.0",
-                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.0.2.GA/templates/docs/rhpam70-prod-immutable-kieserver.adoc",
-                "name": "rhpam70-prod-immutable-kieserver",
-                "path": "official/rhpam/templates/rhpam70-prod-immutable-kieserver.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.0.2.GA/templates/rhpam70-prod-immutable-kieserver.yaml"
+                "description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-kieserver-mysql.adoc",
+                "name": "rhpam71-kieserver-mysql",
+                "path": "official/rhpam/templates/rhpam71-kieserver-mysql.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-kieserver-mysql.yaml"
+            },
+            {
+                "description": "Application template for a managed KIE Server with a PostgreSQL database, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-kieserver-postgresql.adoc",
+                "name": "rhpam71-kieserver-postgresql",
+                "path": "official/rhpam/templates/rhpam71-kieserver-postgresql.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-kieserver-postgresql.yaml"
+            },
+            {
+                "description": "Application template for an immultable KIE server in a production environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-prod-immutable-kieserver.adoc",
+                "name": "rhpam71-prod-immutable-kieserver",
+                "path": "official/rhpam/templates/rhpam71-prod-immutable-kieserver.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-prod-immutable-kieserver.yaml"
+            },
+            {
+                "description": "Application template for a router and monitoring console in a production environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-prod-immutable-monitor.adoc",
+                "name": "rhpam71-prod-immutable-monitor",
+                "path": "official/rhpam/templates/rhpam71-prod-immutable-monitor.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-prod-immutable-monitor.yaml"
+            },
+            {
+                "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-prod.adoc",
+                "name": "rhpam71-prod",
+                "path": "official/rhpam/templates/rhpam71-prod.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-prod.yaml"
+            },
+            {
+                "description": "Application template for system integration testing, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-sit.adoc",
+                "name": "rhpam71-sit",
+                "path": "official/rhpam/templates/rhpam71-sit.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-sit.yaml"
+            },
+            {
+                "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.1",
+                "docs": "https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.1.0.GA/templates/docs/rhpam71-trial-ephemeral.adoc",
+                "name": "rhpam71-trial-ephemeral",
+                "path": "official/rhpam/templates/rhpam71-trial-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.1.0.GA/templates/rhpam71-trial-ephemeral.yaml"
             }
         ]
     },
