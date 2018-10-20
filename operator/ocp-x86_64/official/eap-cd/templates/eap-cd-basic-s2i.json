@@ -3,20 +3,20 @@
     "kind": "Template",
     "labels": {
         "template": "eap-cd-basic-s2i",
-        "xpaas": "1.5.0"
+        "xpaas": "14.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "metadata": {
         "annotations": {
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP CD (no https)",
+            "openshift.io/display-name": "JBoss EAP CD 14",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and insecure communication using http.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.5.0"
+            "version": "14.0"
         },
         "name": "eap-cd-basic-s2i"
     },
@@ -73,11 +73,11 @@
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-http",
+            "id": "${APPLICATION_NAME}-https",
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for application's http service."
+                    "description": "Route for application's https service."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -85,6 +85,10 @@
                 "name": "${APPLICATION_NAME}"
             },
             "spec": {
+                "tls": {
+                    "insecureEdgeTerminationPolicy": "Redirect",
+                    "termination": "edge"
+                },
                 "to": {
                     "name": "${APPLICATION_NAME}"
                 }
@@ -143,9 +147,10 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-openshift:13",
+                            "name": "eap-cd-openshift:14",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                        }
+                        },
+                        "incremental": true
                     },
                     "type": "Source"
                 },

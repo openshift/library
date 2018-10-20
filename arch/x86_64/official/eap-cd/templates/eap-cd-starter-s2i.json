@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "eap-cd-basic-s2i",
+        "template": "eap-cd-starter-s2i",
         "xpaas": "14.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
@@ -10,7 +10,7 @@
         "annotations": {
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP CD 14",
+            "openshift.io/display-name": "JBoss EAP CD 14 Starter",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
@@ -18,7 +18,7 @@
             "template.openshift.io/support-url": "https://access.redhat.com",
             "version": "14.0"
         },
-        "name": "eap-cd-basic-s2i"
+        "name": "eap-cd-starter-s2i"
     },
     "objects": [
         {
@@ -38,32 +38,6 @@
                     {
                         "port": 8080,
                         "targetPort": 8080
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "The JGroups ping port for clustering.",
-                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-ping"
-            },
-            "spec": {
-                "clusterIP": "None",
-                "ports": [
-                    {
-                        "name": "ping",
-                        "port": 8888
                     }
                 ],
                 "selector": {
@@ -207,34 +181,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "JGROUPS_PING_PROTOCOL",
-                                        "value": "openshift.DNS_PING"
-                                    },
-                                    {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-ping"
-                                    },
-                                    {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-                                        "value": "8888"
-                                    },
-                                    {
-                                        "name": "MQ_CLUSTER_PASSWORD",
-                                        "value": "${MQ_CLUSTER_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MQ_QUEUES",
-                                        "value": "${MQ_QUEUES}"
-                                    },
-                                    {
-                                        "name": "MQ_TOPICS",
-                                        "value": "${MQ_TOPICS}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_CLUSTER_PASSWORD",
-                                        "value": "${JGROUPS_CLUSTER_PASSWORD}"
-                                    },
-                                    {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
                                     }
@@ -261,11 +207,6 @@
                                     {
                                         "containerPort": 8080,
                                         "name": "http",
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 8888,
-                                        "name": "ping",
                                         "protocol": "TCP"
                                     }
                                 ],
@@ -339,28 +280,6 @@
             "value": "kitchensink"
         },
         {
-            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
-            "displayName": "Queues",
-            "name": "MQ_QUEUES",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
-            "displayName": "Topics",
-            "name": "MQ_TOPICS",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "AMQ cluster admin password",
-            "displayName": "AMQ cluster password",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "name": "MQ_CLUSTER_PASSWORD",
-            "required": true
-        },
-        {
             "description": "GitHub trigger secret",
             "displayName": "Github Webhook Secret",
             "from": "[a-zA-Z0-9]{8}",
@@ -382,14 +301,6 @@
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
-        },
-        {
-            "description": "JGroups cluster password",
-            "displayName": "JGroups Cluster Password",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "name": "JGROUPS_CLUSTER_PASSWORD",
-            "required": true
         },
         {
             "description": "Controls whether exploded deployment content should be automatically deployed",
