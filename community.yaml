@@ -34,17 +34,6 @@ data:
           - okd
           - online-starter
           - online-professional
-  infinispan:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json
-        docs: https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md
-        regex: infinispan
-        suffix: centos7
-    templates:
-      - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json
-        docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
-      - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-persistent.json
-        docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
   ruby:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-centos7.json
