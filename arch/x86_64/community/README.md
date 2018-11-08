@@ -14,21 +14,6 @@ Path: community/dotnet/imagestreams/dotnet-runtime-centos7.json
 Source URL: [https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-centos7.json](https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-centos7.json )  
 Docs: [https://github.com/sclorg/httpd-container/blob/master/README.md](https://github.com/sclorg/httpd-container/blob/master/README.md)  
 Path: community/httpd/imagestreams/httpd-centos7.json  
-# infinispan
-## imagestreams
-### infinispan
-Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/imagestreams/infinispan-centos7.json )  
-Docs: [https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md](https://github.com/jboss-dockerfiles/infinispan/blob/master/server/README.md)  
-Path: community/infinispan/imagestreams/infinispan-centos7.json  
-## templates
-### infinispan-ephemeral
-Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-ephemeral.json )  
-Docs: [https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc](https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc)  
-Path: community/infinispan/templates/infinispan-ephemeral.json  
-### infinispan-persistent
-Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-persistent.json](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/templates/infinispan-persistent.json )  
-Docs: [https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc](https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc)  
-Path: community/infinispan/templates/infinispan-persistent.json  
 # jenkins
 ## imagestreams
 ### jenkins
