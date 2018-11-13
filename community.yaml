@@ -34,6 +34,12 @@ data:
           - okd
           - online-starter
           - online-professional
+  infinispan:
+    templates:
+    - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-ephemeral.yaml
+      docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
+    - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-persistent.yaml
+      docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
   ruby:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-centos7.json
