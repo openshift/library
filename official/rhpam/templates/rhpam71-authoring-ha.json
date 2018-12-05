@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.0",
+        "rhpam": "1.1",
         "template": "rhpam71-authoring-ha"
     },
     "message": "A new persistent HA Process Automation Manager application have been created in your project.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
@@ -12,12 +12,12 @@
             "iconClass": "icon-jboss",
             "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhpam,jboss,authoring,ha",
+            "tags": "rhpam,processserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.1 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhpam71-authoring-ha"
     },
@@ -1971,11 +1971,11 @@
             "value": "rhpam71-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "The id to use for the maven repository, if set. Default is generated randomly.",

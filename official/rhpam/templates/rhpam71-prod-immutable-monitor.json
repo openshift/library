@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.0",
+        "rhpam": "1.1",
         "template": "rhpam71-prod-immutable-monitor"
     },
     "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nTo access the Business Central Monitoring Console use the following credentials\n\n    Username: ${KIE_SERVER_MONITOR_USER}\n    Password: ${KIE_SERVER_MONITOR_PWD}\n\nTo create a new KIE server and connect to this monitoring console/router, use the following \"oc\" command:\noc new-app -f rhpam71-prod-immutable-kieserver.yaml \\\n  -p KIE_ADMIN_USER=${KIE_ADMIN_USER} -p KIE_ADMIN_PWD=${KIE_ADMIN_PWD} \\\n  -p KIE_SERVER_USER=${KIE_SERVER_USER} -p KIE_SERVER_PWD=${KIE_SERVER_PWD} \\\n  -p KIE_SERVER_MONITOR_USER=${KIE_SERVER_MONITOR_USER} -p KIE_SERVER_MONITOR_PWD=${KIE_SERVER_MONITOR_PWD} \\\n  -p KIE_SERVER_MONITOR_SERVICE=${APPLICATION_NAME}-rhpamcentrmon \\\n  -p KIE_SERVER_ROUTER_SERVICE=${APPLICATION_NAME}-smartrouter \\\n  -p SOURCE_REPOSITORY_URL=https://example.com/xxxx.git -p CONTEXT_DIR=rootDir \\\n  -p KIE_SERVER_CONTAINER_DEPLOYMENT=containerId=G:A:V\n\nPlease be sure to create the secret named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -12,12 +12,12 @@
             "iconClass": "icon-jboss",
             "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 production monitoring environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhpam,jboss,kieserver,immutable,s2i,monitor",
+            "tags": "rhpam,processserver,jboss,kieserver,immutable,s2i,monitor",
             "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed for a router and monitoring console in a production environment for Red Hat Process Automation Manager 7.1, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhpam71-prod-immutable-monitor"
     },
@@ -820,11 +820,11 @@
             "value": "openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": false,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g. <application-name>-smartrouter-<project>.<default-domain-suffix>'",

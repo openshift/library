@@ -8,8 +8,8 @@ variables:
   rhsso_tpcd_version: sso-cd-dev
   webserver_version: ose-v1.4.16
   ips_ds_version: ose-v1.4.16
-  rhdm_version: 7.1.0.GA
-  rhpam_version: 7.1.0.GA
+  rhdm_version: 7.1.1.GA
+  rhpam_version: 7.1.1.GA
   jdg_version: ose-v1.4.16
   datagrid_version: 1.1.1
   cacheservice_version: 1.0.TP
@@ -736,6 +736,7 @@ data:
         docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm71-authoring-ha.adoc
         tags:
           - ocp
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm71-authoring.yaml
         docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm71-authoring.adoc
         tags:
@@ -757,10 +758,15 @@ data:
         tags:
           - ocp
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/optaweb/rhdm71-optaweb-employee-rostering-trial-ephemeral.yaml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_and_using_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/
+        tags:
+          - ocp
+          - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/rhdm71-image-streams.yaml
         docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform
-        regex: rhdm71-decisioncentral-openshift
+        regex: rhdm71-decisioncentral-openshift|rhdm71-decisioncentral-indexing-openshift|rhdm71-optaweb-employee-rostering-openshift
         suffix: rhel7
         tags:
           - ocp
@@ -773,18 +779,13 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/rhdm71-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform
-        regex: rhdm71-decisioncentral-indexing-openshift
-        suffix: rhel7
-        tags:
-          - ocp
   rhpam:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam71-authoring-ha.yaml
         docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam71-authoring-ha.adoc
         tags:
           - ocp
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam71-authoring.yaml
         docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam71-authoring.adoc
         tags:
@@ -813,10 +814,12 @@ data:
         docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam71-prod-immutable-monitor.adoc
         tags:
           - ocp
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam71-prod.yaml
         docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam71-prod.adoc
         tags:
           - ocp
+          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam71-sit.yaml
         docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam71-sit.adoc
         tags:
@@ -829,17 +832,18 @@ data:
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam71-image-streams.yaml
         docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/index
-        regex: rhpam71-kieserver-openshift|rhpam71-businesscentral-openshift
+        regex: rhpam71-businesscentral-openshift|rhpam71-businesscentral-monitoring-openshift|rhpam71-smartrouter-openshift|rhpam71-businesscentral-indexing-openshift
         suffix: rhel7
         tags:
           - ocp
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam71-image-streams.yaml
         docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/
-        regex: rhpam71-businesscentral-monitoring-openshift|rhpam71-smartrouter-openshift|rhpam71-businesscentral-indexing-openshift
+        regex: rhpam71-kieserver-openshift
         suffix: rhel7
         tags:
           - ocp
+          - online-professional
   sso:
     templates:
       # List templates for RH-SSO 7.2 stable / zstream images stream below

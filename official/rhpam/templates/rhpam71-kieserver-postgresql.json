@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.0",
+        "rhpam": "1.1",
         "template": "rhpam71-kieserver-postgresql"
     },
     "message": "A new Process Automation Manager KIE server application have been created in your project.\nThe username/password for accessing the KIE server\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -12,12 +12,12 @@
             "iconClass": "icon-jboss",
             "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 managed KIE Server with a PostgreSQL database",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhpam,jboss,kieserver,postgresql",
+            "tags": "rhpam,processserver,jboss,kieserver,postgresql",
             "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_managed_server_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.1, including application deployment configuration, secure and insecure http communication using a PostgreSQL database.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhpam71-kieserver-postgresql"
     },
@@ -901,11 +901,11 @@
             "value": "rhpam71-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "The service name for the optional smart router, where it can be reached, to allow smart routing",

@@ -5,17 +5,27 @@
         "annotations": {
             "description": "The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.",
             "iconClass": "icon-rh-integration",
-            "openshift.io/display-name": "Red Hat Fuse 7.1 Console",
+            "openshift.io/display-name": "Red Hat Fuse 7.2 Console",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "hawtio,java,fis,jboss-fuse",
-            "version": "1.1"
+            "version": "1.2"
         },
         "labels": {
             "template": "fuse-console"
         },
-        "name": "fuse71-console"
+        "name": "fuse72-console"
     },
     "objects": [
+        {
+            "apiVersion": "v1",
+            "data": {
+                "hawtconfig.json": "{\n  \"about\": {\n    \"title\": \"Red Hat Fuse Console\",\n    \"productInfo\": [],\n    \"additionalInfo\": \"The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.\",\n    \"copyright\": \"\"\n  },\n  \"branding\": {\n    \"appName\": \"Fuse Console\",\n    \"appLogoUrl\": \"../online/img/fuse-logo.svg\"\n  },\n  \"disabledRoutes\": []\n}\n"
+            },
+            "kind": "ConfigMap",
+            "metadata": {
+                "name": "${APP_NAME}-config"
+            }
+        },
         {
             "apiVersion": "v1",
             "kind": "Route",
@@ -178,6 +188,16 @@
                                 },
                                 "volumeMounts": [
                                     {
+                                        "mountPath": "/opt/app-root/src/online/online/hawtconfig.json",
+                                        "name": "${APP_NAME}-config",
+                                        "subPath": "hawtconfig.json"
+                                    },
+                                    {
+                                        "mountPath": "/opt/app-root/src/integration/hawtconfig.json",
+                                        "name": "${APP_NAME}-config",
+                                        "subPath": "hawtconfig.json"
+                                    },
+                                    {
                                         "mountPath": "/etc/tls/private",
                                         "name": "${APP_NAME}-tls"
                                     }
@@ -185,6 +205,12 @@
                             }
                         ],
                         "volumes": [
+                            {
+                                "configMap": {
+                                    "name": "${APP_NAME}-config"
+                                },
+                                "name": "${APP_NAME}-config"
+                            },
                             {
                                 "name": "${APP_NAME}-tls",
                                 "secret": {
@@ -213,8 +239,7 @@
                         "type": "ImageChange"
                     }
                 ]
-            },
-            "status": {}
+            }
         }
     ],
     "parameters": [
@@ -223,14 +248,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "fuse71-console"
+            "value": "fuse72-console"
         },
         {
             "description": "The application version.",
             "displayName": "Application Version",
             "name": "APP_VERSION",
             "required": true,
-            "value": "1.1"
+            "value": "1.2"
         },
         {
             "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
