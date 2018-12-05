@@ -1,0 +1,299 @@
+{
+    "apiVersion": "v1",
+    "kind": "Template",
+    "labels": {
+        "rhdm": "1.1",
+        "template": "rhdm71-optaweb-employee-rostering-trial-ephemeral"
+    },
+    "message": "A new Decision Manager Optaweb employee rostering application have been created in your project.\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
+    "metadata": {
+        "annotations": {
+            "description": "Application template for an ephemeral Optaweb Employee Rostering for Red Hat Decision Manager 7.1",
+            "iconClass": "icon-jboss",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.1 Business Optimizer Employee Rostering ephemeral trial environment",
+            "openshift.io/provider-display-name": "Red Hat, Inc.",
+            "tags": "rhdm,decisionserver,jboss,optaweb,employee-rostering,trial",
+            "template.openshift.io/bindable": "false",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This web application assists the operations department to assign shifts to employees, for example in hospitals, factories, guard firms or call centers. It automatically finds the best employee for each shift, taking into account labor regulations, skill requirements, employee preferences and other constraints.",
+            "template.openshift.io/support-url": "https://access.redhat.com",
+            "version": "1.1"
+        },
+        "name": "rhdm71-optaweb-employee-rostering-trial-ephemeral"
+    },
+    "objects": [
+        {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "name": "${APPLICATION_NAME}-optaweb-employee-rostering-view"
+            },
+            "roleRef": {
+                "name": "view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                }
+            ]
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "All the Optaweb employee rostering web server's ports."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                },
+                "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "http",
+                        "port": 8080,
+                        "targetPort": 8080
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-optaweb-employee-rostering-http",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for Optaweb employee rostering's http service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                },
+                "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+            },
+            "spec": {
+                "host": "${OPTAWEB_HOSTNAME_HTTP}",
+                "port": {
+                    "targetPort": "http"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                },
+                "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-optaweb-employee-rostering",
+                            "service": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                        },
+                        "name": "${APPLICATION_NAME}-optaweb-employee-rostering"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "KIE_ADMIN_USER",
+                                        "value": "${OPTAWEB_ADMIN_USER}"
+                                    },
+                                    {
+                                        "name": "KIE_ADMIN_PWD",
+                                        "value": "${OPTAWEB_ADMIN_PWD}"
+                                    },
+                                    {
+                                        "name": "OPTAWEB_EMPLOYEE_ROSTERING_PERSISTENCE_DATASOURCE",
+                                        "value": "java:jboss/datasources/ExampleDS"
+                                    },
+                                    {
+                                        "name": "OPTAWEB_EMPLOYEE_ROSTERING_PERSISTENCE_DIALECT",
+                                        "value": "org.hibernate.dialect.H2Dialect"
+                                    },
+                                    {
+                                        "name": "OPTAWEB_EMPLOYEE_ROSTERING_PERSISTENCE_HBM2DDL_AUTO",
+                                        "value": "create"
+                                    },
+                                    {
+                                        "name": "OPTAWEB_GENERATOR_ZONE_ID",
+                                        "value": "${OPTAWEB_GENERATOR_ZONE_ID}"
+                                    }
+                                ],
+                                "image": "${OPTAWEB_IMAGE_STREAM_NAME}",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/swagger/index.html"
+                                        ]
+                                    },
+                                    "failureThreshold": 3,
+                                    "initialDelaySeconds": 180,
+                                    "periodSeconds": 15,
+                                    "timeoutSeconds": 2
+                                },
+                                "name": "${APPLICATION_NAME}-optaweb-employee-rostering",
+                                "ports": [
+                                    {
+                                        "containerPort": 8778,
+                                        "name": "jolokia",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8080,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/swagger/index.html"
+                                        ]
+                                    },
+                                    "failureThreshold": 6,
+                                    "initialDelaySeconds": 60,
+                                    "periodSeconds": 30,
+                                    "timeoutSeconds": 2
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${OPTAWEB_MEMORY_LIMIT}"
+                                    }
+                                }
+                            }
+                        ],
+                        "serviceAccountName": "${APPLICATION_NAME}-optaweb-employee-rostering",
+                        "terminationGracePeriodSeconds": 60
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-optaweb-employee-rostering"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${OPTAWEB_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "description": "The name for the application.",
+            "displayName": "Application Name",
+            "name": "APPLICATION_NAME",
+            "required": true,
+            "value": "myapp"
+        },
+        {
+            "description": "OptaWeb administrator username",
+            "displayName": "OptaWeb Admin User",
+            "name": "OPTAWEB_ADMIN_USER",
+            "required": false,
+            "value": "adminUser"
+        },
+        {
+            "description": "OptaWeb administrator password (Default is \"RedHat\")",
+            "displayName": "OptaWeb Admin Password",
+            "name": "OPTAWEB_ADMIN_PWD",
+            "required": true,
+            "value": "RedHat"
+        },
+        {
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "displayName": "ImageStream Namespace",
+            "name": "IMAGE_STREAM_NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "The name of the image stream to use for Optaweb employee rostering. Default is \"rhdm71-optaweb-employee-rostering-openshift\".",
+            "displayName": "Optaweb Employee Rostering ImageStream Name",
+            "name": "OPTAWEB_IMAGE_STREAM_NAME",
+            "required": true,
+            "value": "rhdm71-optaweb-employee-rostering-openshift"
+        },
+        {
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "displayName": "ImageStream Tag",
+            "name": "IMAGE_STREAM_TAG",
+            "required": true,
+            "value": "1.1"
+        },
+        {
+            "description": "Custom hostname for http service route, if set will also configure the OPTAWEB_HOST. Leave blank for default hostname, e.g.: <application-name>-optaweb-employee-rostering-<project>.<default-domain-suffix>",
+            "displayName": "Optaweb Employee Rostering Custom http Route Hostname",
+            "name": "OPTAWEB_HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Optaweb employee rostering Container memory limit",
+            "displayName": "Optaweb Employee Rostering Container Memory Limit",
+            "name": "OPTAWEB_MEMORY_LIMIT",
+            "required": false,
+            "value": "1Gi"
+        },
+        {
+            "description": "The timezone id used by the OptaWeb Generator (Sets the optaweb.generator.zoneId system property; defaults to local timezone)",
+            "displayName": "Optaweb Employee Rostering Generator Zone ID",
+            "name": "OPTAWEB_GENERATOR_ZONE_ID",
+            "required": false,
+            "value": ""
+        }
+    ]
+}

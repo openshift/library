@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.0",
+        "rhdm": "1.1",
         "template": "rhdm71-prod-immutable-kieserver"
     },
     "message": "A new immutable Red Hat Decision Manager KIE server have been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
@@ -12,12 +12,12 @@
             "iconClass": "icon-jboss",
             "openshift.io/display-name": "Red Hat Decision Manager 7.1 immutable production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhdm,jboss,kieserver,immutable,s2i",
+            "tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i",
             "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_7.1_immutable_server_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed for a immultable production runtime environment for Red Hat Decision Manager 7.1, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhdm71-prod-immutable-kieserver"
     },
@@ -707,11 +707,11 @@
             "value": "rhdm71-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",

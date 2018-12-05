@@ -2,18 +2,18 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-fuse71-spring-boot-camel"
+        "template": "s2i-fuse72-spring-boot-camel"
     },
     "metadata": {
         "annotations": {
             "description": "Spring Boot and Camel QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on OpenShift. The quickstart uses Spring Boot to configure an application which includes a Camel route that triggers a message every 5th second, and routes the message to a log.",
             "iconClass": "icon-rh-integration",
-            "openshift.io/display-name": "Red Hat Fuse 7.1 Camel with Spring Boot",
+            "openshift.io/display-name": "Red Hat Fuse 7.2 Camel with Spring Boot",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "quickstart,java,springboot,fis,jboss-fuse",
-            "version": "1.1"
+            "version": "1.2"
         },
-        "name": "s2i-fuse71-spring-boot-camel"
+        "name": "s2i-fuse72-spring-boot-camel"
     },
     "objects": [
         {
@@ -230,8 +230,7 @@
                         "type": "ImageChange"
                     }
                 ]
-            },
-            "status": {}
+            }
         }
     ],
     "parameters": [
@@ -240,7 +239,7 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-fuse71-spring-boot-camel"
+            "value": "s2i-fuse72-spring-boot-camel"
         },
         {
             "description": "The URL of the repository with your application source code.",
@@ -253,19 +252,19 @@
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "GIT_REF",
-            "value": "spring-boot-camel-1.0.0.fuse-710017-redhat-00002"
+            "value": "spring-boot-camel-1.0.0.fuse-720019-redhat-00001"
         },
         {
             "description": "The version of the FIS S2I builder image to use.",
             "displayName": "Builder version",
             "name": "BUILDER_VERSION",
-            "value": "1.1"
+            "value": "1.2"
         },
         {
             "description": "The application version.",
             "displayName": "Application Version",
             "name": "APP_VERSION",
-            "value": "1.0.0.fuse-710017-redhat-00002"
+            "value": "1.0.0.fuse-720019-redhat-00001"
         },
         {
             "description": "Arguments passed to mvn in the build.",
