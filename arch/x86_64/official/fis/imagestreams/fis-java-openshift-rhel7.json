@@ -21,9 +21,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:1.0"
+                    "name": "registry.redhat.io/jboss-fuse-6/fis-java-openshift:1.0"
                 },
-                "name": "1.0"
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             },
             {
                 "annotations": {
@@ -36,9 +39,12 @@
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.access.redhat.com/jboss-fuse-6/fis-java-openshift:2.0"
+                    "name": "registry.redhat.io/jboss-fuse-6/fis-java-openshift:2.0"
                 },
-                "name": "2.0"
+                "name": "2.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
