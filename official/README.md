@@ -486,6 +486,10 @@ Path: official/fis/templates/s2i-fuse72-spring-boot-camel-xml.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/)  
 Path: official/fis/templates/fuse72-console.json  
+### apicurito
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/)  
+Path: official/fis/templates/apicurito.json  
 # httpd
 ## imagestreams
 ### httpd
