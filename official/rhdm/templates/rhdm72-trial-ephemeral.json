@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm71-trial-ephemeral"
+        "rhdm": "1.0",
+        "template": "rhdm72-trial-ephemeral"
     },
     "message": "A new Decision Manager trial environment has been created.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.1",
+            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.2",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.1 ephemeral trial environment",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.2 ephemeral trial environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,trial",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_a_red_hat_decision_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.1, including application deployment configuration, secure and insecure http communication.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.2, including application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm71-trial-ephemeral"
+        "name": "rhdm72-trial-ephemeral"
     },
     "objects": [
         {
@@ -36,6 +36,9 @@
             "apiVersion": "v1",
             "kind": "RoleBinding",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}-rhdmsvc-view"
             },
             "roleRef": {
@@ -367,9 +370,17 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhdm71-decisioncentral-openshift",
+                                "image": "rhdm72-decisioncentral-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "exec": {
@@ -434,7 +445,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhdm71-decisioncentral-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhdm72-decisioncentral-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -519,10 +530,6 @@
                                     {
                                         "name": "KIE_SERVER_ID",
                                         "value": "${APPLICATION_NAME}-kieserver"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_HOST",
-                                        "value": "${KIE_SERVER_HOSTNAME_HTTP}"
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
@@ -699,6 +706,58 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
+                                    },
+                                    {
+                                        "name": "FILTERS",
+                                        "value": "AC_ALLOW_ORIGIN,AC_ALLOW_METHODS,AC_ALLOW_HEADERS,AC_ALLOW_CREDENTIALS,AC_MAX_AGE"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_ORIGIN_FILTER_RESPONSE_HEADER_NAME",
+                                        "value": "Access-Control-Allow-Origin"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_ORIGIN_FILTER_RESPONSE_HEADER_VALUE",
+                                        "value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_ORIGIN}"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_METHODS_FILTER_RESPONSE_HEADER_NAME",
+                                        "value": "Access-Control-Allow-Methods"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_METHODS_FILTER_RESPONSE_HEADER_VALUE",
+                                        "value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_METHODS}"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_HEADERS_FILTER_RESPONSE_HEADER_NAME",
+                                        "value": "Access-Control-Allow-Headers"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_HEADERS_FILTER_RESPONSE_HEADER_VALUE",
+                                        "value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_HEADERS}"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_CREDENTIALS_FILTER_RESPONSE_HEADER_NAME",
+                                        "value": "Access-Control-Allow-Credentials"
+                                    },
+                                    {
+                                        "name": "AC_ALLOW_CREDENTIALS_FILTER_RESPONSE_HEADER_VALUE",
+                                        "value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_CREDENTIALS}"
+                                    },
+                                    {
+                                        "name": "AC_MAX_AGE_FILTER_RESPONSE_HEADER_NAME",
+                                        "value": "Access-Control-Max-Age"
+                                    },
+                                    {
+                                        "name": "AC_MAX_AGE_FILTER_RESPONSE_HEADER_VALUE",
+                                        "value": "${KIE_SERVER_ACCESS_CONTROL_MAX_AGE}"
                                     }
                                 ],
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -833,11 +892,46 @@
             "value": "true"
         },
         {
-            "description": "Custom hostname for http service route, if set will also configure the KIE_SERVER_HOST. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
             "value": ""
+        },
+        {
+            "description": "Sets the Access-Control-Allow-Origin response header value in the KIE Server (useful for CORS support)",
+            "displayName": "KIE Server Access-Control-Allow-Origin response header",
+            "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_ORIGIN",
+            "required": false,
+            "value": "*"
+        },
+        {
+            "description": "Sets the Access-Control-Allow-Methods response header value in the KIE Server (useful for CORS support)",
+            "displayName": "KIE Server Access-Control-Allow-Methods response header",
+            "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_METHODS",
+            "required": false,
+            "value": "GET, POST, OPTIONS, PUT"
+        },
+        {
+            "description": "Sets the Access-Control-Allow-Headers response header value in the KIE Server (useful for CORS support)",
+            "displayName": "KIE Server Access-Control-Allow-Headers response header",
+            "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_HEADERS",
+            "required": false,
+            "value": "Accept, Authorization, Content-Type, X-Requested-With"
+        },
+        {
+            "description": "Sets the Access-Control-Allow-Credentials response header value in the KIE Server (useful for CORS support)",
+            "displayName": "KIE Server Access-Control-Allow-Credentials response header",
+            "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_CREDENTIALS",
+            "required": false,
+            "value": "true"
+        },
+        {
+            "description": "Sets the Access-Control-Max-Age response header value in the KIE Server (useful for CORS support)",
+            "displayName": "KIE Server Access-Control-Max-Age response header",
+            "name": "KIE_SERVER_ACCESS_CONTROL_MAX_AGE",
+            "required": false,
+            "value": "1"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
@@ -847,25 +941,25 @@
             "value": ""
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm71-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm72-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm71-kieserver-openshift"
+            "value": "rhdm72-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
@@ -1131,9 +1225,21 @@
             "required": false
         },
         {
-            "description": "If you are not using referrals, this option can be ignored. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
+            "description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
             "displayName": "LDAP Referral user attribute ID",
             "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
+            "required": false
+        },
+        {
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "displayName": "RoleMapping rolesProperties file path",
+            "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+            "required": false
+        },
+        {
+            "description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true.",
+            "displayName": "RoleMapping replaceRole property",
+            "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
             "required": false
         }
     ]

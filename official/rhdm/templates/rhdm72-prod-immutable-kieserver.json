@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam71-prod-immutable-kieserver"
+        "rhdm": "1.0",
+        "template": "rhdm72-prod-immutable-kieserver"
     },
-    "message": "A new immutable Red Hat Process Automation Manager KIE server have been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new immutable Red Hat Decision Manager KIE server has been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an immultable KIE server in a production environment, for Red Hat Process Automation Manager 7.1",
+            "description": "Application template for an immutable KIE server in a production environment, for Red Hat Decision Manager 7.2",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 immutable production environment",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.2 immutable production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhpam,processserver,jboss,kieserver,immutable,s2i",
+            "tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_immutable_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a immultable production runtime environment for Red Hat Process Automation Manager 7.1, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_immutable_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.2, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam71-prod-immutable-kieserver"
+        "name": "rhdm72-prod-immutable-kieserver"
     },
     "objects": [
         {
@@ -36,6 +36,9 @@
             "apiVersion": "v1",
             "kind": "RoleBinding",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}-kieserver-view"
             },
             "roleRef": {
@@ -104,31 +107,6 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "The database server's port."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
-                },
-                "name": "${APPLICATION_NAME}-postgresql"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "port": 5432,
-                        "targetPort": 5432
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
                 }
             }
         },
@@ -326,31 +304,35 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_MONITOR_USER}"
+                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_MONITOR_PWD}"
+                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TOKEN",
-                                        "value": "${KIE_SERVER_MONITOR_TOKEN}"
+                                        "value": "${KIE_SERVER_CONTROLLER_TOKEN}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_SERVICE",
-                                        "value": "${KIE_SERVER_MONITOR_SERVICE}"
+                                        "value": "${KIE_SERVER_CONTROLLER_SERVICE}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
                                         "value": "ws"
                                     },
                                     {
-                                        "name": "KIE_SERVER_ID",
-                                        "value": "${APPLICATION_NAME}-kieserver"
+                                        "name": "KIE_SERVER_CONTROLLER_HOST",
+                                        "value": "${KIE_SERVER_CONTROLLER_HOST}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_HOST",
-                                        "value": "${KIE_SERVER_HOSTNAME_HTTP}"
+                                        "name": "KIE_SERVER_CONTROLLER_PORT",
+                                        "value": "${KIE_SERVER_CONTROLLER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ID",
+                                        "value": "${APPLICATION_NAME}-kieserver"
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
@@ -374,23 +356,23 @@
                                     },
                                     {
                                         "name": "MAVEN_REPOS",
-                                        "value": "RHPAMCENTR,EXTERNAL"
+                                        "value": "RHDMCENTR,EXTERNAL"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_SERVICE}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_SERVICE",
+                                        "value": "${DECISION_CENTRAL_MAVEN_SERVICE}"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PATH",
+                                        "name": "RHDMCENTR_MAVEN_REPO_PATH",
                                         "value": "/maven2/"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_USERNAME",
+                                        "value": "${DECISION_CENTRAL_MAVEN_USERNAME}"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_PASSWORD}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
+                                        "value": "${DECISION_CENTRAL_MAVEN_PASSWORD}"
                                     },
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_ID",
@@ -407,74 +389,6 @@
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_PASSWORD",
                                         "value": "${MAVEN_REPO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_ROUTER_SERVICE",
-                                        "value": "${KIE_SERVER_ROUTER_SERVICE}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_ROUTER_HOST",
-                                        "value": "${KIE_SERVER_ROUTER_HOST}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_ROUTER_PORT",
-                                        "value": "${KIE_SERVER_ROUTER_PORT}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_ROUTER_PROTOCOL",
-                                        "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_DS",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DS}"
-                                    },
-                                    {
-                                        "name": "DATASOURCES",
-                                        "value": "RHPAM"
-                                    },
-                                    {
-                                        "name": "RHPAM_DATABASE",
-                                        "value": "${KIE_SERVER_POSTGRESQL_DB}"
-                                    },
-                                    {
-                                        "name": "RHPAM_JNDI",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DS}"
-                                    },
-                                    {
-                                        "name": "RHPAM_JTA",
-                                        "value": "true"
-                                    },
-                                    {
-                                        "name": "RHPAM_DRIVER",
-                                        "value": "postgresql"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-                                        "value": "org.hibernate.dialect.PostgreSQLDialect"
-                                    },
-                                    {
-                                        "name": "RHPAM_USERNAME",
-                                        "value": "${KIE_SERVER_POSTGRESQL_USER}"
-                                    },
-                                    {
-                                        "name": "RHPAM_PASSWORD",
-                                        "value": "${KIE_SERVER_POSTGRESQL_PWD}"
-                                    },
-                                    {
-                                        "name": "RHPAM_SERVICE_HOST",
-                                        "value": "${APPLICATION_NAME}-postgresql"
-                                    },
-                                    {
-                                        "name": "RHPAM_SERVICE_PORT",
-                                        "value": "5432"
-                                    },
-                                    {
-                                        "name": "TIMER_SERVICE_DATA_STORE",
-                                        "value": "${APPLICATION_NAME}-postgresql"
-                                    },
-                                    {
-                                        "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-                                        "value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -639,6 +553,14 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
                                 "image": "${APPLICATION_NAME}-kieserver",
@@ -737,146 +659,6 @@
                     }
                 ]
             }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "annotations": {
-                    "template.alpha.openshift.io/wait-for-ready": "true"
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
-                },
-                "name": "${APPLICATION_NAME}-postgresql"
-            },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
-                },
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "template": {
-                    "metadata": {
-                        "labels": {
-                            "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
-                            "service": "${APPLICATION_NAME}-postgresql"
-                        },
-                        "name": "${APPLICATION_NAME}-postgresql"
-                    },
-                    "spec": {
-                        "containers": [
-                            {
-                                "env": [
-                                    {
-                                        "name": "POSTGRESQL_USER",
-                                        "value": "${KIE_SERVER_POSTGRESQL_USER}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${KIE_SERVER_POSTGRESQL_PWD}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_DATABASE",
-                                        "value": "${KIE_SERVER_POSTGRESQL_DB}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-                                        "value": "${POSTGRESQL_MAX_PREPARED_TRANSACTIONS}"
-                                    }
-                                ],
-                                "image": "postgresql",
-                                "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/usr/libexec/check-container",
-                                            "--live"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 120,
-                                    "timeoutSeconds": 10
-                                },
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "ports": [
-                                    {
-                                        "containerPort": 5432,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/usr/libexec/check-container"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1
-                                },
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/pgsql/data",
-                                        "name": "${APPLICATION_NAME}-postgresql-pvol"
-                                    }
-                                ]
-                            }
-                        ],
-                        "terminationGracePeriodSeconds": 60,
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-postgresql-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-postgresql-claim"
-                                }
-                            }
-                        ]
-                    }
-                },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
-                                "namespace": "${POSTGRESQL_IMAGE_STREAM_NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
-                },
-                "name": "${APPLICATION_NAME}-postgresql-claim"
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${DB_VOLUME_CAPACITY}"
-                    }
-                }
-            }
         }
     ],
     "parameters": [
@@ -918,134 +700,64 @@
             "required": false
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam71-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm72-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam71-kieserver-openshift"
+            "value": "rhdm72-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
-            "description": "KIE server monitor username, for optional use of the business-central-monitor (Sets the org.kie.server.controller.user system property)",
-            "displayName": "KIE Server Monitor User",
-            "name": "KIE_SERVER_MONITOR_USER",
+            "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
+            "displayName": "KIE Server Controller User",
+            "name": "KIE_SERVER_CONTROLLER_USER",
             "required": false,
-            "value": "monitorUser"
+            "value": "controllerUser"
         },
         {
-            "description": "KIE server monitor password, for optional use of the business-central-monitor (Sets the org.kie.server.controller.pwd system property)",
-            "displayName": "KIE Server Monitor Password",
-            "name": "KIE_SERVER_MONITOR_PWD",
+            "description": "KIE server controller password (Sets the org.kie.server.controller.pwd system property)",
+            "displayName": "KIE Server Controller Password",
+            "name": "KIE_SERVER_CONTROLLER_PWD",
             "required": false
         },
         {
-            "description": "KIE server monitor token for bearer authentication (Sets the org.kie.server.controller.token system property)",
-            "displayName": "KIE Server Monitor Token",
-            "name": "KIE_SERVER_MONITOR_TOKEN",
+            "description": "KIE server controller token for bearer authentication (Sets the org.kie.server.controller.token system property)",
+            "displayName": "KIE Server Controller Token",
+            "name": "KIE_SERVER_CONTROLLER_TOKEN",
             "required": false
         },
         {
-            "description": "The service name for the optional business central monitor, where it can be reached to allow service lookup, and registered with to allow monitoring console functionality (If set, will be used to discover host and port)",
-            "displayName": "KIE Server Monitor Service",
-            "name": "KIE_SERVER_MONITOR_SERVICE",
+            "description": "The service name for the optional standalone controller. The application uses this service name to register with the controller. (If set, will be used to discover host and port)",
+            "displayName": "KIE Server Controller Service",
+            "name": "KIE_SERVER_CONTROLLER_SERVICE",
             "required": false
         },
         {
-            "description": "The service name for the optional smart router, where it can be reached, to allow smart routing",
-            "displayName": "Smart Router Service",
-            "name": "KIE_SERVER_ROUTER_SERVICE",
+            "description": "KIE server controller host (Used to set the org.kie.server.controller system property)",
+            "displayName": "KIE Server Controller host",
+            "example": "my-app-controller-ocpuser.os.example.com",
+            "name": "KIE_SERVER_CONTROLLER_HOST",
             "required": false
         },
         {
-            "description": "The host name of the smart router, which could be the service name resolved by OpenShift or a globally resolvable domain name",
-            "displayName": "Smart Router Host",
-            "example": "myapp-smartrouter",
-            "name": "KIE_SERVER_ROUTER_HOST",
+            "description": "KIE server controller port (Used to set the org.kie.server.controller system property)",
+            "displayName": "KIE Server Controller port",
+            "example": "8080",
+            "name": "KIE_SERVER_CONTROLLER_PORT",
             "required": false
-        },
-        {
-            "description": "Port in which the smart router server listens (router property org.kie.server.router.port)",
-            "displayName": "Smart Router listening port",
-            "example": "9000",
-            "name": "KIE_SERVER_ROUTER_PORT",
-            "required": false
-        },
-        {
-            "description": "KIE server router protocol (Used to build the org.kie.server.router.url.external property)",
-            "displayName": "Smart Router protocol",
-            "example": "http",
-            "name": "KIE_SERVER_ROUTER_PROTOCOL",
-            "required": false
-        },
-        {
-            "description": "KIE server persistence datasource (Sets the org.kie.server.persistence.ds system property)",
-            "displayName": "KIE Server Persistence DS",
-            "name": "KIE_SERVER_PERSISTENCE_DS",
-            "required": false,
-            "value": "java:/jboss/datasources/rhpam"
-        },
-        {
-            "description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you've installed the ImageStream in a different namespace/project. Default is \"openshift\".",
-            "displayName": "PostgreSQL ImageStream Namespace",
-            "name": "POSTGRESQL_IMAGE_STREAM_NAMESPACE",
-            "required": false,
-            "value": "openshift"
-        },
-        {
-            "description": "The PostgreSQL image version, which is intended to correspond to the PostgreSQL version. Default is \"9.6\".",
-            "displayName": "PostgreSQL ImageStream Tag",
-            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
-            "required": false,
-            "value": "9.6"
-        },
-        {
-            "description": "KIE server PostgreSQL database username",
-            "displayName": "KIE Server PostgreSQL Database User",
-            "name": "KIE_SERVER_POSTGRESQL_USER",
-            "required": false,
-            "value": "rhpam"
-        },
-        {
-            "description": "KIE server PostgreSQL database password",
-            "displayName": "KIE Server PostgreSQL Database Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_POSTGRESQL_PWD",
-            "required": false
-        },
-        {
-            "description": "KIE server PostgreSQL database name",
-            "displayName": "KIE Server PostgreSQL Database Name",
-            "name": "KIE_SERVER_POSTGRESQL_DB",
-            "required": false,
-            "value": "rhpam7"
-        },
-        {
-            "description": "Allows the PostgreSQL to handle XA transactions.",
-            "displayName": "PostgreSQL Database max prepared connections",
-            "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-            "required": true,
-            "value": "100"
-        },
-        {
-            "description": "Size of persistent storage for database volume.",
-            "displayName": "Database Volume Capacity",
-            "name": "DB_VOLUME_CAPACITY",
-            "required": true,
-            "value": "1Gi"
         },
         {
             "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
@@ -1062,7 +774,7 @@
             "value": "enabled"
         },
         {
-            "description": "Custom hostname for http service route, if set will also configure the KIE_SERVER_HOST. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
@@ -1076,8 +788,8 @@
             "value": ""
         },
         {
-            "description": "Use https for the KIE_SERVER_HOST when it is not explicit configured to a custom value.",
-            "displayName": "Use the secure route name to set KIE_SERVER_HOST.",
+            "description": "If true, will use secure-APPLICATION_NAME-kieserver vs. APPLICATION_NAME-kieserver as the route name.",
+            "displayName": "Use the secure route name to link application requests to KIE_SERVER_HOSTNAME_HTTPS vs KIE_SERVER_HOSTNAME_HTTP.",
             "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
             "required": false,
             "value": "false"
@@ -1120,28 +832,28 @@
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
             "displayName": "KIE Server Container Deployment",
-            "example": "rhpam-kieserver-library=org.openshift.quickstarts:rhpam-kieserver-library:1.4.0-SNAPSHOT",
+            "example": "rhdm-kieserver-hellorules=org.openshift.quickstarts:rhdm-kieserver-hellorules:1.4.0-SNAPSHOT",
             "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
             "required": true
         },
         {
             "description": "Git source URI for application",
             "displayName": "Git Repository URL",
-            "example": "https://github.com/jboss-container-images/rhpam-7-openshift-image.git",
+            "example": "https://github.com/jboss-container-images/rhdm-7-openshift-image.git",
             "name": "SOURCE_REPOSITORY_URL",
             "required": true
         },
         {
             "description": "Git branch/tag reference",
             "displayName": "Git Reference",
-            "example": "rhpam71-dev",
+            "example": "master",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
             "displayName": "Context Directory",
-            "example": "quickstarts/library-process/library",
+            "example": "quickstarts/hello-rules/hellorules",
             "name": "CONTEXT_DIR",
             "required": false
         },
@@ -1193,24 +905,24 @@
             "required": false
         },
         {
-            "description": "The service name for the optional business central, where it can be reached, to allow service lookups (for maven repo usage), if required",
-            "displayName": "Name of the Maven service hosted by Business Central",
-            "example": "myapp-rhpamcentr",
-            "name": "BUSINESS_CENTRAL_MAVEN_SERVICE",
+            "description": "The service name for the optional decision central, where it can be reached, to allow service lookups (for maven repo usage), if required",
+            "displayName": "Name of the Maven service hosted by Decision Central",
+            "example": "myapp-rhdmcentr",
+            "name": "DECISION_CENTRAL_MAVEN_SERVICE",
             "required": false
         },
         {
-            "description": "Username to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Username for the Maven service hosted by Business Central",
+            "description": "Username to access the Maven service hosted by Decision Central inside EAP.",
+            "displayName": "Username for the Maven service hosted by Decision Central",
             "example": "mavenUser",
-            "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
+            "name": "DECISION_CENTRAL_MAVEN_USERNAME",
             "required": false
         },
         {
-            "description": "Password to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Password for the Maven service hosted by Business Central",
+            "description": "Password to access the Maven service hosted by Decision Central inside EAP.",
+            "displayName": "Password for the Maven service hosted by Decision Central",
             "example": "maven1!",
-            "name": "BUSINESS_CENTRAL_MAVEN_PASSWORD",
+            "name": "DECISION_CENTRAL_MAVEN_PASSWORD",
             "required": false
         },
         {
@@ -1221,13 +933,6 @@
             "value": ""
         },
         {
-            "description": "Sets refresh-interval for the EJB timer service database-data-store.",
-            "displayName": "Timer service data store refresh interval (in milliseconds)",
-            "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-            "required": false,
-            "value": "30000"
-        },
-        {
             "description": "KIE server Container memory limit",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
@@ -1235,7 +940,7 @@
             "value": "1Gi"
         },
         {
-            "description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
+            "description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
             "displayName": "Disable KIE Server Management",
             "name": "KIE_SERVER_MGMT_DISABLED",
             "required": true,
@@ -1438,9 +1143,21 @@
             "required": false
         },
         {
-            "description": "If you are not using referrals, this option can be ignored. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
+            "description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
             "displayName": "LDAP Referral user attribute ID",
             "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
+            "required": false
+        },
+        {
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "displayName": "RoleMapping rolesProperties file path",
+            "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+            "required": false
+        },
+        {
+            "description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true.",
+            "displayName": "RoleMapping replaceRole property",
+            "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
             "required": false
         }
     ]
