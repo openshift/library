@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm71-optaweb-employee-rostering-trial-ephemeral"
+        "rhdm": "1.0",
+        "template": "rhdm72-optaweb-employee-rostering-trial-ephemeral"
     },
     "message": "A new Decision Manager Optaweb employee rostering application have been created in your project.\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an ephemeral Optaweb Employee Rostering for Red Hat Decision Manager 7.1",
+            "description": "Application template for an ephemeral Optaweb Employee Rostering for Red Hat Decision Manager 7.2",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.1 Business Optimizer Employee Rostering ephemeral trial environment",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.2 Business Optimizer Employee Rostering ephemeral trial environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,optaweb,employee-rostering,trial",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.1/html/deploying_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This web application assists the operations department to assign shifts to employees, for example in hospitals, factories, guard firms or call centers. It automatically finds the best employee for each shift, taking into account labor regulations, skill requirements, employee preferences and other constraints.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm71-optaweb-employee-rostering-trial-ephemeral"
+        "name": "rhdm72-optaweb-employee-rostering-trial-ephemeral"
     },
     "objects": [
         {
@@ -36,6 +36,9 @@
             "apiVersion": "v1",
             "kind": "RoleBinding",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}-optaweb-employee-rostering-view"
             },
             "roleRef": {
@@ -240,39 +243,39 @@
             "value": "myapp"
         },
         {
-            "description": "OptaWeb administrator username",
+            "description": "OptaWeb administrator username.",
             "displayName": "OptaWeb Admin User",
             "name": "OPTAWEB_ADMIN_USER",
             "required": false,
             "value": "adminUser"
         },
         {
-            "description": "OptaWeb administrator password (Default is \"RedHat\")",
+            "description": "OptaWeb administrator password. Default is \"RedHat\".",
             "displayName": "OptaWeb Admin Password",
             "name": "OPTAWEB_ADMIN_PWD",
             "required": true,
             "value": "RedHat"
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for Optaweb employee rostering. Default is \"rhdm71-optaweb-employee-rostering-openshift\".",
+            "description": "The name of the image stream to use for Optaweb employee rostering. Default is \"rhdm72-optaweb-employee-rostering-openshift\".",
             "displayName": "Optaweb Employee Rostering ImageStream Name",
             "name": "OPTAWEB_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm71-optaweb-employee-rostering-openshift"
+            "value": "rhdm72-optaweb-employee-rostering-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "Custom hostname for http service route, if set will also configure the OPTAWEB_HOST. Leave blank for default hostname, e.g.: <application-name>-optaweb-employee-rostering-<project>.<default-domain-suffix>",

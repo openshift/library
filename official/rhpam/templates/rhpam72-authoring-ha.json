@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam71-authoring-ha"
+        "rhpam": "1.0",
+        "template": "rhpam72-authoring-ha"
     },
-    "message": "A new persistent HA Process Automation Manager application have been created in your project.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new persistent HA Process Automation Manager application has been created in your project.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.1",
+            "description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.2",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 authoring environment (HA, persistent, with https)",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.2 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.1 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.2/html/deploying_a_red_hat_process_automation_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.2 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam71-authoring-ha"
+        "name": "rhpam72-authoring-ha"
     },
     "objects": [
         {
@@ -36,6 +36,9 @@
             "apiVersion": "v1",
             "kind": "RoleBinding",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}-rhpamsvc-view"
             },
             "roleRef": {
@@ -634,9 +637,17 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam71-businesscentral-openshift",
+                                "image": "rhpam72-businesscentral-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "exec": {
@@ -731,7 +742,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam71-businesscentral-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam72-businesscentral-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -871,10 +882,6 @@
                                     {
                                         "name": "KIE_SERVER_ID",
                                         "value": "${APPLICATION_NAME}-kieserver"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_HOST",
-                                        "value": "${KIE_SERVER_HOSTNAME_HTTP}"
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
@@ -1071,6 +1078,14 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -1228,7 +1243,7 @@
                                         "value": "${ES_JAVA_OPTS}"
                                     }
                                 ],
-                                "image": "rhpam71-businesscentral-indexing-openshift",
+                                "image": "rhpam72-businesscentral-indexing-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "initialDelaySeconds": 15,
@@ -1287,7 +1302,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam71-businesscentral-indexing-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam72-businesscentral-indexing-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1303,8 +1318,12 @@
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-amq"
                 },
                 "name": "${APPLICATION_NAME}-amq"
             },
@@ -1358,15 +1377,6 @@
                                 ],
                                 "image": "${AMQ_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
-                                "lifecycle": {
-                                    "preStop": {
-                                        "exec": {
-                                            "command": [
-                                                "/opt/amq/bin/shutdownHook.sh"
-                                            ]
-                                        }
-                                    }
-                                },
                                 "name": "${APPLICATION_NAME}-amq",
                                 "ports": [
                                     {
@@ -1434,8 +1444,12 @@
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-mysql"
                 },
                 "name": "${APPLICATION_NAME}-mysql"
             },
@@ -1698,7 +1712,7 @@
             "value": "rhpam7"
         },
         {
-            "description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you've installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+            "description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
             "displayName": "MySQL ImageStream Namespace",
             "name": "MYSQL_IMAGE_STREAM_NAMESPACE",
             "required": false,
@@ -1712,7 +1726,7 @@
             "value": "5.7"
         },
         {
-            "description": "Size of persistent storage for database volume.",
+            "description": "Size of persistent storage for the database volume.",
             "displayName": "Database Volume Capacity",
             "name": "DB_VOLUME_CAPACITY",
             "required": true,
@@ -1747,7 +1761,7 @@
             "value": ""
         },
         {
-            "description": "Custom hostname for http service route, if set will also configure the KIE_SERVER_HOST. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
@@ -1761,8 +1775,8 @@
             "value": ""
         },
         {
-            "description": "Use https for the KIE_SERVER_HOST when it is not explicit configured to a custom value.",
-            "displayName": "Use the secure route name to set KIE_SERVER_HOST.",
+            "description": "If true, will use secure-APPLICATION_NAME-kieserver vs. APPLICATION_NAME-kieserver as the route name.",
+            "displayName": "Use the secure route name to link application requests to KIE_SERVER_HOSTNAME_HTTPS vs KIE_SERVER_HOSTNAME_HTTP.",
             "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
             "required": false,
             "value": "false"
@@ -1830,7 +1844,7 @@
             "required": false
         },
         {
-            "description": "The port to connect in the JMS broker. Defaults to 61616",
+            "description": "The port to connect to the JMS broker. Default is 61616",
             "displayName": "AppFormer JMS Broker port.",
             "name": "APPFORMER_JMS_BROKER_PORT",
             "required": false
@@ -1840,10 +1854,10 @@
             "displayName": "AppFormer JMS Broker username.",
             "name": "APPFORMER_JMS_BROKER_USER",
             "required": true,
-            "value": "jmsBrokserUser"
+            "value": "jmsBrokerUser"
         },
         {
-            "description": "The password to connect in the JMS broker.",
+            "description": "The password to connect to the JMS broker.",
             "displayName": "AppFormer JMS Broker password.",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
@@ -1879,7 +1893,7 @@
             "value": ""
         },
         {
-            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used for communication between nodes in the cluster and the communication with Business Central.",
+            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used for communication between nodes in the cluster and for communication with Business Central.",
             "displayName": "Elasticsearch Transport TCP Port",
             "name": "APPFORMER_ELASTIC_PORT",
             "required": false,
@@ -1893,7 +1907,7 @@
             "value": ""
         },
         {
-            "description": "Sets the ES http.port property. This will set the http port of the main ES cluster node. Used to interact with cluster rest api.",
+            "description": "Sets the ES http.port property. This will set the http port of the main ES cluster node. Used to interact with the cluster REST API.",
             "displayName": "Elasticsearch HTTP Port",
             "name": "ES_HTTP_PORT",
             "required": false,
@@ -1915,18 +1929,18 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for the AMQ broker. Default is \"amq-broker71-openshift\".",
+            "description": "The name of the image stream to use for the AMQ broker. Default is \"amq-broker72-openshift\".",
             "displayName": "AMQ ImageStream Name",
             "name": "AMQ_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "amq-broker71-openshift"
+            "value": "amq-broker72-openshift"
         },
         {
             "description": "The AMQ image stream tag. Default is \"1.0\".",
             "displayName": "AMQ ImageStream Tag",
             "name": "AMQ_IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "User role for standard broker user.",
@@ -1957,25 +1971,25 @@
             "value": "1Gi"
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam71-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam72-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam71-kieserver-openshift"
+            "value": "rhpam72-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "The id to use for the maven repository, if set. Default is generated randomly.",
@@ -2256,9 +2270,21 @@
             "required": false
         },
         {
-            "description": "If you are not using referrals, this option can be ignored. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
+            "description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
             "displayName": "LDAP Referral user attribute ID",
             "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
+            "required": false
+        },
+        {
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "displayName": "RoleMapping rolesProperties file path",
+            "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+            "required": false
+        },
+        {
+            "description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true.",
+            "displayName": "RoleMapping replaceRole property",
+            "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
             "required": false
         }
     ]

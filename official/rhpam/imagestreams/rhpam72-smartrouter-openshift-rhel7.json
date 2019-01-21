@@ -1,0 +1,32 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat Process Automation Manager Smart Router 7.2",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
+        },
+        "name": "rhpam72-smartrouter-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat Process Automation Manager 7.2 - Smart Router image.",
+                    "iconClass": "icon-jboss",
+                    "supports": "rhpam:7.2",
+                    "tags": "rhpam",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhpam-7/rhpam72-smartrouter-openshift:1.0"
+                },
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}

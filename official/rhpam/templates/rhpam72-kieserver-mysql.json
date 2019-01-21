@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam71-kieserver-mysql"
+        "rhpam": "1.0",
+        "template": "rhpam72-kieserver-mysql"
     },
     "message": "A new Process Automation Manager KIE server application have been created in your project.\nThe username/password for accessing the KIE server\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.1",
+            "description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.2",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.1 managed KIE Server with a MySQL database",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.2 managed KIE Server with a MySQL database",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,kieserver,mysql",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.1/html/deploying_a_red_hat_process_automation_manager_7.1_managed_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.1, including application deployment configuration, secure and insecure http communication using a MySQL database.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.2/html/deploying_a_red_hat_process_automation_manager_7.2_managed_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.2, including application deployment configuration, secure and insecure http communication using a MySQL database.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam71-kieserver-mysql"
+        "name": "rhpam72-kieserver-mysql"
     },
     "objects": [
         {
@@ -36,6 +36,9 @@
             "apiVersion": "v1",
             "kind": "RoleBinding",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}-kieserver-view"
             },
             "roleRef": {
@@ -268,10 +271,6 @@
                                     {
                                         "name": "KIE_SERVER_ID",
                                         "value": "${APPLICATION_NAME}-kieserver"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_HOST",
-                                        "value": "${KIE_SERVER_HOSTNAME_HTTP}"
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
@@ -560,6 +559,14 @@
                                     {
                                         "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
                                         "value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+                                        "value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
+                                    },
+                                    {
+                                        "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
+                                        "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -884,41 +891,41 @@
             "required": false
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam71-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam72-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam71-kieserver-openshift"
+            "value": "rhpam72-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
-            "description": "The service name for the optional smart router, where it can be reached, to allow smart routing",
+            "description": "The service name for the optional smart router.",
             "displayName": "Smart Router Service",
             "name": "KIE_SERVER_ROUTER_SERVICE",
             "required": false
         },
         {
-            "description": "The host name of the smart router, which could be the service name resolved by OpenShift or a globally resolvable domain name",
+            "description": "The host name of the smart router, which can be the service name resolved by OpenShift or a globally resolvable domain name",
             "displayName": "Smart Router Host",
             "example": "myapp-smartrouter",
             "name": "KIE_SERVER_ROUTER_HOST",
             "required": false
         },
         {
-            "description": "Port in which the smart router server listens (router property org.kie.server.router.port)",
+            "description": "Port on which the smart router server listens (router property org.kie.server.router.port)",
             "displayName": "Smart Router listening port",
             "example": "9000",
             "name": "KIE_SERVER_ROUTER_PORT",
@@ -951,7 +958,7 @@
             "required": false
         },
         {
-            "description": "The service name for the optional business central monitor, where it can be reached to allow service lookup, and registered with to allow monitoring console functionality (If set, will be used to discover host and port)",
+            "description": "The service name for the optional Business Central Monitoring. The application uses this service name to register with the monitoring console. (If set, will be used to discover host and port)",
             "displayName": "KIE Server Controller Service",
             "name": "KIE_SERVER_CONTROLLER_SERVICE",
             "required": false
@@ -978,7 +985,7 @@
             "value": "java:/jboss/datasources/rhpam"
         },
         {
-            "description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you've installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+            "description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
             "displayName": "MySQL ImageStream Namespace",
             "name": "MYSQL_IMAGE_STREAM_NAMESPACE",
             "required": false,
@@ -1014,7 +1021,7 @@
             "value": "rhpam7"
         },
         {
-            "description": "Size of persistent storage for database volume.",
+            "description": "Size of persistent storage for the database volume.",
             "displayName": "Database Volume Capacity",
             "name": "DB_VOLUME_CAPACITY",
             "required": true,
@@ -1035,7 +1042,7 @@
             "value": "enabled"
         },
         {
-            "description": "Custom hostname for http service route, if set will also configure the KIE_SERVER_HOST. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
@@ -1049,8 +1056,8 @@
             "value": ""
         },
         {
-            "description": "Use https for the KIE_SERVER_HOST when it is not explicit configured to a custom value.",
-            "displayName": "Use the secure route name to set KIE_SERVER_HOST.",
+            "description": "If true, will use secure-APPLICATION_NAME-kieserver vs. APPLICATION_NAME-kieserver as the route name.",
+            "displayName": "Use the secure route name to link application requests to KIE_SERVER_HOSTNAME_HTTPS vs KIE_SERVER_HOSTNAME_HTTP.",
             "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
             "required": false,
             "value": "false"
@@ -1112,7 +1119,7 @@
             "required": false
         },
         {
-            "description": "When set to LocalContainersStartupStrategy, allows KIE server to start up and function with local config, even when a controller is configured and unavailable.",
+            "description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
             "displayName": "Disable KIE Server Management",
             "example": "true",
             "name": "KIE_SERVER_MGMT_DISABLED",
@@ -1315,9 +1322,21 @@
             "required": false
         },
         {
-            "description": "If you are not using referrals, this option can be ignored. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
+            "description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree.",
             "displayName": "LDAP Referral user attribute ID",
             "name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
+            "required": false
+        },
+        {
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "displayName": "RoleMapping rolesProperties file path",
+            "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
+            "required": false
+        },
+        {
+            "description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true.",
+            "displayName": "RoleMapping replaceRole property",
+            "name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
             "required": false
         }
     ]
