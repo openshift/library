@@ -1,0 +1,32 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Red Hat Decision Manager Decision Central Indexing 7.2",
+            "openshift.io/provider-display-name": "Red Hat, Inc."
+        },
+        "name": "rhdm72-decisioncentral-indexing-openshift"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Red Hat Decision Manager 7.2 - Decision Central Indexing image.",
+                    "iconClass": "icon-jboss",
+                    "supports": "rhdm:7.2",
+                    "tags": "rhdm",
+                    "version": "1.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhdm-7-tech-preview/rhdm72-decisioncentral-indexing-openshift:1.0"
+                },
+                "name": "1.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}
