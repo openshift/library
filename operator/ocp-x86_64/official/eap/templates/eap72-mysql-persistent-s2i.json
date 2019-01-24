@@ -8,13 +8,13 @@
     "message": "A new EAP and persistent MySQL based application with SSL support has been created in your project. The username/password for accessing the MySQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
         "annotations": {
-            "description": "An example Red Hat JBoss EAP 7.2 application with a MySQL database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc.",
+            "description": "An example Red Hat JBoss EAP 7.2 application with a persistent MySQL database. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc.",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP 7.2 + MySQL (with https) [Tech Preview]",
+            "openshift.io/display-name": "JBoss EAP 7.2 + MySQL (Persistent, with passthrough TLS)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Server 7.2 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Server 7.2 based application, including a build configuration, application deployment configuration, database deployment configuration for MySQL using persistence and secure communication using passthrough TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
             "version": "1.0.0"
         },
@@ -116,6 +116,7 @@
                         "port": 8888
                     }
                 ],
+                "publishNotReadyAddresses": true,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 }
@@ -218,7 +219,8 @@
                             "kind": "ImageStreamTag",
                             "name": "jboss-eap72-openshift:1.0",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                        }
+                        },
+                        "incremental": true
                     },
                     "type": "Source"
                 },
@@ -312,7 +314,7 @@
                                     },
                                     {
                                         "name": "JGROUPS_PING_PROTOCOL",
-                                        "value": "openshift.DNS_PING"
+                                        "value": "dns.DNS_PING"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",

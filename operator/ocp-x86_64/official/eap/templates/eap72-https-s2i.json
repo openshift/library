@@ -10,11 +10,11 @@
         "annotations": {
             "description": "An example Red Hat JBoss EAP 7 application configured with secure communication using HTTPS. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP 7.2 (with https) [Tech Preview]",
+            "openshift.io/display-name": "JBoss EAP 7.2 with passthrough TLS",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "eap,javaee,java,jboss,hidden",
+            "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 application, including a build configuration, application deployment configuration and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 application, including a build configuration, application deployment configuration and secure communication using passthrough TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
             "version": "1.0.0"
         },
@@ -90,6 +90,7 @@
                         "port": 8888
                     }
                 ],
+                "publishNotReadyAddresses": true,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
                 }
@@ -192,7 +193,8 @@
                             "kind": "ImageStreamTag",
                             "name": "jboss-eap72-openshift:1.0",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                        }
+                        },
+                        "incremental": true
                     },
                     "type": "Source"
                 },
@@ -250,7 +252,7 @@
                                 "env": [
                                     {
                                         "name": "JGROUPS_PING_PROTOCOL",
-                                        "value": "openshift.DNS_PING"
+                                        "value": "dns.DNS_PING"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
