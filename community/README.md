@@ -30,6 +30,14 @@ Path: community/infinispan/templates/infinispan-persistent.json
 Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: community/jenkins/imagestreams/jenkins-centos7.json  
+### jenkins-agent-maven
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.json )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: community/jenkins/imagestreams/jenkins-agent-maven-centos7.json  
+### jenkins-agent-nodejs
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.json )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: community/jenkins/imagestreams/jenkins-agent-nodejs-centos7.json  
 # laravel
 ## templates
 ### laravel-mysql-persistent
