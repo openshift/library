@@ -522,6 +522,14 @@ Path: official/java/templates/openjdk18-web-basic-s2i.json
 Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: official/jenkins/imagestreams/jenkins-rhel7.json  
+### jenkins-agent-nodejs
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: official/jenkins/imagestreams/jenkins-agent-nodejs-rhel7.json  
+### jenkins-agent-maven
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: official/jenkins/imagestreams/jenkins-agent-maven-rhel7.json  
 ## templates
 ### jenkins-ephemeral
 Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json )  
