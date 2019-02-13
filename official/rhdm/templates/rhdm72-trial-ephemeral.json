@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.0",
+        "rhdm": "1.1",
         "template": "rhdm72-trial-ephemeral"
     },
     "message": "A new Decision Manager trial environment has been created.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
@@ -17,7 +17,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.2, including application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhdm72-trial-ephemeral"
     },
@@ -955,11 +955,11 @@
             "value": "rhdm72-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
