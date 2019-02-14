@@ -2,10 +2,10 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.0",
+        "rhpam": "1.1",
         "template": "rhpam72-prod-immutable-monitor"
     },
-    "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nTo access the Business Central Monitoring Console use the following credentials\n\n    Username: ${KIE_SERVER_MONITOR_USER}\n    Password: ${KIE_SERVER_MONITOR_PWD}\n\nTo create a new KIE server and connect to this monitoring console/router, use the following \"oc\" command:\noc new-app -f rhpam72-prod-immutable-kieserver.yaml \\\n  -p KIE_ADMIN_USER=${KIE_ADMIN_USER} -p KIE_ADMIN_PWD=${KIE_ADMIN_PWD} \\\n  -p KIE_SERVER_USER=${KIE_SERVER_USER} -p KIE_SERVER_PWD=${KIE_SERVER_PWD} \\\n  -p KIE_SERVER_MONITOR_USER=${KIE_SERVER_MONITOR_USER} -p KIE_SERVER_MONITOR_PWD=${KIE_SERVER_MONITOR_PWD} \\\n  -p KIE_SERVER_MONITOR_SERVICE=${APPLICATION_NAME}-rhpamcentrmon \\\n  -p KIE_SERVER_ROUTER_SERVICE=${APPLICATION_NAME}-smartrouter \\\n  -p SOURCE_REPOSITORY_URL=https://example.com/xxxx.git -p CONTEXT_DIR=rootDir \\\n  -p KIE_SERVER_CONTAINER_DEPLOYMENT=containerId=G:A:V\n\nPlease be sure to create the secret named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nTo access the Business Central Monitoring Console use the following credentials\n\n    Username: ${KIE_SERVER_MONITOR_USER}\n    Password: ${KIE_SERVER_MONITOR_PWD}\n\nTo create a new KIE server and connect to this monitoring console/router, use the following \"oc\" command:\noc new-app -f rhpam72-prod-immutable-kieserver.yaml \\\n  -p KIE_ADMIN_USER=${KIE_ADMIN_USER} -p KIE_ADMIN_PWD=${KIE_ADMIN_PWD} \\\n  -p KIE_SERVER_USER=${KIE_SERVER_USER} -p KIE_SERVER_PWD=${KIE_SERVER_PWD} \\\n  -p KIE_SERVER_MONITOR_USER=${KIE_SERVER_MONITOR_USER} -p KIE_SERVER_MONITOR_PWD=${KIE_SERVER_MONITOR_PWD} \\\n  -p KIE_SERVER_MONITOR_SERVICE=${APPLICATION_NAME}-rhpamcentrmon \\\n  -p KIE_SERVER_ROUTER_SERVICE=${APPLICATION_NAME}-smartrouter \\\n  -p SOURCE_REPOSITORY_URL=https://example.com/xxxx.git -p CONTEXT_DIR=rootDir \\\n  -p KIE_SERVER_CONTAINER_DEPLOYMENT=containerId=G:A:V\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_ROUTER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
             "description": "Application template for a router and monitoring console in a production environment, for Red Hat Process Automation Manager 7.2",
@@ -17,7 +17,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.2/html/deploying_a_red_hat_process_automation_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed for a router and monitoring console in a production environment for Red Hat Process Automation Manager 7.2, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhpam72-prod-immutable-monitor"
     },
@@ -86,7 +86,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The smart router server http port."
+                    "description": "The smart router server http and https ports."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -97,8 +97,14 @@
             "spec": {
                 "ports": [
                     {
+                        "name": "http",
                         "port": 9000,
                         "targetPort": 9000
+                    },
+                    {
+                        "name": "https",
+                        "port": 9443,
+                        "targetPort": 9443
                     }
                 ],
                 "selector": {
@@ -175,6 +181,36 @@
             },
             "spec": {
                 "host": "${SMART_ROUTER_HOSTNAME_HTTP}",
+                "port": {
+                    "targetPort": "http"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}-smartrouter"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-smartrouter-https",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for Smart Router's https service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-smartrouter"
+                },
+                "name": "secure-${APPLICATION_NAME}-smartrouter"
+            },
+            "spec": {
+                "host": "${SMART_ROUTER_HOSTNAME_HTTPS}",
+                "port": {
+                    "targetPort": "https"
+                },
+                "tls": {
+                    "termination": "passthrough"
+                },
                 "to": {
                     "name": "${APPLICATION_NAME}-smartrouter"
                 }
@@ -596,6 +632,10 @@
                                         "value": "9000"
                                     },
                                     {
+                                        "name": "KIE_SERVER_ROUTER_PORT_TLS",
+                                        "value": "9443"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_ROUTER_URL_EXTERNAL",
                                         "value": "${KIE_SERVER_ROUTER_URL_EXTERNAL}"
                                     },
@@ -610,6 +650,18 @@
                                     {
                                         "name": "KIE_SERVER_ROUTER_PROTOCOL",
                                         "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_TLS_KEYSTORE_KEYALIAS",
+                                        "value": "${KIE_SERVER_ROUTER_HTTPS_NAME}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_TLS_KEYSTORE_PASSWORD",
+                                        "value": "${KIE_SERVER_ROUTER_HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_TLS_KEYSTORE",
+                                        "value": "/etc/smartrouter-secret-volume/${KIE_SERVER_ROUTER_HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_USER",
@@ -659,6 +711,11 @@
                                     {
                                         "mountPath": "/opt/rhpam-smartrouter/data",
                                         "name": "${APPLICATION_NAME}-smartrouter"
+                                    },
+                                    {
+                                        "mountPath": "/etc/smartrouter-secret-volume",
+                                        "name": "smartrouter-keystore-volume",
+                                        "readOnly": true
                                     }
                                 ]
                             }
@@ -669,6 +726,12 @@
                                 "name": "${APPLICATION_NAME}-smartrouter",
                                 "persistentVolumeClaim": {
                                     "claimName": "${APPLICATION_NAME}-smartrouter-claim"
+                                }
+                            },
+                            {
+                                "name": "smartrouter-keystore-volume",
+                                "secret": {
+                                    "secretName": "${KIE_SERVER_ROUTER_HTTPS_SECRET}"
                                 }
                             }
                         ]
@@ -831,11 +894,25 @@
             "value": "openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": false,
-            "value": "1.0"
+            "value": "1.1"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-smartrouter-<project>.<default-domain-suffix>",
+            "displayName": "Smart Router Custom http Route Hostname",
+            "name": "SMART_ROUTER_HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-smartrouter-<project>.<default-domain-suffix>",
+            "displayName": "Smart Router Custom https Route Hostname",
+            "name": "SMART_ROUTER_HOSTNAME_HTTPS",
+            "required": false,
+            "value": ""
         },
         {
             "description": "Router ID used when connecting to the controller (router property org.kie.server.router.id)",
@@ -863,6 +940,34 @@
             "name": "KIE_SERVER_ROUTER_NAME",
             "required": true,
             "value": "KIE Server Router"
+        },
+        {
+            "description": "The name of the secret containing the keystore file",
+            "displayName": "Smart Router Keystore Secret Name",
+            "example": "smartrouter-app-secret",
+            "name": "KIE_SERVER_ROUTER_HTTPS_SECRET",
+            "required": true
+        },
+        {
+            "description": "The name of the keystore file within the secret",
+            "displayName": "Smart Router Keystore Filename",
+            "name": "KIE_SERVER_ROUTER_HTTPS_KEYSTORE",
+            "required": false,
+            "value": "keystore.jks"
+        },
+        {
+            "description": "The name associated with the server certificate",
+            "displayName": "Smart Router Certificate Name",
+            "name": "KIE_SERVER_ROUTER_HTTPS_NAME",
+            "required": false,
+            "value": "jboss"
+        },
+        {
+            "description": "The password for the keystore and certificate",
+            "displayName": "Smart Router Keystore Password",
+            "name": "KIE_SERVER_ROUTER_HTTPS_PASSWORD",
+            "required": false,
+            "value": "mykeystorepass"
         },
         {
             "description": "KIE server monitor username (Sets the org.kie.server.controller.user system property)",
@@ -926,13 +1031,6 @@
             "name": "BUSINESS_CENTRAL_HTTPS_PASSWORD",
             "required": false,
             "value": "mykeystorepass"
-        },
-        {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhpamcentrmon-<project>.<default-domain-suffix>",
-            "displayName": "Smart Router Custom http Route Hostname",
-            "name": "SMART_ROUTER_HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
         },
         {
             "description": "Business Central Container memory limit",
