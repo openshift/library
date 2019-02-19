@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap71-basic-s2i",
-        "xpaas": "1.4.16"
+        "xpaas": "1.4.18"
     },
     "message": "A new EAP 7 based application has been created in your project.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Enterprise Application Server 7.1 based application, including a build configuration, application deployment configuration and insecure communication using http.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.16"
+            "version": "1.4.18"
         },
         "name": "eap71-basic-s2i"
     },
@@ -144,7 +144,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap71-openshift:1.3",
+                            "name": "jboss-eap71-openshift:1.4",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
