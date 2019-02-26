@@ -2,8 +2,8 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "sso72-x509-https",
-        "xpaas": "1.4.16"
+        "rh-sso": "7.2-v1.4.0",
+        "template": "sso72-x509-https"
     },
     "message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.2 server based deployment, securing RH-SSO communication using re-encrypt TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.16"
+            "version": "rh-sso-7.2-v1.4.0"
         },
         "name": "sso72-x509-https"
     },
@@ -52,8 +52,7 @@
             "metadata": {
                 "annotations": {
                     "description": "The JGroups ping port for clustering.",
-                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
-                    "service.alpha.openshift.io/serving-cert-secret-name": "sso-x509-jgroups-secret"
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -157,6 +156,10 @@
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
                                     {
+                                        "name": "JGROUPS_ENCRYPT_PROTOCOL",
+                                        "value": "ASYM_ENCRYPT"
+                                    },
+                                    {
                                         "name": "SSO_ADMIN_USERNAME",
                                         "value": "${SSO_ADMIN_USERNAME}"
                                     },
@@ -231,11 +234,6 @@
                                         "mountPath": "/etc/x509/https",
                                         "name": "sso-x509-https-volume",
                                         "readOnly": true
-                                    },
-                                    {
-                                        "mountPath": "/etc/x509/jgroups",
-                                        "name": "sso-x509-jgroups-volume",
-                                        "readOnly": true
                                     }
                                 ]
                             }
@@ -246,12 +244,6 @@
                                 "name": "sso-x509-https-volume",
                                 "secret": {
                                     "secretName": "sso-x509-https-secret"
-                                }
-                            },
-                            {
-                                "name": "sso-x509-jgroups-volume",
-                                "secret": {
-                                    "secretName": "sso-x509-jgroups-secret"
                                 }
                             }
                         ]
@@ -266,7 +258,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "redhat-sso72-openshift:1.2",
+                                "name": "redhat-sso72-openshift:1.4",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
