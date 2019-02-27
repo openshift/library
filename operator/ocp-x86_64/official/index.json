@@ -130,93 +130,23 @@
                 "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/",
                 "name": "jboss-datagrid72-openshift",
                 "path": "official/datagrid/imagestreams/jboss-datagrid72-openshift-rhel7.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-image-stream.json"
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/ose-v1.4.16/templates/datagrid72-image-stream.json"
             }
         ],
         "templates": [
             {
-                "description": "Red Hat Data Grid is a high performance, linearly scalable, key/value data grid solution. It provides many features to serve a variety of use cases.",
-                "docs": "https://github.com/jboss-container-images/datagrid-7-image/blob/1.0.TP/documentation/cache-service.asciidoc",
-                "name": "caching-service",
-                "path": "official/datagrid/templates/caching-service.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/datagrid-7-image/1.0.TP/templates/caching-service.json"
+                "description": "Red Hat Data Grid is an in-memory, distributed key/value store.",
+                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.0/docs/cache-service.asciidoc",
+                "name": "cache-service",
+                "path": "official/datagrid/templates/cache-service.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.0/services/cache-service-template.yaml"
             },
             {
-                "description": "An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-basic.adoc",
-                "name": "datagrid71-basic",
-                "path": "official/datagrid/templates/datagrid71-basic.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-basic.json"
-            },
-            {
-                "description": "An example JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-https.adoc",
-                "name": "datagrid71-https",
-                "path": "official/datagrid/templates/datagrid71-https.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-https.json"
-            },
-            {
-                "description": "An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql-persistent.adoc",
-                "name": "datagrid71-mysql-persistent",
-                "path": "official/datagrid/templates/datagrid71-mysql-persistent.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql-persistent.json"
-            },
-            {
-                "description": "An example JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-mysql.adoc",
-                "name": "datagrid71-mysql",
-                "path": "official/datagrid/templates/datagrid71-mysql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-mysql.json"
-            },
-            {
-                "description": "An example JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql-persistent.adoc",
-                "name": "datagrid71-postgresql-persistent",
-                "path": "official/datagrid/templates/datagrid71-postgresql-persistent.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql-persistent.json"
-            },
-            {
-                "description": "An example JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/datagrid/datagrid71-postgresql.adoc",
-                "name": "datagrid71-postgresql",
-                "path": "official/datagrid/templates/datagrid71-postgresql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/datagrid/datagrid71-postgresql.json"
-            },
-            {
-                "description": "An example Red Hat JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-basic.adoc",
-                "name": "datagrid72-basic",
-                "path": "official/datagrid/templates/datagrid72-basic.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-basic.json"
-            },
-            {
-                "description": "An example Red Hat JBoss Data Grid application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-https.adoc",
-                "name": "datagrid72-https",
-                "path": "official/datagrid/templates/datagrid72-https.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-https.json"
-            },
-            {
-                "description": "An example Red Hat JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql-persistent.adoc",
-                "name": "datagrid72-mysql-persistent",
-                "path": "official/datagrid/templates/datagrid72-mysql-persistent.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql-persistent.json"
-            },
-            {
-                "description": "An example Red Hat JBoss Data Grid application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-mysql.adoc",
-                "name": "datagrid72-mysql",
-                "path": "official/datagrid/templates/datagrid72-mysql.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-mysql.json"
-            },
-            {
-                "description": "An example Red Hat JBoss Data Grid application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/1.1.1/docs/datagrid72-postgresql-persistent.adoc",
-                "name": "datagrid72-postgresql-persistent",
-                "path": "official/datagrid/templates/datagrid72-postgresql-persistent.json",
-                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/1.1.1/templates/datagrid72-postgresql-persistent.json"
+                "description": "Red Hat Data Grid is an in-memory, distributed key/value store.",
+                "docs": "https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.0/docs/datagrid-service.asciidoc",
+                "name": "datagrid-service",
+                "path": "official/datagrid/templates/datagrid-service.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.0/services/datagrid-service-template.yaml"
             }
         ]
     },

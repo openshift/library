@@ -2,30 +2,37 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "caching-service"
+        "template": "datagrid-service"
     },
     "metadata": {
         "annotations": {
-            "description": "Red Hat Data Grid is a high performance, linearly scalable, key/value data grid solution. It provides many features to serve a variety of use cases.",
+            "description": "Red Hat Data Grid is an in-memory, distributed key/value store.",
             "iconClass": "icon-datagrid",
-            "openshift.io/display-name": "Red Hat Cache Service",
-            "openshift.io/documentation-url": "https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/cache-service.asciidoc",
-            "openshift.io/long-description": "In this service, Red Hat Data Grid is configured as an in-memory caching service without persistence. Data in the cache will be lost if the service is stopped or restarted, and therefore, it should not be used as a permanent store for data.\nIt can be used to improve your application\u2019s response time, by keeping frequently and recently accessed data in a high speed in-memory store.",
+            "openshift.io/display-name": "Red Hat Data Grid Service",
+            "openshift.io/documentation-url": "https://github.com/jboss-container-images/datagrid-7-image/blob/datagrid-services-dev/documentation/datagrid-service.asciidoc",
+            "openshift.io/long-description": "Red Hat Data Grid Service provides a fully customizable implementation of Data Grid for OpenShift that is stable, persistent, and elastically scalable.",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "openshift.io/support-url": "https://www.redhat.com/en/services/support",
             "tags": "database,datagrid"
         },
-        "name": "caching-service"
+        "creationTimestamp": null,
+        "labels": {
+            "template": "datagrid-service"
+        },
+        "name": "datagrid-service"
     },
     "objects": [
         {
             "apiVersion": "v1",
             "kind": "Secret",
             "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
                 "name": "${APPLICATION_NAME}"
             },
             "stringData": {
-                "application-password": "${APPLICATION_USER_PASSWORD}",
+                "application-password": "${APPLICATION_PASSWORD}",
                 "application-user": "${APPLICATION_USER}"
             }
         },
@@ -34,39 +41,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "Headless service for StatefulSets",
-                    "service.alpha.openshift.io/serving-cert-secret-name": "service-certs"
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-headless"
-            },
-            "spec": {
-                "clusterIP": "None",
-                "ports": [
-                    {
-                        "name": "http",
-                        "port": 8080,
-                        "targetPort": 8080
-                    },
-                    {
-                        "name": "hotrod",
-                        "port": 11222,
-                        "targetPort": 11222
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "The JGroups ping port for clustering.",
+                    "description": "Provides a ping service for clustered applications.",
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
@@ -92,42 +67,25 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's HTTP port."
+                    "description": "Provides a service for accessing the application over HTTPS or Hot Rod protocol.",
+                    "service.alpha.openshift.io/serving-cert-secret-name": "service-certs"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-http"
+                "name": "${APPLICATION_NAME}"
             },
             "spec": {
                 "ports": [
                     {
-                        "port": 8080,
-                        "targetPort": 8080
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "Hot Rod's port."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-hotrod"
-            },
-            "spec": {
-                "ports": [
-                    {
+                        "name": "hotrod",
                         "port": 11222,
                         "targetPort": 11222
+                    },
+                    {
+                        "name": "https",
+                        "port": 8443,
+                        "targetPort": 8443
                     }
                 ],
                 "selector": {
@@ -146,7 +104,7 @@
             },
             "spec": {
                 "replicas": "${{NUMBER_OF_INSTANCES}}",
-                "serviceName": "${APPLICATION_NAME}-headless",
+                "serviceName": "${APPLICATION_NAME}-ping",
                 "strategy": {
                     "rollingParams": {
                         "intervalSeconds": 20,
@@ -170,27 +128,23 @@
                             {
                                 "env": [
                                     {
-                                        "name": "PROFILE",
-                                        "value": "CACHING-SERVICE"
+                                        "name": "SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}"
+                                    },
+                                    {
+                                        "name": "SERVICE_PROFILE",
+                                        "value": "datagrid-service"
+                                    },
+                                    {
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
                                         "value": "${APPLICATION_NAME}-ping"
                                     },
                                     {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-                                        "value": "8888"
-                                    },
-                                    {
-                                        "name": "KEYSTORE_FILE",
-                                        "value": "/var/run/secrets/java.io/keystores/${APPLICATION_NAME}.p12"
-                                    },
-                                    {
-                                        "name": "KEYSTORE_PASSWORD",
-                                        "value": "${APPLICATION_NAME}"
-                                    },
-                                    {
-                                        "name": "APPLICATION_USER",
+                                        "name": "USERNAME",
                                         "valueFrom": {
                                             "secretKeyRef": {
                                                 "key": "application-user",
@@ -199,7 +153,7 @@
                                         }
                                     },
                                     {
-                                        "name": "APPLICATION_USER_PASSWORD",
+                                        "name": "PASSWORD",
                                         "valueFrom": {
                                             "secretKeyRef": {
                                                 "key": "application-password",
@@ -224,8 +178,8 @@
                                 "name": "${APPLICATION_NAME}",
                                 "ports": [
                                     {
-                                        "containerPort": 8080,
-                                        "name": "http",
+                                        "containerPort": 8443,
+                                        "name": "https",
                                         "protocol": "TCP"
                                     },
                                     {
@@ -247,8 +201,8 @@
                                     },
                                     "failureThreshold": 5,
                                     "initialDelaySeconds": 17,
-                                    "periodSeconds": 20,
-                                    "successThreshold": 2,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
                                     "timeoutSeconds": 10
                                 },
                                 "resources": {
@@ -262,53 +216,12 @@
                                 },
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/opt/jboss/infinispan-server/standalone/data",
+                                        "mountPath": "/opt/datagrid/standalone/data",
                                         "name": "srv-data"
                                     },
                                     {
                                         "mountPath": "/var/run/secrets/java.io/keystores",
-                                        "name": "srv-data"
-                                    }
-                                ]
-                            }
-                        ],
-                        "initContainers": [
-                            {
-                                "args": [
-                                    "-c",
-                                    "rm -f $KEYSTORE_FILE $KEYSTORE_PKCS12 && openssl pkcs12 -export -inkey $TLS_KEY_FILE -in $CRT_FILE -out $KEYSTORE_PKCS12 -password pass:$KEYSTORE_PASSWORD && keytool -importkeystore -noprompt -srckeystore $KEYSTORE_PKCS12 -srcstoretype pkcs12 -destkeystore $KEYSTORE_FILE -deststoretype pkcs12 -storepass $KEYSTORE_PASSWORD -srcstorepass $KEYSTORE_PASSWORD"
-                                ],
-                                "command": [
-                                    "/bin/bash"
-                                ],
-                                "env": [
-                                    {
-                                        "name": "TLS_KEY_FILE",
-                                        "value": "/var/run/secrets/openshift.io/serviceaccount/tls.key"
-                                    },
-                                    {
-                                        "name": "CRT_FILE",
-                                        "value": "/var/run/secrets/openshift.io/serviceaccount/tls.crt"
-                                    },
-                                    {
-                                        "name": "KEYSTORE_PKCS12",
-                                        "value": "/var/run/secrets/java.io/keystores/keystore.pkcs12"
-                                    },
-                                    {
-                                        "name": "KEYSTORE_FILE",
-                                        "value": "/var/run/secrets/java.io/keystores/${APPLICATION_NAME}.p12"
-                                    },
-                                    {
-                                        "name": "KEYSTORE_PASSWORD",
-                                        "value": "${APPLICATION_NAME}"
-                                    }
-                                ],
-                                "image": "${IMAGE}",
-                                "name": "pem-to-keystore",
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/run/secrets/java.io/keystores",
-                                        "name": "srv-data"
+                                        "name": "keystore-volume"
                                     },
                                     {
                                         "mountPath": "/var/run/secrets/openshift.io/serviceaccount",
@@ -319,6 +232,10 @@
                         ],
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
+                            {
+                                "empty-dir": {},
+                                "name": "keystore-volume"
+                            },
                             {
                                 "name": "service-certs",
                                 "secret": {
@@ -344,7 +261,7 @@
                             ],
                             "resources": {
                                 "requests": {
-                                    "storage": "1Gi"
+                                    "storage": "${TOTAL_CONTAINER_STORAGE}Gi"
                                 }
                             }
                         }
@@ -355,44 +272,49 @@
     ],
     "parameters": [
         {
-            "description": "The name for the application.",
+            "description": "Specifies a name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
             "required": true,
-            "value": "caching-service-app"
+            "value": "datagrid-service"
         },
         {
-            "description": "Infinispan image.",
+            "description": "Sets an image to bootstrap the service.",
             "name": "IMAGE",
             "required": true,
-            "value": "registry.redhat.io/datagrid-7-tech-preview/datagrid-services"
+            "value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift"
         },
         {
-            "description": "Number of instances in the cluster.",
+            "description": "Specifies how many instances of the application to create in the cluster.",
             "displayName": "Number of Instances",
             "name": "NUMBER_OF_INSTANCES",
             "required": true,
             "value": "1"
         },
         {
-            "description": "Total container memory in MiB.",
+            "description": "Sets the total memory, in MiB, available to the application.",
             "displayName": "Total Memory",
             "name": "TOTAL_CONTAINER_MEM",
-            "required": false,
             "value": "512"
         },
         {
-            "description": "Username for client applications",
+            "description": "Sets the storage capacity, in GiB, of the persistence volume.",
+            "displayName": "Storage Capacity",
+            "name": "TOTAL_CONTAINER_STORAGE",
+            "value": "1"
+        },
+        {
+            "description": "Specifies a username to authenticate client applications.",
             "displayName": "Client User",
             "name": "APPLICATION_USER",
             "required": true
         },
         {
-            "description": "Password for client applications",
+            "description": "Sets a password to authenticate client applications.",
             "displayName": "Client Password",
             "from": "[a-zA-Z0-9]{16}",
             "generate": "expression",
-            "name": "APPLICATION_USER_PASSWORD"
+            "name": "APPLICATION_PASSWORD"
         }
     ]
 }
