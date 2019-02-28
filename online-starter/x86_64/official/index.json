@@ -1,0 +1,582 @@
+{
+    "3scale": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift",
+                "name": "apicast-gateway",
+                "path": "official/3scale/imagestreams/apicast-gateway.json",
+                "source_url": "https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/3scale-image-streams.yml"
+            }
+        ],
+        "templates": [
+            {
+                "description": "3scale's APIcast is an NGINX based API gateway used to integrate your internal and external API services with 3scale's API Management Platform. It supports OpenID connect to integrate with external Identity Providers such as Red Hat Single Sign On, for API traffic authentication",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_3scale/2.saas/html/deployment_options/apicast-openshift",
+                "name": "3scale-gateway",
+                "path": "official/3scale/templates/3scale-gateway.json",
+                "source_url": "https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/master/apicast-gateway/library/apicast.yml"
+            }
+        ]
+    },
+    "cakephp": {
+        "templates": [
+            {
+                "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/cakephp-ex/blob/master/README.md",
+                "name": "cakephp-mysql-persistent",
+                "path": "official/cakephp/templates/cakephp-mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json"
+            }
+        ]
+    },
+    "dancer": {
+        "templates": [
+            {
+                "description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/dancer-ex/blob/master/README.md",
+                "name": "dancer-mysql-persistent",
+                "path": "official/dancer/templates/dancer-mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json"
+            }
+        ]
+    },
+    "django": {
+        "templates": [
+            {
+                "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/django-ex/blob/master/README.md",
+                "name": "django-psql-persistent",
+                "path": "official/django/templates/django-psql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json"
+            }
+        ]
+    },
+    "dotnet": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet",
+                "path": "official/dotnet/imagestreams/dotnet-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json"
+            },
+            {
+                "docs": "https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md",
+                "name": "dotnet-runtime",
+                "path": "official/dotnet/imagestreams/dotnet-runtime-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams.json"
+            }
+        ]
+    },
+    "eap-cd": {
+        "templates": [
+            {
+                "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
+                "docs": "",
+                "name": "eap-cd-starter-s2i",
+                "path": "official/eap-cd/templates/eap-cd-starter-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-starter-s2i.json"
+            }
+        ]
+    },
+    "fis": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fis-java-openshift",
+                "path": "official/fis/imagestreams/fis-java-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "jboss-fuse70-java-openshift",
+                "path": "official/fis/imagestreams/jboss-fuse70-java-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fis-karaf-openshift",
+                "path": "official/fis/imagestreams/fis-karaf-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "jboss-fuse70-karaf-openshift",
+                "path": "official/fis/imagestreams/jboss-fuse70-karaf-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "jboss-fuse70-eap-openshift",
+                "path": "official/fis/imagestreams/jboss-fuse70-eap-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "jboss-fuse70-console",
+                "path": "official/fis/imagestreams/jboss-fuse70-console-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fuse7-java-openshift",
+                "path": "official/fis/imagestreams/fuse7-java-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fuse7-karaf-openshift",
+                "path": "official/fis/imagestreams/fuse7-karaf-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fuse7-eap-openshift",
+                "path": "official/fis/imagestreams/fuse7-eap-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fuse7-console",
+                "path": "official/fis/imagestreams/fuse7-console-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "apicurito-ui",
+                "path": "official/fis/imagestreams/apicurito-ui-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "fuse-apicurito-generator",
+                "path": "official/fis/imagestreams/fuse-apicurito-generator-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Spring Boot and Camel QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on OpenShift. The quickstart uses Spring Boot to configure an application which includes a Camel route that triggers a message every 5th second, and routes the message to a log.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "s2i-fuse72-spring-boot-camel",
+                "path": "official/fis/templates/s2i-fuse72-spring-boot-camel.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json"
+            },
+            {
+                "description": "Spring Boot and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot on OpenShift. The quickstart uses Spring Boot to configure an application which includes a Camel route (in Spring xml) that triggers a message every 5th second, and routes the message to a log.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/",
+                "name": "s2i-fuse72-spring-boot-camel-xml",
+                "path": "official/fis/templates/s2i-fuse72-spring-boot-camel-xml.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json"
+            },
+            {
+                "description": "The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/",
+                "name": "fuse72-console",
+                "path": "official/fis/templates/fuse72-console.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json"
+            },
+            {
+                "description": "Design beautiful, functional APIs with zero coding, using a visual designer for OpenAPI documents.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/",
+                "name": "apicurito",
+                "path": "official/fis/templates/apicurito.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml"
+            }
+        ]
+    },
+    "httpd": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/httpd-container/blob/master/README.md",
+                "name": "httpd",
+                "path": "official/httpd/imagestreams/httpd-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Apache HTTP Server (httpd) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/httpd-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/httpd-ex/blob/master/README.md",
+                "name": "httpd-example",
+                "path": "official/httpd/templates/httpd-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json"
+            }
+        ]
+    },
+    "java": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "redhat-openjdk18-openshift",
+                "path": "official/java/imagestreams/redhat-openjdk18-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "java",
+                "path": "official/java/imagestreams/java-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Java application using OpenJDK 8. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "openjdk18-web-basic-s2i",
+                "path": "official/java/templates/openjdk18-web-basic-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-web-basic-s2i.json"
+            }
+        ]
+    },
+    "jenkins": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins",
+                "path": "official/jenkins/imagestreams/jenkins-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json"
+            },
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-agent-nodejs",
+                "path": "official/jenkins/imagestreams/jenkins-agent-nodejs-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json"
+            },
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-agent-maven",
+                "path": "official/jenkins/imagestreams/jenkins-agent-maven-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Jenkins service, with persistent storage.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-persistent",
+                "path": "official/jenkins/templates/jenkins-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json"
+            }
+        ]
+    },
+    "mariadb": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb",
+                "path": "official/mariadb/imagestreams/mariadb-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MariaDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/blob/master/10.2/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb-persistent",
+                "path": "official/mariadb/templates/mariadb-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json"
+            }
+        ]
+    },
+    "mongodb": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb",
+                "path": "official/mongodb/imagestreams/mongodb-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MongoDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mongodb-container/blob/master/3.2/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb-persistent",
+                "path": "official/mongodb/templates/mongodb-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json"
+            }
+        ]
+    },
+    "mysql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql",
+                "path": "official/mysql/imagestreams/mysql-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/5.7/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql-persistent",
+                "path": "official/mysql/templates/mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json"
+            }
+        ]
+    },
+    "nginx": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/nginx-container/blob/master/README.md",
+                "name": "nginx",
+                "path": "official/nginx/imagestreams/nginx-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Nginx HTTP server and a reverse proxy (nginx) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/nginx-ex/blob/master/README.md",
+                "name": "nginx-example",
+                "path": "official/nginx/templates/nginx-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json"
+            }
+        ]
+    },
+    "nodejs": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md",
+                "name": "nodejs",
+                "path": "official/nodejs/imagestreams/nodejs-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/nodejs-ex/blob/master/README.md",
+                "name": "nodejs-mongo-persistent",
+                "path": "official/nodejs/templates/nodejs-mongo-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json"
+            }
+        ]
+    },
+    "perl": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-perl-container/blob/master/README.md",
+                "name": "perl",
+                "path": "official/perl/imagestreams/perl-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-rhel7.json"
+            }
+        ]
+    },
+    "php": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-php-container/blob/master/README.md",
+                "name": "php",
+                "path": "official/php/imagestreams/php-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-rhel7.json"
+            }
+        ]
+    },
+    "postgresql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql",
+                "path": "official/postgresql/imagestreams/postgresql-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql-persistent",
+                "path": "official/postgresql/templates/postgresql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json"
+            }
+        ]
+    },
+    "python": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-python-container/blob/master/README.md",
+                "name": "python",
+                "path": "official/python/imagestreams/python-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-rhel7.json"
+            }
+        ]
+    },
+    "rails": {
+        "templates": [
+            {
+                "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/rails-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/rails-ex/blob/master/README.md",
+                "name": "rails-pgsql-persistent",
+                "path": "official/rails/templates/rails-pgsql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json"
+            }
+        ]
+    },
+    "redis": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis",
+                "path": "official/redis/imagestreams/redis-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Redis in-memory data structure store, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/redis-container/blob/master/3.2.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis-ephemeral",
+                "path": "official/redis/templates/redis-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json"
+            },
+            {
+                "description": "Redis in-memory data structure store, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/redis-container/blob/master/3.2.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis-persistent",
+                "path": "official/redis/templates/redis-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json"
+            }
+        ]
+    },
+    "rhdm": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform",
+                "name": "rhdm72-kieserver-openshift",
+                "path": "official/rhdm/imagestreams/rhdm72-kieserver-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/rhdm72-image-streams.yaml"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Application template for a managed KIE Server, for Red Hat Decision Manager 7.2",
+                "docs": "https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.2.1.GA/templates/docs/rhdm72-kieserver.adoc",
+                "name": "rhdm72-kieserver",
+                "path": "official/rhdm/templates/rhdm72-kieserver.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/templates/rhdm72-kieserver.yaml"
+            }
+        ]
+    },
+    "ruby": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-ruby-container/blob/master/README.md",
+                "name": "ruby",
+                "path": "official/ruby/imagestreams/ruby-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json"
+            }
+        ]
+    },
+    "sso": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.2/html-single/red_hat_single_sign-on_for_openshift/",
+                "name": "redhat-sso72-openshift",
+                "path": "official/sso/imagestreams/redhat-sso72-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery",
+                "name": "redhat-sso-cd-openshift",
+                "path": "official/sso/imagestreams/redhat-sso-cd-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/",
+                "name": "redhat-sso73-openshift",
+                "path": "official/sso/imagestreams/redhat-sso73-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.0.GA/templates/sso73-image-stream.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example RH-SSO 7 application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.2.6.GA/docs/templates/sso72-x509-https.adoc",
+                "name": "sso72-x509-https",
+                "path": "official/sso/templates/sso72-x509-https.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-x509-https.json"
+            },
+            {
+                "description": "An example application based on RH-SSO 7.3 CD Tech Preview image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/docs.",
+                "docs": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/docs/templates/sso-cd-x509-https.adoc",
+                "name": "sso-cd-x509-https",
+                "path": "official/sso/templates/sso-cd-x509-https.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-x509-https.json"
+            },
+            {
+                "description": "An example application based on RH-SSO 7.3 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/docs.",
+                "docs": "https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.0.GA/docs/templates/sso73-x509-https.adoc",
+                "name": "sso73-x509-https",
+                "path": "official/sso/templates/sso73-x509-https.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.0.GA/templates/sso73-x509-https.json"
+            }
+        ]
+    },
+    "webserver": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/",
+                "name": "jboss-webserver30-tomcat7-openshift",
+                "path": "official/webserver/imagestreams/jboss-webserver30-tomcat7-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws30-tomcat7-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/",
+                "name": "jboss-webserver30-tomcat8-openshift",
+                "path": "official/webserver/imagestreams/jboss-webserver30-tomcat8-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws30-tomcat8-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/",
+                "name": "jboss-webserver31-tomcat7-openshift",
+                "path": "official/webserver/imagestreams/jboss-webserver31-tomcat7-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat7-image-stream.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/",
+                "name": "jboss-webserver31-tomcat8-openshift",
+                "path": "official/webserver/imagestreams/jboss-webserver31-tomcat8-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat8-image-stream.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example JBoss Web Server application configured for use with https. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/webserver/jws31-tomcat7-https-s2i.adoc",
+                "name": "jws31-tomcat7-https-s2i",
+                "path": "official/webserver/templates/jws31-tomcat7-https-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat7-https-s2i.json"
+            },
+            {
+                "description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/webserver/jws31-tomcat8-https-s2i.adoc",
+                "name": "jws31-tomcat8-https-s2i",
+                "path": "official/webserver/templates/jws31-tomcat8-https-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat8-https-s2i.json"
+            },
+            {
+                "description": "An example JBoss Web Server application with a MongoDB database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc",
+                "name": "jws31-tomcat8-mongodb-persistent-s2i",
+                "path": "official/webserver/templates/jws31-tomcat8-mongodb-persistent-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat8-mongodb-persistent-s2i.json"
+            },
+            {
+                "description": "An example JBoss Web Server application with a MySQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc",
+                "name": "jws31-tomcat8-mysql-persistent-s2i",
+                "path": "official/webserver/templates/jws31-tomcat8-mysql-persistent-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat8-mysql-persistent-s2i.json"
+            },
+            {
+                "description": "Application template for JWS PostgreSQL applications with persistent storage built using S2I.",
+                "docs": "https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc",
+                "name": "jws31-tomcat8-postgresql-persistent-s2i",
+                "path": "official/webserver/templates/jws31-tomcat8-postgresql-persistent-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/webserver/jws31-tomcat8-postgresql-persistent-s2i.json"
+            }
+        ]
+    }
+}
