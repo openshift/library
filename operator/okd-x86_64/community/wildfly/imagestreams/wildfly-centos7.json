@@ -21,7 +21,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "15.0"
+                    "name": "16.0"
                 },
                 "name": "latest",
                 "referencePolicy": {
@@ -204,6 +204,26 @@
                     "name": "docker.io/openshift/wildfly-150-centos7:latest"
                 },
                 "name": "15.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run WildFly 16 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.",
+                    "iconClass": "icon-wildfly",
+                    "openshift.io/display-name": "WildFly 16",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+                    "supports": "wildfly:16,jee,java",
+                    "tags": "builder,wildfly,java",
+                    "version": "16.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/openshift/wildfly-160-centos7:latest"
+                },
+                "name": "16.0",
                 "referencePolicy": {
                     "type": "Local"
                 }
