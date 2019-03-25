@@ -2,26 +2,137 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm72-authoring"
+        "rhdm": "1.0",
+        "template": "rhdm73-authoring-ha"
     },
-    "message": "A new persistent Decision Manager application has been created in your project.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${DECISION_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${DECISION_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new persistent HA Decision Manager application has been created in your project.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${DECISION_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${DECISION_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a non-HA persistent authoring environment, for Red Hat Decision Manager 7.2",
+            "description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.3",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.2 authoring environment (non-HA, persistent, with https)",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.3 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhdm,decisionserver,jboss,authoring",
+            "tags": "rhdm,decisionserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.2, including application deployment configuration, secure and insecure http communication and a persistent volume to store data that needs to survive to a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.3 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm72-authoring"
+        "name": "rhdm73-authoring-ha"
     },
     "objects": [
+        {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "Role",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-role"
+            },
+            "rules": [
+                {
+                    "apiGroups": [
+                        ""
+                    ],
+                    "resources": [
+                        "endpoints"
+                    ],
+                    "verbs": [
+                        "create",
+                        "delete",
+                        "deletecollection",
+                        "get",
+                        "list",
+                        "patch",
+                        "update",
+                        "watch"
+                    ]
+                },
+                {
+                    "apiGroups": [
+                        ""
+                    ],
+                    "resources": [
+                        "namespaces"
+                    ],
+                    "verbs": [
+                        "get",
+                        "list"
+                    ]
+                }
+            ]
+        },
+        {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "Role",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-scaledown-controller-role"
+            },
+            "rules": [
+                {
+                    "apiGroups": [
+                        "apps"
+                    ],
+                    "resources": [
+                        "statefulsets"
+                    ],
+                    "verbs": [
+                        "get",
+                        "list",
+                        "watch"
+                    ]
+                },
+                {
+                    "apiGroups": [
+                        ""
+                    ],
+                    "resources": [
+                        "pods"
+                    ],
+                    "verbs": [
+                        "get",
+                        "list",
+                        "watch",
+                        "create",
+                        "delete",
+                        "patch",
+                        "update"
+                    ]
+                },
+                {
+                    "apiGroups": [
+                        ""
+                    ],
+                    "resources": [
+                        "persistentvolumeclaims"
+                    ],
+                    "verbs": [
+                        "get",
+                        "list",
+                        "watch",
+                        "delete"
+                    ]
+                },
+                {
+                    "apiGroups": [
+                        ""
+                    ],
+                    "resources": [
+                        "events"
+                    ],
+                    "verbs": [
+                        "get",
+                        "list",
+                        "watch"
+                    ]
+                }
+            ]
+        },
         {
             "apiVersion": "v1",
             "kind": "ServiceAccount",
@@ -92,6 +203,34 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
+                    "description": "The JGroups ping port for clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-ping"
+                },
+                "name": "${APPLICATION_NAME}-ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888,
+                        "targetPort": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
                     "description": "All the KIE server web server's ports."
                 },
                 "labels": {
@@ -115,6 +254,97 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
+                },
+                "sessionAffinity": "ClientIP",
+                "sessionAffinityConfig": {
+                    "clientIP": {
+                        "timeoutSeconds": 3600
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "All the Decision Central Indexing Elasticsearch ports."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-rhdmindex"
+                },
+                "name": "${APPLICATION_NAME}-rhdmindex"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "rest",
+                        "port": 9200,
+                        "targetPort": 9200
+                    },
+                    {
+                        "name": "transport",
+                        "port": 9300,
+                        "targetPort": 9300
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The broker's OpenWire port."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-amq-tcp"
+                },
+                "name": "${APPLICATION_NAME}-amq-tcp"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "port": 61616,
+                        "targetPort": 61616
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The JGroups ping port for clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "ping"
+                },
+                "name": "ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "port": 8888,
+                        "protocol": "TCP",
+                        "targetPort": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 }
             }
         },
@@ -224,6 +454,29 @@
         },
         {
             "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-rhdmindex-http",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for Decision Central Indexing's Elasticsearch http service."
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-rhdmindex"
+            },
+            "spec": {
+                "host": "${ES_HOSTNAME_HTTP}",
+                "port": {
+                    "targetPort": "rest"
+                },
+                "to": {
+                    "name": "${APPLICATION_NAME}-rhdmindex"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
                 "annotations": {
@@ -236,7 +489,7 @@
                 "name": "${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
-                "replicas": 1,
+                "replicas": 2,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                 },
@@ -247,8 +500,7 @@
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr",
-                            "service": "${APPLICATION_NAME}-rhdmcentr"
+                            "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                         },
                         "name": "${APPLICATION_NAME}-rhdmcentr"
                     },
@@ -293,6 +545,10 @@
                                         "value": "${APPLICATION_NAME}-rhdmcentr"
                                     },
                                     {
+                                        "name": "MAVEN_MIRROR_URL",
+                                        "value": "${MAVEN_MIRROR_URL}"
+                                    },
+                                    {
                                         "name": "MAVEN_REPO_ID",
                                         "value": "${MAVEN_REPO_ID}"
                                     },
@@ -335,6 +591,50 @@
                                     {
                                         "name": "HTTPS_PASSWORD",
                                         "value": "${DECISION_CENTRAL_HTTPS_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
+                                    },
+                                    {
+                                        "name": "APPFORMER_ELASTIC_PORT",
+                                        "value": "${APPFORMER_ELASTIC_PORT}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_ELASTIC_CLUSTER_NAME",
+                                        "value": "${APPFORMER_ELASTIC_CLUSTER_NAME}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_ELASTIC_RETRIES",
+                                        "value": "${APPFORMER_ELASTIC_RETRIES}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_ELASTIC_HOST",
+                                        "value": "${APPLICATION_NAME}-rhdmindex"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_ADDRESS",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_PORT",
+                                        "value": "${APPFORMER_JMS_BROKER_PORT}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
                                     },
                                     {
                                         "name": "SSO_URL",
@@ -473,14 +773,14 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhdm72-decisioncentral-openshift",
+                                "image": "rhdm73-decisioncentral-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-drools-wb.jsp"
+                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
                                         ]
                                     },
                                     "initialDelaySeconds": 180,
@@ -508,6 +808,11 @@
                                         "containerPort": 8001,
                                         "name": "git-ssh",
                                         "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 8888,
+                                        "name": "ping",
+                                        "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -515,7 +820,7 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-drools-wb.jsp"
+                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
                                         ]
                                     },
                                     "failureThreshold": 6,
@@ -568,7 +873,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhdm72-decisioncentral-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhdm73-decisioncentral-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -594,7 +899,7 @@
                 "name": "${APPLICATION_NAME}-kieserver"
             },
             "spec": {
-                "replicas": 1,
+                "replicas": 2,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                 },
@@ -605,8 +910,7 @@
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-kieserver",
-                            "service": "${APPLICATION_NAME}-kieserver"
+                            "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                         },
                         "name": "${APPLICATION_NAME}-kieserver"
                     },
@@ -614,10 +918,6 @@
                         "containers": [
                             {
                                 "env": [
-                                    {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
                                     {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
@@ -627,8 +927,16 @@
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_MODE",
+                                        "value": "${KIE_SERVER_MODE}"
+                                    },
+                                    {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
+                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -667,12 +975,16 @@
                                         "value": "${KIE_SERVER_USE_SECURE_ROUTE_NAME}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_PWD",
+                                        "value": "${KIE_SERVER_PWD}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_USER",
                                         "value": "${KIE_SERVER_USER}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
+                                        "name": "MAVEN_MIRROR_URL",
+                                        "value": "${MAVEN_MIRROR_URL}"
                                     },
                                     {
                                         "name": "MAVEN_REPOS",
@@ -958,11 +1270,468 @@
         },
         {
             "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-rhdmindex"
+                },
+                "name": "${APPLICATION_NAME}-rhdmindex"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
+                },
+                "strategy": {
+                    "type": "Recreate"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
+                        },
+                        "name": "${APPLICATION_NAME}-rhdmindex"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "ES_CLUSTER_NAME",
+                                        "value": "${APPFORMER_ELASTIC_CLUSTER_NAME}"
+                                    },
+                                    {
+                                        "name": "ES_NODE_NAME",
+                                        "value": "${ES_NODE_NAME}"
+                                    },
+                                    {
+                                        "name": "ES_TRANSPORT_HOST",
+                                        "value": "${ES_TRANSPORT_HOST}"
+                                    },
+                                    {
+                                        "name": "ES_TRANSPORT_TCP_PORT",
+                                        "value": "${APPFORMER_ELASTIC_PORT}"
+                                    },
+                                    {
+                                        "name": "ES_HTTP_PORT",
+                                        "value": "${ES_HTTP_PORT}"
+                                    },
+                                    {
+                                        "name": "ES_HTTP_HOST",
+                                        "value": "${ES_HTTP_HOST}"
+                                    },
+                                    {
+                                        "name": "ES_JAVA_OPTS",
+                                        "value": "${ES_JAVA_OPTS}"
+                                    }
+                                ],
+                                "image": "rhdm73-decisioncentral-indexing-openshift",
+                                "imagePullPolicy": "Always",
+                                "livenessProbe": {
+                                    "initialDelaySeconds": 15,
+                                    "tcpSocket": {
+                                        "port": 9300
+                                    },
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "${APPLICATION_NAME}-rhdmindex",
+                                "ports": [
+                                    {
+                                        "containerPort": 9300,
+                                        "name": "es",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 9200,
+                                        "name": "http",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "httpGet": {
+                                        "path": "/_cluster/health",
+                                        "port": 9200,
+                                        "scheme": "HTTP"
+                                    },
+                                    "initialDelaySeconds": 15,
+                                    "timeoutSeconds": 2
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/elasticsearch/data",
+                                        "name": "${APPLICATION_NAME}-rhdmindex-pvol"
+                                    }
+                                ]
+                            }
+                        ],
+                        "terminationGracePeriodSeconds": 60,
+                        "volumes": [
+                            {
+                                "name": "${APPLICATION_NAME}-rhdmindex-pvol",
+                                "persistentVolumeClaim": {
+                                    "claimName": "${APPLICATION_NAME}-rhdmindex-claim"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-rhdmindex"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "rhdm73-decisioncentral-indexing-openshift:${IMAGE_STREAM_TAG}",
+                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "DeploymentConfig",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-amq-scaledown-controller"
+                },
+                "name": "${APPLICATION_NAME}-amq-scaledown-controller"
+            },
+            "spec": {
+                "replicas": 1,
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-amq-scaledown-controller"
+                },
+                "strategy": {
+                    "rollingParams": {
+                        "maxSurge": 0
+                    },
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-amq-scaledown-controller"
+                        },
+                        "name": "${APPLICATION_NAME}-amq-scaledown-controller"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "args": [
+                                    "--localOnly",
+                                    "--v",
+                                    "3"
+                                ],
+                                "image": "${AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_NAME}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "${APPLICATION_NAME}-amq"
+                            }
+                        ],
+                        "serviceAccountName": "${APPLICATION_NAME}-amq-scaledown-controller-sa",
+                        "terminationGracePeriodSeconds": 30
+                    }
+                },
+                "triggers": [
+                    {
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "${APPLICATION_NAME}-amq"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_NAME}:${AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_TAG}",
+                                "namespace": "${AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_NAMESPACE}"
+                            }
+                        },
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "metadata": {
+                "annotations": {
+                    "alpha.image.policy.openshift.io/resolve-names": "*",
+                    "statefulsets.kubernetes.io/drainer-pod-template": "{\n  \"metadata\": {\n    \"labels\": {\n      \"application\": \"${APPLICATION_NAME}\"\n    },\n    \"name\": \"${APPLICATION_NAME}-amq-drainer-pod\"\n  },\n  \"spec\": {\n    \"serviceAccount\": \"${APPLICATION_NAME}-amq-sa\",\n    \"serviceAccountName\": \"${APPLICATION_NAME}-amq-sa\",\n    \"terminationGracePeriodSeconds\": 5,\n    \"containers\": [\n      {\n        \"env\": [\n          {\n            \"name\": \"AMQ_EXTRA_ARGS\",\n            \"value\": \"--no-autotune\"\n          },\n          {\n            \"name\": \"AMQ_USER\",\n            \"value\": \"${APPFORMER_JMS_BROKER_USER}\"\n          },\n          {\n            \"name\": \"AMQ_PASSWORD\",\n            \"value\": \"${APPFORMER_JMS_BROKER_PASSWORD}\"\n          },\n          {\n            \"name\": \"AMQ_ROLE\",\n            \"value\": \"${AMQ_ROLE}\"\n          },\n          {\n            \"name\": \"AMQ_NAME\",\n            \"value\": \"${AMQ_NAME}\"\n          },\n          {\n            \"name\": \"AMQ_TRANSPORTS\",\n            \"value\": \"openwire\"\n          },\n          {\n            \"name\": \"AMQ_QUEUES\",\n            \"value\": \"\"\n          },\n          {\n            \"name\": \"AMQ_GLOBAL_MAX_SIZE\",\n            \"value\": \"${AMQ_GLOBAL_MAX_SIZE}\"\n          },\n          {\n            \"name\": \"AMQ_ALLOW_ANONYMOUS\",\n            \"value\": \"${AMQ_ALLOW_ANONYMOUS}\"\n          },\n          {\n            \"name\": \"AMQ_DATA_DIR\",\n            \"value\": \"/opt/amq/data\"\n          },\n          {\n            \"name\": \"AMQ_DATA_DIR_LOGGING\",\n            \"value\": \"true\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTERED\",\n            \"value\": \"true\"\n          },\n          {\n            \"name\": \"AMQ_REPLICAS\",\n            \"value\": \"2\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTER_USER\",\n            \"value\": \"${APPFORMER_JMS_BROKER_USER}\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTER_PASSWORD\",\n            \"value\": \"${APPFORMER_JMS_BROKER_PASSWORD}\"\n          },\n          {\n            \"name\": \"POD_NAMESPACE\",\n            \"valueFrom\": {\n              \"fieldRef\": {\n                \"fieldPath\": \"metadata.namespace\"\n              }\n            }\n          },\n          {\n            \"name\": \"JGROUPS_PING_PROTOCOL\",\n            \"value\": \"openshift.DNS_PING\"\n          },\n          {\n            \"name\": \"OPENSHIFT_DNS_PING_SERVICE_NAME\",\n            \"value\": \"ping\"\n          },\n          {\n            \"name\": \"OPENSHIFT_DNS_PING_SERVICE_PORT\",\n            \"value\": \"8888\"\n          }\n        ],\n        \"image\": \"${AMQ_BROKER_IMAGE}\",\n        \"name\": \"${APPLICATION_NAME}-amq\",\n        \"command\": [\"/bin/sh\", \"-c\", \"echo \\\"Starting the drainer\\\" ; /opt/amq/bin/drain.sh; echo \\\"Drain completed! Exit code $?\\\"\"],\n        \"volumeMounts\": [\n          {\n            \"name\": \"${APPLICATION_NAME}-amq-pvol\",\n            \"mountPath\": \"/opt/amq/data\"\n          }\n        ]\n      }\n    ]\n  }\n}\n"
+                },
+                "creationTimestamp": null,
+                "generation": 3,
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq"
+            },
+            "spec": {
+                "podManagementPolicy": "OrderedReady",
+                "replicas": 2,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    }
+                },
+                "serviceName": "${APPLICATION_NAME}-amq-tcp",
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-amq"
+                        },
+                        "name": "${APPLICATION_NAME}-amq"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "AMQ_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
+                                    },
+                                    {
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_ROLE",
+                                        "value": "${AMQ_ROLE}"
+                                    },
+                                    {
+                                        "name": "AMQ_NAME",
+                                        "value": "${AMQ_NAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "openwire"
+                                    },
+                                    {
+                                        "name": "AMQ_GLOBAL_MAX_SIZE",
+                                        "value": "${AMQ_GLOBAL_MAX_SIZE}"
+                                    },
+                                    {
+                                        "name": "AMQ_REQUIRE_LOGIN"
+                                    },
+                                    {
+                                        "name": "AMQ_DATA_DIR",
+                                        "value": "/opt/amq/data"
+                                    },
+                                    {
+                                        "name": "AMQ_DATA_DIR_LOGGING",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTERED",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "AMQ_REPLICAS",
+                                        "value": "0"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTER_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTER_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_EXTRA_ARGS"
+                                    },
+                                    {
+                                        "name": "AMQ_ANYCAST_PREFIX"
+                                    },
+                                    {
+                                        "name": "AMQ_MULTICAST_PREFIX"
+                                    },
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "image": "${AMQ_BROKER_IMAGE}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "broker-amq",
+                                "ports": [
+                                    {
+                                        "containerPort": 8161,
+                                        "name": "jolokia",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 5672,
+                                        "name": "amqp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 1883,
+                                        "name": "mqtt",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 61613,
+                                        "name": "stomp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 61616,
+                                        "name": "artemis",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/amq/bin/readinessProbe.sh"
+                                        ]
+                                    },
+                                    "failureThreshold": 3,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/amq/data",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 60
+                    }
+                },
+                "updateStrategy": {
+                    "type": "OnDelete"
+                },
+                "volumeClaimTemplates": [
+                    {
+                        "metadata": {
+                            "creationTimestamp": null,
+                            "name": "${APPLICATION_NAME}-amq-pvol"
+                        },
+                        "spec": {
+                            "accessModes": [
+                                "ReadWriteOnce"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "storage": "${AMQ_VOLUME_CAPACITY}"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-scaledown-controller-openshift-rb"
+            },
+            "roleRef": {
+                "apiGroup": "rbac.authorization.k8s.io",
+                "kind": "Role",
+                "name": "${APPLICATION_NAME}-amq-scaledown-controller-role"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-amq-scaledown-controller-sa"
+                }
+            ]
+        },
+        {
+            "apiVersion": "rbac.authorization.k8s.io/v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-rb"
+            },
+            "roleRef": {
+                "apiGroup": "rbac.authorization.k8s.io",
+                "kind": "Role",
+                "name": "${APPLICATION_NAME}-amq-role"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-amq-sa"
+                }
+            ]
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-sa"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-amq-scaledown-controller-sa"
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "PersistentVolumeClaim",
             "metadata": {
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhdmcentr"
+                    "application": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}-rhdmcentr-claim"
             },
@@ -973,6 +1742,26 @@
                 "resources": {
                     "requests": {
                         "storage": "${DECISION_CENTRAL_VOLUME_CAPACITY}"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "PersistentVolumeClaim",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-rhdmindex-claim"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "${ES_VOLUME_CAPACITY}"
                     }
                 }
             }
@@ -1045,6 +1834,13 @@
             "value": "false"
         },
         {
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. (Sets the org.kie.server.mode system property).",
+            "displayName": "KIE Server Mode",
+            "name": "KIE_SERVER_MODE",
+            "required": false,
+            "value": "DEVELOPMENT"
+        },
+        {
             "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
             "displayName": "KIE MBeans",
             "name": "KIE_MBEANS",
@@ -1059,7 +1855,7 @@
             "value": "true"
         },
         {
-            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
             "displayName": "Decision Central Custom http Route Hostname",
             "name": "DECISION_CENTRAL_HOSTNAME_HTTP",
             "required": false,
@@ -1150,6 +1946,154 @@
             "value": "mykeystorepass"
         },
         {
+            "description": "The number of times that appformer will try to connect to the elasticsearch node before give up.",
+            "displayName": "AppFormer elastic search reconnection tries.",
+            "name": "APPFORMER_ELASTIC_RETRIES",
+            "required": false
+        },
+        {
+            "description": "The port to connect to the JMS broker. Defaults to 61616",
+            "displayName": "AppFormer JMS Broker port.",
+            "name": "APPFORMER_JMS_BROKER_PORT",
+            "required": false,
+            "value": "61616"
+        },
+        {
+            "description": "The username to connect to the JMS broker.",
+            "displayName": "AppFormer JMS Broker username.",
+            "name": "APPFORMER_JMS_BROKER_USER",
+            "required": true,
+            "value": "jmsBrokerUser"
+        },
+        {
+            "description": "The password to connect to the JMS broker.",
+            "displayName": "AppFormer JMS Broker password.",
+            "from": "[a-zA-Z]{6}[0-9]{1}!",
+            "generate": "expression",
+            "name": "APPFORMER_JMS_BROKER_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhdmindex-<project>.<default-domain-suffix>",
+            "displayName": "Elasticsearch Custom http Route Hostname",
+            "name": "ES_HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES cluster.name and configure it on Decision Central. Defaults to kie-cluster.",
+            "displayName": "Elasticsearch Cluster name",
+            "name": "APPFORMER_ELASTIC_CLUSTER_NAME",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES node.name property. Defaults to HOSTNAME env value.",
+            "displayName": "Elasticsearch Node name",
+            "name": "ES_NODE_NAME",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES transport.host property. This will set the transport address of the main ES cluster node. Used for communication between nodes in the cluster. Defaults to container address.",
+            "displayName": "Elasticsearch Transport Host",
+            "name": "ES_TRANSPORT_HOST",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used for communication between nodes in the cluster and for communication with Decision Central.",
+            "displayName": "Elasticsearch Transport TCP Port",
+            "name": "APPFORMER_ELASTIC_PORT",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used to interact with the cluster REST API. Defaults to the container IP address.",
+            "displayName": "Elasticsearch HTTP Host",
+            "name": "ES_HTTP_HOST",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Sets the ES http.port property. This will set the http port of the main ES cluster node. Used to interact with the cluster REST API.",
+            "displayName": "Elasticsearch HTTP Port",
+            "name": "ES_HTTP_PORT",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Appends custom jvm configurations/properties to ES jvm.options configuration file.",
+            "displayName": "Elasticsearch Additional Java Options",
+            "example": "-Xms1024m -Xmx1024m",
+            "name": "ES_JAVA_OPTS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Namespace in which the ImageStream for the AMQ Scaledown Controller image is installed. Default is \"openshift\".",
+            "displayName": "AMQ Scaledown Controller ImageStream Namespace",
+            "name": "AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "The name of the image stream to use for the AMQ Scaledown Controller. Default is \"amq-broker-72-scaledown-controller-openshift\".",
+            "displayName": "AMQ Scaledown Controller ImageStream Name",
+            "name": "AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_NAME",
+            "required": true,
+            "value": "amq-broker-72-scaledown-controller-openshift"
+        },
+        {
+            "description": "The AMQ image stream tag. Default is \"1.0\".",
+            "displayName": "AMQ Scaledown Controller ImageStream Tag",
+            "name": "AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_TAG",
+            "required": true,
+            "value": "1.0"
+        },
+        {
+            "description": "AMQ Broker Image",
+            "displayName": "Image",
+            "name": "AMQ_BROKER_IMAGE",
+            "required": true,
+            "value": "registry.redhat.io/amq-broker-7/amq-broker-72-openshift:1.1"
+        },
+        {
+            "description": "User role for standard broker user.",
+            "displayName": "AMQ Role",
+            "name": "AMQ_ROLE",
+            "required": true,
+            "value": "admin"
+        },
+        {
+            "description": "The name of the broker",
+            "displayName": "AMQ Name",
+            "name": "AMQ_NAME",
+            "required": true,
+            "value": "broker"
+        },
+        {
+            "description": "Specifies the maximum amount of memory that message data can consume. If no value is specified, half of the system\u2019s memory is allocated.",
+            "displayName": "AMQ Global Max Size",
+            "example": "10 gb",
+            "name": "AMQ_GLOBAL_MAX_SIZE",
+            "required": false
+        },
+        {
+            "description": "Size of persistent storage for AMQ broker volume.",
+            "displayName": "Broker Volume Capacity",
+            "name": "AMQ_VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
+            "description": "Size of persistent storage for Elasticsearch volume.",
+            "displayName": "Elasticsearch Volume Capacity",
+            "name": "ES_VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
@@ -1157,18 +2101,24 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm72-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm73-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm72-kieserver-openshift"
+            "value": "rhdm73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
+        },
+        {
+            "description": "Maven mirror to use by Decision Central and KIE server.",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
+            "required": false
         },
         {
             "description": "The id to use for the maven repository, if set. Default is generated randomly.",

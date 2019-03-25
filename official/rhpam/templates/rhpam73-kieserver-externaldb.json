@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm72-kieserver"
+        "rhpam": "1.0",
+        "template": "rhpam73-kieserver-externaldb"
     },
-    "message": "A new Decision Manager KIE server application has been created in your project.\nThe username/password for accessing the KIE server\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new Process Automation Manager KIE server application have been created in your project.\nThe username/password for accessing the KIE server\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed KIE Server, for Red Hat Decision Manager 7.2",
+            "description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.3",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.2 managed KIE Server",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.3 managed KIE Server with an external database",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhdm,decisionserver,jboss,kieserver",
+            "tags": "rhpam,processserver,jboss,kieserver,externaldb",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_managed_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to execute Rules on Red Hat Decision Manager KIE server 7.2, including application deployment configuration, secure and insecure http communication.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.3/html/deploying_a_red_hat_process_automation_manager_7.3_managed_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.3, including application deployment configuration, secure and insecure http communication using a external database.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm72-kieserver"
+        "name": "rhpam73-kieserver-externaldb"
     },
     "objects": [
         {
@@ -39,10 +39,10 @@
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-kieserver-view"
+                "name": "${APPLICATION_NAME}-kieserver-edit"
             },
             "roleRef": {
-                "name": "view"
+                "name": "edit"
             },
             "subjects": [
                 {
@@ -79,6 +79,12 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
+                },
+                "sessionAffinity": "ClientIP",
+                "sessionAffinityConfig": {
+                    "clientIP": {
+                        "timeoutSeconds": 3600
+                    }
                 }
             }
         },
@@ -180,7 +186,10 @@
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                 },
                 "strategy": {
-                    "type": "Recreate"
+                    "rollingParams": {
+                        "maxUnavailable": 0
+                    },
+                    "type": "Rolling"
                 },
                 "template": {
                     "metadata": {
@@ -196,10 +205,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
                                     },
@@ -208,8 +213,16 @@
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_MODE",
+                                        "value": "${KIE_SERVER_MODE}"
+                                    },
+                                    {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
+                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -269,23 +282,23 @@
                                     },
                                     {
                                         "name": "MAVEN_REPOS",
-                                        "value": "RHDMCENTR,EXTERNAL"
+                                        "value": "RHPAMCENTR,EXTERNAL"
                                     },
                                     {
-                                        "name": "RHDMCENTR_MAVEN_REPO_SERVICE",
-                                        "value": "${DECISION_CENTRAL_MAVEN_SERVICE}"
+                                        "name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
+                                        "value": "${BUSINESS_CENTRAL_MAVEN_SERVICE}"
                                     },
                                     {
-                                        "name": "RHDMCENTR_MAVEN_REPO_PATH",
+                                        "name": "RHPAMCENTR_MAVEN_REPO_PATH",
                                         "value": "/maven2/"
                                     },
                                     {
-                                        "name": "RHDMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${DECISION_CENTRAL_MAVEN_USERNAME}"
+                                        "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
+                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
                                     },
                                     {
-                                        "name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
-                                        "value": "${DECISION_CENTRAL_MAVEN_PASSWORD}"
+                                        "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
+                                        "value": "${BUSINESS_CENTRAL_MAVEN_PASSWORD}"
                                     },
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_ID",
@@ -304,12 +317,120 @@
                                         "value": "${MAVEN_REPO_PASSWORD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_ROUTER_SERVICE",
+                                        "value": "${KIE_SERVER_ROUTER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_HOST",
+                                        "value": "${KIE_SERVER_ROUTER_HOST}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PORT",
+                                        "value": "${KIE_SERVER_ROUTER_PORT}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_PROTOCOL",
+                                        "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_MGMT_DISABLED",
                                         "value": "${KIE_SERVER_MGMT_DISABLED}"
                                     },
                                     {
                                         "name": "KIE_SERVER_STARTUP_STRATEGY",
                                         "value": "${KIE_SERVER_STARTUP_STRATEGY}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PERSISTENCE_DS",
+                                        "value": "${KIE_SERVER_EXTERNALDB_JNDI}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+                                        "value": "${KIE_SERVER_PERSISTENCE_SCHEMA}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT",
+                                        "value": "${KIE_SERVER_EXTERNALDB_DIALECT}"
+                                    },
+                                    {
+                                        "name": "DATASOURCES",
+                                        "value": "RHPAM"
+                                    },
+                                    {
+                                        "name": "RHPAM_DATABASE",
+                                        "value": "${KIE_SERVER_EXTERNALDB_DB}"
+                                    },
+                                    {
+                                        "name": "RHPAM_SERVICE_HOST",
+                                        "value": "${KIE_SERVER_EXTERNALDB_SERVICE_HOST}"
+                                    },
+                                    {
+                                        "name": "RHPAM_SERVICE_PORT",
+                                        "value": "${KIE_SERVER_EXTERNALDB_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "RHPAM_JNDI",
+                                        "value": "${KIE_SERVER_EXTERNALDB_JNDI}"
+                                    },
+                                    {
+                                        "name": "RHPAM_DRIVER",
+                                        "value": "${KIE_SERVER_EXTERNALDB_DRIVER}"
+                                    },
+                                    {
+                                        "name": "RHPAM_USERNAME",
+                                        "value": "${KIE_SERVER_EXTERNALDB_USER}"
+                                    },
+                                    {
+                                        "name": "RHPAM_PASSWORD",
+                                        "value": "${KIE_SERVER_EXTERNALDB_PWD}"
+                                    },
+                                    {
+                                        "name": "RHPAM_NONXA",
+                                        "value": "${KIE_SERVER_EXTERNALDB_NONXA}"
+                                    },
+                                    {
+                                        "name": "RHPAM_URL",
+                                        "value": "${KIE_SERVER_EXTERNALDB_URL}"
+                                    },
+                                    {
+                                        "name": "RHPAM_XA_CONNECTION_PROPERTY_URL",
+                                        "value": "${KIE_SERVER_EXTERNALDB_URL}"
+                                    },
+                                    {
+                                        "name": "RHPAM_MIN_POOL_SIZE",
+                                        "value": "${KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "RHPAM_MAX_POOL_SIZE",
+                                        "value": "${KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "RHPAM_CONNECTION_CHECKER",
+                                        "value": "${KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER}"
+                                    },
+                                    {
+                                        "name": "RHPAM_EXCEPTION_SORTER",
+                                        "value": "${KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER}"
+                                    },
+                                    {
+                                        "name": "RHPAM_BACKGROUND_VALIDATION",
+                                        "value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION}"
+                                    },
+                                    {
+                                        "name": "RHPAM_VALIDATION_MILLIS",
+                                        "value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS}"
+                                    },
+                                    {
+                                        "name": "RHPAM_DRIVER_TYPE",
+                                        "value": "${KIE_SERVER_EXTERNALDB_DRIVER_TYPE}"
+                                    },
+                                    {
+                                        "name": "RHPAM_JTA",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+                                        "value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -610,24 +731,24 @@
             "required": false
         },
         {
-            "description": "The OpenShift service name for the optional decision central (for maven repo usage), if required",
-            "displayName": "Name of the Maven service hosted by Decision Central",
-            "example": "myapp-rhdmcentr",
-            "name": "DECISION_CENTRAL_MAVEN_SERVICE",
+            "description": "The service name for the optional business central, where it can be reached, to allow service lookups (for maven repo usage), if required",
+            "displayName": "Name of the Maven service hosted by Business Central",
+            "example": "myapp-rhpamcentr",
+            "name": "BUSINESS_CENTRAL_MAVEN_SERVICE",
             "required": false
         },
         {
-            "description": "Username to access the Maven service hosted by Decision Central inside EAP.",
-            "displayName": "Username for the Maven service hosted by Decision Central",
+            "description": "Username to access the Maven service hosted by Business Central inside EAP.",
+            "displayName": "Username for the Maven service hosted by Business Central",
             "example": "mavenUser",
-            "name": "DECISION_CENTRAL_MAVEN_USERNAME",
+            "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
             "required": false
         },
         {
-            "description": "Password to access the Maven service hosted by Decision Central inside EAP.",
-            "displayName": "Password for the Maven service hosted by Decision Central",
+            "description": "Password to access the Maven service hosted by Business Central inside EAP.",
+            "displayName": "Password for the Maven service hosted by Business Central",
             "example": "maven1!",
-            "name": "DECISION_CENTRAL_MAVEN_PASSWORD",
+            "name": "BUSINESS_CENTRAL_MAVEN_PASSWORD",
             "required": false
         },
         {
@@ -668,18 +789,45 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm72-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam73-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm72-kieserver-openshift"
+            "value": "rhpam73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
+        },
+        {
+            "description": "The service name for the optional smart router.",
+            "displayName": "Smart Router Service",
+            "name": "KIE_SERVER_ROUTER_SERVICE",
+            "required": false
+        },
+        {
+            "description": "The host name of the smart router, which can be the service name resolved by OpenShift or a globally resolvable domain name",
+            "displayName": "Smart Router Host",
+            "example": "myapp-smartrouter",
+            "name": "KIE_SERVER_ROUTER_HOST",
+            "required": false
+        },
+        {
+            "description": "Port on which the smart router server listens (router property org.kie.server.router.port)",
+            "displayName": "Smart Router listening port",
+            "example": "9000",
+            "name": "KIE_SERVER_ROUTER_PORT",
+            "required": false
+        },
+        {
+            "description": "KIE server router protocol (Used to build the org.kie.server.router.url.external property)",
+            "displayName": "Smart Router protocol",
+            "example": "http",
+            "name": "KIE_SERVER_ROUTER_PROTOCOL",
+            "required": false
         },
         {
             "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
@@ -701,7 +849,7 @@
             "required": false
         },
         {
-            "description": "The service name for the optional standalone controller. The application uses this service name to register with the controller. (If set, will be used to discover host and port)",
+            "description": "The service name for the optional Business Central Monitoring. The application uses this service name to register with the monitoring console. (If set, will be used to discover host and port)",
             "displayName": "KIE Server Controller Service",
             "name": "KIE_SERVER_CONTROLLER_SERVICE",
             "required": false
@@ -721,18 +869,148 @@
             "required": false
         },
         {
-            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
-            "displayName": "Drools Server Filter Classes",
-            "name": "DROOLS_SERVER_FILTER_CLASSES",
-            "required": false,
-            "value": "true"
+            "description": "Hibernate persistence schema.",
+            "displayName": "KIE Server Persistence Schema",
+            "example": "bd.schema",
+            "name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+            "required": false
         },
         {
-            "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+            "description": "KIE server external database Hibernate dialect",
+            "displayName": "KIE Server External Database Dialect",
+            "example": "org.hibernate.dialect.MySQL57Dialect",
+            "name": "KIE_SERVER_EXTERNALDB_DIALECT",
+            "required": true
+        },
+        {
+            "description": "Sets the datasource service host. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL is set.",
+            "displayName": "Datasource Service Host",
+            "example": "10.10.10.1",
+            "name": "KIE_SERVER_EXTERNALDB_SERVICE_HOST",
+            "required": false
+        },
+        {
+            "description": "Sets the datasource service port. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL is set.",
+            "displayName": "Database service Port",
+            "example": 4321,
+            "name": "KIE_SERVER_EXTERNALDB_SERVICE_PORT",
+            "required": false
+        },
+        {
+            "description": "Sets the datasources type. It can be XA or NONXA. For non XA set it to true. Default value is false.",
+            "displayName": "Non XA datasource",
+            "example": true,
+            "name": "KIE_SERVER_EXTERNALDB_NONXA",
+            "required": false
+        },
+        {
+            "description": "Sets the datasources jdbc connection url. Note that, if you are using PostgreSQL do not use this field, use the SERVICE_HOST and PORT. If using SERVICE_PORT and HOST there is no need to fill this parameter",
+            "displayName": "KIE Server External Database URL",
+            "example": "jdbc:mysql://127.0.0.1:3306/rhpam",
+            "name": "KIE_SERVER_EXTERNALDB_URL",
+            "required": false
+        },
+        {
+            "description": "The predefined driver name, available values are mysql, postgresql or the preferred name for the external driver.",
+            "displayName": "KIE Server External Database Driver",
+            "example": "mysql",
+            "name": "KIE_SERVER_EXTERNALDB_DRIVER",
+            "required": true
+        },
+        {
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS",
+            "displayName": "Database JNDI Name",
+            "name": "KIE_SERVER_EXTERNALDB_JNDI",
+            "required": true,
+            "value": "java:jboss/datasources/jbpmDS"
+        },
+        {
+            "description": "KIE server external database name. Leave blank if the KIE_SERVER_EXTERNALDB_URL is set.",
+            "displayName": "KIE Server External Database name",
+            "example": "rhpam",
+            "name": "KIE_SERVER_EXTERNALDB_DB",
+            "required": false
+        },
+        {
+            "description": "KIE server external database username.",
+            "displayName": "KIE Server External Database User",
+            "example": "rhpam",
+            "name": "KIE_SERVER_EXTERNALDB_USER",
+            "required": true
+        },
+        {
+            "description": "KIE server external database password.",
+            "displayName": "KIE Server External Database Password",
+            "name": "KIE_SERVER_EXTERNALDB_PWD",
+            "required": true
+        },
+        {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "displayName": "Datasource Minimum Pool Size",
+            "name": "KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE",
+            "required": false
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "displayName": "Datasource Maximum Pool Size",
+            "name": "KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE",
+            "required": false
+        },
+        {
+            "description": "An org.jboss.jca.adapters.jdbc.ValidConnectionChecker that provides a SQLException isValidConnection(Connection e) method to validate if a connection is valid.",
+            "displayName": "JDBC Connection Checker class",
+            "example": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker",
+            "name": "KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER",
+            "required": false
+        },
+        {
+            "description": "An org.jboss.jca.adapters.jdbc.ExceptionSorter that provides a boolean isExceptionFatal(SQLException e) method to validate if an exception should be broadcast to all javax.resource.spi.ConnectionEventListener as a connectionErrorOccurred.",
+            "displayName": "JDBC Exception Sorter class",
+            "example": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter",
+            "name": "KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER",
+            "required": false
+        },
+        {
+            "description": "Sets the sql validation method to background-validation, if set to false the validate-on-match method will be used.",
+            "displayName": "JDBC background validation",
+            "example": "true",
+            "name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION",
+            "required": false
+        },
+        {
+            "description": "Defines the interval for the background-validation check for the jdbc connections.",
+            "displayName": "JDBC Background Validation Millis",
+            "example": "10000",
+            "name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS",
+            "required": false
+        },
+        {
+            "description": "KIE server external database driver type, applicable only for DB2, possible values are 4 (default) or 2.",
+            "displayName": "KIE Server External Database Driver Type",
+            "example": "4",
+            "name": "KIE_SERVER_EXTERNALDB_DRIVER_TYPE",
+            "required": false
+        },
+        {
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. (Sets the org.kie.server.mode system property).",
+            "displayName": "KIE Server Mode",
+            "name": "KIE_SERVER_MODE",
+            "required": false,
+            "value": "PRODUCTION"
+        },
+        {
+            "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties).",
             "displayName": "KIE MBeans",
             "name": "KIE_MBEANS",
             "required": false,
             "value": "enabled"
+        },
+        {
+            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property).",
+            "displayName": "Drools Server Filter Classes",
+            "name": "DROOLS_SERVER_FILTER_CLASSES",
+            "required": false,
+            "value": "true"
         },
         {
             "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
@@ -791,6 +1069,13 @@
             "value": "false"
         },
         {
+            "description": "Sets refresh-interval for the EJB timer database data-store service.",
+            "displayName": "Timer service data store refresh interval (in milliseconds)",
+            "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+            "required": false,
+            "value": "30000"
+        },
+        {
             "description": "KIE server Container memory limit",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
@@ -800,19 +1085,19 @@
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
             "displayName": "KIE Server Container Deployment",
-            "example": "rhdm-kieserver-library=org.openshift.quickstarts:rhdm-kieserver-library:1.4.0-SNAPSHOT",
+            "example": "rhpam-kieserver-library=org.openshift.quickstarts:rhpam-kieserver-library:1.4.0-SNAPSHOT",
             "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
             "required": false
         },
         {
-            "description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
+            "description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
             "displayName": "Disable KIE Server Management",
             "example": "true",
             "name": "KIE_SERVER_MGMT_DISABLED",
             "required": false
         },
         {
-            "description": "When set to LocalContainersStartupStrategy, allows KIE server to start up and function with local config, even when a controller is configured and unavailable.",
+            "description": "When set to OpenShiftStartupStrategy, allows KIE server to start up independently used shared state from OpenShift API service; when set to LocalContainersStartupStrategy, allows KIE server to start up and function with local config, even when a controller is configured and unavailable",
             "displayName": "KIE Server Startup Strategy",
             "example": "LocalContainersStartupStrategy",
             "name": "KIE_SERVER_STARTUP_STRATEGY",
