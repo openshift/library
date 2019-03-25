@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam72-prod"
+        "rhpam": "1.0",
+        "template": "rhpam73-prod"
     },
     "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password for accessing Business Central Monitoring is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nBoth sets of KIE servers are configured with the username/password\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.2",
+            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.3",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.2 production environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.3 production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,prod",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.2/html/deploying_a_red_hat_process_automation_manager_7.2_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a HA prouction runtime environment for Red Hat Process Automation Manager 7.2, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.3/html/deploying_a_red_hat_process_automation_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.3, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam72-prod"
+        "name": "rhpam73-prod"
     },
     "objects": [
         {
@@ -758,7 +758,7 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam72-businesscentral-monitoring-openshift",
+                                "image": "rhpam73-businesscentral-monitoring-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "exec": {
@@ -852,7 +852,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam72-businesscentral-monitoring-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam73-businesscentral-monitoring-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -971,7 +971,7 @@
                                         "value": "true"
                                     }
                                 ],
-                                "image": "rhpam72-smartrouter-openshift",
+                                "image": "rhpam73-smartrouter-openshift",
                                 "imagePullPolicy": "Always",
                                 "name": "${APPLICATION_NAME}-smartrouter",
                                 "ports": [
@@ -1025,7 +1025,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam72-smartrouter-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam73-smartrouter-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1072,10 +1072,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
                                     },
@@ -1084,8 +1080,16 @@
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_MODE",
+                                        "value": "${KIE_SERVER_MODE}"
+                                    },
+                                    {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
+                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -1209,7 +1213,7 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-                                        "value": "org.hibernate.dialect.PostgreSQLDialect"
+                                        "value": "${KIE_SERVER_POSTGRESQL_DIALECT}"
                                     },
                                     {
                                         "name": "RHPAM_USERNAME",
@@ -1463,6 +1467,19 @@
                                         "readOnly": true
                                     }
                                 ]
+                            }
+                        ],
+                        "initContainers": [
+                            {
+                                "command": [
+                                    "sh",
+                                    "-c",
+                                    "until nslookup ${APPLICATION_NAME}-postgresql-1 && nc -vz ${APPLICATION_NAME}-postgresql-1 5432; do echo waiting for ${APPLICATION_NAME}-postgresql-1; sleep 2; done;"
+                                ],
+                                "image": "busybox",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "${APPLICATION_NAME}-postgresql-init-1",
+                                "terminationMessagePolicy": "FallbackToLogsOnError"
                             }
                         ],
                         "serviceAccountName": "${APPLICATION_NAME}-kieserver",
@@ -1789,7 +1806,7 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-                                        "value": "org.hibernate.dialect.PostgreSQLDialect"
+                                        "value": "${KIE_SERVER_POSTGRESQL_DIALECT}"
                                     },
                                     {
                                         "name": "RHPAM_USERNAME",
@@ -1806,10 +1823,6 @@
                                     {
                                         "name": "RHPAM_SERVICE_PORT",
                                         "value": "5432"
-                                    },
-                                    {
-                                        "name": "TIMER_SERVICE_DATA_STORE",
-                                        "value": "${APPLICATION_NAME}-postgresql-2"
                                     },
                                     {
                                         "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
@@ -2043,6 +2056,19 @@
                                         "readOnly": true
                                     }
                                 ]
+                            }
+                        ],
+                        "initContainers": [
+                            {
+                                "command": [
+                                    "sh",
+                                    "-c",
+                                    "until nslookup ${APPLICATION_NAME}-postgresql-2 && nc -vz ${APPLICATION_NAME}-postgresql-2 5432; do echo waiting for ${APPLICATION_NAME}-postgresql-2; sleep 2; done;"
+                                ],
+                                "image": "busybox",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "${APPLICATION_NAME}-postgresql-init-2",
+                                "terminationMessagePolicy": "FallbackToLogsOnError"
                             }
                         ],
                         "serviceAccountName": "${APPLICATION_NAME}-kieserver",
@@ -2375,18 +2401,18 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam72-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam73-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam72-kieserver-openshift"
+            "value": "rhpam73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g. <application-name>-smartrouter-<project>.<default-domain-suffix>'",
@@ -2508,11 +2534,18 @@
             "value": "1Gi"
         },
         {
-            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
-            "displayName": "Drools Server Filter Classes",
-            "name": "DROOLS_SERVER_FILTER_CLASSES",
+            "description": "KIE server PostgreSQL Hibernate dialect",
+            "displayName": "KIE Server PostgreSQL Dialect",
+            "name": "KIE_SERVER_POSTGRESQL_DIALECT",
+            "required": true,
+            "value": "org.hibernate.dialect.PostgreSQLDialect"
+        },
+        {
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. (Sets the org.kie.server.mode system property).",
+            "displayName": "KIE Server Mode",
+            "name": "KIE_SERVER_MODE",
             "required": false,
-            "value": "true"
+            "value": "PRODUCTION"
         },
         {
             "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
@@ -2520,6 +2553,13 @@
             "name": "KIE_MBEANS",
             "required": false,
             "value": "enabled"
+        },
+        {
+            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
+            "displayName": "Drools Server Filter Classes",
+            "name": "DROOLS_SERVER_FILTER_CLASSES",
+            "required": false,
+            "value": "true"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhpamcentrmon-<project>.<default-domain-suffix>",

@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm72-prod-immutable-kieserver"
+        "rhdm": "1.0",
+        "template": "rhdm73-prod-immutable-kieserver"
     },
     "message": "A new immutable Red Hat Decision Manager KIE server has been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an immutable KIE server in a production environment, for Red Hat Decision Manager 7.2",
+            "description": "Application template for an immutable KIE server in a production environment, for Red Hat Decision Manager 7.3",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.2 immutable production environment",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.3 immutable production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_7.2_immutable_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.2, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_7.3_immutable_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.3, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm72-prod-immutable-kieserver"
+        "name": "rhdm73-prod-immutable-kieserver"
     },
     "objects": [
         {
@@ -283,10 +283,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
                                     },
@@ -295,8 +291,16 @@
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_MODE",
+                                        "value": "DEVELOPMENT"
+                                    },
+                                    {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
+                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -707,18 +711,18 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm72-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm73-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm72-kieserver-openshift"
+            "value": "rhdm73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
@@ -760,18 +764,18 @@
             "required": false
         },
         {
-            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
-            "displayName": "Drools Server Filter Classes",
-            "name": "DROOLS_SERVER_FILTER_CLASSES",
-            "required": false,
-            "value": "true"
-        },
-        {
             "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
             "displayName": "KIE MBeans",
             "name": "KIE_MBEANS",
             "required": false,
             "value": "enabled"
+        },
+        {
+            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
+            "displayName": "Drools Server Filter Classes",
+            "name": "DROOLS_SERVER_FILTER_CLASSES",
+            "required": false,
+            "value": "true"
         },
         {
             "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
