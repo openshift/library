@@ -261,15 +261,15 @@ Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://
 Path: official/redis/templates/redis-persistent.json  
 # rhdm
 ## imagestreams
-### rhdm72-kieserver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/rhdm72-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/rhdm72-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.2/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform)  
-Path: official/rhdm/imagestreams/rhdm72-kieserver-openshift-rhel7.json  
+### rhdm73-kieserver-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.3.0.GA/rhdm73-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.3.0.GA/rhdm73-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform)  
+Path: official/rhdm/imagestreams/rhdm73-kieserver-openshift-rhel7.json  
 ## templates
-### rhdm72-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/templates/rhdm72-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.2.1.GA/templates/rhdm72-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.2.1.GA/templates/docs/rhdm72-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.2.1.GA/templates/docs/rhdm72-kieserver.adoc)  
-Path: official/rhdm/templates/rhdm72-kieserver.json  
+### rhdm73-kieserver
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.3.0.GA/templates/rhdm73-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.3.0.GA/templates/rhdm73-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.3.0.GA/templates/docs/rhdm73-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.3.0.GA/templates/docs/rhdm73-kieserver.adoc)  
+Path: official/rhdm/templates/rhdm73-kieserver.json  
 # ruby
 ## imagestreams
 ### ruby
