@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "processserver64-basic-s2i",
-        "xpaas": "1.4.16"
+        "xpaas": "1.4.17"
     },
     "message": "A new BPMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
     "metadata": {
@@ -13,10 +13,11 @@
             "openshift.io/display-name": "JBoss BPM Suite 6.4 intelligent process server (no https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "processserver,jboss",
+            "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-bpm-suite/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.16"
+            "version": "1.4.17"
         },
         "name": "processserver64-basic-s2i"
     },
@@ -79,6 +80,9 @@
             "apiVersion": "v1",
             "kind": "BuildConfig",
             "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
@@ -118,7 +122,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-processserver64-openshift:1.3",
+                            "name": "jboss-processserver64-openshift:1.5",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -151,8 +155,12 @@
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
+                "annotations": {
+                    "template.alpha.openshift.io/wait-for-ready": "true"
+                },
                 "labels": {
-                    "application": "${APPLICATION_NAME}"
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}"
                 },
                 "name": "${APPLICATION_NAME}"
             },
@@ -290,13 +298,6 @@
             "required": false
         },
         {
-            "description": "Hibernate persistence dialect.",
-            "displayName": "KIE Server Persistence Dialect",
-            "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-            "required": false,
-            "value": "org.hibernate.dialect.H2Dialect"
-        },
-        {
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
@@ -322,7 +323,7 @@
             "displayName": "Git Reference",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false,
-            "value": "1.3"
+            "value": "1.4"
         },
         {
             "description": "Path within Git project to build; empty for root project directory.",
@@ -385,12 +386,14 @@
         },
         {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
+            "displayName": "List of directories from which archives will be copied into the deployment folder.",
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
         },
         {
             "description": "Container memory limit",
+            "displayName": "Container memory limit",
             "name": "MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"

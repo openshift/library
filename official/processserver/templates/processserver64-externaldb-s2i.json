@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "processserver64-postgresql-persistent-s2i",
+        "template": "processserver64-externaldb-s2i",
         "xpaas": "1.4.17"
     },
-    "message": "A new persistent BPMS application (using PostgreSQL) has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
+    "message": "A new BPMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "An example BPM Suite application with a PostgreSQL database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "description": "An example BPM Suite application with a external database. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
             "iconClass": "icon-processserver",
-            "openshift.io/display-name": "JBoss BPM Suite 6.4 intelligent process server + PostgreSQL (with https)",
+            "openshift.io/display-name": "JBoss BPM Suite 6.4 intelligent process server + External Database",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "processserver,jboss",
+            "tags": "processserver,jboss,hidden",
             "template.openshift.io/bindable": "false",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-bpm-suite/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration, database deployment configuration for PostgreSQL using persistence and secure communication using https.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration, database deployment configuration for external database and secure communication using https.",
             "template.openshift.io/support-url": "https://access.redhat.com",
             "version": "1.4.17"
         },
-        "name": "processserver64-postgresql-persistent-s2i"
+        "name": "processserver64-externaldb-s2i"
     },
     "objects": [
         {
@@ -27,8 +27,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+                    "description": "The web server's http port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -52,8 +51,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+                    "description": "The web server's https port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -69,30 +67,6 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "The database server's port."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-postgresql"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "port": 5432,
-                        "targetPort": 5432
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
                 }
             }
         },
@@ -174,6 +148,21 @@
                         "ref": "${SOURCE_REPOSITORY_REF}",
                         "uri": "${SOURCE_REPOSITORY_URL}"
                     },
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${EXTENSIONS_IMAGE}",
+                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
+                            },
+                            "paths": [
+                                {
+                                    "destinationDir": "./${CONTEXT_DIR}/extensions/extras",
+                                    "sourcePath": "${EXTENSIONS_INSTALL_DIR}/."
+                                }
+                            ]
+                        }
+                    ],
                     "type": "Git"
                 },
                 "strategy": {
@@ -186,6 +175,14 @@
                             {
                                 "name": "MAVEN_MIRROR_URL",
                                 "value": "${MAVEN_MIRROR_URL}"
+                            },
+                            {
+                                "name": "MAVEN_ARGS_APPEND",
+                                "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
+                                "name": "CUSTOM_INSTALL_DIRECTORIES",
+                                "value": "extensions/*"
                             },
                             {
                                 "name": "ARTIFACT_DIR",
@@ -216,6 +213,16 @@
                     },
                     {
                         "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${EXTENSIONS_IMAGE}",
+                                "namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
+                            }
+                        },
                         "type": "ImageChange"
                     },
                     {
@@ -286,68 +293,116 @@
                                         "value": "${KIE_SERVER_PERSISTENCE_DIALECT}"
                                     },
                                     {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB,${APPLICATION_NAME}-postgresql=QUARTZ"
+                                        "name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+                                        "value": "${KIE_SERVER_PERSISTENCE_SCHEMA}"
                                     },
                                     {
-                                        "name": "TX_DATABASE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-postgresql=DB"
+                                        "name": "KIE_SERVER_PERSISTENCE_DS",
+                                        "value": "${BPMS_JNDI}"
                                     },
                                     {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
+                                        "name": "DATASOURCES",
+                                        "value": "BPMS,QUARTZ"
                                     },
                                     {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "BPMS_JNDI",
+                                        "value": "${BPMS_JNDI}"
                                     },
                                     {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "BPMS_SERVICE_HOST",
+                                        "value": "${BPMS_SERVICE_HOST}"
                                     },
                                     {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "name": "BPMS_SERVICE_PORT",
+                                        "value": "${BPMS_SERVICE_PORT}"
                                     },
                                     {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
+                                        "name": "BPMS_NONXA",
+                                        "value": "${BPMS_NONXA}"
                                     },
                                     {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
+                                        "name": "BPMS_URL",
+                                        "value": "${BPMS_CONNECTION_URL}"
                                     },
                                     {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
+                                        "name": "BPMS_XA_CONNECTION_PROPERTY_URL",
+                                        "value": "${BPMS_CONNECTION_URL}"
+                                    },
+                                    {
+                                        "name": "BPMS_DRIVER",
+                                        "value": "${BPMS_DRIVER}"
+                                    },
+                                    {
+                                        "name": "BPMS_DATABASE",
+                                        "value": "${BPMS_DATABASE}"
+                                    },
+                                    {
+                                        "name": "BPMS_USERNAME",
+                                        "value": "${BPMS_DATABASE_USERNAME}"
+                                    },
+                                    {
+                                        "name": "BPMS_PASSWORD",
+                                        "value": "${BPMS_DATABASE_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "BPMS_MIN_POOL_SIZE",
+                                        "value": "${BPMS_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "BPMS_MAX_POOL_SIZE",
+                                        "value": "${BPMS_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "BPMS_CONNECTION_CHECKER",
+                                        "value": "${BPMS_CONNECTION_CHECKER}"
+                                    },
+                                    {
+                                        "name": "BPMS_EXCEPTION_SORTER",
+                                        "value": "${BPMS_EXCEPTION_SORTER}"
+                                    },
+                                    {
+                                        "name": "BPMS_BACKGROUND_VALIDATION",
+                                        "value": "${BPMS_BACKGROUND_VALIDATION}"
+                                    },
+                                    {
+                                        "name": "BPMS_BACKGROUND_VALIDATION_MILLIS",
+                                        "value": "${BPMS_BACKGROUND_VALIDATION_MILLIS}"
                                     },
                                     {
                                         "name": "QUARTZ_JNDI",
-                                        "value": "${DB_JNDI}NotManaged"
+                                        "value": "${BPMS_JNDI}NotManaged"
                                     },
                                     {
-                                        "name": "QUARTZ_USERNAME",
-                                        "value": "${DB_USERNAME}"
+                                        "name": "QUARTZ_SERVICE_HOST",
+                                        "value": "${BPMS_SERVICE_HOST}"
                                     },
                                     {
-                                        "name": "QUARTZ_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
+                                        "name": "QUARTZ_SERVICE_PORT",
+                                        "value": "${BPMS_SERVICE_PORT}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_URL",
+                                        "value": "${BPMS_CONNECTION_URL}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_DRIVER",
+                                        "value": "${BPMS_DRIVER}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_DRIVER_MODULE",
+                                        "value": "${QUARTZ_DRIVER_MODULE}"
                                     },
                                     {
                                         "name": "QUARTZ_DATABASE",
-                                        "value": "${DB_DATABASE}"
+                                        "value": "${BPMS_DATABASE}"
                                     },
                                     {
-                                        "name": "QUARTZ_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
+                                        "name": "QUARTZ_USERNAME",
+                                        "value": "${BPMS_DATABASE_USERNAME}"
                                     },
                                     {
-                                        "name": "QUARTZ_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "QUARTZ_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
+                                        "name": "QUARTZ_PASSWORD",
+                                        "value": "${BPMS_DATABASE_PASSWORD}"
                                     },
                                     {
                                         "name": "QUARTZ_JTA",
@@ -356,6 +411,30 @@
                                     {
                                         "name": "QUARTZ_NONXA",
                                         "value": "true"
+                                    },
+                                    {
+                                        "name": "QUARTZ_MIN_POOL_SIZE",
+                                        "value": "${BPMS_MIN_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_MAX_POOL_SIZE",
+                                        "value": "${BPMS_MAX_POOL_SIZE}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_CONNECTION_CHECKER",
+                                        "value": "${BPMS_CONNECTION_CHECKER}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_EXCEPTION_SORTER",
+                                        "value": "${BPMS_EXCEPTION_SORTER}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_BACKGROUND_VALIDATION",
+                                        "value": "${BPMS_BACKGROUND_VALIDATION}"
+                                    },
+                                    {
+                                        "name": "QUARTZ_BACKGROUND_VALIDATION_MILLIS",
+                                        "value": "${BPMS_BACKGROUND_VALIDATION_MILLIS}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
@@ -469,148 +548,6 @@
                     }
                 ]
             }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "annotations": {
-                    "template.alpha.openshift.io/wait-for-ready": "true"
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
-                },
-                "name": "${APPLICATION_NAME}-postgresql"
-            },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
-                },
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "template": {
-                    "metadata": {
-                        "labels": {
-                            "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql"
-                        },
-                        "name": "${APPLICATION_NAME}-postgresql"
-                    },
-                    "spec": {
-                        "containers": [
-                            {
-                                "env": [
-                                    {
-                                        "name": "POSTGRESQL_USER",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_MAX_CONNECTIONS",
-                                        "value": "${POSTGRESQL_MAX_CONNECTIONS}"
-                                    },
-                                    {
-                                        "name": "POSTGRESQL_SHARED_BUFFERS",
-                                        "value": "${POSTGRESQL_SHARED_BUFFERS}"
-                                    }
-                                ],
-                                "image": "postgresql",
-                                "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "tcpSocket": {
-                                        "port": 5432
-                                    },
-                                    "timeoutSeconds": 1
-                                },
-                                "name": "${APPLICATION_NAME}-postgresql",
-                                "ports": [
-                                    {
-                                        "containerPort": 5432,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/sh",
-                                            "-i",
-                                            "-c",
-                                            "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1
-                                },
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/pgsql/data",
-                                        "name": "${APPLICATION_NAME}-postgresql-pvol"
-                                    }
-                                ]
-                            }
-                        ],
-                        "terminationGracePeriodSeconds": 60,
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-postgresql-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-postgresql-claim"
-                                }
-                            }
-                        ]
-                    }
-                },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-postgresql-claim"
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${VOLUME_CAPACITY}"
-                    }
-                }
-            }
         }
     ],
     "parameters": [
@@ -658,13 +595,6 @@
             "value": "other"
         },
         {
-            "description": "Hibernate persistence dialect.",
-            "displayName": "KIE Server Persistence Dialect",
-            "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-            "required": false,
-            "value": "org.hibernate.dialect.PostgreSQL82Dialect"
-        },
-        {
             "description": "The name for the application.",
             "displayName": "Application Name",
             "name": "APPLICATION_NAME",
@@ -705,27 +635,6 @@
             "name": "CONTEXT_DIR",
             "required": false,
             "value": "processserver/library"
-        },
-        {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS",
-            "displayName": "Database JNDI Name",
-            "name": "DB_JNDI",
-            "required": false,
-            "value": "java:jboss/datasources/ExampleDS"
-        },
-        {
-            "description": "Database name",
-            "displayName": "Database Name",
-            "name": "DB_DATABASE",
-            "required": true,
-            "value": "root"
-        },
-        {
-            "description": "Size of persistent storage for database volume.",
-            "displayName": "Database Volume Capacity",
-            "name": "VOLUME_CAPACITY",
-            "required": true,
-            "value": "1Gi"
         },
         {
             "description": "Queue names",
@@ -770,52 +679,6 @@
             "value": "mykeystorepass"
         },
         {
-            "description": "Database user name",
-            "displayName": "Database Username",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "name": "DB_USERNAME",
-            "required": true
-        },
-        {
-            "description": "Database user password",
-            "displayName": "Database Password",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "name": "DB_PASSWORD",
-            "required": true
-        },
-        {
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "displayName": "Datasource Minimum Pool Size",
-            "name": "DB_MIN_POOL_SIZE",
-            "required": false
-        },
-        {
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "displayName": "Datasource Maximum Pool Size",
-            "name": "DB_MAX_POOL_SIZE",
-            "required": false
-        },
-        {
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "displayName": "Datasource Transaction Isolation",
-            "name": "DB_TX_ISOLATION",
-            "required": false
-        },
-        {
-            "description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions.",
-            "displayName": "PostgreSQL Maximum number of connections",
-            "name": "POSTGRESQL_MAX_CONNECTIONS",
-            "required": false
-        },
-        {
-            "description": "Configures how much memory is dedicated to PostgreSQL for caching data.",
-            "displayName": "PostgreSQL Shared Buffers",
-            "name": "POSTGRESQL_SHARED_BUFFERS",
-            "required": false
-        },
-        {
             "description": "HornetQ cluster admin password",
             "displayName": "HornetQ Password",
             "from": "[a-zA-Z0-9]{8}",
@@ -840,6 +703,153 @@
             "required": true
         },
         {
+            "description": "Hibernate persistence dialect.",
+            "displayName": "KIE Server Persistence Dialect",
+            "example": "org.hibernate.dialect.MySQL5Dialect",
+            "name": "KIE_SERVER_PERSISTENCE_DIALECT",
+            "required": true
+        },
+        {
+            "description": "Hibernate persistence schema.",
+            "displayName": "KIE Server Persistence Schema",
+            "example": "bd.schema",
+            "name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+            "required": false
+        },
+        {
+            "description": "Sets the datasource service port. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the URL or XA_CONNECTION_URL is set",
+            "displayName": "Datasource Service Host",
+            "example": "10.10.10.1",
+            "name": "BPMS_SERVICE_HOST",
+            "required": false
+        },
+        {
+            "description": "Sets the datasource service port. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the URL or XA_CONNECTION_URL is set",
+            "displayName": "Database service Port",
+            "example": "4321",
+            "name": "BPMS_SERVICE_PORT",
+            "required": false
+        },
+        {
+            "description": "Sets the datasources type. It can be XA or NONXA. For non XA set it to true. Default value is false.",
+            "displayName": "Non XA datasource",
+            "example": "true",
+            "name": "BPMS_NONXA",
+            "required": false
+        },
+        {
+            "description": "Sets the datasources jdbc connection url. Note that, if you are using PostgreSQL do not use this field, use the BPMS_SERVICE_HOST and PORT. If using SERVICE_PORT and HOST there is no need to fill this parameter.",
+            "displayName": "Datasource Connection URL",
+            "example": "jdbc:oracle:thin:@10.1.1.1:1521:jbpm",
+            "name": "BPMS_CONNECTION_URL",
+            "required": false
+        },
+        {
+            "description": "The predefined driver name, available values are mysql, postgresql or the preferred name for the external driver. For external driver the value passed here should be the same than EXTERNALDB_DRIVER_NAME.",
+            "displayName": "Database Driver Name",
+            "example": "oracle",
+            "name": "BPMS_DRIVER",
+            "required": true
+        },
+        {
+            "description": "The predefined driver name installed as a deployment, only required for Oracle, for jdbc driver as deployment append the keywork 'deployment' to the jar name, example: 'deployment.ojdbc6.jar'",
+            "displayName": "Quartz Database Driver Module",
+            "example": "oracle",
+            "name": "QUARTZ_DRIVER_MODULE",
+            "required": false
+        },
+        {
+            "description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS",
+            "displayName": "Database JNDI Name",
+            "name": "BPMS_JNDI",
+            "required": true,
+            "value": "java:jboss/datasources/jbpmDS"
+        },
+        {
+            "description": "Database name",
+            "displayName": "Database Name",
+            "example": "root",
+            "name": "BPMS_DATABASE",
+            "required": false
+        },
+        {
+            "description": "Database user name",
+            "displayName": "Database Username",
+            "from": "user[a-zA-Z0-9]{3}",
+            "generate": "expression",
+            "name": "BPMS_DATABASE_USERNAME",
+            "required": true
+        },
+        {
+            "description": "Database user password",
+            "displayName": "Database Password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "BPMS_DATABASE_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
+            "displayName": "Datasource Minimum Pool Size",
+            "name": "BPMS_MIN_POOL_SIZE",
+            "required": false
+        },
+        {
+            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
+            "displayName": "Datasource Maximum Pool Size",
+            "name": "BPMS_MAX_POOL_SIZE",
+            "required": false
+        },
+        {
+            "description": "An org.jboss.jca.adapters.jdbc.ValidConnectionChecker that provides a SQLException isValidConnection(Connection e) method to validate if a connection is valid.",
+            "displayName": "JDBC Connection Checker class",
+            "example": "org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker",
+            "name": "BPMS_CONNECTION_CHECKER",
+            "required": false
+        },
+        {
+            "description": "An org.jboss.jca.adapters.jdbc.ExceptionSorter that provides a boolean isExceptionFatal(SQLException e) method to validate if an exception should be broadcast to all javax.resource.spi.ConnectionEventListener as a connectionErrorOccurred.",
+            "displayName": "JDBC Exception Sorter class",
+            "example": "org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter",
+            "name": "BPMS_EXCEPTION_SORTER",
+            "required": false
+        },
+        {
+            "description": "Sets the sql validation method to background-validation, if set to false the validate-on-match method will be used.",
+            "displayName": "JDBC background validation",
+            "example": "true",
+            "name": "BPMS_BACKGROUND_VALIDATION",
+            "required": false
+        },
+        {
+            "description": "Defines the interval for the background-validation check for the jdbc connections.",
+            "displayName": "JDBC Background Validation Millis",
+            "example": "10000",
+            "name": "BPMS_BACKGROUND_VALIDATION_MILLIS",
+            "required": false
+        },
+        {
+            "description": "ImageStreamTag definition for the image containing the drivers and configuration. i.e custom-driver-image:1.0",
+            "displayName": "Drivers Extension Image",
+            "name": "EXTENSIONS_IMAGE",
+            "required": true,
+            "value": "custom-driver-extension:1.0"
+        },
+        {
+            "description": "Namespace within which the ImageStream definition for the image containing the drivers and configuration is located.",
+            "displayName": "Drivers ImageStream Namespace",
+            "name": "EXTENSIONS_IMAGE_NAMESPACE",
+            "required": true,
+            "value": "openshift"
+        },
+        {
+            "description": "Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.)",
+            "displayName": "Drivers Image Install Directory",
+            "name": "EXTENSIONS_INSTALL_DIR",
+            "required": true,
+            "value": "/extensions"
+        },
+        {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
@@ -854,22 +864,22 @@
             "value": ""
         },
         {
+            "description": "Maven additional arguments to use for S2I builds",
+            "displayName": "Maven Additional Arguments",
+            "name": "MAVEN_ARGS_APPEND",
+            "required": false,
+            "value": ""
+        },
+        {
             "description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied.",
-            "displayName": "List of directories from which archives will be copied into the deployment folder.",
+            "displayName": "Artifact directory",
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
         },
         {
-            "description": "The tag to use for the \"postgresql\" image stream.  Typically, this aligns with the major.minor version of PostgreSQL.",
-            "displayName": "PostgreSQL Image Stream Tag",
-            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
-            "required": true,
-            "value": "9.5"
-        },
-        {
             "description": "Container memory limit",
-            "displayName": "Container memory limit",
+            "displayName": "Container Memory Limit",
             "name": "MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"
