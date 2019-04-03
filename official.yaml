@@ -7,7 +7,9 @@ variables:
   rhsso72_zstream_version: v7.2.6.GA
   rhsso_tpcd_version: sso-cd-dev
   rhsso73_zstream_version: v7.3.0.GA
-  webserver_version: ose-v1.4.16
+  webserver_version: ose-v1.4.17
+  webserver3_version: jws31-v1.4
+  webserver5_version: jws50-v1.2
   ips_ds_version: ose-v1.4.16
   rhdm_version: 7.3.0.GA
   rhpam_version: 7.3.0.GA
@@ -915,78 +917,108 @@ data:
         suffix: rhel7
   webserver:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-basic-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-https-s2i.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-mongodb-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-mongodb-persistent-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-mongodb-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-mongodb-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-mongodb-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-mysql-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-mysql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-mysql-persistent-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-mysql-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-mysql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-mysql-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-postgresql-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-postgresql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-postgresql-persistent-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-postgresql-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-postgresql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-postgresql-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-basic-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-basic-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-https-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-https-s2i.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-mongodb-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-mongodb-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-mongodb-persistent-s2i.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-mongodb-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-mongodb-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-mongodb-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-mysql-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-mysql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-mysql-persistent-s2i.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-mysql-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-mysql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-mysql-s2i.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-postgresql-persistent-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-postgresql-persistent-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-postgresql-persistent-s2i.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-postgresql-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-postgresql-s2i.json
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-basic-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-https-s2i.json
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-mongodb-persistent-s2i.json
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-mongodb-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-mysql-persistent-s2i.json
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-mysql-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-postgresql-persistent-s2i.json
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-postgresql-s2i.json
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws30-tomcat7-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
@@ -1002,15 +1034,21 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat7-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
         suffix: rhel7
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{webserver_version}/webserver/jws31-tomcat8-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
+        suffix: rhel7
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_version}/templates/jws50-tomcat9-image-stream.json
         suffix: rhel7
         tags:
           - ocp
