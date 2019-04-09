@@ -21,6 +21,17 @@ Path: official/cakephp/templates/cakephp-mysql-persistent.json
 Source URL: [https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json](https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json )  
 Docs: [https://github.com/sclorg/dancer-ex/blob/master/README.md](https://github.com/sclorg/dancer-ex/blob/master/README.md)  
 Path: official/dancer/templates/dancer-mysql-persistent.json  
+# decisionserver
+## imagestreams
+### jboss-decisionserver64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
+Path: official/decisionserver/imagestreams/jboss-decisionserver64-openshift-rhel7.json  
+## templates
+### decisionserver64-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc)  
+Path: official/decisionserver/templates/decisionserver64-basic-s2i.json  
 # django
 ## templates
 ### django-psql-persistent
@@ -232,6 +243,17 @@ Path: official/postgresql/imagestreams/postgresql-rhel7.json
 Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json )  
 Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
 Path: official/postgresql/templates/postgresql-persistent.json  
+# processserver
+## imagestreams
+### jboss-processserver64-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/)  
+Path: official/processserver/imagestreams/jboss-processserver64-openshift-rhel7.json  
+## templates
+### processserver64-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc)  
+Path: official/processserver/templates/processserver64-basic-s2i.json  
 # python
 ## imagestreams
 ### python

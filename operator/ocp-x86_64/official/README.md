@@ -117,17 +117,17 @@ Path: official/datavirt/templates/datavirt64-ldap-s2i.json
 # decisionserver
 ## imagestreams
 ### jboss-decisionserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
 Path: official/decisionserver/imagestreams/jboss-decisionserver64-openshift-rhel7.json  
 ## templates
 ### decisionserver64-amq-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-amq-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-amq-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/decisionserver/decisionserver64-amq-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/decisionserver/decisionserver64-amq-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-amq-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-amq-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-amq-s2i.adoc](https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-amq-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-amq-s2i.json  
 ### decisionserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/decisionserver/decisionserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/decisionserver/decisionserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/decisionserver/decisionserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-basic-s2i.json  
 # django
 ## templates
@@ -284,6 +284,9 @@ Path: official/eap-cd/templates/eap-cd-basic-s2i.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-postgresql-persistent-s2i.json )  
 Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD15/docs/templates/eap-cd-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD15/docs/templates/eap-cd-postgresql-persistent-s2i.adoc)  
 Path: official/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json  
+### eap-cd-starter-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-starter-s2i.json )  
+Path: official/eap-cd/templates/eap-cd-starter-s2i.json  
 # fis
 ## imagestreams
 ### fis-java-openshift
@@ -501,42 +504,46 @@ Path: official/postgresql/templates/postgresql-persistent.json
 # processserver
 ## imagestreams
 ### jboss-processserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/)  
 Path: official/processserver/imagestreams/jboss-processserver64-openshift-rhel7.json  
 ## templates
 ### processserver64-amq-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-mysql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-mysql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-mysql-persistent-s2i.json  
 ### processserver64-amq-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-mysql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-mysql-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-mysql-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-mysql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-mysql-s2i.json  
 ### processserver64-amq-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-postgresql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-postgresql-persistent-s2i.json  
 ### processserver64-amq-postgresql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-amq-postgresql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-postgresql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-amq-postgresql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-postgresql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-amq-postgresql-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-postgresql-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-amq-postgresql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-amq-postgresql-s2i.json  
 ### processserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-basic-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc)  
 Path: official/processserver/templates/processserver64-basic-s2i.json  
 ### processserver64-mysql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-mysql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-mysql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-mysql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-mysql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-mysql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-mysql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-mysql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-mysql-persistent-s2i.json  
 ### processserver64-mysql-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-mysql-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-mysql-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-mysql-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-mysql-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-mysql-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-mysql-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-mysql-s2i.adoc)  
 Path: official/processserver/templates/processserver64-mysql-s2i.json  
 ### processserver64-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/processserver/processserver64-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-postgresql-persistent-s2i.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.16/docs/processserver/processserver64-postgresql-persistent-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-postgresql-persistent-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-postgresql-persistent-s2i.adoc)  
 Path: official/processserver/templates/processserver64-postgresql-persistent-s2i.json  
+### processserver64-externaldb-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-externaldb-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-externaldb-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-externaldb-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-externaldb-s2i.adoc)  
+Path: official/processserver/templates/processserver64-externaldb-s2i.json  
 # python
 ## imagestreams
 ### python

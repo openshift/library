@@ -40,6 +40,25 @@
             }
         ]
     },
+    "decisionserver": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/",
+                "name": "jboss-decisionserver64-openshift",
+                "path": "official/decisionserver/imagestreams/jboss-decisionserver64-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Application template for Red Hat JBoss BRMS 6.4 decision server applications built using S2I.",
+                "docs": "https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc",
+                "name": "decisionserver64-basic-s2i",
+                "path": "official/decisionserver/templates/decisionserver64-basic-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json"
+            }
+        ]
+    },
     "django": {
         "templates": [
             {
@@ -390,6 +409,25 @@
                 "name": "postgresql-persistent",
                 "path": "official/postgresql/templates/postgresql-persistent.json",
                 "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json"
+            }
+        ]
+    },
+    "processserver": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/",
+                "name": "jboss-processserver64-openshift",
+                "path": "official/processserver/imagestreams/jboss-processserver64-openshift-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example BPM Suite application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc",
+                "name": "processserver64-basic-s2i",
+                "path": "official/processserver/templates/processserver64-basic-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json"
             }
         ]
     },
