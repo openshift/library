@@ -2,20 +2,23 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "jws31": "1.4",
-        "template": "jws31-tomcat8-mysql-s2i"
+        "jws50": "1.2",
+        "template": "jws50-tomcat9-https-s2i"
     },
-    "message": "A new JWS application for Apache Tomcat 8 (using MySQL) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
+    "message": "A new JWS application for Apache Tomcat 9 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for JWS MySQL applications built using S2I.",
+            "description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
             "iconClass": "icon-rh-tomcat",
-            "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 8 + MySQL (Ephemeral with https)",
+            "openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9 (with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "tomcat,tomcat8,java,jboss,hidden",
-            "version": "1.4"
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.0 Apache Tomcat 9 based application, including a build configuration, application deployment configuration, and secure communication using https.",
+            "template.openshift.io/support-url": "https://access.redhat.com",
+            "version": "1.2"
         },
-        "name": "jws31-tomcat8-mysql-s2i"
+        "name": "jws50-tomcat9-https-s2i"
     },
     "objects": [
         {
@@ -23,8 +26,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's http port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
+                    "description": "The web server's http port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -48,8 +50,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The web server's https port.",
-                    "service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
+                    "description": "The web server's https port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -65,30 +66,6 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
-                    "description": "The database server's port."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-mysql"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "port": 3306,
-                        "targetPort": 3306
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
                 }
             }
         },
@@ -184,7 +161,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-webserver31-tomcat8-openshift:1.4",
+                            "name": "jboss-webserver50-tomcat9-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -242,38 +219,6 @@
                         "containers": [
                             {
                                 "env": [
-                                    {
-                                        "name": "DB_SERVICE_PREFIX_MAPPING",
-                                        "value": "${APPLICATION_NAME}-mysql=DB"
-                                    },
-                                    {
-                                        "name": "DB_JNDI",
-                                        "value": "${DB_JNDI}"
-                                    },
-                                    {
-                                        "name": "DB_USERNAME",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "DB_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "DB_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "DB_MIN_POOL_SIZE",
-                                        "value": "${DB_MIN_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_MAX_POOL_SIZE",
-                                        "value": "${DB_MAX_POOL_SIZE}"
-                                    },
-                                    {
-                                        "name": "DB_TX_ISOLATION",
-                                        "value": "${DB_TX_ISOLATION}"
-                                    },
                                     {
                                         "name": "JWS_HTTPS_CERTIFICATE_DIR",
                                         "value": "/etc/jws-secret-volume"
@@ -367,135 +312,6 @@
                     }
                 ]
             }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-mysql"
-            },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-mysql"
-                },
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "template": {
-                    "metadata": {
-                        "labels": {
-                            "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-mysql"
-                        },
-                        "name": "${APPLICATION_NAME}-mysql"
-                    },
-                    "spec": {
-                        "containers": [
-                            {
-                                "env": [
-                                    {
-                                        "name": "MYSQL_USER",
-                                        "value": "${DB_USERNAME}"
-                                    },
-                                    {
-                                        "name": "MYSQL_PASSWORD",
-                                        "value": "${DB_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "MYSQL_DATABASE",
-                                        "value": "${DB_DATABASE}"
-                                    },
-                                    {
-                                        "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-                                        "value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
-                                    },
-                                    {
-                                        "name": "MYSQL_MAX_CONNECTIONS",
-                                        "value": "${MYSQL_MAX_CONNECTIONS}"
-                                    },
-                                    {
-                                        "name": "MYSQL_FT_MIN_WORD_LEN",
-                                        "value": "${MYSQL_FT_MIN_WORD_LEN}"
-                                    },
-                                    {
-                                        "name": "MYSQL_FT_MAX_WORD_LEN",
-                                        "value": "${MYSQL_FT_MAX_WORD_LEN}"
-                                    },
-                                    {
-                                        "name": "MYSQL_AIO",
-                                        "value": "${MYSQL_AIO}"
-                                    }
-                                ],
-                                "image": "mysql",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 30,
-                                    "tcpSocket": {
-                                        "port": 3306
-                                    },
-                                    "timeoutSeconds": 1
-                                },
-                                "name": "${APPLICATION_NAME}-mysql",
-                                "ports": [
-                                    {
-                                        "containerPort": 3306,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/sh",
-                                            "-i",
-                                            "-c",
-                                            "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1
-                                },
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/var/lib/mysql/data",
-                                        "name": "${APPLICATION_NAME}-data"
-                                    }
-                                ]
-                            }
-                        ],
-                        "terminationGracePeriodSeconds": 60,
-                        "volumes": [
-                            {
-                                "emptyDir": {
-                                    "medium": ""
-                                },
-                                "name": "${APPLICATION_NAME}-data"
-                            }
-                        ]
-                    }
-                },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-mysql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "mysql:${MYSQL_IMAGE_STREAM_TAG}",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
-            }
         }
     ],
     "parameters": [
@@ -525,7 +341,7 @@
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
             "required": true,
-            "value": "https://github.com/jboss-openshift/openshift-quickstarts"
+            "value": "https://github.com/jboss-openshift/openshift-quickstarts.git"
         },
         {
             "description": "Git branch/tag reference",
@@ -539,21 +355,7 @@
             "displayName": "Context Directory",
             "name": "CONTEXT_DIR",
             "required": false,
-            "value": "todolist/todolist-jdbc"
-        },
-        {
-            "description": "Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/mysqlDS",
-            "displayName": "Database JNDI Name",
-            "name": "DB_JNDI",
-            "required": false,
-            "value": "jboss/datasources/defaultDS"
-        },
-        {
-            "description": "Database name",
-            "displayName": "Database Name",
-            "name": "DB_DATABASE",
-            "required": true,
-            "value": "root"
+            "value": "tomcat-websocket-chat"
         },
         {
             "description": "The name of the secret containing the certificate files",
@@ -582,70 +384,6 @@
             "name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
             "required": false,
             "value": ""
-        },
-        {
-            "description": "Sets xa-pool/min-pool-size for the configured datasource.",
-            "displayName": "Datasource Minimum Pool Size",
-            "name": "DB_MIN_POOL_SIZE",
-            "required": false
-        },
-        {
-            "description": "Sets xa-pool/max-pool-size for the configured datasource.",
-            "displayName": "Datasource Maximum Pool Size",
-            "name": "DB_MAX_POOL_SIZE",
-            "required": false
-        },
-        {
-            "description": "Sets transaction-isolation for the configured datasource.",
-            "displayName": "Datasource Transaction Isolation",
-            "name": "DB_TX_ISOLATION",
-            "required": false
-        },
-        {
-            "description": "Sets how the table names are stored and compared.",
-            "displayName": "MySQL Lower Case Table Names",
-            "name": "MYSQL_LOWER_CASE_TABLE_NAMES",
-            "required": false
-        },
-        {
-            "description": "The maximum permitted number of simultaneous client connections.",
-            "displayName": "MySQL Maximum number of connections",
-            "name": "MYSQL_MAX_CONNECTIONS",
-            "required": false
-        },
-        {
-            "description": "The minimum length of the word to be included in a FULLTEXT index.",
-            "displayName": "MySQL FullText Minimum Word Length",
-            "name": "MYSQL_FT_MIN_WORD_LEN",
-            "required": false
-        },
-        {
-            "description": "The maximum length of the word to be included in a FULLTEXT index.",
-            "displayName": "MySQL FullText Maximum Word Length",
-            "name": "MYSQL_FT_MAX_WORD_LEN",
-            "required": false
-        },
-        {
-            "description": "Controls the innodb_use_native_aio setting value if the native AIO is broken.",
-            "displayName": "MySQL AIO",
-            "name": "MYSQL_AIO",
-            "required": false
-        },
-        {
-            "description": "Database user name",
-            "displayName": "Database Username",
-            "from": "user[a-zA-Z0-9]{3}",
-            "generate": "expression",
-            "name": "DB_USERNAME",
-            "required": true
-        },
-        {
-            "description": "Database user password",
-            "displayName": "Database Password",
-            "from": "[a-zA-Z0-9]{8}",
-            "generate": "expression",
-            "name": "DB_PASSWORD",
-            "required": true
         },
         {
             "description": "JWS Admin User",
@@ -698,13 +436,6 @@
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
-        },
-        {
-            "description": "The tag to use for the \"mysql\" image stream.  Typically, this aligns with the major.minor version of MySQL.",
-            "displayName": "MySQL Image Stream Tag",
-            "name": "MYSQL_IMAGE_STREAM_TAG",
-            "required": true,
-            "value": "5.7"
         }
     ]
 }
