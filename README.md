@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/openshift/library.svg?branch=master)](https://travis-ci.org/openshift/library)
 [![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=update_openshift_library)](https://ci.openshift.redhat.com/jenkins/job/update_openshift_library/)
 
-This repository contains a curated set of image streams and templates for OpenShift 3. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)** and **[templates](https://docs.okd.io/latest/dev_guide/templates.html)**.
+This repository contains a curated set of image streams and templates for OpenShift. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)** and **[templates](https://docs.okd.io/latest/dev_guide/templates.html)**.
 
 
 - [Overview](#overview)
@@ -64,6 +64,13 @@ The `make verify` command runs the following checks:
  - verifies that make import has been run
 
 ## Contributing
+
+**CODE FREEZE ANNOUNCEMENT**
+
+Beginning April 12th, 2019 at 21:00 UTC no new `ImageStreams`, `ImageStreamTags`, or `Templates` will be added to openshift/library in preparation of the OpenShift 4.1 release.
+Only fixes related to specific images or templates will be accepted afterwards.
+
+This code freeze will be lifted with the OpenShift 4.1 GA launch.
 
 ### Adding Your Template or ImageStream
 
