@@ -2,8 +2,8 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "jws31-tomcat7-postgresql-s2i",
-        "xpaas": "1.4.16"
+        "jws31": "1.4",
+        "template": "jws31-tomcat7-postgresql-s2i"
     },
     "message": "A new JWS application for Apache Tomcat 7 (using PostgreSQL) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the PostgreSQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
     "metadata": {
@@ -13,7 +13,7 @@
             "openshift.io/display-name": "JBoss Web Server 3.1 Apache Tomcat 7 + PostgreSQL (Ephemeral with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "tomcat,tomcat7,java,jboss,hidden",
-            "version": "1.4.16"
+            "version": "1.4"
         },
         "name": "jws31-tomcat7-postgresql-s2i"
     },
@@ -184,7 +184,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-webserver31-tomcat7-openshift:1.2",
+                            "name": "jboss-webserver31-tomcat7-openshift:1.4",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
