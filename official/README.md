@@ -530,8 +530,8 @@ Path: official/nginx/templates/nginx-example.json
 # nodejs
 ## imagestreams
 ### nodejs
-Source URL: [https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json )  
-Docs: [https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md](https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json )  
+Docs: [https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md)  
 Path: official/nodejs/imagestreams/nodejs-rhel7.json  
 ## templates
 ### nodejs-example
@@ -850,6 +850,17 @@ Path: official/sso/templates/sso73-x509-mysql-persistent.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.0.GA/templates/sso73-x509-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.0.GA/templates/sso73-x509-postgresql-persistent.json )  
 Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.0.GA/docs/templates/sso73-x509-postgresql-persistent.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.0.GA/docs/templates/sso73-x509-postgresql-persistent.adoc)  
 Path: official/sso/templates/sso73-x509-postgresql-persistent.json  
+# webapp
+## imagestreams
+### webapp
+Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/webapp-rhel7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/webapp-rhel7.json )  
+Docs: [https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md)  
+Path: official/webapp/imagestreams/webapp-rhel7.json  
+## templates
+### react-web-app-example
+Source URL: [https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml](https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml )  
+Docs: [https://github.com/nodeshift-starters/react-web-app/blob/master/README.md](https://github.com/nodeshift-starters/react-web-app/blob/master/README.md)  
+Path: official/webapp/templates/react-web-app-example.json  
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift
