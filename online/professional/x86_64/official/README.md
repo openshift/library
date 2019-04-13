@@ -287,6 +287,12 @@ Path: official/mariadb/imagestreams/mariadb-rhel7.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/templates/mariadb-persistent.json  
+# modern-webapp
+## imagestreams
+### modern-webapp
+Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/modern-webapp-rhel7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/modern-webapp-rhel7.json )  
+Docs: [https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md)  
+Path: official/modern-webapp/imagestreams/modern-webapp-rhel7.json  
 # mongodb
 ## imagestreams
 ### mongodb
@@ -323,8 +329,8 @@ Path: official/nginx/templates/nginx-example.json
 # nodejs
 ## imagestreams
 ### nodejs
-Source URL: [https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/bucharest-gold/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json )  
-Docs: [https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md](https://github.com/bucharest-gold/centos7-s2i-nodejs/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-rhel7.json )  
+Docs: [https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md)  
 Path: official/nodejs/imagestreams/nodejs-rhel7.json  
 ## templates
 ### nodejs-mongo-persistent

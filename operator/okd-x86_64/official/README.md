@@ -64,6 +64,12 @@ Path: official/mariadb/templates/mariadb-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/templates/mariadb-persistent.json  
+# modern-webapp
+## templates
+### react-web-app-example
+Source URL: [https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml](https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml )  
+Docs: [https://github.com/nodeshift-starters/react-web-app/blob/master/README.md](https://github.com/nodeshift-starters/react-web-app/blob/master/README.md)  
+Path: official/modern-webapp/templates/react-web-app-example.json  
 # mongodb
 ## templates
 ### mongodb-ephemeral
