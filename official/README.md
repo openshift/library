@@ -12,29 +12,29 @@ Path: official/3scale/templates/3scale-gateway.json
 # amq
 ## imagestreams
 ### jboss-amq-62
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq62-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq62-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq62-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/)  
 Path: official/amq/imagestreams/jboss-amq-62-rhel7.json  
 ### jboss-amq-63
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/)  
 Path: official/amq/imagestreams/jboss-amq-63-rhel7.json  
 ## templates
 ### amq63-basic
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-basic.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-basic.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-basic.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-basic.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-basic.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-basic.adoc)  
 Path: official/amq/templates/amq63-basic.json  
 ### amq63-persistent-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-persistent-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-persistent-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-persistent-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-persistent-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-persistent-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-persistent-ssl.adoc)  
 Path: official/amq/templates/amq63-persistent-ssl.json  
 ### amq63-persistent
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-persistent.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-persistent.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-persistent.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-persistent.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-persistent.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-persistent.adoc)  
 Path: official/amq/templates/amq63-persistent.json  
 ### amq63-ssl
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.18/amq/amq63-ssl.json )  
-Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.18/docs/amq/amq63-ssl.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-ssl.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/amq/amq63-ssl.json )  
+Docs: [https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-ssl.adoc](https://github.com/jboss-openshift/application-templates/blob/ose-v1.4.12/docs/amq/amq63-ssl.adoc)  
 Path: official/amq/templates/amq63-ssl.json  
 # cakephp
 ## templates
