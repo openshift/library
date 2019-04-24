@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "amq63-persistent",
-        "xpaas": "1.4.12"
+        "xpaas": "1.4.17"
     },
     "message": "A new persistent messaging service has been created in your project. It will handle the protocol(s) \"${MQ_PROTOCOL}\". The username/password for accessing the service is ${MQ_USERNAME}/${MQ_PASSWORD}.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-amq/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss A-MQ 6.3 based application, including a deployment configuration and using persistence.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.12"
+            "version": "1.4.17"
         },
         "name": "amq63-persistent"
     },
@@ -296,7 +296,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-63:1.3",
+                                "name": "jboss-amq-63:1.4",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -404,7 +404,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "jboss-amq-63:1.3",
+                                "name": "jboss-amq-63:1.4",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
