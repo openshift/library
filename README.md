@@ -65,13 +65,6 @@ The `make verify` command runs the following checks:
 
 ## Contributing
 
-**CODE FREEZE ANNOUNCEMENT**
-
-Beginning April 12th, 2019 at 21:00 UTC no new `ImageStreams`, `ImageStreamTags`, or `Templates` will be added to openshift/library in preparation of the OpenShift 4.1 release.
-Only fixes related to specific images or templates will be accepted afterwards.
-
-This code freeze will be lifted with the OpenShift 4.1 GA launch.
-
 ### Adding Your Template or ImageStream
 
 - Fork the [openshift/library](https://github.com/openshift/library) repository on github
