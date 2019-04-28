@@ -2,21 +2,21 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhsso": "7.4.0.CD05",
+        "rhsso": "6",
         "template": "sso-cd-x509-https"
     },
     "message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets.",
     "metadata": {
         "annotations": {
-            "description": "An example application based on RH-SSO 7.4 CD Tech Preview image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/docs.",
+            "description": "An example application based on RH-SSO CD 6 Tech Preview image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/docs.",
             "iconClass": "icon-sso",
-            "openshift.io/display-name": "Red Hat Single Sign-On 7.4 CD Tech Preview (Ephemeral)",
+            "openshift.io/display-name": "Red Hat Single Sign-On CD 6 Tech Preview (Ephemeral)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "sso,keycloak,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 server based deployment, securing RH-SSO communication using re-encrypt TLS.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On CD 6 server based deployment, securing RH-SSO communication using re-encrypt TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.4.0.CD05"
+            "version": "6"
         },
         "name": "sso-cd-x509-https"
     },
@@ -270,7 +270,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "redhat-sso-cd-openshift:5.0",
+                                "name": "redhat-sso-cd-openshift:6",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
