@@ -368,18 +368,22 @@ Path: official/httpd/templates/httpd-example.json
 # java
 ## imagestreams
 ### redhat-openjdk18-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7.json  
+### openjdk-11-rhel7
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-11-rhel7-rhel7.json  
 ### java
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7.json  
 ## templates
-### openjdk18-web-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.16/openjdk/openjdk18-web-basic-s2i.json )  
+### openjdk-web-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/openjdk-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ose-v1.4.17/templates/openjdk-web-basic-s2i.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/templates/openjdk18-web-basic-s2i.json  
+Path: official/java/templates/openjdk-web-basic-s2i.json  
 # jenkins
 ## imagestreams
 ### jenkins

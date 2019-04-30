@@ -2,23 +2,23 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "openjdk18-web-basic-s2i",
-        "xpaas": "1.4.16"
+        "template": "openjdk-web-basic-s2i",
+        "xpaas": "1.4.17"
     },
     "message": "A new java application has been created in your project.",
     "metadata": {
         "annotations": {
-            "description": "An example Java application using OpenJDK 8. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+            "description": "An example Java application using OpenJDK. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
             "iconClass": "icon-rh-openjdk",
-            "openshift.io/display-name": "OpenJDK 8",
+            "openshift.io/display-name": "OpenJDK",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "java",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat OpenJDK Java 8 based application.",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat OpenJDK Java based application.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.4.16"
+            "version": "1.4.17"
         },
-        "name": "openjdk18-web-basic-s2i"
+        "name": "openjdk-web-basic-s2i"
     },
     "objects": [
         {
@@ -104,7 +104,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "java:8",
+                            "name": "java:${JAVA_IMAGE_STREAM_TAG}",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -217,11 +217,11 @@
             "value": "openjdk-app"
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
-            "displayName": "Custom http Route Hostname",
-            "name": "HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
+            "description": "The version of Java to use, e.g. 8, 11, latest. (Corresponds to the 'java' ImageStream tag.)",
+            "displayName": "Java Version",
+            "name": "JAVA_IMAGE_STREAM_TAG",
+            "required": true,
+            "value": "latest"
         },
         {
             "description": "Git source URI for application",
@@ -243,6 +243,13 @@
             "name": "CONTEXT_DIR",
             "required": false,
             "value": "undertow-servlet"
+        },
+        {
+            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-<project>.<default-domain-suffix>",
+            "displayName": "Custom http Route Hostname",
+            "name": "HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
         },
         {
             "description": "GitHub trigger secret",
