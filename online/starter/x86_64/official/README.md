@@ -104,18 +104,18 @@ Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse-apicurito-generator-rhel7.json  
 ## templates
-### s2i-fuse72-spring-boot-camel
+### s2i-fuse73-spring-boot-camel
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
-Path: official/fis/templates/s2i-fuse72-spring-boot-camel.json  
-### s2i-fuse72-spring-boot-camel-xml
+Path: official/fis/templates/s2i-fuse73-spring-boot-camel.json  
+### s2i-fuse73-spring-boot-camel-xml
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
-Path: official/fis/templates/s2i-fuse72-spring-boot-camel-xml.json  
-### fuse72-console
+Path: official/fis/templates/s2i-fuse73-spring-boot-camel-xml.json  
+### fuse73-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/)  
-Path: official/fis/templates/fuse72-console.json  
+Path: official/fis/templates/fuse73-console.json  
 ### apicurito
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/)  

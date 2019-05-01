@@ -5,15 +5,15 @@
         "annotations": {
             "description": "The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.",
             "iconClass": "icon-rh-integration",
-            "openshift.io/display-name": "Red Hat Fuse 7.2 Console",
+            "openshift.io/display-name": "Red Hat Fuse 7.3 Console",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "hawtio,java,fis,jboss-fuse",
-            "version": "1.2"
+            "version": "1.3"
         },
         "labels": {
             "template": "fuse-console"
         },
-        "name": "fuse72-console"
+        "name": "fuse73-console"
     },
     "objects": [
         {
@@ -248,14 +248,14 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "fuse72-console"
+            "value": "fuse73-console"
         },
         {
             "description": "The application version.",
             "displayName": "Application Version",
             "name": "APP_VERSION",
             "required": true,
-            "value": "1.2"
+            "value": "1.3"
         },
         {
             "description": "Namespace in which the Fuse ImageStreams are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
@@ -294,7 +294,7 @@
             "displayName": "Memory limit",
             "name": "MEMORY_LIMIT",
             "required": true,
-            "value": "200Mi"
+            "value": "32Mi"
         }
     ]
 }
