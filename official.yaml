@@ -17,6 +17,7 @@ variables:
   datagrid_version: 7.3-v1.0
   cacheservice_version: 1.0.TP
   rhamp_version: master
+  fuse_version: "7.3"
 data:
   ruby:
     imagestreams:
@@ -1095,32 +1096,32 @@ data:
   fis:
     templates:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/
+        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/fuse_on_openshift_guide/
         tags:
           - ocp
           - online-starter
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/
+        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/fuse_on_openshift_guide/
         tags:
           - ocp
           - online-starter
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/
+        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/managing_fuse/
         tags:
           - ocp
           - online-starter
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/
+        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/designing_apis_with_apicurito/
         tags:
           - ocp
           - online-starter
           - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/
+        docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/fuse_on_openshift_guide/
         suffix: rhel7
         tags:
           - ocp

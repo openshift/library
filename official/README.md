@@ -359,68 +359,68 @@ Path: official/eap-cd/templates/eap-cd-starter-s2i.json
 ## imagestreams
 ### fis-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fis-java-openshift-rhel7.json  
 ### jboss-fuse70-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-java-openshift-rhel7.json  
 ### fis-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fis-karaf-openshift-rhel7.json  
 ### jboss-fuse70-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-karaf-openshift-rhel7.json  
 ### jboss-fuse70-eap-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-eap-openshift-rhel7.json  
 ### jboss-fuse70-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/jboss-fuse70-console-rhel7.json  
 ### fuse7-java-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-java-openshift-rhel7.json  
 ### fuse7-karaf-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-karaf-openshift-rhel7.json  
 ### fuse7-eap-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-eap-openshift-rhel7.json  
 ### fuse7-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse7-console-rhel7.json  
 ### apicurito-ui
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/apicurito-ui-rhel7.json  
 ### fuse-apicurito-generator
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/imagestreams/fuse-apicurito-generator-rhel7.json  
 ## templates
 ### s2i-fuse73-spring-boot-camel
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse73-spring-boot-camel.json  
 ### s2i-fuse73-spring-boot-camel-xml
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/fuse_on_openshift_guide/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse73-spring-boot-camel-xml.json  
 ### fuse73-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/managing_fuse/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/managing_fuse/)  
 Path: official/fis/templates/fuse73-console.json  
 ### apicurito
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.2/html/designing_apis_with_apicurito/)  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/designing_apis_with_apicurito/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/designing_apis_with_apicurito/)  
 Path: official/fis/templates/apicurito.json  
 # httpd
 ## imagestreams
