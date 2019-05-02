@@ -414,6 +414,10 @@ Path: official/fis/templates/s2i-fuse73-spring-boot-camel.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-xml-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
 Path: official/fis/templates/s2i-fuse73-spring-boot-camel-xml.json  
+### s2i-fuse73-spring-boot-camel-rest-3scale
+Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-rest-3scale-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-rest-3scale-template.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/fuse_on_openshift_guide/)  
+Path: official/fis/templates/s2i-fuse73-spring-boot-camel-rest-3scale.json  
 ### fuse73-console
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/managing_fuse/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/managing_fuse/)  
