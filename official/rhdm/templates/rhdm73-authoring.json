@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.0",
+        "rhdm": "1.1",
         "template": "rhdm73-authoring"
     },
     "message": "A new persistent Decision Manager application has been created in your project.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${DECISION_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${DECISION_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
@@ -17,7 +17,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.3, including application deployment configuration, secure and insecure http communication and a persistent volume to store data that needs to survive to a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhdm73-authoring"
     },
@@ -687,8 +687,16 @@
                                         "value": "${MAVEN_MIRROR_URL}"
                                     },
                                     {
+                                        "name": "MAVEN_MIRROR_OF",
+                                        "value": "${MAVEN_MIRROR_OF}"
+                                    },
+                                    {
                                         "name": "MAVEN_REPOS",
                                         "value": "RHDMCENTR,EXTERNAL"
+                                    },
+                                    {
+                                        "name": "RHDMCENTR_MAVEN_REPO_ID",
+                                        "value": "repo-rhdmcentr"
                                     },
                                     {
                                         "name": "RHDMCENTR_MAVEN_REPO_SERVICE",
@@ -999,14 +1007,14 @@
             "value": "myapp"
         },
         {
-            "description": "KIE administrator username",
+            "description": "KIE administrator username.",
             "displayName": "KIE Admin User",
             "name": "KIE_ADMIN_USER",
             "required": false,
             "value": "adminUser"
         },
         {
-            "description": "KIE administrator password",
+            "description": "KIE administrator password.",
             "displayName": "KIE Admin Password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
@@ -1014,14 +1022,14 @@
             "required": false
         },
         {
-            "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
+            "description": "KIE server controller username. (Sets the org.kie.server.controller.user system property)",
             "displayName": "KIE Server Controller User",
             "name": "KIE_SERVER_CONTROLLER_USER",
             "required": false,
             "value": "controllerUser"
         },
         {
-            "description": "KIE server controller password (Sets the org.kie.server.controller.pwd system property)",
+            "description": "KIE server controller password. (Sets the org.kie.server.controller.pwd system property)",
             "displayName": "KIE Server Controller Password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
@@ -1029,20 +1037,20 @@
             "required": false
         },
         {
-            "description": "KIE server controller token for bearer authentication (Sets the org.kie.server.controller.token system property)",
+            "description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)",
             "displayName": "KIE Server Controller Token",
             "name": "KIE_SERVER_CONTROLLER_TOKEN",
             "required": false
         },
         {
-            "description": "KIE server username (Sets the org.kie.server.user system property)",
+            "description": "KIE server username. (Sets the org.kie.server.user system property)",
             "displayName": "KIE Server User",
             "name": "KIE_SERVER_USER",
             "required": false,
             "value": "executionUser"
         },
         {
-            "description": "KIE server password (Sets the org.kie.server.pwd system property)",
+            "description": "KIE server password. (Sets the org.kie.server.pwd system property)",
             "displayName": "KIE Server Password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
@@ -1050,14 +1058,14 @@
             "required": false
         },
         {
-            "description": "KIE server bypass auth user (Sets the org.kie.server.bypass.auth.user system property)",
+            "description": "Allows the KIE server to bypass the authenticated user for task related operations e.g. queries. (Sets the org.kie.server.bypass.auth.user system property)",
             "displayName": "KIE Server Bypass Auth User",
             "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,
             "value": "false"
         },
         {
-            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. (Sets the org.kie.server.mode system property).",
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
             "displayName": "KIE Server Mode",
             "name": "KIE_SERVER_MODE",
             "required": false,
@@ -1078,91 +1086,91 @@
             "value": "true"
         },
         {
-            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route for Decision Central. Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
             "displayName": "Decision Central Custom http Route Hostname",
             "name": "DECISION_CENTRAL_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route for Decision Central.  Leave blank for default hostname, e.g.: secure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>",
             "displayName": "Decision Central Custom https Route Hostname",
             "name": "DECISION_CENTRAL_HOSTNAME_HTTPS",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route for KIE Server. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-<application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route for KIE Server.  Leave blank for default hostname, e.g.: secure-<application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom https Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTPS",
             "required": false,
             "value": ""
         },
         {
-            "description": "If true, will use secure-APPLICATION_NAME-kieserver vs. APPLICATION_NAME-kieserver as the route name.",
+            "description": "If true, the KIE server will use secure-<application-name>-kieserver vs. <application-name>-kieserver as the KIE server route endpoint for Decision Central to report. Therefore, Decision Central displays the secure link to the user.",
             "displayName": "Use the secure route name to link application requests to KIE_SERVER_HOSTNAME_HTTPS vs KIE_SERVER_HOSTNAME_HTTP.",
             "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
             "required": false,
             "value": "false"
         },
         {
-            "description": "The name of the secret containing the keystore file",
+            "description": "The name of the secret containing the keystore file for Decision Central.",
             "displayName": "Decision Central Server Keystore Secret Name",
             "example": "decisioncentral-app-secret",
             "name": "DECISION_CENTRAL_HTTPS_SECRET",
             "required": true
         },
         {
-            "description": "The name of the keystore file within the secret",
+            "description": "The name of the keystore file within the secret.",
             "displayName": "Decision Central Server Keystore Filename",
             "name": "DECISION_CENTRAL_HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
         },
         {
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate.",
             "displayName": "Decision Central Server Certificate Name",
             "name": "DECISION_CENTRAL_HTTPS_NAME",
             "required": false,
             "value": "jboss"
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate.",
             "displayName": "Decision Central Server Keystore Password",
             "name": "DECISION_CENTRAL_HTTPS_PASSWORD",
             "required": false,
             "value": "mykeystorepass"
         },
         {
-            "description": "The name of the secret containing the keystore file",
+            "description": "The name of the secret containing the keystore file.",
             "displayName": "KIE Server Keystore Secret Name",
             "example": "kieserver-app-secret",
             "name": "KIE_SERVER_HTTPS_SECRET",
             "required": true
         },
         {
-            "description": "The name of the keystore file within the secret",
+            "description": "The name of the keystore file within the secret.",
             "displayName": "KIE Server Keystore Filename",
             "name": "KIE_SERVER_HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
         },
         {
-            "description": "The name associated with the server certificate",
+            "description": "The name associated with the server certificate.",
             "displayName": "KIE Server Certificate Name",
             "name": "KIE_SERVER_HTTPS_NAME",
             "required": false,
             "value": "jboss"
         },
         {
-            "description": "The password for the keystore and certificate",
+            "description": "The password for the keystore and certificate.",
             "displayName": "KIE Server Keystore Password",
             "name": "KIE_SERVER_HTTPS_PASSWORD",
             "required": false,
@@ -1183,24 +1191,31 @@
             "value": "rhdm73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
-            "description": "Maven mirror to use by Decision Central and KIE server.",
+            "description": "Maven mirror that Decision Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services.",
             "displayName": "Maven mirror URL",
             "name": "MAVEN_MIRROR_URL",
             "required": false
         },
         {
-            "description": "The id to use for the maven repository, if set. Default is generated randomly.",
+            "description": "Maven mirror configuration for KIE server.",
+            "displayName": "Maven mirror of",
+            "name": "MAVEN_MIRROR_OF",
+            "required": false,
+            "value": "external:*,!repo-rhdmcentr"
+        },
+        {
+            "description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhdmcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
             "displayName": "Maven repository ID",
-            "example": "my-repo-id",
             "name": "MAVEN_REPO_ID",
-            "required": false
+            "required": false,
+            "value": "repo-custom"
         },
         {
             "description": "Fully qualified URL to a Maven repository or service.",
@@ -1251,28 +1266,28 @@
             "value": "1Gi"
         },
         {
-            "description": "Decision Central Container memory limit",
+            "description": "Decision Central Container memory limit.",
             "displayName": "Decision Central Container Memory Limit",
             "name": "DECISION_CENTRAL_MEMORY_LIMIT",
             "required": false,
             "value": "2Gi"
         },
         {
-            "description": "KIE server Container memory limit",
+            "description": "KIE server Container memory limit.",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"
         },
         {
-            "description": "RH-SSO URL",
+            "description": "RH-SSO URL.",
             "displayName": "RH-SSO URL",
             "example": "https://rh-sso.example.com/auth",
             "name": "SSO_URL",
             "required": false
         },
         {
-            "description": "RH-SSO Realm name",
+            "description": "RH-SSO Realm name.",
             "displayName": "RH-SSO Realm name",
             "name": "SSO_REALM",
             "required": false
@@ -1284,39 +1299,39 @@
             "required": false
         },
         {
-            "description": "Decision Central RH-SSO Client Secret",
+            "description": "Decision Central RH-SSO Client Secret.",
             "displayName": "Decision Central RH-SSO Client Secret",
             "example": "252793ed-7118-4ca8-8dab-5622fa97d892",
             "name": "DECISION_CENTRAL_SSO_SECRET",
             "required": false
         },
         {
-            "description": "KIE Server RH-SSO Client name",
+            "description": "KIE Server RH-SSO Client name.",
             "displayName": "KIE Server RH-SSO Client name",
             "name": "KIE_SERVER_SSO_CLIENT",
             "required": false
         },
         {
-            "description": "KIE Server RH-SSO Client Secret",
+            "description": "KIE Server RH-SSO Client Secret.",
             "displayName": "KIE Server RH-SSO Client Secret",
             "example": "252793ed-7118-4ca8-8dab-5622fa97d892",
             "name": "KIE_SERVER_SSO_SECRET",
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist",
+            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist.",
             "displayName": "RH-SSO Realm Admin Username",
             "name": "SSO_USERNAME",
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Password used to create the Client",
+            "description": "RH-SSO Realm Admin Password used to create the Client.",
             "displayName": "RH-SSO Realm Admin Password",
             "name": "SSO_PASSWORD",
             "required": false
         },
         {
-            "description": "RH-SSO Disable SSL Certificate Validation",
+            "description": "RH-SSO Disable SSL Certificate Validation.",
             "displayName": "RH-SSO Disable SSL Certificate Validation",
             "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
             "required": false,
@@ -1330,21 +1345,21 @@
             "value": "preferred_username"
         },
         {
-            "description": "LDAP Endpoint to connect for authentication",
+            "description": "LDAP Endpoint to connect for authentication.",
             "displayName": "LDAP Endpoint",
             "example": "ldap://myldap.example.com",
             "name": "AUTH_LDAP_URL",
             "required": false
         },
         {
-            "description": "Bind DN used for authentication",
+            "description": "Bind DN used for authentication.",
             "displayName": "LDAP Bind DN",
             "example": "uid=admin,ou=users,ou=exmample,ou=com",
             "name": "AUTH_LDAP_BIND_DN",
             "required": false
         },
         {
-            "description": "LDAP Credentials used for authentication",
+            "description": "LDAP Credentials used for authentication.",
             "displayName": "LDAP Bind Credentials",
             "example": "Password",
             "name": "AUTH_LDAP_BIND_CREDENTIAL",
@@ -1473,7 +1488,7 @@
             "required": false
         },
         {
-            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This parameter defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
             "displayName": "RoleMapping rolesProperties file path",
             "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
             "required": false
