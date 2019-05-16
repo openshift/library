@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.0",
+        "rhpam": "1.1",
         "template": "rhpam73-trial-ephemeral"
     },
     "message": "A new Process Automation Manager trial environment has been created.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
@@ -17,7 +17,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.3/html/deploying_a_red_hat_process_automation_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
             "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.3, including application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0"
+            "version": "1.1"
         },
         "name": "rhpam73-trial-ephemeral"
     },
@@ -144,7 +144,8 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for KIE server's http service."
+                    "description": "Route for KIE server's http service.",
+                    "haproxy.router.openshift.io/balance": "source"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -495,6 +496,7 @@
                 },
                 "strategy": {
                     "rollingParams": {
+                        "maxSurge": "100%",
                         "maxUnavailable": 0
                     },
                     "type": "Rolling"
@@ -579,6 +581,10 @@
                                     {
                                         "name": "MAVEN_REPOS",
                                         "value": "RHPAMCENTR,EXTERNAL"
+                                    },
+                                    {
+                                        "name": "RHPAMCENTR_MAVEN_REPO_ID",
+                                        "value": "repo-rhpamcentr"
                                     },
                                     {
                                         "name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
@@ -872,56 +878,56 @@
             "value": "myapp"
         },
         {
-            "description": "Default password used for multiple components for user convenience in this trial environment",
+            "description": "Default password used for multiple components for user convenience in this trial environment.",
             "displayName": "Default Password",
             "name": "DEFAULT_PASSWORD",
             "required": true,
             "value": "RedHat"
         },
         {
-            "description": "KIE administrator username",
+            "description": "KIE administrator username.",
             "displayName": "KIE Admin User",
             "name": "KIE_ADMIN_USER",
             "required": false,
             "value": "adminUser"
         },
         {
-            "description": "KIE server username (Sets the org.kie.server.user system property)",
+            "description": "KIE server username. (Sets the org.kie.server.user system property)",
             "displayName": "KIE Server User",
             "name": "KIE_SERVER_USER",
             "required": false,
             "value": "executionUser"
         },
         {
-            "description": "KIE server bypass auth user (Sets the org.kie.server.bypass.auth.user system property)",
+            "description": "Allows the KIE server to bypass the authenticated user for task related operations e.g. queries. (Sets the org.kie.server.bypass.auth.user system property)",
             "displayName": "KIE Server Bypass Auth User",
             "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,
             "value": "false"
         },
         {
-            "description": "KIE server controller username (Sets the org.kie.server.controller.user system property)",
+            "description": "KIE server controller username. (Sets the org.kie.server.controller.user system property)",
             "displayName": "KIE Server Controller User",
             "name": "KIE_SERVER_CONTROLLER_USER",
             "required": false,
             "value": "controllerUser"
         },
         {
-            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. (Sets the org.kie.server.mode system property).",
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
             "displayName": "KIE Server Mode",
             "name": "KIE_SERVER_MODE",
             "required": false,
             "value": "DEVELOPMENT"
         },
         {
-            "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+            "description": "KIE server mbeans enabled/disabled. (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
             "displayName": "KIE MBeans",
             "name": "KIE_MBEANS",
             "required": false,
             "value": "enabled"
         },
         {
-            "description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
+            "description": "KIE server class filtering. (Sets the org.drools.server.filter.classes system property)",
             "displayName": "Drools Server Filter Classes",
             "name": "DROOLS_SERVER_FILTER_CLASSES",
             "required": false,
@@ -935,63 +941,63 @@
             "value": ""
         },
         {
-            "description": "Sets the Access-Control-Allow-Origin response header value in the KIE Server (useful for CORS support)",
+            "description": "Sets the Access-Control-Allow-Origin response header value in the KIE Server (useful for CORS support).",
             "displayName": "KIE Server Access-Control-Allow-Origin response header",
             "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_ORIGIN",
             "required": false,
             "value": "*"
         },
         {
-            "description": "Sets the Access-Control-Allow-Methods response header value in the KIE Server (useful for CORS support)",
+            "description": "Sets the Access-Control-Allow-Methods response header value in the KIE Server (useful for CORS support).",
             "displayName": "KIE Server Access-Control-Allow-Methods response header",
             "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_METHODS",
             "required": false,
             "value": "GET, POST, OPTIONS, PUT"
         },
         {
-            "description": "Sets the Access-Control-Allow-Headers response header value in the KIE Server (useful for CORS support)",
+            "description": "Sets the Access-Control-Allow-Headers response header value in the KIE Server (useful for CORS support).",
             "displayName": "KIE Server Access-Control-Allow-Headers response header",
             "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_HEADERS",
             "required": false,
             "value": "Accept, Authorization, Content-Type, X-Requested-With"
         },
         {
-            "description": "Sets the Access-Control-Allow-Credentials response header value in the KIE Server (useful for CORS support)",
+            "description": "Sets the Access-Control-Allow-Credentials response header value in the KIE Server (useful for CORS support).",
             "displayName": "KIE Server Access-Control-Allow-Credentials response header",
             "name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_CREDENTIALS",
             "required": false,
             "value": "true"
         },
         {
-            "description": "Sets the Access-Control-Max-Age response header value in the KIE Server (useful for CORS support)",
+            "description": "Sets the Access-Control-Max-Age response header value in the KIE Server (useful for CORS support).",
             "displayName": "KIE Server Access-Control-Max-Age response header",
             "name": "KIE_SERVER_ACCESS_CONTROL_MAX_AGE",
             "required": false,
             "value": "1"
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhpamcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route for Business Central. Leave blank for default hostname, e.g.: <application-name>-rhpamcentr-<project>.<default-domain-suffix>",
             "displayName": "Business Central Custom http Route Hostname",
             "name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Enables connection to KIE Server via OpenShift internal Service endpoint (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
+            "description": "If OpenShift integration of Business Central is turned on, setting this parameter to true enables connection to KIE Server via an OpenShift internal Service endpoint. (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
             "displayName": "Prefer KIE Server OpenShift Service [Tech Preview]",
             "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
             "required": false,
             "value": "false"
         },
         {
-            "description": "KIE ServerTemplate Cache TTL in milliseconds (Sets the org.kie.server.controller.template.cache.ttl system property)",
+            "description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
             "displayName": "KIE ServerTemplate Cache TTL [Tech Preview]",
             "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
             "required": false,
             "value": "60000"
         },
         {
-            "description": "If set to true, turns on OpenShift integration feature (Sets the org.kie.workbench.controller.openshift.enabled system property)",
+            "description": "If set to true, turns on OpenShift integration feature in Business Central. With OpenShift integration, Business Central automatically discovers and connects to any KIE server in the same namespace, provided that OpenShift integration (OpenShiftStartupStrategy) is enabled on the KIE server. (Sets the org.kie.workbench.controller.openshift.enabled system property)",
             "displayName": "Enable OpenShift Integration [Tech Preview]",
             "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
             "required": false,
@@ -1012,11 +1018,11 @@
             "value": "rhpam73-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.0"
+            "value": "1.1"
         },
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
@@ -1028,9 +1034,9 @@
         {
             "description": "The id to use for the maven repository, if set. Default is generated randomly.",
             "displayName": "Maven repository ID",
-            "example": "my-repo-id",
             "name": "MAVEN_REPO_ID",
-            "required": false
+            "required": false,
+            "value": "repo-custom"
         },
         {
             "description": "Fully qualified URL to a Maven repository or service.",
@@ -1066,79 +1072,79 @@
             "required": false
         },
         {
-            "description": "Business Central Container memory limit",
+            "description": "Business Central Container memory limit.",
             "displayName": "Business Central Container Memory Limit",
             "name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
             "required": false,
             "value": "2Gi"
         },
         {
-            "description": "KIE server Container memory limit",
+            "description": "KIE server Container memory limit.",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"
         },
         {
-            "description": "When set to OpenShiftStartupStrategy, allows KIE server to start up independently used shared state from OpenShift API service. Default: ControllerBasedStartupStrategy",
+            "description": "When set to OpenShiftStartupStrategy, allows KIE server to start up independently using shared state from OpenShift API service and to connect to a Business Central that uses OpenShift integration. Default: ControllerBasedStartupStrategy",
             "displayName": "KIE Server Startup Strategy",
             "name": "KIE_SERVER_STARTUP_STRATEGY",
             "required": false,
             "value": "ControllerBasedStartupStrategy"
         },
         {
-            "description": "RH-SSO URL",
+            "description": "RH-SSO URL.",
             "displayName": "RH-SSO URL",
             "example": "https://rh-sso.example.com/auth",
             "name": "SSO_URL",
             "required": false
         },
         {
-            "description": "RH-SSO Realm name",
+            "description": "RH-SSO Realm name.",
             "displayName": "RH-SSO Realm name",
             "name": "SSO_REALM",
             "required": false
         },
         {
-            "description": "Business Central RH-SSO Client name",
+            "description": "Business Central RH-SSO Client name.",
             "displayName": "Business Central RH-SSO Client name",
             "name": "BUSINESS_CENTRAL_SSO_CLIENT",
             "required": false
         },
         {
-            "description": "Business Central RH-SSO Client Secret",
+            "description": "Business Central RH-SSO Client Secret.",
             "displayName": "Business Central RH-SSO Client Secret",
             "example": "252793ed-7118-4ca8-8dab-5622fa97d892",
             "name": "BUSINESS_CENTRAL_SSO_SECRET",
             "required": false
         },
         {
-            "description": "KIE Server RH-SSO Client name",
+            "description": "KIE Server RH-SSO Client name.",
             "displayName": "KIE Server RH-SSO Client name",
             "name": "KIE_SERVER_SSO_CLIENT",
             "required": false
         },
         {
-            "description": "KIE Server RH-SSO Client Secret",
+            "description": "KIE Server RH-SSO Client Secret.",
             "displayName": "KIE Server RH-SSO Client Secret",
             "example": "252793ed-7118-4ca8-8dab-5622fa97d892",
             "name": "KIE_SERVER_SSO_SECRET",
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist",
+            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist.",
             "displayName": "RH-SSO Realm Admin Username",
             "name": "SSO_USERNAME",
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Password used to create the Client",
+            "description": "RH-SSO Realm Admin Password used to create the Client.",
             "displayName": "RH-SSO Realm Admin Password",
             "name": "SSO_PASSWORD",
             "required": false
         },
         {
-            "description": "RH-SSO Disable SSL Certificate Validation",
+            "description": "RH-SSO Disable SSL Certificate Validation.",
             "displayName": "RH-SSO Disable SSL Certificate Validation",
             "name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
             "required": false,
@@ -1152,21 +1158,21 @@
             "value": "preferred_username"
         },
         {
-            "description": "LDAP Endpoint to connect for authentication",
+            "description": "LDAP Endpoint to connect for authentication.",
             "displayName": "LDAP Endpoint",
             "example": "ldap://myldap.example.com",
             "name": "AUTH_LDAP_URL",
             "required": false
         },
         {
-            "description": "Bind DN used for authentication",
+            "description": "Bind DN used for authentication.",
             "displayName": "LDAP Bind DN",
             "example": "uid=admin,ou=users,ou=exmample,ou=com",
             "name": "AUTH_LDAP_BIND_DN",
             "required": false
         },
         {
-            "description": "LDAP Credentials used for authentication",
+            "description": "LDAP Credentials used for authentication.",
             "displayName": "LDAP Bind Credentials",
             "example": "Password",
             "name": "AUTH_LDAP_BIND_CREDENTIAL",
@@ -1261,7 +1267,7 @@
             "required": false
         },
         {
-            "description": "A role included for all authenticated users",
+            "description": "A role included for all authenticated users.",
             "displayName": "LDAP Default role",
             "example": "guest",
             "name": "AUTH_LDAP_DEFAULT_ROLE",
@@ -1295,7 +1301,7 @@
             "required": false
         },
         {
-            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
+            "description": "When present, the RoleMapping Login Module will be configured to use the provided file. This parameter defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3",
             "displayName": "RoleMapping rolesProperties file path",
             "name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
             "required": false
