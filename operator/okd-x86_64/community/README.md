@@ -8,6 +8,12 @@ Path: community/dotnet/imagestreams/dotnet-centos7.json
 Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json](https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_centos.json )  
 Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
 Path: community/dotnet/imagestreams/dotnet-runtime-centos7.json  
+# golang
+## imagestreams
+### golang
+Source URL: [https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-centos7.json](https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-centos7.json )  
+Docs: [https://github.com/sclorg/golang-container/blob/master/README.md](https://github.com/sclorg/golang-container/blob/master/README.md)  
+Path: community/golang/imagestreams/golang-centos7.json  
 # httpd
 ## imagestreams
 ### httpd
