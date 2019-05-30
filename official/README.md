@@ -426,6 +426,12 @@ Path: official/fis/templates/fuse73-console.json
 Source URL: [https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml](https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/designing_apis_with_apicurito/](https://access.redhat.com/documentation/en-us/red_hat_fuse/7.3/html/designing_apis_with_apicurito/)  
 Path: official/fis/templates/apicurito.json  
+# golang
+## imagestreams
+### golang
+Source URL: [https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-rhel7.json](https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-rhel7.json )  
+Docs: [https://github.com/sclorg/golang-container/blob/master/README.md](https://github.com/sclorg/golang-container/blob/master/README.md)  
+Path: official/golang/imagestreams/golang-rhel7.json  
 # httpd
 ## imagestreams
 ### httpd
