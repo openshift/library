@@ -51,7 +51,7 @@ Path: official/dotnet/imagestreams/dotnet-runtime-rhel7.json
 # eap-cd
 ## templates
 ### eap-cd-starter-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD15/templates/eap-cd-starter-s2i.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json )  
 Path: official/eap-cd/templates/eap-cd-starter-s2i.json  
 # fis
 ## imagestreams
