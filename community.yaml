@@ -26,11 +26,26 @@ data:
         suffix: ubuntu14
   wildfly:
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift-s2i/s2i-wildfly/master/imagestreams/wildfly-centos7.json
-        docs: https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md
+      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-centos7.json
+        docs: https://github.com/wildfly/wildfly-s2i/blob/current/README.md
         regex: wildfly
         suffix: centos7
         tags:
+          - okd
+          - online-starter
+          - online-professional
+      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-runtime-centos7.json
+        docs: https://github.com/wildfly/wildfly-s2i/blob/current/README.md
+        regex: wildfly-runtime
+        suffix: centos7
+        tags:
+          - okd
+          - online-starter
+          - online-professional
+    templates:
+    - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/templates/wildfly-s2i-chained-build-template.yml
+      docs: https://github.com/wildfly/wildfly-s2i/blob/current/doc/wildfly-s2i-chained-build-template.md
+      tags:
           - okd
           - online-starter
           - online-professional
