@@ -49,6 +49,11 @@ Source URL: [https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/m
 Docs: [https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md](https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md)  
 Path: official/dotnet/imagestreams/dotnet-runtime-rhel7.json  
 # eap-cd
+## imagestreams
+### eap-cd-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/](https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/)  
+Path: official/eap-cd/imagestreams/eap-cd-openshift-rhel7.json  
 ## templates
 ### eap-cd-starter-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json )  

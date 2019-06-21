@@ -103,6 +103,15 @@ Path: community/ruby/imagestreams/ruby-centos7.json
 # wildfly
 ## imagestreams
 ### wildfly
-Source URL: [https://raw.githubusercontent.com/openshift-s2i/s2i-wildfly/master/imagestreams/wildfly-centos7.json](https://raw.githubusercontent.com/openshift-s2i/s2i-wildfly/master/imagestreams/wildfly-centos7.json )  
-Docs: [https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md](https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md)  
+Source URL: [https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-centos7.json](https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-centos7.json )  
+Docs: [https://github.com/wildfly/wildfly-s2i/blob/current/README.md](https://github.com/wildfly/wildfly-s2i/blob/current/README.md)  
 Path: community/wildfly/imagestreams/wildfly-centos7.json  
+### wildfly-runtime
+Source URL: [https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-runtime-centos7.json](https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-runtime-centos7.json )  
+Docs: [https://github.com/wildfly/wildfly-s2i/blob/current/README.md](https://github.com/wildfly/wildfly-s2i/blob/current/README.md)  
+Path: community/wildfly/imagestreams/wildfly-runtime-centos7.json  
+## templates
+### wildfly-s2i-chained-build-template
+Source URL: [https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/templates/wildfly-s2i-chained-build-template.yml](https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/templates/wildfly-s2i-chained-build-template.yml )  
+Docs: [https://github.com/wildfly/wildfly-s2i/blob/current/doc/wildfly-s2i-chained-build-template.md](https://github.com/wildfly/wildfly-s2i/blob/current/doc/wildfly-s2i-chained-build-template.md)  
+Path: community/wildfly/templates/wildfly-s2i-chained-build-template.json  

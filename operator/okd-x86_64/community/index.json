@@ -170,10 +170,25 @@
     "wildfly": {
         "imagestreams": [
             {
-                "docs": "https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md",
+                "docs": "https://github.com/wildfly/wildfly-s2i/blob/current/README.md",
                 "name": "wildfly",
                 "path": "community/wildfly/imagestreams/wildfly-centos7.json",
-                "source_url": "https://raw.githubusercontent.com/openshift-s2i/s2i-wildfly/master/imagestreams/wildfly-centos7.json"
+                "source_url": "https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-centos7.json"
+            },
+            {
+                "docs": "https://github.com/wildfly/wildfly-s2i/blob/current/README.md",
+                "name": "wildfly-runtime",
+                "path": "community/wildfly/imagestreams/wildfly-runtime-centos7.json",
+                "source_url": "https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-runtime-centos7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "S2I build of WildFly application (<app-name>-build-artifacts image) followed by a build to create a lightweight application image (<app-name> image). <app-name> image can then be managed by the WildFly Operator.",
+                "docs": "https://github.com/wildfly/wildfly-s2i/blob/current/doc/wildfly-s2i-chained-build-template.md",
+                "name": "wildfly-s2i-chained-build-template",
+                "path": "community/wildfly/templates/wildfly-s2i-chained-build-template.json",
+                "source_url": "https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/templates/wildfly-s2i-chained-build-template.yml"
             }
         ]
     }
