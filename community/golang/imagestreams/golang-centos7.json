@@ -10,8 +10,9 @@
     "spec": {
         "tags": [
             {
+                "name": "latest",
                 "annotations": {
-                    "description": "Build and run Go applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Go available on OpenShift, including major versions updates.",
+                    "description": "Build and run Go applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/1.10/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Go available on OpenShift, including major version updates.",
                     "iconClass": "icon-go-gopher",
                     "openshift.io/display-name": "Go (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -21,28 +22,28 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "1.8"
+                    "name": "1.10"
                 },
-                "name": "latest",
                 "referencePolicy": {
                     "type": "Local"
                 }
             },
             {
+                "name": "1.10",
                 "annotations": {
-                    "description": "Build and run Go applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Go available on OpenShift, including major versions updates.",
-                    "iconClass": "icon-go-gopher",
-                    "openshift.io/display-name": "Go (1.8)",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "sampleRepo": "https://github.com/sclorg/golang-ex.git",
-                    "supports": "golang",
-                    "tags": "builder,golang,go"
+                  "description": "Build and run Go 1.10 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/1.10/README.md.",
+                  "iconClass": "icon-go-gopher",
+                  "openshift.io/display-name": "Go 1.10",
+                  "openshift.io/provider-display-name": "Red Hat, Inc.",
+                  "sampleRepo": "https://github.com/sclorg/golang-ex.git",
+                  "supports": "golang",
+                  "tags": "builder,golang,go",
+                  "version": "1.10"
                 },
                 "from": {
                     "kind": "DockerImage",
                     "name": "docker.io/centos/go-toolset-7-centos7:latest"
                 },
-                "name": "1.8",
                 "referencePolicy": {
                     "type": "Local"
                 }
