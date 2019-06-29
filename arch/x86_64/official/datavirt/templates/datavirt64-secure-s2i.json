@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "jdv64": "1.5.0",
+        "jdv64": "1.6.0",
         "template": "datavirt64-secure-s2i"
     },
     "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the following secrets: \"${CONFIGURATION_NAME}\" containing the datasource configuration details required by the deployed VDB(s); \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-virtualization/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Data Virtualization based application, including a build configuration, application deployment configuration and ability to configure certificates for serving secure content.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.5.0"
+            "version": "1.6.0"
         },
         "name": "datavirt64-secure-s2i"
     },
@@ -193,7 +193,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-datavirt64-openshift:1.5",
+                            "name": "jboss-datavirt64-openshift:1.6",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
