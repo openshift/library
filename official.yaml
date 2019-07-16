@@ -14,7 +14,7 @@ variables:
   rhdm_version: 7.3.1.GA
   rhpam_version: 7.3.1.GA
   jdg_version: ose-v1.4.16
-  datagrid_version: 7.3-v1.0
+  datagrid_version: 7.3-v1.1
   cacheservice_version: 1.0.TP
   rhamp_version: master
   fuse_version: "7.3"
@@ -395,6 +395,12 @@ data:
         tags:
           - ocp
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-amq-7-broker-openshift-image/73-7.3.0.GA/amq-broker-7-image-streams.yaml
+        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-a-mq-for-openshift/
+        regex: jboss-amq
+        suffix: rhel7
+        tags:
+          - ocp
   datagrid:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/services/cache-service-template.yaml
@@ -424,6 +430,13 @@ data:
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{jdg_version}/templates/datagrid72-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/
+        regex: jboss-datagrid
+        suffix: rhel7
+        tags:
+          - ocp
+          - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid73-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.3/html/data_grid_for_openshift/
         regex: jboss-datagrid
         suffix: rhel7
         tags:
