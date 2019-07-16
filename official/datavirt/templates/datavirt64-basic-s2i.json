@@ -187,16 +187,16 @@
                             {
                                 "env": [
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_LABELS",
-                                        "value": "application=${APPLICATION_NAME}"
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
                                     },
                                     {
-                                        "name": "OPENSHIFT_KUBE_PING_NAMESPACE",
-                                        "valueFrom": {
-                                            "fieldRef": {
-                                                "fieldPath": "metadata.namespace"
-                                            }
-                                        }
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-ping"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+                                        "value": "8888"
                                     },
                                     {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
