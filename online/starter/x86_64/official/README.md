@@ -24,13 +24,13 @@ Path: official/dancer/templates/dancer-mysql-persistent.json
 # decisionserver
 ## imagestreams
 ### jboss-decisionserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.12.GA/templates/decisionserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.12.GA/templates/decisionserver64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-brms-decision-server-for-openshift/)  
 Path: official/decisionserver/imagestreams/jboss-decisionserver64-openshift-rhel7.json  
 ## templates
 ### decisionserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.11.GA-1/templates/decisionserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/decisionserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.12.GA/templates/decisionserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-decisionserver-6-openshift-image/6.4.12.GA/templates/decisionserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.12.GA/templates/docs/decisionserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-decisionserver-6-openshift-image/blob/6.4.12.GA/templates/docs/decisionserver64-basic-s2i.adoc)  
 Path: official/decisionserver/templates/decisionserver64-basic-s2i.json  
 # django
 ## templates
@@ -271,13 +271,13 @@ Path: official/postgresql/templates/postgresql-persistent.json
 # processserver
 ## imagestreams
 ### jboss-processserver64-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.12.GA/templates/processserver64-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.12.GA/templates/processserver64-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/](https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-bpm-suite-intelligent-process-server-for-openshift/)  
 Path: official/processserver/imagestreams/jboss-processserver64-openshift-rhel7.json  
 ## templates
 ### processserver64-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.11.GA-1/templates/processserver64-basic-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.11.GA-1/templates/docs/processserver64-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.12.GA/templates/processserver64-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/6.4.12.GA/templates/processserver64-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.12.GA/templates/docs/processserver64-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-processserver-6-openshift-image/blob/6.4.12.GA/templates/docs/processserver64-basic-s2i.adoc)  
 Path: official/processserver/templates/processserver64-basic-s2i.json  
 # python
 ## imagestreams
