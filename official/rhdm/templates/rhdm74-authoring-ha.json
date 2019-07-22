@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm73-authoring-ha"
+        "rhdm": "1.0",
+        "template": "rhdm74-authoring-ha"
     },
     "message": "A new persistent HA Decision Manager application has been created in your project.\nThe username/password for accessing the Decision Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${DECISION_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${DECISION_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.3",
+            "description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.4",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.3 authoring environment (HA, persistent, with https)",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.4 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_a_red_hat_decision_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.3 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_7.4_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.4 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhdm73-authoring-ha"
+        "name": "rhdm74-authoring-ha"
     },
     "objects": [
         {
@@ -150,10 +150,10 @@
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-rhdmsvc-view"
+                "name": "${APPLICATION_NAME}-rhdmsvc-edit"
             },
             "roleRef": {
-                "name": "view"
+                "name": "edit"
             },
             "subjects": [
                 {
@@ -203,14 +203,14 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The JGroups ping port for clustering.",
+                    "description": "The JGroups ping port for rhdmcentr clustering.",
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-ping"
+                    "service": "${APPLICATION_NAME}-rhdmcentr-ping"
                 },
-                "name": "${APPLICATION_NAME}-ping"
+                "name": "${APPLICATION_NAME}-rhdmcentr-ping"
             },
             "spec": {
                 "clusterIP": "None",
@@ -223,6 +223,59 @@
                 ],
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "Provides a ping service for clustered applications.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-datagrid-ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888,
+                        "targetPort": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "Provides a service for accessing the application over Hot Rod protocol.",
+                    "service.alpha.openshift.io/serving-cert-secret-name": "datagrid-service-certs"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-datagrid"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "hotrod",
+                        "port": 11222,
+                        "targetPort": 11222
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-datagrid"
                 }
             }
         },
@@ -268,37 +321,6 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "All the Decision Central Indexing Elasticsearch ports."
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhdmindex"
-                },
-                "name": "${APPLICATION_NAME}-rhdmindex"
-            },
-            "spec": {
-                "ports": [
-                    {
-                        "name": "rest",
-                        "port": 9200,
-                        "targetPort": 9200
-                    },
-                    {
-                        "name": "transport",
-                        "port": 9300,
-                        "targetPort": 9300
-                    }
-                ],
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "annotations": {
                     "description": "The broker's OpenWire port."
                 },
                 "labels": {
@@ -325,7 +347,7 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The JGroups ping port for clustering.",
+                    "description": "The JGroups ping port for amq clustering.",
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
@@ -350,7 +372,7 @@
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-rhdmcentr-http",
+            "id": "insecure-${APPLICATION_NAME}-rhdmcentr-http",
             "kind": "Route",
             "metadata": {
                 "annotations": {
@@ -361,7 +383,7 @@
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "${APPLICATION_NAME}-rhdmcentr"
+                "name": "insecure-${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
                 "host": "${DECISION_CENTRAL_HOSTNAME_HTTP}",
@@ -386,7 +408,7 @@
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "secure-${APPLICATION_NAME}-rhdmcentr"
+                "name": "${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
                 "host": "${DECISION_CENTRAL_HOSTNAME_HTTPS}",
@@ -403,17 +425,18 @@
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-kieserver-http",
+            "id": "insecure-${APPLICATION_NAME}-kieserver-http",
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for KIE server's http service."
+                    "description": "Route for KIE server's http service.",
+                    "haproxy.router.openshift.io/balance": "source"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-kieserver"
                 },
-                "name": "${APPLICATION_NAME}-kieserver"
+                "name": "insecure-${APPLICATION_NAME}-kieserver"
             },
             "spec": {
                 "host": "${KIE_SERVER_HOSTNAME_HTTP}",
@@ -437,7 +460,7 @@
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-kieserver"
                 },
-                "name": "secure-${APPLICATION_NAME}-kieserver"
+                "name": "${APPLICATION_NAME}-kieserver"
             },
             "spec": {
                 "host": "${KIE_SERVER_HOSTNAME_HTTPS}",
@@ -453,26 +476,171 @@
             }
         },
         {
-            "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-rhdmindex-http",
-            "kind": "Route",
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
             "metadata": {
-                "annotations": {
-                    "description": "Route for Decision Central Indexing's Elasticsearch http service."
-                },
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-rhdmindex"
+                "name": "${APPLICATION_NAME}-datagrid"
             },
             "spec": {
-                "host": "${ES_HOSTNAME_HTTP}",
-                "port": {
-                    "targetPort": "rest"
+                "podManagementPolicy": "OrderedReady",
+                "replicas": 1,
+                "selector": {
+                    "matchLabels": {
+                        "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                    }
                 },
-                "to": {
-                    "name": "${APPLICATION_NAME}-rhdmindex"
-                }
+                "serviceName": "${APPLICATION_NAME}-datagrid",
+                "strategy": {
+                    "rollingParams": {
+                        "intervalSeconds": 20,
+                        "maxSurge": 1,
+                        "maxUnavailable": 1,
+                        "timeoutSeconds": 1200,
+                        "updatePeriodSeconds": 20
+                    },
+                    "type": "Rolling"
+                },
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                        },
+                        "name": "${APPLICATION_NAME}-datagrid"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid"
+                                    },
+                                    {
+                                        "name": "SERVICE_PROFILE",
+                                        "value": "${APPLICATION_NAME}-datagrid"
+                                    },
+                                    {
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid-ping"
+                                    },
+                                    {
+                                        "name": "INFINISPAN_CONNECTORS",
+                                        "value": "hotrod"
+                                    }
+                                ],
+                                "image": "${DATAGRID_IMAGE}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                        ]
+                                    },
+                                    "failureThreshold": 5,
+                                    "initialDelaySeconds": 15,
+                                    "periodSeconds": 20,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "name": "${APPLICATION_NAME}-datagrid",
+                                "ports": [
+                                    {
+                                        "containerPort": 8888,
+                                        "name": "ping",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 11222,
+                                        "name": "hotrod",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/opt/datagrid/bin/readinessProbe.sh"
+                                        ]
+                                    },
+                                    "failureThreshold": 5,
+                                    "initialDelaySeconds": 17,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${DATAGRID_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "0.5",
+                                        "memory": "${DATAGRID_MEMORY_LIMIT}"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/datagrid/standalone/data",
+                                        "name": "srv-data"
+                                    },
+                                    {
+                                        "mountPath": "/var/run/secrets/java.io/keystores",
+                                        "name": "datagrid-keystore-volume"
+                                    },
+                                    {
+                                        "mountPath": "/var/run/secrets/openshift.io/serviceaccount",
+                                        "name": "datagrid-service-certs"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 60,
+                        "volumes": [
+                            {
+                                "empty-dir": {},
+                                "name": "datagrid-keystore-volume"
+                            },
+                            {
+                                "name": "datagrid-service-certs",
+                                "secret": {
+                                    "secretName": "datagrid-service-certs"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "volumeClaimTemplates": [
+                    {
+                        "metadata": {
+                            "name": "srv-data"
+                        },
+                        "spec": {
+                            "accessModes": [
+                                "ReadWriteOnce"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "storage": "${DATAGRID_VOLUME_CAPACITY}"
+                                }
+                            }
+                        }
+                    }
+                ]
             }
         },
         {
@@ -519,6 +687,22 @@
                                     {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
+                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
+                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
+                                        "value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
+                                    },
+                                    {
+                                        "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
+                                        "value": "true"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_USER",
@@ -598,27 +782,19 @@
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-ping"
+                                        "value": "${APPLICATION_NAME}-rhdmcentr-ping"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
                                         "value": "8888"
                                     },
                                     {
-                                        "name": "APPFORMER_ELASTIC_PORT",
-                                        "value": "${APPFORMER_ELASTIC_PORT}"
+                                        "name": "APPFORMER_INFINISPAN_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid"
                                     },
                                     {
-                                        "name": "APPFORMER_ELASTIC_CLUSTER_NAME",
-                                        "value": "${APPFORMER_ELASTIC_CLUSTER_NAME}"
-                                    },
-                                    {
-                                        "name": "APPFORMER_ELASTIC_RETRIES",
-                                        "value": "${APPFORMER_ELASTIC_RETRIES}"
-                                    },
-                                    {
-                                        "name": "APPFORMER_ELASTIC_HOST",
-                                        "value": "${APPLICATION_NAME}-rhdmindex"
+                                        "name": "APPFORMER_INFINISPAN_PORT",
+                                        "value": "11222"
                                     },
                                     {
                                         "name": "APPFORMER_JMS_BROKER_ADDRESS",
@@ -626,7 +802,7 @@
                                     },
                                     {
                                         "name": "APPFORMER_JMS_BROKER_PORT",
-                                        "value": "${APPFORMER_JMS_BROKER_PORT}"
+                                        "value": "61616"
                                     },
                                     {
                                         "name": "APPFORMER_JMS_BROKER_USER",
@@ -773,15 +949,13 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhdm73-decisioncentral-openshift",
+                                "image": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
+                                    "httpGet": {
+                                        "path": "/rest/healthy",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
                                     },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
@@ -816,14 +990,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/rest/ready",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -840,7 +1012,7 @@
                                         "readOnly": true
                                     },
                                     {
-                                        "mountPath": "/opt/eap/standalone/data/kie",
+                                        "mountPath": "/opt/kie/data",
                                         "name": "${APPLICATION_NAME}-rhdmcentr-pvol"
                                     }
                                 ]
@@ -873,7 +1045,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhdm73-decisioncentral-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -894,23 +1066,31 @@
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-kieserver"
+                    "service": "${APPLICATION_NAME}-kieserver",
+                    "services.server.kie.org/kie-server-id": "${APPLICATION_NAME}-kieserver"
                 },
                 "name": "${APPLICATION_NAME}-kieserver"
             },
             "spec": {
                 "replicas": 2,
+                "revisionHistoryLimit": 10,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                 },
                 "strategy": {
-                    "type": "Recreate"
+                    "rollingParams": {
+                        "maxSurge": "100%",
+                        "maxUnavailable": 0
+                    },
+                    "type": "Rolling"
                 },
                 "template": {
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-kieserver"
+                            "deploymentConfig": "${APPLICATION_NAME}-kieserver",
+                            "service": "${APPLICATION_NAME}-kieserver",
+                            "services.server.kie.org/kie-server-id": "${APPLICATION_NAME}-kieserver"
                         },
                         "name": "${APPLICATION_NAME}-kieserver"
                     },
@@ -918,6 +1098,10 @@
                         "containers": [
                             {
                                 "env": [
+                                    {
+                                        "name": "WORKBENCH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-rhdmcentr"
+                                    },
                                     {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
@@ -939,40 +1123,28 @@
                                         "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
+                                        "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+                                        "value": "${PROMETHEUS_SERVER_EXT_DISABLED}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
                                         "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_TOKEN",
-                                        "value": "${KIE_SERVER_CONTROLLER_TOKEN}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
-                                        "value": "${APPLICATION_NAME}-rhdmcentr"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
-                                        "value": "ws"
-                                    },
-                                    {
                                         "name": "KIE_SERVER_ID",
-                                        "value": "${APPLICATION_NAME}-kieserver"
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.labels['services.server.kie.org/kie-server-id']"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
                                         "value": "${APPLICATION_NAME}-kieserver"
                                     },
                                     {
-                                        "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
-                                        "value": "${KIE_SERVER_USE_SECURE_ROUTE_NAME}"
+                                        "name": "KIE_SERVER_STARTUP_STRATEGY",
+                                        "value": "OpenShiftStartupStrategy"
                                     },
                                     {
                                         "name": "KIE_SERVER_PWD",
@@ -1185,15 +1357,31 @@
                                 ],
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/healthcheck"
-                                        ]
+                                "lifecycle": {
+                                    "postStart": {
+                                        "exec": {
+                                            "command": [
+                                                "/bin/sh",
+                                                "/opt/eap/bin/launch/jboss-kie-kieserver-hooks.sh"
+                                            ]
+                                        }
                                     },
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/bin/sh",
+                                                "/opt/eap/bin/launch/jboss-kie-kieserver-hooks.sh"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "livenessProbe": {
                                     "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/healthcheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
                                     "timeoutSeconds": 2
@@ -1217,14 +1405,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/readycheck"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/readycheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -1244,7 +1430,7 @@
                             }
                         ],
                         "serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
-                        "terminationGracePeriodSeconds": 60,
+                        "terminationGracePeriodSeconds": 90,
                         "volumes": [
                             {
                                 "name": "kieserver-keystore-volume",
@@ -1265,139 +1451,6 @@
                             "from": {
                                 "kind": "ImageStreamTag",
                                 "name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
-                                "namespace": "${IMAGE_STREAM_NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "annotations": {
-                    "template.alpha.openshift.io/wait-for-ready": "true"
-                },
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhdmindex"
-                },
-                "name": "${APPLICATION_NAME}-rhdmindex"
-            },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
-                },
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "template": {
-                    "metadata": {
-                        "labels": {
-                            "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-rhdmindex"
-                        },
-                        "name": "${APPLICATION_NAME}-rhdmindex"
-                    },
-                    "spec": {
-                        "containers": [
-                            {
-                                "env": [
-                                    {
-                                        "name": "ES_CLUSTER_NAME",
-                                        "value": "${APPFORMER_ELASTIC_CLUSTER_NAME}"
-                                    },
-                                    {
-                                        "name": "ES_NODE_NAME",
-                                        "value": "${ES_NODE_NAME}"
-                                    },
-                                    {
-                                        "name": "ES_TRANSPORT_HOST",
-                                        "value": "${ES_TRANSPORT_HOST}"
-                                    },
-                                    {
-                                        "name": "ES_TRANSPORT_TCP_PORT",
-                                        "value": "${APPFORMER_ELASTIC_PORT}"
-                                    },
-                                    {
-                                        "name": "ES_HTTP_PORT",
-                                        "value": "${ES_HTTP_PORT}"
-                                    },
-                                    {
-                                        "name": "ES_HTTP_HOST",
-                                        "value": "${ES_HTTP_HOST}"
-                                    },
-                                    {
-                                        "name": "ES_JAVA_OPTS",
-                                        "value": "${ES_JAVA_OPTS}"
-                                    }
-                                ],
-                                "image": "rhdm73-decisioncentral-indexing-openshift",
-                                "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 15,
-                                    "tcpSocket": {
-                                        "port": 9300
-                                    },
-                                    "timeoutSeconds": 1
-                                },
-                                "name": "${APPLICATION_NAME}-rhdmindex",
-                                "ports": [
-                                    {
-                                        "containerPort": 9300,
-                                        "name": "es",
-                                        "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 9200,
-                                        "name": "http",
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "httpGet": {
-                                        "path": "/_cluster/health",
-                                        "port": 9200,
-                                        "scheme": "HTTP"
-                                    },
-                                    "initialDelaySeconds": 15,
-                                    "timeoutSeconds": 2
-                                },
-                                "volumeMounts": [
-                                    {
-                                        "mountPath": "/opt/elasticsearch/data",
-                                        "name": "${APPLICATION_NAME}-rhdmindex-pvol"
-                                    }
-                                ]
-                            }
-                        ],
-                        "terminationGracePeriodSeconds": 60,
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-rhdmindex-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-rhdmindex-claim"
-                                }
-                            }
-                        ]
-                    }
-                },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-rhdmindex"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "rhdm73-decisioncentral-indexing-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1488,7 +1541,6 @@
                     "alpha.image.policy.openshift.io/resolve-names": "*",
                     "statefulsets.kubernetes.io/drainer-pod-template": "{\n  \"metadata\": {\n    \"labels\": {\n      \"application\": \"${APPLICATION_NAME}\"\n    },\n    \"name\": \"${APPLICATION_NAME}-amq-drainer-pod\"\n  },\n  \"spec\": {\n    \"serviceAccount\": \"${APPLICATION_NAME}-amq-sa\",\n    \"serviceAccountName\": \"${APPLICATION_NAME}-amq-sa\",\n    \"terminationGracePeriodSeconds\": 5,\n    \"containers\": [\n      {\n        \"env\": [\n          {\n            \"name\": \"AMQ_EXTRA_ARGS\",\n            \"value\": \"--no-autotune\"\n          },\n          {\n            \"name\": \"AMQ_USER\",\n            \"value\": \"${APPFORMER_JMS_BROKER_USER}\"\n          },\n          {\n            \"name\": \"AMQ_PASSWORD\",\n            \"value\": \"${APPFORMER_JMS_BROKER_PASSWORD}\"\n          },\n          {\n            \"name\": \"AMQ_ROLE\",\n            \"value\": \"${AMQ_ROLE}\"\n          },\n          {\n            \"name\": \"AMQ_NAME\",\n            \"value\": \"${AMQ_NAME}\"\n          },\n          {\n            \"name\": \"AMQ_TRANSPORTS\",\n            \"value\": \"openwire\"\n          },\n          {\n            \"name\": \"AMQ_QUEUES\",\n            \"value\": \"\"\n          },\n          {\n            \"name\": \"AMQ_GLOBAL_MAX_SIZE\",\n            \"value\": \"${AMQ_GLOBAL_MAX_SIZE}\"\n          },\n          {\n            \"name\": \"AMQ_ALLOW_ANONYMOUS\",\n            \"value\": \"${AMQ_ALLOW_ANONYMOUS}\"\n          },\n          {\n            \"name\": \"AMQ_DATA_DIR\",\n            \"value\": \"/opt/amq/data\"\n          },\n          {\n            \"name\": \"AMQ_DATA_DIR_LOGGING\",\n            \"value\": \"true\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTERED\",\n            \"value\": \"true\"\n          },\n          {\n            \"name\": \"AMQ_REPLICAS\",\n            \"value\": \"2\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTER_USER\",\n            \"value\": \"${APPFORMER_JMS_BROKER_USER}\"\n          },\n          {\n            \"name\": \"AMQ_CLUSTER_PASSWORD\",\n            \"value\": \"${APPFORMER_JMS_BROKER_PASSWORD}\"\n          },\n          {\n            \"name\": \"POD_NAMESPACE\",\n            \"valueFrom\": {\n              \"fieldRef\": {\n                \"fieldPath\": \"metadata.namespace\"\n              }\n            }\n          },\n          {\n            \"name\": \"JGROUPS_PING_PROTOCOL\",\n            \"value\": \"openshift.DNS_PING\"\n          },\n          {\n            \"name\": \"OPENSHIFT_DNS_PING_SERVICE_NAME\",\n            \"value\": \"ping\"\n          },\n          {\n            \"name\": \"OPENSHIFT_DNS_PING_SERVICE_PORT\",\n            \"value\": \"8888\"\n          }\n        ],\n        \"image\": \"${AMQ_BROKER_IMAGE}\",\n        \"name\": \"${APPLICATION_NAME}-amq\",\n        \"command\": [\"/bin/sh\", \"-c\", \"echo \\\"Starting the drainer\\\" ; /opt/amq/bin/drain.sh; echo \\\"Drain completed! Exit code $?\\\"\"],\n        \"volumeMounts\": [\n          {\n            \"name\": \"${APPLICATION_NAME}-amq-pvol\",\n            \"mountPath\": \"/opt/amq/data\"\n          }\n        ]\n      }\n    ]\n  }\n}\n"
                 },
-                "creationTimestamp": null,
                 "generation": 3,
                 "labels": {
                     "application": "${APPLICATION_NAME}"
@@ -1507,7 +1559,6 @@
                 "serviceName": "${APPLICATION_NAME}-amq-tcp",
                 "template": {
                     "metadata": {
-                        "creationTimestamp": null,
                         "labels": {
                             "application": "${APPLICATION_NAME}",
                             "deploymentConfig": "${APPLICATION_NAME}-amq"
@@ -1655,7 +1706,6 @@
                 "volumeClaimTemplates": [
                     {
                         "metadata": {
-                            "creationTimestamp": null,
                             "name": "${APPLICATION_NAME}-amq-pvol"
                         },
                         "spec": {
@@ -1753,26 +1803,6 @@
                     }
                 }
             }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "${APPLICATION_NAME}-rhdmindex-claim"
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${ES_VOLUME_CAPACITY}"
-                    }
-                }
-            }
         }
     ],
     "parameters": [
@@ -1863,39 +1893,39 @@
             "value": "true"
         },
         {
-            "description": "Custom hostname for http service route for Decision Central.  Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)",
+            "displayName": "Prometheus Server Extension Disabled",
+            "example": "false",
+            "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for http service route for Decision Central.  Leave blank for default hostname, e.g.: insecure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>",
             "displayName": "Decision Central Custom http Route Hostname",
             "name": "DECISION_CENTRAL_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route for Decision Central. Leave blank for default hostname, e.g.: secure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route for Decision Central.  Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
             "displayName": "Decision Central Custom https Route Hostname",
             "name": "DECISION_CENTRAL_HOSTNAME_HTTPS",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for http service route for KIE Server. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route for KIE Server. Leave blank for default hostname, e.g.: insecure-<application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "Custom hostname for https service route for KIE Server. Leave blank for default hostname, e.g.: secure-<application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for https service route for KIE Server. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom https Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTPS",
             "required": false,
             "value": ""
-        },
-        {
-            "description": "If true, the KIE server will use secure-<application-name>-kieserver vs. <application-name>-kieserver as the KIE server route endpoint for Decision Central to report. Therefore, Decision Central displays the secure link to the user.",
-            "displayName": "Use the secure route name to link application requests to KIE_SERVER_HOSTNAME_HTTPS vs KIE_SERVER_HOSTNAME_HTTP.",
-            "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
-            "required": false,
-            "value": "false"
         },
         {
             "description": "The name of the secret containing the keystore file for Decision Central.",
@@ -1905,21 +1935,21 @@
             "required": true
         },
         {
-            "description": "The name of the keystore file within the secret.",
+            "description": "The name of the keystore file within the secret for Decision Central.",
             "displayName": "Decision Central Server Keystore Filename",
             "name": "DECISION_CENTRAL_HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
         },
         {
-            "description": "The name associated with the server certificate.",
+            "description": "The name associated with the server certificate for Decision Central.",
             "displayName": "Decision Central Server Certificate Name",
             "name": "DECISION_CENTRAL_HTTPS_NAME",
             "required": false,
             "value": "jboss"
         },
         {
-            "description": "The password for the keystore and certificate.",
+            "description": "The password for the keystore and certificate for Decision Central.",
             "displayName": "Decision Central Server Keystore Password",
             "name": "DECISION_CENTRAL_HTTPS_PASSWORD",
             "required": false,
@@ -1933,38 +1963,25 @@
             "required": true
         },
         {
-            "description": "The name of the keystore file within the secret.",
+            "description": "The name of the keystore file within the secret for KIE Server.",
             "displayName": "KIE Server Keystore Filename",
             "name": "KIE_SERVER_HTTPS_KEYSTORE",
             "required": false,
             "value": "keystore.jks"
         },
         {
-            "description": "The name associated with the server certificate.",
+            "description": "The name associated with the server certificate for KIE Server.",
             "displayName": "KIE Server Certificate Name",
             "name": "KIE_SERVER_HTTPS_NAME",
             "required": false,
             "value": "jboss"
         },
         {
-            "description": "The password for the keystore and certificate.",
+            "description": "The password for the keystore and certificate for KIE Server.",
             "displayName": "KIE Server Keystore Password",
             "name": "KIE_SERVER_HTTPS_PASSWORD",
             "required": false,
             "value": "mykeystorepass"
-        },
-        {
-            "description": "The number of times that appformer will try to connect to the elasticsearch node before give up.",
-            "displayName": "AppFormer elastic search reconnection tries",
-            "name": "APPFORMER_ELASTIC_RETRIES",
-            "required": false
-        },
-        {
-            "description": "The port to connect to the JMS broker. Defaults to 61616.",
-            "displayName": "AppFormer JMS Broker port",
-            "name": "APPFORMER_JMS_BROKER_PORT",
-            "required": false,
-            "value": "61616"
         },
         {
             "description": "The username to connect to the JMS broker.",
@@ -1982,61 +1999,25 @@
             "required": true
         },
         {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: <application-name>-rhdmindex-<project>.<default-domain-suffix>",
-            "displayName": "Elasticsearch Custom http Route Hostname",
-            "name": "ES_HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
+            "description": "DataGrid image.",
+            "displayName": "DataGrid Image",
+            "name": "DATAGRID_IMAGE",
+            "required": true,
+            "value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.1"
         },
         {
-            "description": "Sets the ES cluster.name and configure it on Decision Central. Defaults to kie-cluster.",
-            "displayName": "Elasticsearch Cluster name",
-            "name": "APPFORMER_ELASTIC_CLUSTER_NAME",
-            "required": false,
-            "value": ""
+            "description": "DataGrid Container memory limit.",
+            "displayName": "DataGrid Container Memory Limit",
+            "name": "DATAGRID_MEMORY_LIMIT",
+            "required": true,
+            "value": "512Mi"
         },
         {
-            "description": "Sets the ES node.name property. Defaults to HOSTNAME env value.",
-            "displayName": "Elasticsearch Node name",
-            "name": "ES_NODE_NAME",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Sets the ES transport.host property. This will set the transport address of the main ES cluster node. Used for communication between nodes in the cluster. Defaults to container address.",
-            "displayName": "Elasticsearch Transport Host",
-            "name": "ES_TRANSPORT_HOST",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used for communication between nodes in the cluster and for communication with Decision Central.",
-            "displayName": "Elasticsearch Transport TCP Port",
-            "name": "APPFORMER_ELASTIC_PORT",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Sets the ES http.host property. This will set the http address of the main ES cluster node. Used to interact with the cluster REST API. Defaults to the container IP address.",
-            "displayName": "Elasticsearch HTTP Host",
-            "name": "ES_HTTP_HOST",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Sets the ES http.port property. This will set the http port of the main ES cluster node. Used to interact with the cluster REST API.",
-            "displayName": "Elasticsearch HTTP Port",
-            "name": "ES_HTTP_PORT",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Appends custom jvm configurations/properties to ES jvm.options configuration file.",
-            "displayName": "Elasticsearch Additional Java Options",
-            "example": "-Xms1024m -Xmx1024m",
-            "name": "ES_JAVA_OPTS",
-            "required": false,
-            "value": ""
+            "description": "Size of the persistent storage for DataGrid's runtime data.",
+            "displayName": "DataGrid Volume Capacity",
+            "name": "DATAGRID_VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
         },
         {
             "description": "Namespace in which the ImageStream for the AMQ Scaledown Controller image is installed. Default is \"openshift\".",
@@ -2053,7 +2034,7 @@
             "value": "amq-broker-72-scaledown-controller-openshift"
         },
         {
-            "description": "The AMQ image stream tag. Default is \"1.0\".",
+            "description": "The AMQ scaledown controller image stream tag. Default is \"1.0\".",
             "displayName": "AMQ Scaledown Controller ImageStream Tag",
             "name": "AMQ_SCALEDOWN_CONTROLLER_IMAGE_STREAM_TAG",
             "required": true,
@@ -2064,7 +2045,7 @@
             "displayName": "Image",
             "name": "AMQ_BROKER_IMAGE",
             "required": true,
-            "value": "registry.redhat.io/amq-broker-7/amq-broker-72-openshift:1.1"
+            "value": "registry.redhat.io/amq-broker-7/amq-broker-73-openshift:7.3"
         },
         {
             "description": "User role for standard broker user.",
@@ -2095,11 +2076,25 @@
             "value": "1Gi"
         },
         {
-            "description": "Size of persistent storage for Elasticsearch volume.",
-            "displayName": "Elasticsearch Volume Capacity",
-            "name": "ES_VOLUME_CAPACITY",
-            "required": true,
-            "value": "1Gi"
+            "description": "If set to true, turns on KIE server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
+            "displayName": "Enable KIE server global discovery",
+            "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
+            "required": false,
+            "value": "false"
+        },
+        {
+            "description": "If OpenShift integration of Business Central is turned on, setting this parameter to true enables connection to KIE Server via an OpenShift internal Service endpoint. (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
+            "displayName": "Prefer KIE Server OpenShift Service",
+            "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
+            "required": false,
+            "value": "true"
+        },
+        {
+            "description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
+            "displayName": "KIE ServerTemplate Cache TTL",
+            "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
+            "required": false,
+            "value": "60000"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
@@ -2109,18 +2104,25 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm73-kieserver-openshift\".",
+            "description": "The name of the image stream to use for Decision Central. Default is \"rhdm74-decisioncentral-openshift\".",
+            "displayName": "Decision Central ImageStream Name",
+            "name": "DECISION_CENTRAL_IMAGE_STREAM_NAME",
+            "required": true,
+            "value": "rhdm74-decisioncentral-openshift"
+        },
+        {
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm74-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm73-kieserver-openshift"
+            "value": "rhdm74-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "Maven mirror that Decision Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services.",
@@ -2179,7 +2181,7 @@
         {
             "description": "The directory to use for git hooks, if required.",
             "displayName": "Git hooks directory",
-            "example": "/opt/eap/standalone/data/kie/git/hooks",
+            "example": "/opt/kie/data/git/hooks",
             "name": "GIT_HOOKS_DIR",
             "required": false
         },
@@ -2381,7 +2383,7 @@
         {
             "description": "A role included for all authenticated users",
             "displayName": "LDAP Default role",
-            "example": "guest",
+            "example": "user",
             "name": "AUTH_LDAP_DEFAULT_ROLE",
             "required": false
         },

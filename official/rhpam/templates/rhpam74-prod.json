@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam73-prod"
+        "rhpam": "1.0",
+        "template": "rhpam74-prod"
     },
     "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password for accessing Business Central Monitoring is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nBoth sets of KIE servers are configured with the username/password\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.3",
+            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.4",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.3 production environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.4 production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,prod",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.3/html/deploying_a_red_hat_process_automation_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.3, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_7.4_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.4, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam73-prod"
+        "name": "rhpam74-prod"
     },
     "objects": [
         {
@@ -48,6 +48,35 @@
                 {
                     "kind": "ServiceAccount",
                     "name": "${APPLICATION_NAME}-kieserver"
+                }
+            ]
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "ServiceAccount",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-smartrouter"
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "RoleBinding",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-smartrouter-view"
+            },
+            "roleRef": {
+                "name": "view"
+            },
+            "subjects": [
+                {
+                    "kind": "ServiceAccount",
+                    "name": "${APPLICATION_NAME}-smartrouter"
                 }
             ]
         },
@@ -762,15 +791,13 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam73-businesscentral-monitoring-openshift",
+                                "image": "rhpam74-businesscentral-monitoring-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
+                                    "httpGet": {
+                                        "path": "/rest/healthy",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
                                     },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
@@ -800,14 +827,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/rest/ready",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -824,7 +849,7 @@
                                         "readOnly": true
                                     },
                                     {
-                                        "mountPath": "/opt/eap/standalone/data/kie",
+                                        "mountPath": "/opt/kie/data",
                                         "name": "${APPLICATION_NAME}-rhpamcentr-pvol"
                                     }
                                 ]
@@ -856,7 +881,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam73-businesscentral-monitoring-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam74-businesscentral-monitoring-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -931,6 +956,14 @@
                                         "value": "${KIE_SERVER_ROUTER_NAME}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_ROUTER_ROUTE_NAME",
+                                        "value": "${APPLICATION_NAME}-smartrouter"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_ROUTER_SERVICE",
+                                        "value": "${APPLICATION_NAME}-smartrouter"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_ROUTER_PROTOCOL",
                                         "value": "${KIE_SERVER_ROUTER_PROTOCOL}"
                                     },
@@ -975,7 +1008,7 @@
                                         "value": "true"
                                     }
                                 ],
-                                "image": "rhpam73-smartrouter-openshift",
+                                "image": "rhpam74-smartrouter-openshift",
                                 "imagePullPolicy": "Always",
                                 "name": "${APPLICATION_NAME}-smartrouter",
                                 "ports": [
@@ -1003,6 +1036,7 @@
                                 ]
                             }
                         ],
+                        "serviceAccountName": "${APPLICATION_NAME}-smartrouter",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
@@ -1029,7 +1063,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam73-smartrouter-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam74-smartrouter-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1094,6 +1128,10 @@
                                     {
                                         "name": "DROOLS_SERVER_FILTER_CLASSES",
                                         "value": "${DROOLS_SERVER_FILTER_CLASSES}"
+                                    },
+                                    {
+                                        "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+                                        "value": "${PROMETHEUS_SERVER_EXT_DISABLED}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -1423,14 +1461,12 @@
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/healthcheck"
-                                        ]
-                                    },
                                     "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/healthcheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
                                     "timeoutSeconds": 2
@@ -1459,14 +1495,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/readycheck"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/readycheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -1685,10 +1719,6 @@
                             {
                                 "env": [
                                     {
-                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
-                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
                                     },
@@ -1697,8 +1727,20 @@
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_MODE",
+                                        "value": "${KIE_SERVER_MODE}"
+                                    },
+                                    {
                                         "name": "KIE_MBEANS",
                                         "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "DROOLS_SERVER_FILTER_CLASSES",
+                                        "value": "${DROOLS_SERVER_FILTER_CLASSES}"
+                                    },
+                                    {
+                                        "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+                                        "value": "${PROMETHEUS_SERVER_EXT_DISABLED}"
                                     },
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -1851,6 +1893,10 @@
                                     {
                                         "name": "RHPAM_SERVICE_PORT",
                                         "value": "5432"
+                                    },
+                                    {
+                                        "name": "TIMER_SERVICE_DATA_STORE",
+                                        "value": "${APPLICATION_NAME}-postgresql-2"
                                     },
                                     {
                                         "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
@@ -2024,14 +2070,12 @@
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/healthcheck"
-                                        ]
-                                    },
                                     "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/healthcheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
                                     "timeoutSeconds": 2
@@ -2060,14 +2104,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${KIE_ADMIN_PWD}' http://localhost:8080/services/rest/server/readycheck"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/readycheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -2442,18 +2484,18 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam73-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam74-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam73-kieserver-openshift"
+            "value": "rhpam74-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g. <application-name>-smartrouter-<project>.<default-domain-suffix>'",
@@ -2601,6 +2643,13 @@
             "name": "DROOLS_SERVER_FILTER_CLASSES",
             "required": false,
             "value": "true"
+        },
+        {
+            "description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)",
+            "displayName": "Prometheus Server Extension Disabled",
+            "example": "false",
+            "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+            "required": false
         },
         {
             "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-rhpamcentrmon-<project>.<default-domain-suffix>",
@@ -2988,7 +3037,7 @@
         {
             "description": "A role included for all authenticated users.",
             "displayName": "LDAP Default role",
-            "example": "guest",
+            "example": "user",
             "name": "AUTH_LDAP_DEFAULT_ROLE",
             "required": false
         },
