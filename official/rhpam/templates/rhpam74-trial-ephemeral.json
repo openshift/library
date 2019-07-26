@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam73-trial-ephemeral"
+        "rhpam": "1.0",
+        "template": "rhpam74-trial-ephemeral"
     },
     "message": "A new Process Automation Manager trial environment has been created.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.3",
+            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.4",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.3 ephemeral trial environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.4 ephemeral trial environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,trial",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.3/html/deploying_a_red_hat_process_automation_manager_7.3_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.3, including application deployment configuration, secure and insecure http communication.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_7.4_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.4, including application deployment configuration, secure and insecure http communication.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "1.0"
         },
-        "name": "rhpam73-trial-ephemeral"
+        "name": "rhpam74-trial-ephemeral"
     },
     "objects": [
         {
@@ -115,7 +115,7 @@
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-rhpamcentr-http",
+            "id": "insecure-${APPLICATION_NAME}-rhpamcentr-http",
             "kind": "Route",
             "metadata": {
                 "annotations": {
@@ -126,7 +126,7 @@
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-rhpamcentr"
                 },
-                "name": "${APPLICATION_NAME}-rhpamcentr"
+                "name": "insecure-${APPLICATION_NAME}-rhpamcentr"
             },
             "spec": {
                 "host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
@@ -140,7 +140,7 @@
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-kieserver-http",
+            "id": "insecure-${APPLICATION_NAME}-kieserver-http",
             "kind": "Route",
             "metadata": {
                 "annotations": {
@@ -151,7 +151,7 @@
                     "application": "${APPLICATION_NAME}",
                     "service": "${APPLICATION_NAME}-kieserver"
                 },
-                "name": "${APPLICATION_NAME}-kieserver"
+                "name": "insecure-${APPLICATION_NAME}-kieserver"
             },
             "spec": {
                 "host": "${KIE_SERVER_HOSTNAME_HTTP}",
@@ -211,6 +211,10 @@
                                         "value": "${KIE_MBEANS}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
+                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
                                         "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE}"
                                     },
@@ -220,7 +224,7 @@
                                     },
                                     {
                                         "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
-                                        "value": "${KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED}"
+                                        "value": "true"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_USER",
@@ -399,15 +403,13 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam73-businesscentral-openshift",
+                                "image": "rhpam74-businesscentral-openshift",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${DEFAULT_PASSWORD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
+                                    "httpGet": {
+                                        "path": "/rest/healthy",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
                                     },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
@@ -432,14 +434,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u '${KIE_ADMIN_USER}:${DEFAULT_PASSWORD}' http://localhost:8080/kie-wb.jsp"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/rest/ready",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -464,7 +464,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam73-businesscentral-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam74-businesscentral-openshift:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -485,12 +485,14 @@
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-kieserver"
+                    "service": "${APPLICATION_NAME}-kieserver",
+                    "services.server.kie.org/kie-server-id": "${APPLICATION_NAME}-kieserver"
                 },
                 "name": "${APPLICATION_NAME}-kieserver"
             },
             "spec": {
                 "replicas": 1,
+                "revisionHistoryLimit": 10,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                 },
@@ -506,7 +508,8 @@
                         "labels": {
                             "application": "${APPLICATION_NAME}",
                             "deploymentConfig": "${APPLICATION_NAME}-kieserver",
-                            "service": "${APPLICATION_NAME}-kieserver"
+                            "service": "${APPLICATION_NAME}-kieserver",
+                            "services.server.kie.org/kie-server-id": "${APPLICATION_NAME}-kieserver"
                         },
                         "name": "${APPLICATION_NAME}-kieserver"
                     },
@@ -514,6 +517,10 @@
                         "containers": [
                             {
                                 "env": [
+                                    {
+                                        "name": "WORKBENCH_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-rhpamcentr"
+                                    },
                                     {
                                         "name": "KIE_ADMIN_USER",
                                         "value": "${KIE_ADMIN_USER}"
@@ -535,36 +542,28 @@
                                         "value": "${DROOLS_SERVER_FILTER_CLASSES}"
                                     },
                                     {
+                                        "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+                                        "value": "${PROMETHEUS_SERVER_EXT_DISABLED}"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
                                         "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${DEFAULT_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
-                                        "value": "${APPLICATION_NAME}-rhpamcentr"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
-                                        "value": "ws"
-                                    },
-                                    {
                                         "name": "KIE_SERVER_ID",
-                                        "value": "${APPLICATION_NAME}-kieserver"
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "fieldPath": "metadata.labels['services.server.kie.org/kie-server-id']"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
-                                        "value": "${APPLICATION_NAME}-kieserver"
+                                        "value": "insecure-${APPLICATION_NAME}-kieserver"
                                     },
                                     {
                                         "name": "KIE_SERVER_STARTUP_STRATEGY",
-                                        "value": "${KIE_SERVER_STARTUP_STRATEGY}"
+                                        "value": "OpenShiftStartupStrategy"
                                     },
                                     {
                                         "name": "KIE_SERVER_USER",
@@ -797,15 +796,31 @@
                                 ],
                                 "image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u ${KIE_ADMIN_USER}:${DEFAULT_PASSWORD} http://localhost:8080/services/rest/server/healthcheck"
-                                        ]
+                                "lifecycle": {
+                                    "postStart": {
+                                        "exec": {
+                                            "command": [
+                                                "/bin/sh",
+                                                "/opt/eap/bin/launch/jboss-kie-kieserver-hooks.sh"
+                                            ]
+                                        }
                                     },
+                                    "preStop": {
+                                        "exec": {
+                                            "command": [
+                                                "/bin/sh",
+                                                "/opt/eap/bin/launch/jboss-kie-kieserver-hooks.sh"
+                                            ]
+                                        }
+                                    }
+                                },
+                                "livenessProbe": {
                                     "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/healthcheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 180,
                                     "periodSeconds": 15,
                                     "timeoutSeconds": 2
@@ -824,14 +839,12 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/bin/bash",
-                                            "-c",
-                                            "curl --fail --silent -u ${KIE_ADMIN_USER}:${DEFAULT_PASSWORD} http://localhost:8080/services/rest/server/readycheck"
-                                        ]
-                                    },
                                     "failureThreshold": 6,
+                                    "httpGet": {
+                                        "path": "/services/rest/server/readycheck",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
                                     "initialDelaySeconds": 60,
                                     "periodSeconds": 30,
                                     "timeoutSeconds": 2
@@ -844,7 +857,7 @@
                             }
                         ],
                         "serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
-                        "terminationGracePeriodSeconds": 60
+                        "terminationGracePeriodSeconds": 90
                     }
                 },
                 "triggers": [
@@ -934,7 +947,14 @@
             "value": "true"
         },
         {
-            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)",
+            "displayName": "Prometheus Server Extension Disabled",
+            "example": "false",
+            "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: insecure-<application-name>-kieserver-<project>.<default-domain-suffix>",
             "displayName": "KIE Server Custom http Route Hostname",
             "name": "KIE_SERVER_HOSTNAME_HTTP",
             "required": false,
@@ -976,32 +996,32 @@
             "value": "1"
         },
         {
-            "description": "Custom hostname for http service route for Business Central. Leave blank for default hostname, e.g.: <application-name>-rhpamcentr-<project>.<default-domain-suffix>",
+            "description": "Custom hostname for http service route for Business Central. Leave blank for default hostname, e.g.: insecure-<application-name>-rhpamcentr-<project>.<default-domain-suffix>",
             "displayName": "Business Central Custom http Route Hostname",
             "name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
             "required": false,
             "value": ""
         },
         {
-            "description": "If OpenShift integration of Business Central is turned on, setting this parameter to true enables connection to KIE Server via an OpenShift internal Service endpoint. (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
-            "displayName": "Prefer KIE Server OpenShift Service [Tech Preview]",
-            "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
+            "description": "If set to true, turns on KIE server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
+            "displayName": "Enable KIE server global discovery",
+            "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
             "required": false,
             "value": "false"
+        },
+        {
+            "description": "If OpenShift integration of Business Central is turned on, setting this parameter to true enables connection to KIE Server via an OpenShift internal Service endpoint. (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
+            "displayName": "Prefer KIE Server OpenShift Service",
+            "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
+            "required": false,
+            "value": "true"
         },
         {
             "description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
-            "displayName": "KIE ServerTemplate Cache TTL [Tech Preview]",
+            "displayName": "KIE ServerTemplate Cache TTL",
             "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
             "required": false,
             "value": "60000"
-        },
-        {
-            "description": "If set to true, turns on OpenShift integration feature in Business Central. With OpenShift integration, Business Central automatically discovers and connects to any KIE server in the same namespace, provided that OpenShift integration (OpenShiftStartupStrategy) is enabled on the KIE server. (Sets the org.kie.workbench.controller.openshift.enabled system property)",
-            "displayName": "Enable OpenShift Integration [Tech Preview]",
-            "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
-            "required": false,
-            "value": "false"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
@@ -1011,18 +1031,18 @@
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam73-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam74-kieserver-openshift\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam73-kieserver-openshift"
+            "value": "rhpam74-kieserver-openshift"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"1.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "1.0"
         },
         {
             "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
@@ -1067,7 +1087,7 @@
         {
             "description": "The directory to use for git hooks, if required.",
             "displayName": "Git hooks directory",
-            "example": "/opt/eap/standalone/data/kie/git/hooks",
+            "example": "/opt/kie/data/git/hooks",
             "name": "GIT_HOOKS_DIR",
             "required": false
         },
@@ -1084,13 +1104,6 @@
             "name": "KIE_SERVER_MEMORY_LIMIT",
             "required": false,
             "value": "1Gi"
-        },
-        {
-            "description": "When set to OpenShiftStartupStrategy, allows KIE server to start up independently using shared state from OpenShift API service and to connect to a Business Central that uses OpenShift integration. Default: ControllerBasedStartupStrategy",
-            "displayName": "KIE Server Startup Strategy",
-            "name": "KIE_SERVER_STARTUP_STRATEGY",
-            "required": false,
-            "value": "ControllerBasedStartupStrategy"
         },
         {
             "description": "RH-SSO URL.",
@@ -1269,7 +1282,7 @@
         {
             "description": "A role included for all authenticated users.",
             "displayName": "LDAP Default role",
-            "example": "guest",
+            "example": "user",
             "name": "AUTH_LDAP_DEFAULT_ROLE",
             "required": false
         },
