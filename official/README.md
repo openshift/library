@@ -762,6 +762,10 @@ Path: official/sso/imagestreams/redhat-sso72-openshift-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery)  
 Path: official/sso/imagestreams/redhat-sso-cd-openshift-rhel7.json  
+### redhat-sso-cd-openshift-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery)  
+Path: official/sso/imagestreams/redhat-sso-cd-openshift-rhel8-rhel7.json  
 ### redhat-sso73-openshift
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.2.GA/templates/sso73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.2.GA/templates/sso73-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/)  
