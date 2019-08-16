@@ -2,14 +2,14 @@
     "apiVersion": "v1",
     "kind": "ImageStream",
     "labels": {
-        "rhsso": "7"
+        "rhsso": "6"
     },
     "metadata": {
         "annotations": {
             "description": "Red Hat Single Sign-On Continuous Delivery",
             "openshift.io/display-name": "Red Hat Single Sign-On Continuous Delivery",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "7"
+            "version": "6"
         },
         "name": "redhat-sso-cd-openshift"
     },
@@ -20,13 +20,13 @@
                     "description": "Latest build of Red Hat Single Sign-On Continuous Delivery Tech Preview image",
                     "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On Continuous Delivery (Tech Preview)",
-                    "supports": "sso:7",
+                    "supports": "sso:7.4",
                     "tags": "sso,keycloak,redhat,hidden",
                     "version": "latest"
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "registry.redhat.io/redhat-sso-cd-tech-preview/sso-cd-openshift-rhel8:latest"
+                    "name": "registry.redhat.io/redhat-sso-cd-tech-preview/sso-cd-openshift:latest"
                 },
                 "name": "latest",
                 "referencePolicy": {
@@ -38,7 +38,7 @@
                     "description": "Red Hat Single Sign-On 7.3 Continuous Delivery Tech Preview image",
                     "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.3 Continuous Delivery (Tech Preview)",
-                    "supports": "sso:7.3",
+                    "supports": "sso-cd:1.0,sso:7.3",
                     "tags": "sso,keycloak,redhat,hidden",
                     "version": "1.0"
                 },
@@ -56,7 +56,7 @@
                     "description": "Red Hat Single Sign-On 7.4 Continuous Delivery Tech Preview image",
                     "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On 7.4 Continuous Delivery (Tech Preview)",
-                    "supports": "sso:7.4",
+                    "supports": "sso-cd:5.0,sso:7.4",
                     "tags": "sso,keycloak,redhat,hidden",
                     "version": "5.0"
                 },
@@ -74,7 +74,7 @@
                     "description": "Red Hat Single Sign-On Continuous Delivery 6 Tech Preview image",
                     "iconClass": "icon-sso",
                     "openshift.io/display-name": "Red Hat Single Sign-On 6 Continuous Delivery (Tech Preview)",
-                    "supports": "sso:6",
+                    "supports": "sso-cd:6,sso:7.4",
                     "tags": "sso,keycloak,redhat,hidden",
                     "version": "6"
                 },
@@ -93,34 +93,6 @@
                     "name": "6"
                 },
                 "name": "6.0",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "Red Hat Single Sign-On Continuous Delivery 7 Tech Preview image",
-                    "iconClass": "icon-sso",
-                    "openshift.io/display-name": "Red Hat Single Sign-On 7 Continuous Delivery (Tech Preview)",
-                    "supports": "sso:7",
-                    "tags": "sso,keycloak,redhat,hidden",
-                    "version": "7"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/redhat-sso-cd-tech-preview/sso-cd-openshift-rhel8:7"
-                },
-                "name": "7",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "from": {
-                    "kind": "ImageStreamTag",
-                    "name": "7"
-                },
-                "name": "7.0",
                 "referencePolicy": {
                     "type": "Local"
                 }
