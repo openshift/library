@@ -3,7 +3,7 @@ variables:
   openjdk_version: ose-v1.4.17
   amq_version: ose-v1.4.18
   eap_version: ose-v1.4.18
-  eap_cd_version: CD16
+  eap_cd_version: CD17
   rhsso72_zstream_version: v7.2.6.GA
   rhsso_tpcd_version: sso-cd-dev
   rhsso73_zstream_version: v7.3.2.GA
@@ -494,11 +494,6 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-basic-s2i.json
         docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/{eap_cd_version}/docs/templates/eap-cd-basic-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/{eap_cd_version}/docs/templates/eap-cd-postgresql-persistent-s2i.adoc
         tags:
           - ocp
           - online-professional

@@ -3,20 +3,20 @@
     "kind": "Template",
     "labels": {
         "template": "eap-cd-basic-s2i",
-        "xpaas": "16.0"
+        "xpaas": "17.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "metadata": {
         "annotations": {
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP CD 16",
+            "openshift.io/display-name": "JBoss EAP CD 17",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "16.0"
+            "version": "17.0"
         },
         "name": "eap-cd-basic-s2i"
     },
@@ -148,7 +148,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-openshift:16",
+                            "name": "eap-cd-openshift:17",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         },
                         "incremental": true
@@ -277,7 +277,8 @@
                                             "-c",
                                             "/opt/eap/bin/readinessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 10
                                 },
                                 "resources": {
                                     "limits": {
