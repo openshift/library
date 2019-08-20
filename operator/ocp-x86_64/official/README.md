@@ -224,20 +224,16 @@ Path: official/eap/templates/eap72-postgresql-persistent-s2i.json
 # eap-cd
 ## imagestreams
 ### eap-cd-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/](https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/)  
 Path: official/eap-cd/imagestreams/eap-cd-openshift-rhel7.json  
 ## templates
 ### eap-cd-basic-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-basic-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD16/docs/templates/eap-cd-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD16/docs/templates/eap-cd-basic-s2i.adoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-basic-s2i.json )  
+Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD17/docs/templates/eap-cd-basic-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD17/docs/templates/eap-cd-basic-s2i.adoc)  
 Path: official/eap-cd/templates/eap-cd-basic-s2i.json  
-### eap-cd-postgresql-persistent-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-postgresql-persistent-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-postgresql-persistent-s2i.json )  
-Docs: [https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD16/docs/templates/eap-cd-postgresql-persistent-s2i.adoc](https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/CD16/docs/templates/eap-cd-postgresql-persistent-s2i.adoc)  
-Path: official/eap-cd/templates/eap-cd-postgresql-persistent-s2i.json  
 ### eap-cd-starter-s2i
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD16/templates/eap-cd-starter-s2i.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-starter-s2i.json](https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/CD17/templates/eap-cd-starter-s2i.json )  
 Path: official/eap-cd/templates/eap-cd-starter-s2i.json  
 # fis
 ## imagestreams
