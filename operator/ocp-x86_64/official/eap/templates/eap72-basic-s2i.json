@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap72-basic-s2i",
-        "xpaas": "1.0.0"
+        "xpaas": "1.1.0"
     },
     "message": "A new EAP based application has been created in your project.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.0.0"
+            "version": "1.1.0"
         },
         "name": "eap72-basic-s2i"
     },
@@ -148,7 +148,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap72-openshift:1.0",
+                            "name": "jboss-eap72-openshift:1.1",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         },
                         "incremental": true
@@ -275,9 +275,10 @@
                                         "command": [
                                             "/bin/bash",
                                             "-c",
-                                            "/opt/eap/bin/readinessProbe.sh"
+                                            "/opt/eap/bin/readinessProbe.sh false"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 10
                                 },
                                 "resources": {
                                     "limits": {
