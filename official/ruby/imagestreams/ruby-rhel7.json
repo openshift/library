@@ -17,7 +17,7 @@
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
                     "supports": "ruby",
-                    "tags": "builder,ruby,ppc64le"
+                    "tags": "builder,ruby"
                 },
                 "from": {
                     "kind": "ImageStreamTag",
@@ -30,13 +30,53 @@
             },
             {
                 "annotations": {
+                    "description": "Build and run Ruby 2.3 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.3/README.md.",
+                    "iconClass": "icon-ruby",
+                    "openshift.io/display-name": "Ruby 2.3",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+                    "supports": "ruby:2.3,ruby",
+                    "tags": "hidden,builder,ruby",
+                    "version": "2.3"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhscl/ruby-23-rhel7:latest"
+                },
+                "name": "2.3",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Ruby 2.4 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.4/README.md.",
+                    "iconClass": "icon-ruby",
+                    "openshift.io/display-name": "Ruby 2.4",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+                    "supports": "ruby:2.4,ruby",
+                    "tags": "builder,ruby",
+                    "version": "2.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhscl/ruby-24-rhel7:latest"
+                },
+                "name": "2.4",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
                     "description": "Build and run Ruby 2.5 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.5/README.md.",
                     "iconClass": "icon-ruby",
                     "openshift.io/display-name": "Ruby 2.5",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
                     "supports": "ruby:2.5,ruby",
-                    "tags": "builder,ruby,ppc64le",
+                    "tags": "builder,ruby",
                     "version": "2.5"
                 },
                 "from": {
