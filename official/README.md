@@ -736,10 +736,6 @@ Path: official/rhpam/templates/rhpam74-trial-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
 Path: official/ruby/imagestreams/ruby-rhel7.json  
-### ruby
-Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json )  
-Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
-Path: official/ruby/imagestreams/ruby-rhel7.json  
 # sso
 ## imagestreams
 ### redhat-sso70-openshift
