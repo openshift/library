@@ -64,6 +64,12 @@ Path: community/nginx/imagestreams/nginx-centos7.json
 Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-centos7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-nodejs/master/imagestreams/nodejs-centos7.json )  
 Docs: [https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-nodejs/blob/master/README.md)  
 Path: community/nodejs/imagestreams/nodejs-centos7.json  
+# openliberty
+## imagestreams
+### openliberty
+Source URL: [https://raw.githubusercontent.com/OpenLiberty/open-liberty-s2i/master/imagestreams/openliberty-ubi-min.json](https://raw.githubusercontent.com/OpenLiberty/open-liberty-s2i/master/imagestreams/openliberty-ubi-min.json )  
+Docs: [https://github.com/OpenLiberty/open-liberty-s2i/blob/master/README.md](https://github.com/OpenLiberty/open-liberty-s2i/blob/master/README.md)  
+Path: community/openliberty/imagestreams/openliberty.json  
 # perl
 ## imagestreams
 ### perl

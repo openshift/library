@@ -4,6 +4,12 @@
 Source URL: [https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json](https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json )  
 Docs: [https://github.com/luciddreamz/laravel-ex/blob/master/readme.md](https://github.com/luciddreamz/laravel-ex/blob/master/readme.md)  
 Path: community/laravel/templates/laravel-mysql-persistent.json  
+# openliberty
+## imagestreams
+### openliberty
+Source URL: [https://raw.githubusercontent.com/OpenLiberty/open-liberty-s2i/master/imagestreams/openliberty-ubi-min.json](https://raw.githubusercontent.com/OpenLiberty/open-liberty-s2i/master/imagestreams/openliberty-ubi-min.json )  
+Docs: [https://github.com/OpenLiberty/open-liberty-s2i/blob/master/README.md](https://github.com/OpenLiberty/open-liberty-s2i/blob/master/README.md)  
+Path: community/openliberty/imagestreams/openliberty.json  
 # wildfly
 ## imagestreams
 ### wildfly
