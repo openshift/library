@@ -270,6 +270,10 @@ Path: official/jenkins/imagestreams/jenkins-agent-maven-rhel7.json
 Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: official/jenkins/templates/jenkins-persistent.json  
+### jenkins-persistent-monitored
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent-monitored.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent-monitored.json )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: official/jenkins/templates/jenkins-persistent-monitored.json  
 # mariadb
 ## imagestreams
 ### mariadb
