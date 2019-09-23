@@ -731,6 +731,20 @@
                 "name": "jenkins-persistent",
                 "path": "official/jenkins/templates/jenkins-persistent.json",
                 "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json"
+            },
+            {
+                "description": "Jenkins service, without persistent storage.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-ephemeral-monitored",
+                "path": "official/jenkins/templates/jenkins-ephemeral-monitored.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral-monitored.json"
+            },
+            {
+                "description": "Jenkins service, with persistent storage.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-persistent-monitored",
+                "path": "official/jenkins/templates/jenkins-persistent-monitored.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent-monitored.json"
             }
         ]
     },
