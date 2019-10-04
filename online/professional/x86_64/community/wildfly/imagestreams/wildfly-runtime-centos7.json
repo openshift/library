@@ -11,7 +11,7 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "WildFly 17 runtime dependencies image based on CentOS 7. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/current/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of WildFly available on OpenShift, including major versions updates.",
+                    "description": "WildFly runtime dependencies image based on CentOS 7. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/current/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of WildFly available on OpenShift, including major versions updates.",
                     "iconClass": "icon-wildfly",
                     "openshift.io/display-name": "WildFly Runtime Dependencies (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -42,6 +42,25 @@
                     "name": "quay.io/wildfly/wildfly-runtime-centos7:17.0"
                 },
                 "name": "17.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "WildFly 18 runtime dependencies image based on CentOS 7. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/current/README.md.",
+                    "iconClass": "icon-wildfly",
+                    "openshift.io/display-name": "WildFly Runtime Dependencies 18",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "supports": "wildfly:18,jee,java",
+                    "tags": "wildfly,java",
+                    "version": "18.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "quay.io/wildfly/wildfly-runtime-centos7:18.0"
+                },
+                "name": "18.0",
                 "referencePolicy": {
                     "type": "Local"
                 }
