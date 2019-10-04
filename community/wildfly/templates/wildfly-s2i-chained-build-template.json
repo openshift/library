@@ -65,8 +65,12 @@
                     "sourceStrategy": {
                         "env": [
                             {
-                                "name": "GALLEON_PROVISION_SERVER",
-                                "value": "${GALLEON_PROVISION_SERVER}"
+                                "name": "GALLEON_PROVISION_LAYERS",
+                                "value": "${GALLEON_PROVISION_LAYERS}"
+                            },
+                            {
+                                "name": "GALLEON_PROVISION_DEFAULT_FAT_SERVER",
+                                "value": "true"
                             }
                         ],
                         "from": {
@@ -186,9 +190,9 @@
             "value": "openshift"
         },
         {
-            "description": "A builtin Galleon description to provision a custom server",
-            "displayName": "Builtin Galleon Description Name",
-            "name": "GALLEON_PROVISION_SERVER",
+            "description": "A comma separated lists of galleon layers to provision. The main layers are cloud-server, jaxrs-server and datasources-web-server. You can check documentation to get more details on layers.",
+            "displayName": "List of Galleon layers.",
+            "name": "GALLEON_PROVISION_LAYERS",
             "required": false,
             "value": null
         }
