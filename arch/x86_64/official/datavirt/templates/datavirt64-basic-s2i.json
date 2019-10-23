@@ -2,18 +2,21 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "jdv64": "1.6.0",
+        "jdv64": "1.7.0",
         "template": "datavirt64-basic-s2i"
     },
-    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the \"${SERVICE_ACCOUNT_NAME}\" service account and the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
+    "message": "A new data service has been created in your project.  The username/password for accessing the service is ${TEIID_USERNAME}/${TEIID_PASSWORD}.  Please be sure to create the secret named ${CONFIGURATION_NAME} containing the datasource configuration details required by the deployed VDB(s).",
     "metadata": {
         "annotations": {
             "description": "Application template for JBoss Data Virtualization 6.4 services built using S2I.",
             "iconClass": "icon-datavirt",
-            "openshift.io/display-name": "Red Hat JBoss Data Virtualization 6.4 (no SSL)",
+            "openshift.io/display-name": "JBoss Data Virtualization 6.4 (no SSL)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "jdv,datavirt,jboss,xpaas",
-            "version": "1.4.0"
+            "tags": "jdv,datavirt,database,jboss",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-data-virtualization/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Data Virtualization based application, including a build configuration and application deployment configuration.",
+            "template.openshift.io/support-url": "https://access.redhat.com",
+            "version": "1.7.0"
         },
         "name": "datavirt64-basic-s2i"
     },
@@ -41,6 +44,37 @@
                         "name": "jdbc",
                         "port": 31000,
                         "targetPort": "jdbc"
+                    },
+                    {
+                        "name": "odbc",
+                        "port": 35432,
+                        "targetPort": "odbc"
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "The JGroups ping port for clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888
                     }
                 ],
                 "selector": {
@@ -128,7 +162,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-datavirt64-openshift:1.6",
+                            "name": "jboss-datavirt64-openshift:1.7",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         }
                     },
@@ -199,6 +233,18 @@
                                         "value": "8888"
                                     },
                                     {
+                                        "name": "HORNETQ_CLUSTER_PASSWORD",
+                                        "value": "${HORNETQ_CLUSTER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_QUEUES",
+                                        "value": "${HORNETQ_QUEUES}"
+                                    },
+                                    {
+                                        "name": "HORNETQ_TOPICS",
+                                        "value": "${HORNETQ_TOPICS}"
+                                    },
+                                    {
                                         "name": "JGROUPS_CLUSTER_PASSWORD",
                                         "value": "${JGROUPS_CLUSTER_PASSWORD}"
                                     },
@@ -228,7 +274,8 @@
                                             "-c",
                                             "/opt/eap/bin/livenessProbe.sh"
                                         ]
-                                    }
+                                    },
+                                    "initialDelaySeconds": 60
                                 },
                                 "name": "${APPLICATION_NAME}",
                                 "ports": [
@@ -248,6 +295,11 @@
                                         "protocol": "TCP"
                                     },
                                     {
+                                        "containerPort": 35432,
+                                        "name": "odbc",
+                                        "protocol": "TCP"
+                                    },
+                                    {
                                         "containerPort": 8888,
                                         "name": "ping",
                                         "protocol": "TCP"
@@ -262,6 +314,11 @@
                                         ]
                                     }
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "memory": "${MEMORY_LIMIT}"
+                                    }
+                                },
                                 "volumeMounts": [
                                     {
                                         "mountPath": "/etc/datavirt-environment",
@@ -271,7 +328,6 @@
                                 ]
                             }
                         ],
-                        "serviceAccountName": "${SERVICE_ACCOUNT_NAME}",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
@@ -348,11 +404,26 @@
             "value": "datavirt64/dynamicvdb-datafederation/app"
         },
         {
-            "description": "The name of the service account to use for the deployment.  The service account should be configured to allow usage of the secret specified by CONFIGURATION_NAME.",
-            "displayName": "Service Account Name",
-            "name": "SERVICE_ACCOUNT_NAME",
-            "required": true,
-            "value": "datavirt-service-account"
+            "description": "Queue names",
+            "displayName": "Queues",
+            "name": "HORNETQ_QUEUES",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Topic names",
+            "displayName": "Topics",
+            "name": "HORNETQ_TOPICS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "HornetQ cluster admin password",
+            "displayName": "HornetQ Password",
+            "from": "[a-zA-Z0-9]{8}",
+            "generate": "expression",
+            "name": "HORNETQ_CLUSTER_PASSWORD",
+            "required": true
         },
         {
             "description": "Username associated with Teiid data service.",
@@ -428,6 +499,12 @@
             "name": "ARTIFACT_DIR",
             "required": false,
             "value": ""
+        },
+        {
+            "description": "Container memory limit",
+            "name": "MEMORY_LIMIT",
+            "required": false,
+            "value": "1Gi"
         }
     ]
 }
