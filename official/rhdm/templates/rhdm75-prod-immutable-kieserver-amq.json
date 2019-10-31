@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm74-prod-immutable-kieserver-amq"
+        "rhdm": "7.5",
+        "template": "rhdm75-prod-immutable-kieserver-amq"
     },
     "message": "A new immutable Red Hat Decision Manager KIE server has been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.4",
+            "description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.5 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.4 immutable production environment with ActiveMQ.",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.5 immutable production environment with ActiveMQ.",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i,amq",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_7.4_immutable_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.4, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_a_red_hat_decision_manager_7.5_immutable_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.5, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "7.5"
         },
-        "name": "rhdm74-prod-immutable-kieserver-amq"
+        "name": "rhdm75-prod-immutable-kieserver-amq"
     },
     "objects": [
         {
@@ -48,35 +48,6 @@
                 {
                     "kind": "ServiceAccount",
                     "name": "${APPLICATION_NAME}-kieserver"
-                }
-            ]
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "ServiceAccount",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "amq-service-account"
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "RoleBinding",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}"
-                },
-                "name": "amq-service-account-view"
-            },
-            "roleRef": {
-                "name": "view"
-            },
-            "subjects": [
-                {
-                    "kind": "ServiceAccount",
-                    "name": "amq-service-account"
                 }
             ]
         },
@@ -454,6 +425,30 @@
                 "to": {
                     "kind": "Service",
                     "name": "${APPLICATION_NAME}-amq-jolokia"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "id": "${APPLICATION_NAME}-amq-tcp-ssl",
+            "kind": "Route",
+            "metadata": {
+                "annotations": {
+                    "description": "Route for AMQ tcp-ssl Service"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}",
+                    "service": "${APPLICATION_NAME}-amq"
+                },
+                "name": "amq-tcp-ssl-external"
+            },
+            "spec": {
+                "tls": {
+                    "termination": "passthrough"
+                },
+                "to": {
+                    "kind": "Service",
+                    "name": "${APPLICATION_NAME}-amq-tcp-ssl"
                 }
             }
         },
@@ -933,14 +928,14 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "failureThreshold": 6,
+                                    "failureThreshold": 36,
                                     "httpGet": {
                                         "path": "/services/rest/server/readycheck",
                                         "port": 8080,
                                         "scheme": "HTTP"
                                     },
-                                    "initialDelaySeconds": 60,
-                                    "periodSeconds": 30,
+                                    "initialDelaySeconds": 30,
+                                    "periodSeconds": 5,
                                     "timeoutSeconds": 2
                                 },
                                 "resources": {
@@ -1056,7 +1051,7 @@
                                     },
                                     {
                                         "name": "AMQ_REQUIRE_LOGIN",
-                                        "value": "false"
+                                        "value": "true"
                                     },
                                     {
                                         "name": "AMQ_ANYCAST_PREFIX"
@@ -1217,7 +1212,7 @@
             "value": "executionUser"
         },
         {
-            "description": "KIE server password, used to connect to KIE servers. Generated value can be a suggestion to use for thew s2i various (Sets the org.kie.server.pwd system property)",
+            "description": "KIE server password. If this parameter is not set, the password is automatically generated. (Sets the org.kie.server.pwd system property)",
             "displayName": "KIE Server Password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
@@ -1225,25 +1220,25 @@
             "required": false
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhdm74-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm-kieserver-rhel8\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm74-kieserver-openshift"
+            "value": "rhdm-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.5.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "7.5.0"
         },
         {
             "description": "KIE server mbeans enabled/disabled. (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
@@ -1309,14 +1304,14 @@
             "value": "mykeystorepass"
         },
         {
-            "description": "KIE server bypass auth user (Sets the org.kie.server.bypass.auth.user system property)",
+            "description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
             "displayName": "KIE Server Bypass Auth User",
             "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,
             "value": "false"
         },
         {
-            "description": "KIE Server Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
+            "description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2",
             "displayName": "KIE Server Container Deployment",
             "example": "rhdm-kieserver-hellorules=org.openshift.quickstarts:rhdm-kieserver-hellorules:1.5.0-SNAPSHOT",
             "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
@@ -1332,7 +1327,7 @@
         {
             "description": "Git branch/tag reference",
             "displayName": "Git Reference",
-            "example": "master",
+            "example": "7.5.x",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false
         },
@@ -1470,7 +1465,7 @@
             "value": "admin"
         },
         {
-            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. These are the default queues needed by KIE Server. If using custom Queues use the same value here than KIE_SERVER_JMS_QUEUE_RESPONSE and KIE_SERVER_JMS_QUEUE_REQUEST.",
+            "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. These are the default queues needed by KIE Server. If using custom Queues, use the same values here as in the KIE_SERVER_JMS_QUEUE_RESPONSE and KIE_SERVER_JMS_QUEUE_REQUEST parameters.",
             "displayName": "AMQ Queues",
             "name": "AMQ_QUEUES",
             "required": false,
@@ -1530,7 +1525,7 @@
             "displayName": "AMQ Broker Image Stream Name",
             "name": "AMQ_BROKER_IMAGESTREAM_NAME",
             "required": true,
-            "value": "amq-broker-73-openshift:7.3"
+            "value": "amq-broker:7.4"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat AMQ images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",

@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhdm": "1.1",
-        "template": "rhdm74-optaweb-employee-rostering"
+        "rhdm": "7.5",
+        "template": "rhdm75-optaweb-employee-rostering"
     },
     "message": "A new Decision Manager Optaweb employee rostering application have been created in your project.\n\nPlease be sure to create the secret named \"${OPTAWEB_HTTPS_SECRET}\" containing the ${OPTAWEB_HTTPS_KEYSTORE} file used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a Optaweb Employee Rostering with a PostgreSQL database, for Red Hat Decision Manager 7.4",
+            "description": "Application template for a Optaweb Employee Rostering with a PostgreSQL database, for Red Hat Decision Manager 7.5 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Decision Manager 7.4 Business Optimizer Employee Rostering with a PostgreSQL database",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.5 Business Optimizer Employee Rostering with a PostgreSQL database",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhdm,decisionserver,jboss,optaweb,employee-rostering,postgresql",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This web application assists the operations department to assign shifts to employees, for example in hospitals, factories, guard firms or call centers. It automatically finds the best employee for each shift, taking into account labor regulations, skill requirements, employee preferences and other constraints.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This web application assists the operations department to assign shifts to employees, for example in hospitals, factories, guard firms or call centers. It automatically finds the best employee for each shift, taking into account labor regulations, skill requirements, employee preferences and other constraints. Deprecated since Red Hat Decision Manager version 7.5.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "7.5"
         },
-        "name": "rhdm74-optaweb-employee-rostering"
+        "name": "rhdm75-optaweb-employee-rostering"
     },
     "objects": [
         {
@@ -572,25 +572,25 @@
             "required": false
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for Optaweb employee rostering. Default is \"rhdm74-optaweb-employee-rostering-openshift\".",
+            "description": "The name of the image stream to use for Optaweb employee rostering. Default is \"rhdm-optaweb-employee-rostering-rhel8\".",
             "displayName": "Optaweb Employee Rostering ImageStream Name",
             "name": "OPTAWEB_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhdm74-optaweb-employee-rostering-openshift"
+            "value": "rhdm-optaweb-employee-rostering-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.5.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "7.5.0"
         },
         {
             "description": "Optaweb employee rostering persistence datasource (Sets the org.optaweb.employeerostering.persistence.datasource system property)",
