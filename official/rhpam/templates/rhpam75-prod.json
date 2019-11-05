@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "1.1",
-        "template": "rhpam74-prod"
+        "rhpam": "7.5",
+        "template": "rhpam75-prod"
     },
     "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password for accessing Business Central Monitoring is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nBoth sets of KIE servers are configured with the username/password\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.4",
+            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.5 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.4 production environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.5 production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,prod",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_7.4_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.4, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_7.5_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.5, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1"
+            "version": "7.5"
         },
-        "name": "rhpam74-prod"
+        "name": "rhpam75-prod"
     },
     "objects": [
         {
@@ -579,6 +579,14 @@
                             {
                                 "env": [
                                     {
+                                        "name": "APPLICATION_USERS_PROPERTIES",
+                                        "value": "/opt/kie/data/configuration/application-users.properties"
+                                    },
+                                    {
+                                        "name": "APPLICATION_ROLES_PROPERTIES",
+                                        "value": "/opt/kie/data/configuration/application-roles.properties"
+                                    },
+                                    {
                                         "name": "KIE_ADMIN_PWD",
                                         "value": "${KIE_ADMIN_PWD}"
                                     },
@@ -791,7 +799,7 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam74-businesscentral-monitoring-openshift",
+                                "image": "rhpam-businesscentral-monitoring-rhel8",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "httpGet": {
@@ -827,14 +835,14 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "failureThreshold": 6,
+                                    "failureThreshold": 36,
                                     "httpGet": {
                                         "path": "/rest/ready",
                                         "port": 8080,
                                         "scheme": "HTTP"
                                     },
-                                    "initialDelaySeconds": 60,
-                                    "periodSeconds": 30,
+                                    "initialDelaySeconds": 30,
+                                    "periodSeconds": 5,
                                     "timeoutSeconds": 2
                                 },
                                 "resources": {
@@ -881,7 +889,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam74-businesscentral-monitoring-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam-businesscentral-monitoring-rhel8:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1008,7 +1016,7 @@
                                         "value": "true"
                                     }
                                 ],
-                                "image": "rhpam74-smartrouter-openshift",
+                                "image": "rhpam-smartrouter-rhel8",
                                 "imagePullPolicy": "Always",
                                 "name": "${APPLICATION_NAME}-smartrouter",
                                 "ports": [
@@ -1063,7 +1071,7 @@
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam74-smartrouter-openshift:${IMAGE_STREAM_TAG}",
+                                "name": "rhpam-smartrouter-rhel8:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -1090,11 +1098,16 @@
             },
             "spec": {
                 "replicas": "${{KIE_SERVER_CONTAINER_REPLICAS}}",
+                "revisionHistoryLimit": 10,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver-1"
                 },
                 "strategy": {
-                    "type": "Recreate"
+                    "rollingParams": {
+                        "maxSurge": "100%",
+                        "maxUnavailable": 0
+                    },
+                    "type": "Rolling"
                 },
                 "template": {
                     "metadata": {
@@ -1495,14 +1508,14 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "failureThreshold": 6,
+                                    "failureThreshold": 36,
                                     "httpGet": {
                                         "path": "/services/rest/server/readycheck",
                                         "port": 8080,
                                         "scheme": "HTTP"
                                     },
-                                    "initialDelaySeconds": 60,
-                                    "periodSeconds": 30,
+                                    "initialDelaySeconds": 30,
+                                    "periodSeconds": 5,
                                     "timeoutSeconds": 2
                                 },
                                 "resources": {
@@ -1699,11 +1712,16 @@
             },
             "spec": {
                 "replicas": "${{KIE_SERVER_CONTAINER_REPLICAS}}",
+                "revisionHistoryLimit": 10,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver-2"
                 },
                 "strategy": {
-                    "type": "Recreate"
+                    "rollingParams": {
+                        "maxSurge": "100%",
+                        "maxUnavailable": 0
+                    },
+                    "type": "Rolling"
                 },
                 "template": {
                     "metadata": {
@@ -2104,14 +2122,14 @@
                                     }
                                 ],
                                 "readinessProbe": {
-                                    "failureThreshold": 6,
+                                    "failureThreshold": 36,
                                     "httpGet": {
                                         "path": "/services/rest/server/readycheck",
                                         "port": 8080,
                                         "scheme": "HTTP"
                                     },
-                                    "initialDelaySeconds": 60,
-                                    "periodSeconds": 30,
+                                    "initialDelaySeconds": 30,
+                                    "periodSeconds": 5,
                                     "timeoutSeconds": 2
                                 },
                                 "resources": {
@@ -2387,7 +2405,7 @@
             "value": "myapp"
         },
         {
-            "description": "Maven mirror that the KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services.",
+            "description": "Maven mirror that the KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for deploying your services.",
             "displayName": "Maven mirror URL",
             "name": "MAVEN_MIRROR_URL",
             "required": false
@@ -2477,25 +2495,25 @@
             "required": false
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam74-kieserver-openshift\".",
+            "description": "The name of the image stream to use for KIE server. Default is \"rhpam-kieserver-rhel8\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam74-kieserver-openshift"
+            "value": "rhpam-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"1.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.5.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "1.1"
+            "value": "7.5.0"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g. <application-name>-smartrouter-<project>.<default-domain-suffix>'",
@@ -2792,7 +2810,7 @@
             "value": "mykeystorepass"
         },
         {
-            "description": "Allows the KIE server to bypass the authenticated user for task related operations e.g. queries. (Sets the org.kie.server.bypass.auth.user system property)",
+            "description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
             "displayName": "KIE Server Bypass Auth User",
             "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,

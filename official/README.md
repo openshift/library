@@ -634,110 +634,110 @@ Docs: [https://github.com/sclorg/redis-container/blob/master/README.md](https://
 Path: official/redis/templates/redis-persistent.json  
 # rhdm
 ## imagestreams
-### rhdm74-decisioncentral-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml )  
+### rhdm-decisioncentral-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhdm/imagestreams/rhdm74-decisioncentral-openshift-rhel7.json  
-### rhdm74-optaweb-employee-rostering-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml )  
+Path: official/rhdm/imagestreams/rhdm-decisioncentral-rhel8.json  
+### rhdm-optaweb-employee-rostering-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_authoring_or_managed_server_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhdm/imagestreams/rhdm74-optaweb-employee-rostering-openshift-rhel7.json  
-### rhdm74-kieserver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/rhdm74-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.4/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index)  
-Path: official/rhdm/imagestreams/rhdm74-kieserver-openshift-rhel7.json  
+Path: official/rhdm/imagestreams/rhdm-optaweb-employee-rostering-rhel8.json  
+### rhdm-kieserver-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/rhdm75-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index)  
+Path: official/rhdm/imagestreams/rhdm-kieserver-rhel8.json  
 ## templates
-### rhdm74-authoring-ha
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-authoring-ha.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-authoring-ha.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-authoring-ha.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-authoring-ha.adoc)  
-Path: official/rhdm/templates/rhdm74-authoring-ha.json  
-### rhdm74-authoring
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-authoring.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-authoring.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-authoring.adoc)  
-Path: official/rhdm/templates/rhdm74-authoring.json  
-### rhdm74-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-kieserver.adoc)  
-Path: official/rhdm/templates/rhdm74-kieserver.json  
-### rhdm74-prod-immutable-kieserver-amq
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-prod-immutable-kieserver-amq.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-prod-immutable-kieserver-amq.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-prod-immutable-kieserver.adoc)  
-Path: official/rhdm/templates/rhdm74-prod-immutable-kieserver-amq.json  
-### rhdm74-prod-immutable-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-prod-immutable-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-prod-immutable-kieserver.adoc)  
-Path: official/rhdm/templates/rhdm74-prod-immutable-kieserver.json  
-### rhdm74-trial-ephemeral
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-trial-ephemeral.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-trial-ephemeral.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-trial-ephemeral.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.4.1.GA/templates/docs/rhdm74-trial-ephemeral.adoc)  
-Path: official/rhdm/templates/rhdm74-trial-ephemeral.json  
-### rhdm74-optaweb-employee-rostering
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-optaweb-employee-rostering.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.4.1.GA/templates/rhdm74-optaweb-employee-rostering.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_and_using_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.3/html/deploying_and_using_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/)  
-Path: official/rhdm/templates/rhdm74-optaweb-employee-rostering.json  
+### rhdm75-authoring-ha
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-authoring-ha.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-authoring-ha.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-authoring-ha.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-authoring-ha.adoc)  
+Path: official/rhdm/templates/rhdm75-authoring-ha.json  
+### rhdm75-authoring
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-authoring.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-authoring.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-authoring.adoc)  
+Path: official/rhdm/templates/rhdm75-authoring.json  
+### rhdm75-kieserver
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-kieserver.adoc)  
+Path: official/rhdm/templates/rhdm75-kieserver.json  
+### rhdm75-prod-immutable-kieserver-amq
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-prod-immutable-kieserver-amq.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-prod-immutable-kieserver-amq.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-prod-immutable-kieserver.adoc)  
+Path: official/rhdm/templates/rhdm75-prod-immutable-kieserver-amq.json  
+### rhdm75-prod-immutable-kieserver
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-prod-immutable-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-prod-immutable-kieserver.adoc)  
+Path: official/rhdm/templates/rhdm75-prod-immutable-kieserver.json  
+### rhdm75-trial-ephemeral
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-trial-ephemeral.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-trial-ephemeral.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-trial-ephemeral.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.5.0.GA/templates/docs/rhdm75-trial-ephemeral.adoc)  
+Path: official/rhdm/templates/rhdm75-trial-ephemeral.json  
+### rhdm75-optaweb-employee-rostering
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-optaweb-employee-rostering.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.5.0.GA/templates/rhdm75-optaweb-employee-rostering.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_and_using_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.5/html/deploying_and_using_the_employee_roster_starter_application_for_red_hat_business_optimizer_on_red_hat_openshift_container_platform/)  
+Path: official/rhdm/templates/rhdm75-optaweb-employee-rostering.json  
 # rhpam
 ## imagestreams
-### rhpam74-businesscentral-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhpam/imagestreams/rhpam74-businesscentral-openshift-rhel7.json  
-### rhpam74-businesscentral-monitoring-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhpam/imagestreams/rhpam74-businesscentral-monitoring-openshift-rhel7.json  
-### rhpam74-smartrouter-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhpam/imagestreams/rhpam74-smartrouter-openshift-rhel7.json  
-### rhpam74-kieserver-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/rhpam74-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.4/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/)  
-Path: official/rhpam/imagestreams/rhpam74-kieserver-openshift-rhel7.json  
+### rhpam-businesscentral-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
+Path: official/rhpam/imagestreams/rhpam-businesscentral-rhel8.json  
+### rhpam-businesscentral-monitoring-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
+Path: official/rhpam/imagestreams/rhpam-businesscentral-monitoring-rhel8.json  
+### rhpam-smartrouter-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_authoring_environment_on_red_hat_openshift_container_platform/)  
+Path: official/rhpam/imagestreams/rhpam-smartrouter-rhel8.json  
+### rhpam-kieserver-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/rhpam75-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/](https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_immutable_server_environment_on_red_hat_openshift_container_platform/)  
+Path: official/rhpam/imagestreams/rhpam-kieserver-rhel8.json  
 ## templates
-### rhpam74-authoring-ha
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-authoring-ha.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-authoring-ha.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-authoring-ha.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-authoring-ha.adoc)  
-Path: official/rhpam/templates/rhpam74-authoring-ha.json  
-### rhpam74-authoring
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-authoring.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-authoring.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-authoring.adoc)  
-Path: official/rhpam/templates/rhpam74-authoring.json  
-### rhpam74-kieserver-externaldb
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-externaldb.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-externaldb.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-externaldb.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-externaldb.adoc)  
-Path: official/rhpam/templates/rhpam74-kieserver-externaldb.json  
-### rhpam74-kieserver-mysql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-mysql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-mysql.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-mysql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-mysql.adoc)  
-Path: official/rhpam/templates/rhpam74-kieserver-mysql.json  
-### rhpam74-kieserver-postgresql
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-postgresql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-kieserver-postgresql.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-postgresql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-kieserver-postgresql.adoc)  
-Path: official/rhpam/templates/rhpam74-kieserver-postgresql.json  
-### rhpam74-managed
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-managed.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-managed.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-managed.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-managed.adoc)  
-Path: official/rhpam/templates/rhpam74-managed.json  
-### rhpam74-prod-immutable-kieserver-amq
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-kieserver-amq.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-kieserver-amq.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-kieserver.adoc)  
-Path: official/rhpam/templates/rhpam74-prod-immutable-kieserver-amq.json  
-### rhpam74-prod-immutable-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-kieserver.adoc)  
-Path: official/rhpam/templates/rhpam74-prod-immutable-kieserver.json  
-### rhpam74-prod-immutable-monitor
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-monitor.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod-immutable-monitor.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-monitor.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod-immutable-monitor.adoc)  
-Path: official/rhpam/templates/rhpam74-prod-immutable-monitor.json  
-### rhpam74-prod
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-prod.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-prod.adoc)  
-Path: official/rhpam/templates/rhpam74-prod.json  
-### rhpam74-trial-ephemeral
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-trial-ephemeral.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.4.1.GA/templates/rhpam74-trial-ephemeral.yaml )  
-Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-trial-ephemeral.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.4.1.GA/templates/docs/rhpam74-trial-ephemeral.adoc)  
-Path: official/rhpam/templates/rhpam74-trial-ephemeral.json  
+### rhpam75-authoring-ha
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-authoring-ha.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-authoring-ha.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-authoring-ha.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-authoring-ha.adoc)  
+Path: official/rhpam/templates/rhpam75-authoring-ha.json  
+### rhpam75-authoring
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-authoring.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-authoring.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-authoring.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-authoring.adoc)  
+Path: official/rhpam/templates/rhpam75-authoring.json  
+### rhpam75-kieserver-externaldb
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-externaldb.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-externaldb.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-externaldb.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-externaldb.adoc)  
+Path: official/rhpam/templates/rhpam75-kieserver-externaldb.json  
+### rhpam75-kieserver-mysql
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-mysql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-mysql.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-mysql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-mysql.adoc)  
+Path: official/rhpam/templates/rhpam75-kieserver-mysql.json  
+### rhpam75-kieserver-postgresql
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-postgresql.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-kieserver-postgresql.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-postgresql.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-kieserver-postgresql.adoc)  
+Path: official/rhpam/templates/rhpam75-kieserver-postgresql.json  
+### rhpam75-managed
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-managed.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-managed.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-managed.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-managed.adoc)  
+Path: official/rhpam/templates/rhpam75-managed.json  
+### rhpam75-prod-immutable-kieserver-amq
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-kieserver-amq.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-kieserver-amq.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-kieserver.adoc)  
+Path: official/rhpam/templates/rhpam75-prod-immutable-kieserver-amq.json  
+### rhpam75-prod-immutable-kieserver
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-kieserver.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-kieserver.adoc)  
+Path: official/rhpam/templates/rhpam75-prod-immutable-kieserver.json  
+### rhpam75-prod-immutable-monitor
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-monitor.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod-immutable-monitor.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-monitor.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod-immutable-monitor.adoc)  
+Path: official/rhpam/templates/rhpam75-prod-immutable-monitor.json  
+### rhpam75-prod
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-prod.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-prod.adoc)  
+Path: official/rhpam/templates/rhpam75-prod.json  
+### rhpam75-trial-ephemeral
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-trial-ephemeral.yaml](https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/7.5.0.GA/templates/rhpam75-trial-ephemeral.yaml )  
+Docs: [https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-trial-ephemeral.adoc](https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/7.5.0.GA/templates/docs/rhpam75-trial-ephemeral.adoc)  
+Path: official/rhpam/templates/rhpam75-trial-ephemeral.json  
 # ruby
 ## imagestreams
 ### ruby
