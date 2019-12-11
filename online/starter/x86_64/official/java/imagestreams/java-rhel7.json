@@ -1,14 +1,14 @@
 {
     "apiVersion": "v1",
     "kind": "ImageStream",
-    "labels": {
-        "xpaas": "1.4.17"
-    },
     "metadata": {
         "annotations": {
-            "openshift.io/display-name": "Red Hat OpenJDK 8",
+            "openshift.io/display-name": "Red Hat OpenJDK",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "version": "1.4.17"
+        },
+        "labels": {
+            "xpaas": "1.4.17"
         },
         "name": "java"
     },
@@ -67,7 +67,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "java:11"
+                    "name": "11"
                 },
                 "name": "latest",
                 "referencePolicy": {
