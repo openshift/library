@@ -11,7 +11,7 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "Provides a Redis database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/3.2/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major version updates.",
+                    "description": "Provides a Redis database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major version updates.",
                     "iconClass": "icon-redis",
                     "openshift.io/display-name": "Redis (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -19,7 +19,7 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "3.2"
+                    "name": "5"
                 },
                 "name": "latest",
                 "referencePolicy": {
@@ -28,18 +28,18 @@
             },
             {
                 "annotations": {
-                    "description": "Provides a Redis 3.2 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/3.2/README.md.",
+                    "description": "Provides a Redis 5 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.",
                     "iconClass": "icon-redis",
-                    "openshift.io/display-name": "Redis 3.2",
+                    "openshift.io/display-name": "Redis 5",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "tags": "redis",
-                    "version": "3.2"
+                    "version": "5"
                 },
                 "from": {
                     "kind": "DockerImage",
-                    "name": "docker.io/centos/redis-32-centos7:latest"
+                    "name": "docker.io/centos/redis-5-centos7:latest"
                 },
-                "name": "3.2",
+                "name": "5",
                 "referencePolicy": {
                     "type": "Local"
                 }
