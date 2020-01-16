@@ -11,7 +11,7 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "Build and run Ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major version updates.",
+                    "description": "Build and run Ruby applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/2.6/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major version updates.",
                     "iconClass": "icon-ruby",
                     "openshift.io/display-name": "Ruby (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -21,29 +21,9 @@
                 },
                 "from": {
                     "kind": "ImageStreamTag",
-                    "name": "2.5"
+                    "name": "2.6"
                 },
                 "name": "latest",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "Build and run Ruby 2.3 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.3/README.md.",
-                    "iconClass": "icon-ruby",
-                    "openshift.io/display-name": "Ruby 2.3",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
-                    "supports": "ruby:2.3,ruby",
-                    "tags": "hidden,builder,ruby",
-                    "version": "2.3"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "docker.io/centos/ruby-23-centos7:latest"
-                },
-                "name": "2.3",
                 "referencePolicy": {
                     "type": "Local"
                 }
@@ -84,6 +64,26 @@
                     "name": "docker.io/centos/ruby-25-centos7:latest"
                 },
                 "name": "2.5",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Ruby 2.6 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.6/README.md.",
+                    "iconClass": "icon-ruby",
+                    "openshift.io/display-name": "Ruby 2.6",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+                    "supports": "ruby:2.6,ruby",
+                    "tags": "hidden,builder,ruby",
+                    "version": "2.6"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/ruby-26-centos7:latest"
+                },
+                "name": "2.6",
                 "referencePolicy": {
                     "type": "Local"
                 }
