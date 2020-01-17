@@ -87,17 +87,17 @@ Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-data
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.2/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid72-openshift-rhel7.json  
 ### jboss-datagrid73-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/templates/datagrid73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/templates/datagrid73-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/templates/datagrid73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/templates/datagrid73-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.3/html/data_grid_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.3/html/data_grid_for_openshift/)  
 Path: official/datagrid/imagestreams/jboss-datagrid73-openshift-rhel7.json  
 ## templates
 ### cache-service
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/services/cache-service-template.yaml](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/services/cache-service-template.yaml )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.1/docs/cache-service.asciidoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.1/docs/cache-service.asciidoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/services/cache-service-template.yaml](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/services/cache-service-template.yaml )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.4/docs/cache-service.asciidoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.4/docs/cache-service.asciidoc)  
 Path: official/datagrid/templates/cache-service.json  
 ### datagrid-service
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/services/datagrid-service-template.yaml](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.1/services/datagrid-service-template.yaml )  
-Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.1/docs/datagrid-service.asciidoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.1/docs/datagrid-service.asciidoc)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/services/datagrid-service-template.yaml](https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/7.3-v1.4/services/datagrid-service-template.yaml )  
+Docs: [https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.4/docs/datagrid-service.asciidoc](https://github.com/jboss-container-images/jboss-datagrid-7-openshift-image/blob/7.3-v1.4/docs/datagrid-service.asciidoc)  
 Path: official/datagrid/templates/datagrid-service.json  
 # datavirt
 ## imagestreams
