@@ -254,6 +254,20 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-s390x.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        regex: mariadb
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
+      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
+        regex: mariadb
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
   mongodb:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json
