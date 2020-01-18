@@ -1,0 +1,67 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "MariaDB"
+        },
+        "name": "mariadb"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Provides a MariaDB database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MariaDB available on OpenShift, including major version updates.",
+                    "iconClass": "icon-mariadb",
+                    "openshift.io/display-name": "MariaDB (Latest)",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "database,mariadb,ppc64le"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "10.3"
+                },
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Provides a MariaDB 10.2 database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.2/README.md.",
+                    "iconClass": "icon-mariadb",
+                    "openshift.io/display-name": "MariaDB 10.2",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "database,mariadb,ppc64le",
+                    "version": "10.2"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhscl/mariadb-102-rhel7:latest"
+                },
+                "name": "10.2",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Provides a MariaDB 10.3 database on RHEL 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+                    "iconClass": "icon-mariadb",
+                    "openshift.io/display-name": "MariaDB 10.3",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "database,mariadb,ppc64le",
+                    "version": "10.3"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/rhscl/mariadb-103-rhel7:latest"
+                },
+                "name": "10.3",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}
