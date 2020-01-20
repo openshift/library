@@ -3,7 +3,7 @@ variables:
   openjdk_version: ocp-v4.4.0
   amq_version: ose-v1.4.18
   eap_version: ose-v1.4.18
-  eap_cd_version: CD17
+  eap_cd_version: CD18
   rhsso72_zstream_version: v7.2.6.GA
   rhsso_tpcd_version: sso-cd-dev
   rhsso73_zstream_version: v7.3.2.GA
@@ -524,7 +524,7 @@ data:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/
         regex: eap-cd
-        suffix: rhel7
+        suffix: rhel8
         tags:
           - online-starter
           - ocp
