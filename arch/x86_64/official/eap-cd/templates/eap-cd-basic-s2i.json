@@ -3,20 +3,20 @@
     "kind": "Template",
     "labels": {
         "template": "eap-cd-basic-s2i",
-        "xpaas": "17.0"
+        "xpaas": "18.0"
     },
     "message": "A new JBoss EAP CD based application has been created in your project.",
     "metadata": {
         "annotations": {
             "description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
             "iconClass": "icon-eap",
-            "openshift.io/display-name": "JBoss EAP CD 17",
+            "openshift.io/display-name": "JBoss EAP CD 18",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "eap,javaee,java,jboss",
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "17.0"
+            "version": "18.0"
         },
         "name": "eap-cd-basic-s2i"
     },
@@ -107,18 +107,28 @@
         },
         {
             "apiVersion": "v1",
+            "kind": "ImageStream",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-build-artifacts"
+            }
+        },
+        {
+            "apiVersion": "v1",
             "kind": "BuildConfig",
             "metadata": {
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}"
+                "name": "${APPLICATION_NAME}-build-artifacts"
             },
             "spec": {
                 "output": {
                     "to": {
                         "kind": "ImageStreamTag",
-                        "name": "${APPLICATION_NAME}:latest"
+                        "name": "${APPLICATION_NAME}-build-artifacts:latest"
                     }
                 },
                 "source": {
@@ -141,6 +151,14 @@
                                 "value": "${MAVEN_ARGS_APPEND}"
                             },
                             {
+                                "name": "GALLEON_PROVISION_LAYERS",
+                                "value": "${GALLEON_PROVISION_LAYERS}"
+                            },
+                            {
+                                "name": "GALLEON_PROVISION_DEFAULT_FAT_SERVER",
+                                "value": "true"
+                            },
+                            {
                                 "name": "ARTIFACT_DIR",
                                 "value": "${ARTIFACT_DIR}"
                             }
@@ -148,7 +166,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "eap-cd-openshift:17",
+                            "name": "eap-cd-openshift:18",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         },
                         "incremental": true
@@ -170,6 +188,66 @@
                     },
                     {
                         "imageChange": {},
+                        "type": "ImageChange"
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "BuildConfig",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}"
+            },
+            "spec": {
+                "output": {
+                    "to": {
+                        "kind": "ImageStreamTag",
+                        "name": "${APPLICATION_NAME}:latest"
+                    }
+                },
+                "source": {
+                    "dockerfile": "FROM eap-cd-runtime-openshift:18\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME && chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+                    "images": [
+                        {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-build-artifacts:latest"
+                            },
+                            "paths": [
+                                {
+                                    "destinationDir": ".",
+                                    "sourcePath": "/s2i-output/server/"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "strategy": {
+                    "dockerStrategy": {
+                        "from": {
+                            "kind": "ImageStreamTag",
+                            "name": "eap-cd-runtime-openshift:18",
+                            "namespace": "${IMAGE_STREAM_NAMESPACE}"
+                        },
+                        "imageOptimizationPolicy": "SkipLayers"
+                    },
+                    "type": "Docker"
+                },
+                "triggers": [
+                    {
+                        "imageChange": {
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${APPLICATION_NAME}-build-artifacts:latest"
+                            }
+                        },
                         "type": "ImageChange"
                     },
                     {
@@ -238,6 +316,10 @@
                                     {
                                         "name": "AUTO_DEPLOY_EXPLODED",
                                         "value": "${AUTO_DEPLOY_EXPLODED}"
+                                    },
+                                    {
+                                        "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+                                        "value": "${ENABLE_GENERATE_DEFAULT_DATASOURCE}"
                                     }
                                 ],
                                 "image": "${APPLICATION_NAME}",
@@ -339,6 +421,19 @@
             "name": "CONTEXT_DIR",
             "required": false,
             "value": "kitchensink"
+        },
+        {
+            "description": "Comma separated list of Galleon layers to provision a server.",
+            "displayName": "Galleon layers",
+            "name": "GALLEON_PROVISION_LAYERS",
+            "required": false
+        },
+        {
+            "description": "Enable ExampleDS datasource.",
+            "displayName": "Enable ExampleDS datasource",
+            "name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+            "required": false,
+            "value": "false"
         },
         {
             "description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker.",
