@@ -3,7 +3,7 @@
     "kind": "Template",
     "labels": {
         "template": "eap72-sso-s2i",
-        "xpaas": "1.1.0"
+        "xpaas": "1.2.0"
     },
     "message": "A new EAP based application with SSL and SSO support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
     "metadata": {
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
             "template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 based application, including a build configuration, application deployment configuration, integrated with Red Hat Single Sign-On and secure communication using passthrough TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "1.1.0"
+            "version": "1.2.0"
         },
         "name": "eap72-sso-s2i"
     },
@@ -210,7 +210,7 @@
                         "forcePull": true,
                         "from": {
                             "kind": "ImageStreamTag",
-                            "name": "jboss-eap72-openshift:1.1",
+                            "name": "jboss-eap72-openshift:1.2",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}"
                         },
                         "incremental": true
