@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "7.5",
-        "template": "rhpam75-prod-immutable-kieserver-amq"
+        "rhpam": "7.6",
+        "template": "rhpam76-prod-immutable-kieserver-amq"
     },
-    "message": "A new immutable Red Hat Process Automation Manager KIE server have been created in your project.\nThe username/password for accessing the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new immutable Red Hat Process Automation Manager KIE server have been created in your project.\nThe user name/password for accessing the KIE server is\n\n    User name: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Process Automation Manager 7.5 - Deprecated",
+            "description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Process Automation Manager 7.6 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.5 immutable production environment with ActiveMQ",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.6 immutable production environment with ActiveMQ",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,kieserver,immutable,s2i,amq",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_7.5_immutable_server_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a immutable production runtime environment for Red Hat Process Automation Manager 7.5, including a source-to-image (S2I) build of your services, application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/deploying_a_red_hat_process_automation_manager_7.6_immutable_server_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for a immutable production runtime environment for Red Hat Process Automation Manager 7.6, including a source-to-image (S2I) build of your services, application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.5"
+            "version": "7.6"
         },
-        "name": "rhpam75-prod-immutable-kieserver-amq"
+        "name": "rhpam76-prod-immutable-kieserver-amq"
     },
     "objects": [
         {
@@ -1237,7 +1237,8 @@
                 },
                 "strategy": {
                     "rollingParams": {
-                        "maxSurge": 0
+                        "maxSurge": "100%",
+                        "maxUnavailable": 0
                     },
                     "type": "Rolling"
                 },
@@ -1444,7 +1445,7 @@
             "value": "myapp"
         },
         {
-            "description": "KIE administrator username.",
+            "description": "KIE administrator user name.",
             "displayName": "KIE Admin User",
             "name": "KIE_ADMIN_USER",
             "required": false,
@@ -1459,7 +1460,7 @@
             "required": false
         },
         {
-            "description": "KIE server username (Sets the org.kie.server.user system property)",
+            "description": "KIE server user name (Sets the org.kie.server.user system property)",
             "displayName": "KIE Server User",
             "name": "KIE_SERVER_USER",
             "required": false,
@@ -1488,11 +1489,11 @@
             "value": "rhpam-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"7.5.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.6.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "7.5.1"
+            "value": "7.6.0"
         },
         {
             "description": "KIE server persistence datasource (Sets the org.kie.server.persistence.ds system property)",
@@ -1516,7 +1517,7 @@
             "value": "10"
         },
         {
-            "description": "KIE server PostgreSQL database username",
+            "description": "KIE server PostgreSQL database user name",
             "displayName": "KIE Server PostgreSQL Database User",
             "name": "KIE_SERVER_POSTGRESQL_USER",
             "required": false,
@@ -1624,7 +1625,7 @@
         {
             "description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2",
             "displayName": "KIE Server Container Deployment",
-            "example": "rhpam-kieserver-library=org.openshift.quickstarts:rhpam-kieserver-library:1.5.0-SNAPSHOT",
+            "example": "rhpam-kieserver-library=org.openshift.quickstarts:rhpam-kieserver-library:1.6.0-SNAPSHOT",
             "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
             "required": true
         },
@@ -1638,7 +1639,7 @@
         {
             "description": "Git branch/tag reference",
             "displayName": "Git Reference",
-            "example": "7.5.x",
+            "example": "master",
             "name": "SOURCE_REPOSITORY_REF",
             "required": false
         },
@@ -1685,8 +1686,8 @@
             "required": false
         },
         {
-            "description": "Username to access the Maven repository, if required.",
-            "displayName": "Maven repository username",
+            "description": "User name for accessing the Maven repository, if required.",
+            "displayName": "Maven repository user name",
             "name": "MAVEN_REPO_USERNAME",
             "required": false
         },
@@ -1704,8 +1705,8 @@
             "required": false
         },
         {
-            "description": "Username to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Username for the Maven service hosted by Business Central",
+            "description": "User name for accessing the Maven service hosted by Business Central inside EAP.",
+            "displayName": "User name for the Maven service hosted by Business Central",
             "example": "mavenUser",
             "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
             "required": false
@@ -1899,7 +1900,7 @@
             "displayName": "AMQ Broker Image",
             "name": "AMQ_BROKER_IMAGESTREAM_NAME",
             "required": true,
-            "value": "amq-broker:7.4"
+            "value": "amq-broker:7.5"
         },
         {
             "description": "Namespace in which the ImageStreams for Red Hat AMQ images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
@@ -1935,8 +1936,8 @@
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist",
-            "displayName": "RH-SSO Realm Admin Username",
+            "description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist",
+            "displayName": "RH-SSO Realm admin user name",
             "name": "SSO_USERNAME",
             "required": false
         },
@@ -1954,7 +1955,7 @@
             "value": "false"
         },
         {
-            "description": "RH-SSO Principal Attribute to use as username.",
+            "description": "RH-SSO Principal Attribute to use as user name.",
             "displayName": "RH-SSO Principal Attribute",
             "name": "SSO_PRINCIPAL_ATTRIBUTE",
             "required": false,
@@ -1970,7 +1971,7 @@
         {
             "description": "Bind DN used for authentication",
             "displayName": "LDAP Bind DN",
-            "example": "uid=admin,ou=users,ou=exmample,ou=com",
+            "example": "uid=admin,ou=users,ou=example,ou=com",
             "name": "AUTH_LDAP_BIND_DN",
             "required": false
         },
@@ -2023,20 +2024,20 @@
             "required": false
         },
         {
-            "description": "A flag indicating if the DN is to be parsed for the username. If set to true, the DN is parsed for the username. If set to false the DN is not parsed for the username. This option is used together with usernameBeginString and usernameEndString.",
+            "description": "A flag indicating if the DN is to be parsed for the user name. If set to true, the DN is parsed for the user name. If set to false the DN is not parsed for the user name. This option is used together with usernameBeginString and usernameEndString.",
             "displayName": "LDAP Parse username",
             "example": "true",
             "name": "AUTH_LDAP_PARSE_USERNAME",
             "required": false
         },
         {
-            "description": "Defines the String which is to be removed from the start of the DN to reveal the username. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
+            "description": "Defines the String which is to be removed from the start of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
             "displayName": "LDAP Username begin string",
             "name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
             "required": false
         },
         {
-            "description": "Defines the String which is to be removed from the end of the DN to reveal the username. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
+            "description": "Defines the String which is to be removed from the end of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
             "displayName": "LDAP Username end string",
             "name": "AUTH_LDAP_USERNAME_END_STRING",
             "required": false

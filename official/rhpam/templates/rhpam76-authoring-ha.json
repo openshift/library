@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "7.5",
-        "template": "rhpam75-authoring-ha"
+        "rhpam": "7.6",
+        "template": "rhpam76-authoring-ha"
     },
-    "message": "A new persistent HA Process Automation Manager application has been created in your project.\nThe username/password for accessing the Business Central interface is\n\n    Username: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    Username: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new persistent HA Process Automation Manager application has been created in your project.\nThe user name/password for accessing the Business Central interface is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nThe user name/password for calls to the KIE server is\n\n    User name: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.5 - Deprecated",
+            "description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.6 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.5 authoring environment (HA, persistent, with https)",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.6 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.5/html/deploying_a_red_hat_process_automation_manager_7.5_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.5 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/deploying_a_red_hat_process_automation_manager_7.6_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.6 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.5"
+            "version": "7.6"
         },
-        "name": "rhpam75-authoring-ha"
+        "name": "rhpam76-authoring-ha"
     },
     "objects": [
         {
@@ -286,7 +286,8 @@
             "metadata": {
                 "annotations": {
                     "description": "Route for Business Central's http service.",
-                    "haproxy.router.openshift.io/timeout": "60s"
+                    "haproxy.router.openshift.io/balance": "source",
+                    "haproxy.router.openshift.io/timeout": "1h"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -311,7 +312,7 @@
             "metadata": {
                 "annotations": {
                     "description": "Route for Business Central's https service.",
-                    "haproxy.router.openshift.io/timeout": "60s"
+                    "haproxy.router.openshift.io/timeout": "1h"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -395,23 +396,13 @@
             },
             "spec": {
                 "podManagementPolicy": "OrderedReady",
-                "replicas": 1,
+                "replicas": 2,
                 "selector": {
                     "matchLabels": {
                         "deploymentConfig": "${APPLICATION_NAME}-datagrid"
                     }
                 },
                 "serviceName": "${APPLICATION_NAME}-datagrid",
-                "strategy": {
-                    "rollingParams": {
-                        "intervalSeconds": 20,
-                        "maxSurge": 1,
-                        "maxUnavailable": 1,
-                        "timeoutSeconds": 1200,
-                        "updatePeriodSeconds": 20
-                    },
-                    "type": "Rolling"
-                },
                 "template": {
                     "metadata": {
                         "labels": {
@@ -534,6 +525,12 @@
                         "type": "ConfigChange"
                     }
                 ],
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "partition": 0
+                    },
+                    "type": "RollingUpdate"
+                },
                 "volumeClaimTemplates": [
                     {
                         "metadata": {
@@ -731,6 +728,10 @@
                                         "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
                                     },
                                     {
+                                        "name": "JAVA_MAX_MEM_RATIO",
+                                        "value": "${BUSINESS_CENTRAL_JAVA_MAX_MEM_RATIO}"
+                                    },
+                                    {
                                         "name": "SSO_URL",
                                         "value": "${SSO_URL}"
                                     },
@@ -915,6 +916,11 @@
                                 },
                                 "resources": {
                                     "limits": {
+                                        "cpu": "${BUSINESS_CENTRAL_CPU_LIMIT}",
+                                        "memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "${BUSINESS_CENTRAL_CPU_LIMIT}",
                                         "memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
                                     }
                                 },
@@ -1378,6 +1384,11 @@
                                 },
                                 "resources": {
                                     "limits": {
+                                        "cpu": "${KIE_SERVER_CPU_LIMIT}",
+                                        "memory": "${KIE_SERVER_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "${KIE_SERVER_CPU_LIMIT}",
                                         "memory": "${KIE_SERVER_MEMORY_LIMIT}"
                                     }
                                 },
@@ -1393,11 +1404,11 @@
                         "initContainers": [
                             {
                                 "command": [
-                                    "sh",
+                                    "/bin/bash",
                                     "-c",
-                                    "until nslookup ${APPLICATION_NAME}-mysql && nc -vz ${APPLICATION_NAME}-mysql 3306; do echo waiting for ${APPLICATION_NAME}-mysql; sleep 2; done;"
+                                    "replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-mysql; replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
                                 ],
-                                "image": "busybox",
+                                "image": "registry.redhat.io/openshift3/ose-cli",
                                 "imagePullPolicy": "IfNotPresent",
                                 "name": "${APPLICATION_NAME}-mysql-init",
                                 "terminationMessagePolicy": "FallbackToLogsOnError"
@@ -1602,7 +1613,10 @@
                     }
                 },
                 "updateStrategy": {
-                    "type": "OnDelete"
+                    "rollingUpdate": {
+                        "partition": 0
+                    },
+                    "type": "RollingUpdate"
                 },
                 "volumeClaimTemplates": [
                     {
@@ -1788,7 +1802,7 @@
             "value": "myapp"
         },
         {
-            "description": "KIE administrator username.",
+            "description": "KIE administrator user name.",
             "displayName": "KIE Admin User",
             "name": "KIE_ADMIN_USER",
             "required": false,
@@ -1803,7 +1817,7 @@
             "required": false
         },
         {
-            "description": "KIE server controller username. (Sets the org.kie.server.controller.user system property)",
+            "description": "KIE server controller user name. (Sets the org.kie.server.controller.user system property)",
             "displayName": "KIE Server Controller User",
             "name": "KIE_SERVER_CONTROLLER_USER",
             "required": false,
@@ -1824,7 +1838,7 @@
             "required": false
         },
         {
-            "description": "KIE server username. (Sets the org.kie.server.user system property)",
+            "description": "KIE server user name. (Sets the org.kie.server.user system property)",
             "displayName": "KIE Server User",
             "name": "KIE_SERVER_USER",
             "required": false,
@@ -1853,7 +1867,7 @@
             "value": "java:/jboss/datasources/rhpam"
         },
         {
-            "description": "MySQL database username.",
+            "description": "MySQL database user name.",
             "displayName": "MySQL Database User",
             "name": "MYSQL_USER",
             "required": false,
@@ -2015,8 +2029,8 @@
             "value": "mykeystorepass"
         },
         {
-            "description": "The username to connect to the JMS broker.",
-            "displayName": "AppFormer JMS Broker username.",
+            "description": "The user name for connecting to the JMS broker.",
+            "displayName": "AppFormer JMS Broker user name.",
             "name": "APPFORMER_JMS_BROKER_USER",
             "required": true,
             "value": "jmsBrokerUser"
@@ -2034,7 +2048,7 @@
             "displayName": "DataGrid Image",
             "name": "DATAGRID_IMAGE",
             "required": true,
-            "value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.2"
+            "value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.3"
         },
         {
             "description": "DataGrid Container cpu limit.",
@@ -2062,7 +2076,7 @@
             "displayName": "Image",
             "name": "AMQ_BROKER_IMAGE",
             "required": true,
-            "value": "registry.redhat.io/amq7/amq-broker:7.4"
+            "value": "registry.redhat.io/amq7/amq-broker:7.5"
         },
         {
             "description": "User role for standard broker user.",
@@ -2142,11 +2156,11 @@
             "value": "rhpam-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"7.5.1\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.6.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "7.5.1"
+            "value": "7.6.0"
         },
         {
             "description": "Maven mirror that Business Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services.",
@@ -2176,8 +2190,8 @@
             "required": false
         },
         {
-            "description": "Username to access the Maven repository, if required.",
-            "displayName": "Maven repository username",
+            "description": "User name for accessing the Maven repository, if required.",
+            "displayName": "Maven repository user name",
             "name": "MAVEN_REPO_USERNAME",
             "required": false
         },
@@ -2188,8 +2202,8 @@
             "required": false
         },
         {
-            "description": "Username to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Username for the Maven service hosted by Business Central",
+            "description": "User name for accessing the Maven service hosted by Business Central inside EAP.",
+            "displayName": "User name for the Maven service hosted by Business Central",
             "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
             "required": true,
             "value": "mavenUser"
@@ -2227,15 +2241,36 @@
             "description": "Business Central Container memory limit.",
             "displayName": "Business Central Container Memory Limit",
             "name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
-            "required": false,
-            "value": "2Gi"
+            "required": true,
+            "value": "8Gi"
+        },
+        {
+            "description": "Business Central Container JVM max memory ratio. -Xmx is set to a ratio of the container available memory. The default is 80 which means 80% of the available memory is used as an upper boundary. You can skip this mechanism by setting this value to 0 in which case no -Xmx option is added.",
+            "displayName": "Business Central Container JVM Max Memory Ratio",
+            "name": "BUSINESS_CENTRAL_JAVA_MAX_MEM_RATIO",
+            "required": true,
+            "value": "80"
+        },
+        {
+            "description": "Business Central Container cpu limit.",
+            "displayName": "Business Central Container CPU Limit",
+            "name": "BUSINESS_CENTRAL_CPU_LIMIT",
+            "required": true,
+            "value": "2000m"
         },
         {
             "description": "KIE server Container memory limit.",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
-            "required": false,
+            "required": true,
             "value": "1Gi"
+        },
+        {
+            "description": "KIE server Container cpu limit.",
+            "displayName": "KIE Server Container CPU Limit",
+            "name": "KIE_SERVER_CPU_LIMIT",
+            "required": true,
+            "value": "1000m"
         },
         {
             "description": "RH-SSO URL.",
@@ -2277,8 +2312,8 @@
             "required": false
         },
         {
-            "description": "RH-SSO Realm Admin Username used to create the Client if it doesn't exist.",
-            "displayName": "RH-SSO Realm Admin Username",
+            "description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist.",
+            "displayName": "RH-SSO Realm admin user name",
             "name": "SSO_USERNAME",
             "required": false
         },
@@ -2296,7 +2331,7 @@
             "value": "false"
         },
         {
-            "description": "RH-SSO Principal Attribute to use as username.",
+            "description": "RH-SSO Principal Attribute to use as user name.",
             "displayName": "RH-SSO Principal Attribute",
             "name": "SSO_PRINCIPAL_ATTRIBUTE",
             "required": false,
@@ -2312,7 +2347,7 @@
         {
             "description": "Bind DN used for authentication.",
             "displayName": "LDAP Bind DN",
-            "example": "uid=admin,ou=users,ou=exmample,ou=com",
+            "example": "uid=admin,ou=users,ou=example,ou=com",
             "name": "AUTH_LDAP_BIND_DN",
             "required": false
         },
@@ -2365,20 +2400,20 @@
             "required": false
         },
         {
-            "description": "A flag indicating if the DN is to be parsed for the username. If set to true, the DN is parsed for the username. If set to false the DN is not parsed for the username. This option is used together with usernameBeginString and usernameEndString.",
+            "description": "A flag indicating if the DN is to be parsed for the user name. If set to true, the DN is parsed for the user name. If set to false the DN is not parsed for the user name. This option is used together with usernameBeginString and usernameEndString.",
             "displayName": "LDAP Parse username",
             "example": "true",
             "name": "AUTH_LDAP_PARSE_USERNAME",
             "required": false
         },
         {
-            "description": "Defines the String which is to be removed from the start of the DN to reveal the username. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
+            "description": "Defines the String which is to be removed from the start of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
             "displayName": "LDAP Username begin string",
             "name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
             "required": false
         },
         {
-            "description": "Defines the String which is to be removed from the end of the DN to reveal the username. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
+            "description": "Defines the String which is to be removed from the end of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true.",
             "displayName": "LDAP Username end string",
             "name": "AUTH_LDAP_USERNAME_END_STRING",
             "required": false
