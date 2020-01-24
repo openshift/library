@@ -1,11 +1,412 @@
 {
+    "cakephp": {
+        "templates": [
+            {
+                "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/sclorg/cakephp-ex/blob/master/README.md",
+                "name": "cakephp-mysql-example",
+                "path": "official/cakephp/templates/cakephp-mysql-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql.json"
+            },
+            {
+                "description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/cakephp-ex/blob/master/README.md",
+                "name": "cakephp-mysql-persistent",
+                "path": "official/cakephp/templates/cakephp-mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json"
+            }
+        ]
+    },
+    "dancer": {
+        "templates": [
+            {
+                "description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/sclorg/dancer-ex/blob/master/README.md",
+                "name": "dancer-mysql-example",
+                "path": "official/dancer/templates/dancer-mysql-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql.json"
+            },
+            {
+                "description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/dancer-ex/blob/master/README.md",
+                "name": "dancer-mysql-persistent",
+                "path": "official/dancer/templates/dancer-mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json"
+            }
+        ]
+    },
+    "django": {
+        "templates": [
+            {
+                "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/sclorg/django-ex/blob/master/README.md",
+                "name": "django-psql-example",
+                "path": "official/django/templates/django-psql-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json"
+            },
+            {
+                "description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/django-ex/blob/master/README.md",
+                "name": "django-psql-persistent",
+                "path": "official/django/templates/django-psql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json"
+            }
+        ]
+    },
+    "golang": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/golang-container/blob/master/README.md",
+                "name": "golang",
+                "path": "official/golang/imagestreams/golang-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-rhel7.json"
+            }
+        ]
+    },
+    "httpd": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/httpd-container/blob/master/README.md",
+                "name": "httpd",
+                "path": "official/httpd/imagestreams/httpd-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Apache HTTP Server (httpd) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/httpd-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/httpd-ex/blob/master/README.md",
+                "name": "httpd-example",
+                "path": "official/httpd/templates/httpd-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json"
+            }
+        ]
+    },
+    "java": {
+        "imagestreams": [
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "redhat-openjdk18-openshift",
+                "path": "official/java/imagestreams/redhat-openjdk18-openshift-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "openjdk-11-rhel7",
+                "path": "official/java/imagestreams/openjdk-11-rhel7-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "openjdk-8-rhel8",
+                "path": "official/java/imagestreams/openjdk-8-rhel8-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "openjdk-11-rhel8",
+                "path": "official/java/imagestreams/openjdk-11-rhel8-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json"
+            },
+            {
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "java",
+                "path": "official/java/imagestreams/java-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Java application using OpenJDK. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+                "docs": "https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/",
+                "name": "openjdk-web-basic-s2i",
+                "path": "official/java/templates/openjdk-web-basic-s2i.json",
+                "source_url": "https://raw.githubusercontent.com/jboss-container-images/openjdk/ocp-v4.4.0/templates/openjdk-web-basic-s2i.json"
+            }
+        ]
+    },
+    "jenkins": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins",
+                "path": "official/jenkins/imagestreams/jenkins-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json"
+            },
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-agent-nodejs",
+                "path": "official/jenkins/imagestreams/jenkins-agent-nodejs-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json"
+            },
+            {
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-agent-maven",
+                "path": "official/jenkins/imagestreams/jenkins-agent-maven-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Jenkins service, without persistent storage.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-ephemeral",
+                "path": "official/jenkins/templates/jenkins-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json"
+            },
+            {
+                "description": "Jenkins service, with persistent storage.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-persistent",
+                "path": "official/jenkins/templates/jenkins-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json"
+            },
+            {
+                "description": "Jenkins service, without persistent storage.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-ephemeral-monitored",
+                "path": "official/jenkins/templates/jenkins-ephemeral-monitored.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral-monitored.json"
+            },
+            {
+                "description": "Jenkins service, with persistent storage.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
+                "name": "jenkins-persistent-monitored",
+                "path": "official/jenkins/templates/jenkins-persistent-monitored.json",
+                "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent-monitored.json"
+            }
+        ]
+    },
     "mariadb": {
         "imagestreams": [
             {
                 "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
                 "name": "mariadb",
-                "path": "official/mariadb/imagestreams/mariadb-rhel7-ppc64le.json",
-                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-ppc64le.json"
+                "path": "official/mariadb/imagestreams/mariadb-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MariaDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/blob/master/10.2/root/usr/share/container-scripts/mysql/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb-ephemeral",
+                "path": "official/mariadb/templates/mariadb-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json"
+            },
+            {
+                "description": "MariaDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/blob/master/10.2/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mariadb-container/blob/master/README.md",
+                "name": "mariadb-persistent",
+                "path": "official/mariadb/templates/mariadb-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json"
+            }
+        ]
+    },
+    "mongodb": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb",
+                "path": "official/mongodb/imagestreams/mongodb-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-ppc64le.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MongoDB database service, without persistent storage. For more information about using this template, including OpenShift considerations, see documentation in the upstream repository: https://github.com/sclorg/mongodb-container.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb-ephemeral",
+                "path": "official/mongodb/templates/mongodb-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json"
+            },
+            {
+                "description": "MongoDB database service, with persistent storage. For more information about using this template, including OpenShift considerations, see documentation in the upstream repository: https://github.com/sclorg/mongodb-container.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mongodb-container/blob/master/README.md",
+                "name": "mongodb-persistent",
+                "path": "official/mongodb/templates/mongodb-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json"
+            }
+        ]
+    },
+    "mysql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql",
+                "path": "official/mysql/imagestreams/mysql-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "MySQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.0/root/usr/share/container-scripts/mysql/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql-ephemeral",
+                "path": "official/mysql/templates/mysql-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json"
+            },
+            {
+                "description": "MySQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.0/root/usr/share/container-scripts/mysql/README.md.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/mysql-container/blob/master/README.md",
+                "name": "mysql-persistent",
+                "path": "official/mysql/templates/mysql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json"
+            }
+        ]
+    },
+    "nginx": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/nginx-container/blob/master/README.md",
+                "name": "nginx",
+                "path": "official/nginx/imagestreams/nginx-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-ppc64le.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Nginx HTTP server and a reverse proxy (nginx) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/nginx-ex/blob/master/README.md",
+                "name": "nginx-example",
+                "path": "official/nginx/templates/nginx-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json"
+            }
+        ]
+    },
+    "nodejs": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md",
+                "name": "nodejs",
+                "path": "official/nodejs/imagestreams/nodejs-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/sclorg/nodejs-ex/blob/master/README.md",
+                "name": "nodejs-mongodb-example",
+                "path": "official/nodejs/templates/nodejs-mongodb-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json"
+            },
+            {
+                "description": "An example Node.js application with a MongoDB database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/nodejs-ex/blob/master/README.md",
+                "name": "nodejs-mongo-persistent",
+                "path": "official/nodejs/templates/nodejs-mongo-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json"
+            }
+        ]
+    },
+    "perl": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-perl-container/blob/master/README.md",
+                "name": "perl",
+                "path": "official/perl/imagestreams/perl-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-rhel7.json"
+            }
+        ]
+    },
+    "php": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-php-container/blob/master/README.md",
+                "name": "php",
+                "path": "official/php/imagestreams/php-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-rhel7.json"
+            }
+        ]
+    },
+    "postgresql": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql",
+                "path": "official/postgresql/imagestreams/postgresql-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-ppc64le.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "PostgreSQL database service, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql-ephemeral",
+                "path": "official/postgresql/templates/postgresql-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json"
+            },
+            {
+                "description": "PostgreSQL database service, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/.\n\nNOTE: Scaling to more than one replica is not supported. You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/postgresql-container/blob/master/README.md",
+                "name": "postgresql-persistent",
+                "path": "official/postgresql/templates/postgresql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json"
+            }
+        ]
+    },
+    "python": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-python-container/blob/master/README.md",
+                "name": "python",
+                "path": "official/python/imagestreams/python-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-rhel7.json"
+            }
+        ]
+    },
+    "rails": {
+        "templates": [
+            {
+                "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/rails-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+                "docs": "https://github.com/sclorg/rails-ex/blob/master/README.md",
+                "name": "rails-postgresql-example",
+                "path": "official/rails/templates/rails-postgresql-example.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json"
+            },
+            {
+                "description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/rails-ex/blob/master/README.md.",
+                "docs": "https://github.com/sclorg/rails-ex/blob/master/README.md",
+                "name": "rails-pgsql-persistent",
+                "path": "official/rails/templates/rails-pgsql-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json"
+            }
+        ]
+    },
+    "redis": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis",
+                "path": "official/redis/imagestreams/redis-rhel7.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-rhel7.json"
+            }
+        ],
+        "templates": [
+            {
+                "description": "Redis in-memory data structure store, without persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/redis-container/blob/master/5.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing",
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis-ephemeral",
+                "path": "official/redis/templates/redis-ephemeral.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json"
+            },
+            {
+                "description": "Redis in-memory data structure store, with persistent storage. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/redis-container/blob/master/5.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "docs": "https://github.com/sclorg/redis-container/blob/master/README.md",
+                "name": "redis-persistent",
+                "path": "official/redis/templates/redis-persistent.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json"
+            }
+        ]
+    },
+    "ruby": {
+        "imagestreams": [
+            {
+                "docs": "https://github.com/sclorg/s2i-ruby-container/blob/master/README.md",
+                "name": "ruby",
+                "path": "official/ruby/imagestreams/ruby-rhel7-ppc64le.json",
+                "source_url": "https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json"
             }
         ]
     }
