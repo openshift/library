@@ -29,6 +29,20 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-s390x.json
+        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
+        regex: ruby
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
   rails:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json
@@ -36,6 +50,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json
         docs: https://github.com/sclorg/rails-ex/blob/master/README.md
         tags:
@@ -43,6 +60,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   python:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-python-container/master/imagestreams/python-rhel7.json
@@ -53,6 +73,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   django:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django.json
@@ -62,6 +85,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json
         docs: https://github.com/sclorg/django-ex/blob/master/README.md
         tags:
@@ -69,6 +95,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   modern-webapp:
     templates:
       - location: https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml
@@ -94,6 +123,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb-persistent.json
         docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
         tags:
@@ -101,6 +133,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-nodejs-container/master/imagestreams/nodejs-rhel7.json
         docs: https://github.com/sclorg/s2i-nodejs-container/blob/master/README.md
@@ -110,6 +145,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   perl:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-perl-container/master/imagestreams/perl-rhel7.json
@@ -120,6 +158,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   dancer:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer.json
@@ -129,6 +170,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/dancer-ex/master/openshift/templates/dancer-mysql-persistent.json
         docs: https://github.com/sclorg/dancer-ex/blob/master/README.md
         tags:
@@ -136,6 +180,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   php:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-php-container/master/imagestreams/php-rhel7.json
@@ -146,6 +193,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   cakephp:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp.json
@@ -155,6 +205,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/cakephp-ex/master/openshift/templates/cakephp-mysql-persistent.json
         docs: https://github.com/sclorg/cakephp-ex/blob/master/README.md
         tags:
@@ -162,6 +215,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   jenkins:
     templates:
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral.json
@@ -169,6 +225,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         tags:
@@ -176,11 +235,17 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-ephemeral-monitored.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent-monitored.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         tags:
@@ -188,6 +253,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
@@ -197,6 +265,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins-agent-nodejs
@@ -205,6 +276,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins-agent-maven
@@ -213,6 +287,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   httpd:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/httpd-container/master/imagestreams/httpd-rhel7.json
@@ -223,6 +300,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     templates:
       - location: https://raw.githubusercontent.com/sclorg/httpd-ex/master/openshift/templates/httpd.json
         docs: https://github.com/sclorg/httpd-ex/blob/master/README.md
@@ -231,6 +311,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   mariadb:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json
@@ -238,6 +321,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
         tags:
@@ -245,6 +331,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json
         docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
@@ -254,20 +343,9 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-s390x.json
-        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
-        regex: mariadb
-        suffix: rhel7-s390x
-        tags:
-          - ocp
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-ppc64le.json
-        docs: https://github.com/sclorg/mariadb-container/blob/master/README.md
-        regex: mariadb
-        suffix: rhel7-ppc64le
-        tags:
-          - ocp
           - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   mongodb:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json
@@ -275,6 +353,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
         tags:
@@ -282,6 +363,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json
         docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
@@ -291,6 +375,20 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        regex: mongodb
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-s390x.json
+        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
+        regex: mongodb
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
   mysql:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json
@@ -298,6 +396,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-persistent-template.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
         tags:
@@ -305,6 +406,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/imagestreams/mysql-rhel7.json
         docs: https://github.com/sclorg/mysql-container/blob/master/README.md
@@ -314,6 +418,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   nginx:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json
@@ -324,6 +431,20 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/nginx-container/blob/master/README.md
+        regex: nginx
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-s390x.json
+        docs: https://github.com/sclorg/nginx-container/blob/master/README.md
+        regex: nginx
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json
         docs: https://github.com/sclorg/nginx-ex/blob/master/README.md
@@ -332,6 +453,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   postgresql:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json
@@ -339,6 +463,9 @@ data:
         tags:
           - okd
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-persistent-template.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
         tags:
@@ -346,6 +473,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json
         docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
@@ -355,6 +485,20 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-ppc64le.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        regex: postgresql
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-s390x.json
+        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
+        regex: postgresql
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
   redis:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json
@@ -364,6 +508,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-persistent-template.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
         tags:
@@ -371,6 +518,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/imagestreams/redis-rhel7.json
         docs: https://github.com/sclorg/redis-container/blob/master/README.md
@@ -380,6 +530,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   amq:
     templates:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{amq_version}/amq/amq63-basic.json
@@ -638,6 +791,9 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/image-streams.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
@@ -646,6 +802,18 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
+        suffix: rhel7-ppc64le
+        tags:
+          - ocp
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
+        suffix: rhel7-s390x
+        tags:
+          - ocp
+          - arch_s390x
   processserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-processserver-6-openshift-image/{ips_ds_version}/templates/processserver64-amq-mysql-persistent-s2i.json
@@ -1156,5 +1324,8 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
  
           

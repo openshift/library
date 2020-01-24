@@ -417,6 +417,46 @@ Path: official/java/imagestreams/openjdk-11-rhel8-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ocp-v4.4.0/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ocp-v4.4.0/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7.json  
+### redhat-openjdk18-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7-ppc64le.json  
+### openjdk-11-rhel7
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-11-rhel7-rhel7-ppc64le.json  
+### openjdk-8-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-8-rhel8-rhel7-ppc64le.json  
+### openjdk-11-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-11-rhel8-rhel7-ppc64le.json  
+### java
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/java-rhel7-ppc64le.json  
+### redhat-openjdk18-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7-s390x.json  
+### openjdk-11-rhel7
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-11-rhel7-rhel7-s390x.json  
+### openjdk-8-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-8-rhel8-rhel7-s390x.json  
+### openjdk-11-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/openjdk-11-rhel8-rhel7-s390x.json  
+### java
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: official/java/imagestreams/java-rhel7-s390x.json  
 ## templates
 ### openjdk-web-basic-s2i
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/ocp-v4.4.0/templates/openjdk-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/ocp-v4.4.0/templates/openjdk-web-basic-s2i.json )  
@@ -459,14 +499,6 @@ Path: official/jenkins/templates/jenkins-persistent-monitored.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/imagestreams/mariadb-rhel7.json  
-### mariadb
-Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-s390x.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-s390x.json )  
-Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
-Path: official/mariadb/imagestreams/mariadb-rhel7-s390x.json  
-### mariadb
-Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-rhel7-ppc64le.json )  
-Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
-Path: official/mariadb/imagestreams/mariadb-rhel7-ppc64le.json  
 ## templates
 ### mariadb-ephemeral
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-ephemeral-template.json )  
@@ -493,6 +525,14 @@ Path: official/modern-webapp/templates/react-web-app-example.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json )  
 Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
 Path: official/mongodb/imagestreams/mongodb-rhel7.json  
+### mongodb
+Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-ppc64le.json )  
+Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
+Path: official/mongodb/imagestreams/mongodb-rhel7-ppc64le.json  
+### mongodb
+Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-s390x.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-s390x.json )  
+Docs: [https://github.com/sclorg/mongodb-container/blob/master/README.md](https://github.com/sclorg/mongodb-container/blob/master/README.md)  
+Path: official/mongodb/imagestreams/mongodb-rhel7-s390x.json  
 ## templates
 ### mongodb-ephemeral
 Source URL: [https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json )  
@@ -523,6 +563,14 @@ Path: official/mysql/templates/mysql-persistent.json
 Source URL: [https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json](https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7.json )  
 Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
 Path: official/nginx/imagestreams/nginx-rhel7.json  
+### nginx
+Source URL: [https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-ppc64le.json )  
+Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
+Path: official/nginx/imagestreams/nginx-rhel7-ppc64le.json  
+### nginx
+Source URL: [https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-s390x.json](https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-s390x.json )  
+Docs: [https://github.com/sclorg/nginx-container/blob/master/README.md](https://github.com/sclorg/nginx-container/blob/master/README.md)  
+Path: official/nginx/imagestreams/nginx-rhel7-s390x.json  
 ## templates
 ### nginx-example
 Source URL: [https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json](https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json )  
@@ -565,6 +613,14 @@ Path: official/php/imagestreams/php-rhel7.json
 Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7.json )  
 Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
 Path: official/postgresql/imagestreams/postgresql-rhel7.json  
+### postgresql
+Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-ppc64le.json )  
+Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
+Path: official/postgresql/imagestreams/postgresql-rhel7-ppc64le.json  
+### postgresql
+Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-s390x.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel7-s390x.json )  
+Docs: [https://github.com/sclorg/postgresql-container/blob/master/README.md](https://github.com/sclorg/postgresql-container/blob/master/README.md)  
+Path: official/postgresql/imagestreams/postgresql-rhel7-s390x.json  
 ## templates
 ### postgresql-ephemeral
 Source URL: [https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json](https://raw.githubusercontent.com/sclorg/postgresql-container/master/examples/postgresql-ephemeral-template.json )  
@@ -764,6 +820,14 @@ Path: official/rhpam/templates/rhpam75-trial-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7.json )  
 Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
 Path: official/ruby/imagestreams/ruby-rhel7.json  
+### ruby
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json )  
+Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
+Path: official/ruby/imagestreams/ruby-rhel7-ppc64le.json  
+### ruby
+Source URL: [https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-s390x.json](https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-s390x.json )  
+Docs: [https://github.com/sclorg/s2i-ruby-container/blob/master/README.md](https://github.com/sclorg/s2i-ruby-container/blob/master/README.md)  
+Path: official/ruby/imagestreams/ruby-rhel7-s390x.json  
 # sso
 ## imagestreams
 ### redhat-sso70-openshift
