@@ -98,22 +98,6 @@ data:
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
-  modern-webapp:
-    templates:
-      - location: https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml
-        docs: https://github.com/nodeshift-starters/react-web-app/blob/master/README.md
-        tags:
-          - okd
-          - ocp
-    imagestreams:
-      - location: https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/modern-webapp-rhel7.json
-        docs: https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md
-        regex: modern-webapp
-        suffix: rhel7
-        tags:
-          - ocp
-          - online-starter
-          - online-professional
   nodejs:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json

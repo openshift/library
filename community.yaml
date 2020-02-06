@@ -193,3 +193,16 @@ data:
           - okd
           - online-starter
           - online-professional
+  modern-webapp:
+    templates:
+      - location: https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/community/basic-react.yaml
+        docs: https://github.com/nodeshift-starters/react-web-app/blob/master/README.md
+        tags:
+          - okd
+    imagestreams:
+      - location: https://raw.githubusercontent.com/nodeshift/ubi8-s2i-web-app/master/imagestreams/webapp-ubi8.json
+        docs: https://github.com/nodeshift/ubi8-s2i-web-app/blob/master/README.md
+        regex: modern-webapp
+        suffix: ubi8
+        tags:
+          - okd
