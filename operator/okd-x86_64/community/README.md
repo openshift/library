@@ -40,6 +40,12 @@ Path: community/jenkins/imagestreams/jenkins-agent-nodejs-centos7.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos7.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos7.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: community/mariadb/imagestreams/mariadb-centos7.json  
+# modern-webapp
+## templates
+### react-web-app-example
+Source URL: [https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/community/basic-react.yaml](https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/community/basic-react.yaml )  
+Docs: [https://github.com/nodeshift-starters/react-web-app/blob/master/README.md](https://github.com/nodeshift-starters/react-web-app/blob/master/README.md)  
+Path: community/modern-webapp/templates/react-web-app-example.json  
 # mongodb
 ## imagestreams
 ### mongodb

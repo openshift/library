@@ -76,6 +76,12 @@ Path: community/mariadb/imagestreams/mariadb-centos7.json
 Source URL: [https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml](https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml )  
 Docs: [https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md](https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md)  
 Path: community/memcached/templates/memcached.json  
+# modern-webapp
+## templates
+### react-web-app-example
+Source URL: [https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/community/basic-react.yaml](https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/community/basic-react.yaml )  
+Docs: [https://github.com/nodeshift-starters/react-web-app/blob/master/README.md](https://github.com/nodeshift-starters/react-web-app/blob/master/README.md)  
+Path: community/modern-webapp/templates/react-web-app-example.json  
 # mongodb
 ## imagestreams
 ### mongodb

@@ -400,17 +400,6 @@ Path: official/mariadb/templates/mariadb-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json](https://raw.githubusercontent.com/sclorg/mariadb-container/master/examples/mariadb-persistent-template.json )  
 Docs: [https://github.com/sclorg/mariadb-container/blob/master/README.md](https://github.com/sclorg/mariadb-container/blob/master/README.md)  
 Path: official/mariadb/templates/mariadb-persistent.json  
-# modern-webapp
-## imagestreams
-### modern-webapp
-Source URL: [https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/modern-webapp-rhel7.json](https://raw.githubusercontent.com/nodeshift/centos7-s2i-web-app/master/imagestreams/modern-webapp-rhel7.json )  
-Docs: [https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md](https://github.com/nodeshift/centos7-s2i-web-app/blob/master/README.md)  
-Path: official/modern-webapp/imagestreams/modern-webapp-rhel7.json  
-## templates
-### react-web-app-example
-Source URL: [https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml](https://raw.githubusercontent.com/nodeshift-starters/react-web-app/master/templates/official/basic-react.yaml )  
-Docs: [https://github.com/nodeshift-starters/react-web-app/blob/master/README.md](https://github.com/nodeshift-starters/react-web-app/blob/master/README.md)  
-Path: official/modern-webapp/templates/react-web-app-example.json  
 # mongodb
 ## imagestreams
 ### mongodb
