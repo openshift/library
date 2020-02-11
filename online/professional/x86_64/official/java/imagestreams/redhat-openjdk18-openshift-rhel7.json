@@ -173,6 +173,26 @@
                 "referencePolicy": {
                     "type": "Local"
                 }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Java applications using Maven and OpenJDK 8.",
+                    "iconClass": "icon-rh-openjdk",
+                    "openshift.io/display-name": "Red Hat OpenJDK 8",
+                    "sampleContextDir": "undertow-servlet",
+                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+                    "supports": "java:8",
+                    "tags": "builder,java,openjdk,hidden",
+                    "version": "1.8"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/redhat-openjdk-18/openjdk18-openshift:1.8"
+                },
+                "name": "1.8",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
