@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "7.6",
-        "template": "rhpam76-managed"
+        "rhdm": "7.7",
+        "template": "rhdm77-authoring-ha"
     },
-    "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe user name/password for accessing Business Central Monitoring is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nKIE servers are configured with the user name/password\n\n    User name: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\" containing the\n${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new persistent HA Decision Manager application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.6 - Deprecated",
+            "description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.7 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.6 managed production environment.",
+            "openshift.io/display-name": "Red Hat Decision Manager 7.7 authoring environment (HA, persistent, with https)",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "tags": "rhpam,processserver,jboss,prod",
+            "tags": "rhdm,decisionserver,jboss,authoring,ha",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/deploying_a_red_hat_process_automation_manager_7.6_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.6, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.7/html/deploying_a_red_hat_decision_manager_7.7_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.7 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.6"
+            "version": "7.7"
         },
-        "name": "rhpam76-managed"
+        "name": "rhdm77-authoring-ha"
     },
     "objects": [
         {
@@ -29,7 +29,7 @@
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-rhpamsvc"
+                "name": "${APPLICATION_NAME}-rhdmsvc"
             }
         },
         {
@@ -39,7 +39,7 @@
                 "labels": {
                     "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-rhpamsvc-edit"
+                "name": "${APPLICATION_NAME}-rhdmsvc-edit"
             },
             "roleRef": {
                 "name": "edit"
@@ -47,7 +47,7 @@
             "subjects": [
                 {
                     "kind": "ServiceAccount",
-                    "name": "${APPLICATION_NAME}-rhpamsvc"
+                    "name": "${APPLICATION_NAME}-rhdmsvc"
                 }
             ]
         },
@@ -56,13 +56,13 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "All the Business Central Monitoring web server's ports."
+                    "description": "All the Decision Central web server's ports."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                "name": "${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
                 "ports": [
@@ -78,7 +78,7 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                 }
             }
         },
@@ -87,14 +87,14 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The JGroups ping port for clustering.",
+                    "description": "The JGroups ping port for rhdmcentr clustering.",
                     "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "service": "${APPLICATION_NAME}-rhdmcentr-ping"
                 },
-                "name": "${APPLICATION_NAME}-rhpamcentrmon-ping"
+                "name": "${APPLICATION_NAME}-rhdmcentr-ping"
             },
             "spec": {
                 "clusterIP": "None",
@@ -106,7 +106,7 @@
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                 }
             }
         },
@@ -115,7 +115,60 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "All the KIE server web server's ports. (First KIE server)"
+                    "description": "Provides a ping service for clustered applications.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-datagrid-ping"
+            },
+            "spec": {
+                "clusterIP": "None",
+                "ports": [
+                    {
+                        "name": "ping",
+                        "port": 8888,
+                        "targetPort": 8888
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "Provides a service for accessing the application over Hot Rod protocol.",
+                    "service.alpha.openshift.io/serving-cert-secret-name": "datagrid-service-certs"
+                },
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-datagrid"
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "hotrod",
+                        "port": 11222,
+                        "targetPort": 11222
+                    }
+                ],
+                "selector": {
+                    "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                }
+            }
+        },
+        {
+            "apiVersion": "v1",
+            "kind": "Service",
+            "metadata": {
+                "annotations": {
+                    "description": "All the KIE server web server's ports."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -152,26 +205,24 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The JGroups ping port for clustering.",
-                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+                    "description": "The broker's OpenWire port."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-kieserver"
+                    "service": "${APPLICATION_NAME}-amq-tcp"
                 },
-                "name": "${APPLICATION_NAME}-kieserver-ping"
+                "name": "${APPLICATION_NAME}-amq-tcp"
             },
             "spec": {
                 "clusterIP": "None",
                 "ports": [
                     {
-                        "name": "ping",
-                        "port": 8888,
-                        "targetPort": 8888
+                        "port": 61616,
+                        "targetPort": 61616
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-kieserver"
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 }
             }
         },
@@ -180,68 +231,72 @@
             "kind": "Service",
             "metadata": {
                 "annotations": {
-                    "description": "The first database server's port."
+                    "description": "The JGroups ping port for amq clustering.",
+                    "service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
+                    "service": "ping"
                 },
-                "name": "${APPLICATION_NAME}-postgresql"
+                "name": "ping"
             },
             "spec": {
+                "clusterIP": "None",
                 "ports": [
                     {
-                        "port": 5432,
-                        "targetPort": 5432
+                        "port": 8888,
+                        "protocol": "TCP",
+                        "targetPort": 8888
                     }
                 ],
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "deploymentConfig": "${APPLICATION_NAME}-amq"
                 }
             }
         },
         {
             "apiVersion": "v1",
-            "id": "insecure-${APPLICATION_NAME}-rhpamcentrmon-http",
+            "id": "insecure-${APPLICATION_NAME}-rhdmcentr-http",
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for Business Central Monitoring's http service.",
+                    "description": "Route for Decision Central's http service.",
+                    "haproxy.router.openshift.io/balance": "source",
                     "haproxy.router.openshift.io/timeout": "1h"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "insecure-${APPLICATION_NAME}-rhpamcentrmon"
+                "name": "insecure-${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
-                "host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
+                "host": "${DECISION_CENTRAL_HOSTNAME_HTTP}",
                 "port": {
                     "targetPort": "http"
                 },
                 "to": {
-                    "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "name": "${APPLICATION_NAME}-rhdmcentr"
                 }
             }
         },
         {
             "apiVersion": "v1",
-            "id": "${APPLICATION_NAME}-rhpamcentrmon-https",
+            "id": "${APPLICATION_NAME}-rhdmcentr-https",
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for Business Central Monitoring's https service.",
+                    "description": "Route for Decision Central's https service.",
                     "haproxy.router.openshift.io/timeout": "1h"
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                "name": "${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
-                "host": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}",
+                "host": "${DECISION_CENTRAL_HOSTNAME_HTTPS}",
                 "port": {
                     "targetPort": "https"
                 },
@@ -249,7 +304,7 @@
                     "termination": "passthrough"
                 },
                 "to": {
-                    "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "name": "${APPLICATION_NAME}-rhdmcentr"
                 }
             }
         },
@@ -259,7 +314,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for First KIE server's http service.",
+                    "description": "Route for KIE server's http service.",
                     "haproxy.router.openshift.io/balance": "source"
                 },
                 "labels": {
@@ -284,7 +339,7 @@
             "kind": "Route",
             "metadata": {
                 "annotations": {
-                    "description": "Route for First KIE server's https service."
+                    "description": "Route for KIE server's https service."
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
@@ -306,6 +361,171 @@
             }
         },
         {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "metadata": {
+                "labels": {
+                    "application": "${APPLICATION_NAME}"
+                },
+                "name": "${APPLICATION_NAME}-datagrid"
+            },
+            "spec": {
+                "podManagementPolicy": "OrderedReady",
+                "replicas": 2,
+                "selector": {
+                    "matchLabels": {
+                        "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                    }
+                },
+                "serviceName": "${APPLICATION_NAME}-datagrid",
+                "template": {
+                    "metadata": {
+                        "labels": {
+                            "application": "${APPLICATION_NAME}",
+                            "deploymentConfig": "${APPLICATION_NAME}-datagrid"
+                        },
+                        "name": "${APPLICATION_NAME}-datagrid"
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid"
+                                    },
+                                    {
+                                        "name": "SERVICE_PROFILE",
+                                        "value": "${APPLICATION_NAME}-datagrid"
+                                    },
+                                    {
+                                        "name": "JGROUPS_PING_PROTOCOL",
+                                        "value": "openshift.DNS_PING"
+                                    },
+                                    {
+                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid-ping"
+                                    },
+                                    {
+                                        "name": "INFINISPAN_CONNECTORS",
+                                        "value": "hotrod"
+                                    }
+                                ],
+                                "image": "${DATAGRID_IMAGE}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/opt/datagrid/bin/livenessProbe.sh"
+                                        ]
+                                    },
+                                    "failureThreshold": 5,
+                                    "initialDelaySeconds": 15,
+                                    "periodSeconds": 20,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "name": "${APPLICATION_NAME}-datagrid",
+                                "ports": [
+                                    {
+                                        "containerPort": 8888,
+                                        "name": "ping",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 11222,
+                                        "name": "hotrod",
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/opt/datagrid/bin/readinessProbe.sh"
+                                        ]
+                                    },
+                                    "failureThreshold": 5,
+                                    "initialDelaySeconds": 17,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 10
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "${DATAGRID_CPU_LIMIT}",
+                                        "memory": "${DATAGRID_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "${DATAGRID_CPU_LIMIT}",
+                                        "memory": "${DATAGRID_MEMORY_LIMIT}"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/opt/datagrid/standalone/data",
+                                        "name": "srv-data"
+                                    },
+                                    {
+                                        "mountPath": "/var/run/secrets/java.io/keystores",
+                                        "name": "datagrid-keystore-volume"
+                                    },
+                                    {
+                                        "mountPath": "/var/run/secrets/openshift.io/serviceaccount",
+                                        "name": "datagrid-service-certs"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 60,
+                        "volumes": [
+                            {
+                                "empty-dir": {},
+                                "name": "datagrid-keystore-volume"
+                            },
+                            {
+                                "name": "datagrid-service-certs",
+                                "secret": {
+                                    "secretName": "datagrid-service-certs"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "triggers": [
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "partition": 0
+                    },
+                    "type": "RollingUpdate"
+                },
+                "volumeClaimTemplates": [
+                    {
+                        "metadata": {
+                            "name": "srv-data"
+                        },
+                        "spec": {
+                            "accessModes": [
+                                "ReadWriteOnce"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "storage": "${DATAGRID_VOLUME_CAPACITY}"
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
             "apiVersion": "v1",
             "kind": "DeploymentConfig",
             "metadata": {
@@ -314,30 +534,25 @@
                 },
                 "labels": {
                     "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "service": "${APPLICATION_NAME}-rhdmcentr"
                 },
-                "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                "name": "${APPLICATION_NAME}-rhdmcentr"
             },
             "spec": {
-                "replicas": "${{BUSINESS_CENTRAL_MONITORING_CONTAINER_REPLICAS}}",
+                "replicas": 2,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
+                    "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                 },
                 "strategy": {
-                    "rollingParams": {
-                        "maxSurge": "100%",
-                        "maxUnavailable": 0
-                    },
-                    "type": "Rolling"
+                    "type": "Recreate"
                 },
                 "template": {
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon",
-                            "service": "${APPLICATION_NAME}-rhpamcentrmon"
+                            "deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
                         },
-                        "name": "${APPLICATION_NAME}-rhpamcentrmon"
+                        "name": "${APPLICATION_NAME}-rhdmcentr"
                     },
                     "spec": {
                         "containers": [
@@ -352,20 +567,50 @@
                                         "value": "/opt/kie/data/configuration/application-roles.properties"
                                     },
                                     {
-                                        "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
+                                        "name": "KIE_ADMIN_PWD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
+                                        "name": "KIE_MBEANS",
+                                        "value": "${KIE_MBEANS}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_ENABLED",
+                                        "value": "false"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
+                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
+                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
+                                        "value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_TOKEN",
+                                        "value": "${KIE_SERVER_CONTROLLER_TOKEN}"
+                                    },
+                                    {
+                                        "name": "WORKBENCH_ROUTE_NAME",
+                                        "value": "${APPLICATION_NAME}-rhdmcentr"
                                     },
                                     {
                                         "name": "MAVEN_MIRROR_URL",
@@ -388,48 +633,24 @@
                                         "value": "${MAVEN_REPO_PASSWORD}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
-                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
-                                        "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
-                                        "value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
-                                    },
-                                    {
-                                        "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
-                                        "value": "true"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_TOKEN",
-                                        "value": "${KIE_SERVER_CONTROLLER_TOKEN}"
+                                        "name": "GIT_HOOKS_DIR",
+                                        "value": "${GIT_HOOKS_DIR}"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE_DIR",
-                                        "value": "/etc/businesscentral-secret-volume"
+                                        "value": "/etc/decisioncentral-secret-volume"
                                     },
                                     {
                                         "name": "HTTPS_KEYSTORE",
-                                        "value": "${BUSINESS_CENTRAL_HTTPS_KEYSTORE}"
+                                        "value": "${DECISION_CENTRAL_HTTPS_KEYSTORE}"
                                     },
                                     {
                                         "name": "HTTPS_NAME",
-                                        "value": "${BUSINESS_CENTRAL_HTTPS_NAME}"
+                                        "value": "${DECISION_CENTRAL_HTTPS_NAME}"
                                     },
                                     {
                                         "name": "HTTPS_PASSWORD",
-                                        "value": "${BUSINESS_CENTRAL_HTTPS_PASSWORD}"
+                                        "value": "${DECISION_CENTRAL_HTTPS_PASSWORD}"
                                     },
                                     {
                                         "name": "JGROUPS_PING_PROTOCOL",
@@ -437,11 +658,39 @@
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-rhpamcentrmon-ping"
+                                        "value": "${APPLICATION_NAME}-rhdmcentr-ping"
                                     },
                                     {
                                         "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
                                         "value": "8888"
+                                    },
+                                    {
+                                        "name": "APPFORMER_INFINISPAN_SERVICE_NAME",
+                                        "value": "${APPLICATION_NAME}-datagrid"
+                                    },
+                                    {
+                                        "name": "APPFORMER_INFINISPAN_PORT",
+                                        "value": "11222"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_ADDRESS",
+                                        "value": "${APPLICATION_NAME}-amq-tcp"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_PORT",
+                                        "value": "61616"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
+                                    },
+                                    {
+                                        "name": "APPFORMER_JMS_BROKER_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "JAVA_MAX_MEM_RATIO",
+                                        "value": "${DECISION_CENTRAL_JAVA_MAX_MEM_RATIO}"
                                     },
                                     {
                                         "name": "SSO_URL",
@@ -457,11 +706,11 @@
                                     },
                                     {
                                         "name": "SSO_SECRET",
-                                        "value": "${BUSINESS_CENTRAL_SSO_SECRET}"
+                                        "value": "${DECISION_CENTRAL_SSO_SECRET}"
                                     },
                                     {
                                         "name": "SSO_CLIENT",
-                                        "value": "${BUSINESS_CENTRAL_SSO_CLIENT}"
+                                        "value": "${DECISION_CENTRAL_SSO_CLIENT}"
                                     },
                                     {
                                         "name": "SSO_USERNAME",
@@ -481,11 +730,11 @@
                                     },
                                     {
                                         "name": "HOSTNAME_HTTP",
-                                        "value": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}"
+                                        "value": "${DECISION_CENTRAL_HOSTNAME_HTTP}"
                                     },
                                     {
                                         "name": "HOSTNAME_HTTPS",
-                                        "value": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}"
+                                        "value": "${DECISION_CENTRAL_HOSTNAME_HTTPS}"
                                     },
                                     {
                                         "name": "AUTH_LDAP_URL",
@@ -580,7 +829,7 @@
                                         "value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
                                     }
                                 ],
-                                "image": "rhpam-businesscentral-monitoring-rhel8",
+                                "image": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}",
                                 "imagePullPolicy": "Always",
                                 "livenessProbe": {
                                     "httpGet": {
@@ -592,7 +841,7 @@
                                     "periodSeconds": 15,
                                     "timeoutSeconds": 2
                                 },
-                                "name": "${APPLICATION_NAME}-rhpamcentrmon",
+                                "name": "${APPLICATION_NAME}-rhdmcentr",
                                 "ports": [
                                     {
                                         "containerPort": 8778,
@@ -628,35 +877,40 @@
                                 },
                                 "resources": {
                                     "limits": {
-                                        "memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
+                                        "cpu": "${DECISION_CENTRAL_CPU_LIMIT}",
+                                        "memory": "${DECISION_CENTRAL_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "${DECISION_CENTRAL_CPU_LIMIT}",
+                                        "memory": "${DECISION_CENTRAL_MEMORY_LIMIT}"
                                     }
                                 },
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/etc/businesscentral-secret-volume",
-                                        "name": "businesscentral-keystore-volume",
+                                        "mountPath": "/etc/decisioncentral-secret-volume",
+                                        "name": "decisioncentral-keystore-volume",
                                         "readOnly": true
                                     },
                                     {
                                         "mountPath": "/opt/kie/data",
-                                        "name": "${APPLICATION_NAME}-rhpamcentr-pvol"
+                                        "name": "${APPLICATION_NAME}-rhdmcentr-pvol"
                                     }
                                 ]
                             }
                         ],
-                        "serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+                        "serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
                         "terminationGracePeriodSeconds": 60,
                         "volumes": [
                             {
-                                "name": "businesscentral-keystore-volume",
+                                "name": "decisioncentral-keystore-volume",
                                 "secret": {
-                                    "secretName": "${BUSINESS_CENTRAL_HTTPS_SECRET}"
+                                    "secretName": "${DECISION_CENTRAL_HTTPS_SECRET}"
                                 }
                             },
                             {
-                                "name": "${APPLICATION_NAME}-rhpamcentr-pvol",
+                                "name": "${APPLICATION_NAME}-rhdmcentr-pvol",
                                 "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-rhpamcentr-claim"
+                                    "claimName": "${APPLICATION_NAME}-rhdmcentr-claim"
                                 }
                             }
                         ]
@@ -667,11 +921,11 @@
                         "imageChangeParams": {
                             "automatic": true,
                             "containerNames": [
-                                "${APPLICATION_NAME}-rhpamcentrmon"
+                                "${APPLICATION_NAME}-rhdmcentr"
                             ],
                             "from": {
                                 "kind": "ImageStreamTag",
-                                "name": "rhpam-businesscentral-monitoring-rhel8:${IMAGE_STREAM_TAG}",
+                                "name": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
                                 "namespace": "${IMAGE_STREAM_NAMESPACE}"
                             }
                         },
@@ -698,17 +952,13 @@
                 "name": "${APPLICATION_NAME}-kieserver"
             },
             "spec": {
-                "replicas": "${{KIE_SERVER_CONTAINER_REPLICAS}}",
+                "replicas": 2,
                 "revisionHistoryLimit": 10,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}-kieserver"
                 },
                 "strategy": {
-                    "rollingParams": {
-                        "maxSurge": "100%",
-                        "maxUnavailable": 0
-                    },
-                    "type": "Rolling"
+                    "type": "Recreate"
                 },
                 "template": {
                     "metadata": {
@@ -726,15 +976,25 @@
                                 "env": [
                                     {
                                         "name": "WORKBENCH_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-rhpamcentrmon"
+                                        "value": "${APPLICATION_NAME}-rhdmcentr"
                                     },
                                     {
                                         "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_MODE",
@@ -757,6 +1017,14 @@
                                         "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_CONTROLLER_SERVICE",
+                                        "value": "${APPLICATION_NAME}-rhdmcentr"
+                                    },
+                                    {
+                                        "name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+                                        "value": "ws"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_ID",
                                         "valueFrom": {
                                             "fieldRef": {
@@ -766,19 +1034,11 @@
                                     },
                                     {
                                         "name": "KIE_SERVER_ROUTE_NAME",
-                                        "value": "${APPLICATION_NAME}-kieserver"
+                                        "value": "insecure-${APPLICATION_NAME}-kieserver"
                                     },
                                     {
                                         "name": "KIE_SERVER_STARTUP_STRATEGY",
-                                        "value": "OpenShiftStartupStrategy"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
+                                        "value": "ControllerBasedStartupStrategy"
                                     },
                                     {
                                         "name": "MAVEN_MIRROR_URL",
@@ -790,27 +1050,37 @@
                                     },
                                     {
                                         "name": "MAVEN_REPOS",
-                                        "value": "RHPAMCENTR,EXTERNAL"
+                                        "value": "RHDMCENTR,EXTERNAL"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_ID",
-                                        "value": "repo-rhpamcentr"
+                                        "name": "RHDMCENTR_MAVEN_REPO_ID",
+                                        "value": "repo-rhdmcentr"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
-                                        "value": "${BUSINESS_CENTRAL_SERVICE}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_SERVICE",
+                                        "value": "${APPLICATION_NAME}-rhdmcentr"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PATH",
+                                        "name": "RHDMCENTR_MAVEN_REPO_PATH",
                                         "value": "/maven2/"
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_USERNAME",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_PASSWORD}"
+                                        "name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_ID",
@@ -829,54 +1099,6 @@
                                         "value": "${MAVEN_REPO_PASSWORD}"
                                     },
                                     {
-                                        "name": "KIE_SERVER_PERSISTENCE_DS",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DS}"
-                                    },
-                                    {
-                                        "name": "DATASOURCES",
-                                        "value": "RHPAM"
-                                    },
-                                    {
-                                        "name": "RHPAM_JNDI",
-                                        "value": "${KIE_SERVER_PERSISTENCE_DS}"
-                                    },
-                                    {
-                                        "name": "RHPAM_JTA",
-                                        "value": "true"
-                                    },
-                                    {
-                                        "name": "RHPAM_DATABASE",
-                                        "value": "${KIE_SERVER_POSTGRESQL_DB}"
-                                    },
-                                    {
-                                        "name": "RHPAM_DRIVER",
-                                        "value": "postgresql"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PERSISTENCE_DIALECT",
-                                        "value": "${KIE_SERVER_POSTGRESQL_DIALECT}"
-                                    },
-                                    {
-                                        "name": "RHPAM_USERNAME",
-                                        "value": "${KIE_SERVER_POSTGRESQL_USER}"
-                                    },
-                                    {
-                                        "name": "RHPAM_PASSWORD",
-                                        "value": "${KIE_SERVER_POSTGRESQL_PWD}"
-                                    },
-                                    {
-                                        "name": "RHPAM_SERVICE_HOST",
-                                        "value": "${APPLICATION_NAME}-postgresql"
-                                    },
-                                    {
-                                        "name": "RHPAM_SERVICE_PORT",
-                                        "value": "5432"
-                                    },
-                                    {
-                                        "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-                                        "value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
-                                    },
-                                    {
                                         "name": "HTTPS_KEYSTORE_DIR",
                                         "value": "/etc/kieserver-secret-volume"
                                     },
@@ -891,18 +1113,6 @@
                                     {
                                         "name": "HTTPS_PASSWORD",
                                         "value": "${KIE_SERVER_HTTPS_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "JGROUPS_PING_PROTOCOL",
-                                        "value": "openshift.DNS_PING"
-                                    },
-                                    {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-                                        "value": "${APPLICATION_NAME}-kieserver-ping"
-                                    },
-                                    {
-                                        "name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-                                        "value": "8888"
                                     },
                                     {
                                         "name": "SSO_URL",
@@ -1088,11 +1298,6 @@
                                         "containerPort": 8443,
                                         "name": "https",
                                         "protocol": "TCP"
-                                    },
-                                    {
-                                        "containerPort": 8888,
-                                        "name": "ping",
-                                        "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
@@ -1108,6 +1313,11 @@
                                 },
                                 "resources": {
                                     "limits": {
+                                        "cpu": "${KIE_SERVER_CPU_LIMIT}",
+                                        "memory": "${KIE_SERVER_MEMORY_LIMIT}"
+                                    },
+                                    "requests": {
+                                        "cpu": "${KIE_SERVER_CPU_LIMIT}",
                                         "memory": "${KIE_SERVER_MEMORY_LIMIT}"
                                     }
                                 },
@@ -1120,20 +1330,7 @@
                                 ]
                             }
                         ],
-                        "initContainers": [
-                            {
-                                "command": [
-                                    "/bin/bash",
-                                    "-c",
-                                    "replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-postgresql; replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
-                                ],
-                                "image": "registry.redhat.io/openshift3/ose-cli",
-                                "imagePullPolicy": "IfNotPresent",
-                                "name": "${APPLICATION_NAME}-postgresql-init",
-                                "terminationMessagePolicy": "FallbackToLogsOnError"
-                            }
-                        ],
-                        "serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+                        "serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
                         "terminationGracePeriodSeconds": 90,
                         "volumes": [
                             {
@@ -1167,120 +1364,191 @@
             }
         },
         {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
             "metadata": {
                 "annotations": {
-                    "template.alpha.openshift.io/wait-for-ready": "true"
+                    "alpha.image.policy.openshift.io/resolve-names": "*"
                 },
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
+                    "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-postgresql"
+                "name": "${APPLICATION_NAME}-amq"
             },
             "spec": {
-                "replicas": 1,
+                "podManagementPolicy": "OrderedReady",
+                "replicas": "${{AMQ_REPLICAS}}",
+                "revisionHistoryLimit": 10,
                 "selector": {
-                    "deploymentConfig": "${APPLICATION_NAME}-postgresql"
+                    "matchLabels": {
+                        "deploymentConfig": "${APPLICATION_NAME}-amq"
+                    }
                 },
-                "strategy": {
-                    "type": "Recreate"
-                },
+                "serviceName": "${APPLICATION_NAME}-amq-tcp",
                 "template": {
                     "metadata": {
                         "labels": {
                             "application": "${APPLICATION_NAME}",
-                            "deploymentConfig": "${APPLICATION_NAME}-postgresql",
-                            "service": "${APPLICATION_NAME}-postgresql"
+                            "deploymentConfig": "${APPLICATION_NAME}-amq"
                         },
-                        "name": "${APPLICATION_NAME}-postgresql"
+                        "name": "${APPLICATION_NAME}-amq"
                     },
                     "spec": {
                         "containers": [
                             {
                                 "env": [
                                     {
-                                        "name": "POSTGRESQL_USER",
-                                        "value": "${KIE_SERVER_POSTGRESQL_USER}"
+                                        "name": "AMQ_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_PASSWORD",
-                                        "value": "${KIE_SERVER_POSTGRESQL_PWD}"
+                                        "name": "AMQ_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_DATABASE",
-                                        "value": "${KIE_SERVER_POSTGRESQL_DB}"
+                                        "name": "AMQ_ROLE",
+                                        "value": "${AMQ_ROLE}"
                                     },
                                     {
-                                        "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-                                        "value": "${POSTGRESQL_MAX_PREPARED_TRANSACTIONS}"
+                                        "name": "AMQ_NAME",
+                                        "value": "${AMQ_NAME}"
+                                    },
+                                    {
+                                        "name": "AMQ_TRANSPORTS",
+                                        "value": "openwire"
+                                    },
+                                    {
+                                        "name": "AMQ_GLOBAL_MAX_SIZE",
+                                        "value": "${AMQ_GLOBAL_MAX_SIZE}"
+                                    },
+                                    {
+                                        "name": "AMQ_REQUIRE_LOGIN"
+                                    },
+                                    {
+                                        "name": "AMQ_DATA_DIR",
+                                        "value": "/opt/amq/data"
+                                    },
+                                    {
+                                        "name": "AMQ_DATA_DIR_LOGGING",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTERED",
+                                        "value": "true"
+                                    },
+                                    {
+                                        "name": "AMQ_REPLICAS",
+                                        "value": "${AMQ_REPLICAS}"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTER_USER",
+                                        "value": "${APPFORMER_JMS_BROKER_USER}"
+                                    },
+                                    {
+                                        "name": "AMQ_CLUSTER_PASSWORD",
+                                        "value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+                                    },
+                                    {
+                                        "name": "AMQ_EXTRA_ARGS"
+                                    },
+                                    {
+                                        "name": "AMQ_ANYCAST_PREFIX"
+                                    },
+                                    {
+                                        "name": "AMQ_MULTICAST_PREFIX"
+                                    },
+                                    {
+                                        "name": "POD_NAMESPACE",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "metadata.namespace"
+                                            }
+                                        }
                                     }
                                 ],
-                                "image": "postgresql",
-                                "imagePullPolicy": "Always",
-                                "livenessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/usr/libexec/check-container",
-                                            "--live"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 120,
-                                    "timeoutSeconds": 10
-                                },
-                                "name": "${APPLICATION_NAME}-postgresql",
+                                "image": "${AMQ_BROKER_IMAGE}",
+                                "imagePullPolicy": "IfNotPresent",
+                                "name": "broker-amq",
                                 "ports": [
                                     {
-                                        "containerPort": 5432,
+                                        "containerPort": 8161,
+                                        "name": "jolokia",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 5672,
+                                        "name": "amqp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 1883,
+                                        "name": "mqtt",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 61613,
+                                        "name": "stomp",
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 61616,
+                                        "name": "artemis",
                                         "protocol": "TCP"
                                     }
                                 ],
                                 "readinessProbe": {
                                     "exec": {
                                         "command": [
-                                            "/usr/libexec/check-container"
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/amq/bin/readinessProbe.sh"
                                         ]
                                     },
-                                    "initialDelaySeconds": 5,
+                                    "failureThreshold": 3,
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
                                     "timeoutSeconds": 1
                                 },
+                                "resources": {},
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
                                 "volumeMounts": [
                                     {
-                                        "mountPath": "/var/lib/pgsql/data",
-                                        "name": "${APPLICATION_NAME}-postgresql-pvol"
+                                        "mountPath": "/opt/amq/data",
+                                        "name": "${APPLICATION_NAME}-amq-pvol"
                                     }
                                 ]
                             }
                         ],
-                        "terminationGracePeriodSeconds": 60,
-                        "volumes": [
-                            {
-                                "name": "${APPLICATION_NAME}-postgresql-pvol",
-                                "persistentVolumeClaim": {
-                                    "claimName": "${APPLICATION_NAME}-postgresql-claim"
-                                }
-                            }
-                        ]
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {},
+                        "terminationGracePeriodSeconds": 60
                     }
                 },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "${APPLICATION_NAME}-postgresql"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
-                                "namespace": "${POSTGRESQL_IMAGE_STREAM_NAMESPACE}"
-                            }
-                        },
-                        "type": "ImageChange"
+                "updateStrategy": {
+                    "rollingUpdate": {
+                        "partition": 0
                     },
+                    "type": "RollingUpdate"
+                },
+                "volumeClaimTemplates": [
                     {
-                        "type": "ConfigChange"
+                        "metadata": {
+                            "name": "${APPLICATION_NAME}-amq-pvol"
+                        },
+                        "spec": {
+                            "accessModes": [
+                                "ReadWriteOnce"
+                            ],
+                            "resources": {
+                                "requests": {
+                                    "storage": "${AMQ_VOLUME_CAPACITY}"
+                                }
+                            }
+                        }
                     }
                 ]
             }
@@ -1290,31 +1558,9 @@
             "kind": "PersistentVolumeClaim",
             "metadata": {
                 "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-postgresql"
+                    "application": "${APPLICATION_NAME}"
                 },
-                "name": "${APPLICATION_NAME}-postgresql-claim"
-            },
-            "spec": {
-                "accessModes": [
-                    "ReadWriteOnce"
-                ],
-                "resources": {
-                    "requests": {
-                        "storage": "${DB_VOLUME_CAPACITY}"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "PersistentVolumeClaim",
-            "metadata": {
-                "labels": {
-                    "application": "${APPLICATION_NAME}",
-                    "service": "${APPLICATION_NAME}-rhpamcentrmon"
-                },
-                "name": "${APPLICATION_NAME}-rhpamcentr-claim"
+                "name": "${APPLICATION_NAME}-rhdmcentr-claim"
             },
             "spec": {
                 "accessModes": [
@@ -1322,7 +1568,7 @@
                 ],
                 "resources": {
                     "requests": {
-                        "storage": "64Mi"
+                        "storage": "${DECISION_CENTRAL_VOLUME_CAPACITY}"
                     }
                 }
             }
@@ -1337,94 +1583,221 @@
             "value": "myapp"
         },
         {
-            "description": "Maven mirror that the KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for deploying your services.",
-            "displayName": "Maven mirror URL",
-            "name": "MAVEN_MIRROR_URL",
-            "required": false
-        },
-        {
-            "description": "Maven mirror configuration for KIE server.",
-            "displayName": "Maven mirror of",
-            "name": "MAVEN_MIRROR_OF",
-            "required": false,
-            "value": "external:*"
-        },
-        {
-            "description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhpamcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
-            "displayName": "Maven repository ID",
-            "name": "MAVEN_REPO_ID",
-            "required": false,
-            "value": "repo-custom"
-        },
-        {
-            "description": "Fully qualified URL to a Maven repository or service.",
-            "displayName": "Maven repository URL",
-            "example": "http://nexus.nexus-project.svc.cluster.local:8081/nexus/content/groups/public/",
-            "name": "MAVEN_REPO_URL",
+            "description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values.",
+            "displayName": "Credentials secret",
+            "example": "rhpam-credentials",
+            "name": "CREDENTIALS_SECRET",
             "required": true
         },
         {
-            "description": "User name for accessing the Maven repository, if required.",
-            "displayName": "Maven repository user name",
-            "name": "MAVEN_REPO_USERNAME",
+            "description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)",
+            "displayName": "KIE Server Controller Token",
+            "name": "KIE_SERVER_CONTROLLER_TOKEN",
             "required": false
         },
         {
-            "description": "Password to access the Maven repository, if required.",
-            "displayName": "Maven repository password",
-            "name": "MAVEN_REPO_PASSWORD",
-            "required": false
-        },
-        {
-            "description": "The Service name for the optional Business Central, where it can be reached, to allow service lookups (for example,  maven repo usage), if required.",
-            "displayName": "Name of the Business Central service",
-            "example": "myapp-rhpamcentrmon",
-            "name": "BUSINESS_CENTRAL_SERVICE",
-            "required": false
-        },
-        {
-            "description": "User name for accessing the Maven service hosted by Business Central inside EAP.",
-            "displayName": "User name for the Maven service hosted by Business Central",
-            "example": "mavenUser",
-            "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
-            "required": false
-        },
-        {
-            "description": "Password to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Password for the Maven service hosted by Business Central",
-            "example": "maven1!",
-            "name": "BUSINESS_CENTRAL_MAVEN_PASSWORD",
-            "required": false
-        },
-        {
-            "description": "KIE administrator user name.",
-            "displayName": "KIE Admin User",
-            "name": "KIE_ADMIN_USER",
+            "description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
+            "displayName": "KIE Server Bypass Auth User",
+            "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,
-            "value": "adminUser"
+            "value": "false"
         },
         {
-            "description": "KIE administrator password.",
-            "displayName": "KIE Admin Password",
+            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
+            "displayName": "KIE Server Mode",
+            "name": "KIE_SERVER_MODE",
+            "required": false,
+            "value": "DEVELOPMENT"
+        },
+        {
+            "description": "KIE server mbeans enabled/disabled. (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+            "displayName": "KIE MBeans",
+            "name": "KIE_MBEANS",
+            "required": false,
+            "value": "enabled"
+        },
+        {
+            "description": "KIE server class filtering. (Sets the org.drools.server.filter.classes system property)",
+            "displayName": "Drools Server Filter Classes",
+            "name": "DROOLS_SERVER_FILTER_CLASSES",
+            "required": false,
+            "value": "true"
+        },
+        {
+            "description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)",
+            "displayName": "Prometheus Server Extension Disabled",
+            "example": "false",
+            "name": "PROMETHEUS_SERVER_EXT_DISABLED",
+            "required": false
+        },
+        {
+            "description": "Custom hostname for http service route for Decision Central.  Leave blank for default hostname, e.g.: insecure-<application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "displayName": "Decision Central Custom http Route Hostname",
+            "name": "DECISION_CENTRAL_HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Custom hostname for https service route for Decision Central.  Leave blank for default hostname, e.g.: <application-name>-rhdmcentr-<project>.<default-domain-suffix>",
+            "displayName": "Decision Central Custom https Route Hostname",
+            "name": "DECISION_CENTRAL_HOSTNAME_HTTPS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Custom hostname for http service route for KIE Server. Leave blank for default hostname, e.g.: insecure-<application-name>-kieserver-<project>.<default-domain-suffix>",
+            "displayName": "KIE Server Custom http Route Hostname",
+            "name": "KIE_SERVER_HOSTNAME_HTTP",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "Custom hostname for https service route for KIE Server. Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
+            "displayName": "KIE Server Custom https Route Hostname",
+            "name": "KIE_SERVER_HOSTNAME_HTTPS",
+            "required": false,
+            "value": ""
+        },
+        {
+            "description": "The name of the secret containing the keystore file for Decision Central.",
+            "displayName": "Decision Central Server Keystore Secret Name",
+            "example": "decisioncentral-app-secret",
+            "name": "DECISION_CENTRAL_HTTPS_SECRET",
+            "required": true
+        },
+        {
+            "description": "The name of the keystore file within the secret for Decision Central.",
+            "displayName": "Decision Central Server Keystore Filename",
+            "name": "DECISION_CENTRAL_HTTPS_KEYSTORE",
+            "required": false,
+            "value": "keystore.jks"
+        },
+        {
+            "description": "The name associated with the server certificate for Decision Central.",
+            "displayName": "Decision Central Server Certificate Name",
+            "name": "DECISION_CENTRAL_HTTPS_NAME",
+            "required": false,
+            "value": "jboss"
+        },
+        {
+            "description": "The password for the keystore and certificate for Decision Central.",
+            "displayName": "Decision Central Server Keystore Password",
+            "name": "DECISION_CENTRAL_HTTPS_PASSWORD",
+            "required": false,
+            "value": "mykeystorepass"
+        },
+        {
+            "description": "The name of the secret containing the keystore file for KIE Server.",
+            "displayName": "KIE Server Keystore Secret Name",
+            "example": "kieserver-app-secret",
+            "name": "KIE_SERVER_HTTPS_SECRET",
+            "required": true
+        },
+        {
+            "description": "The name of the keystore file within the secret for KIE Server.",
+            "displayName": "KIE Server Keystore Filename",
+            "name": "KIE_SERVER_HTTPS_KEYSTORE",
+            "required": false,
+            "value": "keystore.jks"
+        },
+        {
+            "description": "The name associated with the server certificate for KIE Server.",
+            "displayName": "KIE Server Certificate Name",
+            "name": "KIE_SERVER_HTTPS_NAME",
+            "required": false,
+            "value": "jboss"
+        },
+        {
+            "description": "The password for the keystore and certificate for KIE Server.",
+            "displayName": "KIE Server Keystore Password",
+            "name": "KIE_SERVER_HTTPS_PASSWORD",
+            "required": false,
+            "value": "mykeystorepass"
+        },
+        {
+            "description": "The user name to connect to the JMS broker.",
+            "displayName": "AppFormer JMS Broker user name",
+            "name": "APPFORMER_JMS_BROKER_USER",
+            "required": true,
+            "value": "jmsBrokerUser"
+        },
+        {
+            "description": "The password to connect to the JMS broker.",
+            "displayName": "AppFormer JMS Broker password",
             "from": "[a-zA-Z]{6}[0-9]{1}!",
             "generate": "expression",
-            "name": "KIE_ADMIN_PWD",
+            "name": "APPFORMER_JMS_BROKER_PASSWORD",
+            "required": true
+        },
+        {
+            "description": "DataGrid image.",
+            "displayName": "DataGrid Image",
+            "name": "DATAGRID_IMAGE",
+            "required": true,
+            "value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.4"
+        },
+        {
+            "description": "DataGrid Container CPU limit.",
+            "displayName": "DataGrid Container CPU Limit",
+            "name": "DATAGRID_CPU_LIMIT",
+            "required": true,
+            "value": "1000m"
+        },
+        {
+            "description": "DataGrid Container memory limit.",
+            "displayName": "DataGrid Container Memory Limit",
+            "name": "DATAGRID_MEMORY_LIMIT",
+            "required": true,
+            "value": "2Gi"
+        },
+        {
+            "description": "Size of the persistent storage for DataGrid's runtime data.",
+            "displayName": "DataGrid Volume Capacity",
+            "name": "DATAGRID_VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
+        },
+        {
+            "description": "AMQ Broker Image",
+            "displayName": "Image",
+            "name": "AMQ_BROKER_IMAGE",
+            "required": true,
+            "value": "registry.redhat.io/amq7/amq-broker:7.5"
+        },
+        {
+            "description": "User role for standard broker user.",
+            "displayName": "AMQ Role",
+            "name": "AMQ_ROLE",
+            "required": true,
+            "value": "admin"
+        },
+        {
+            "description": "The name of the broker.",
+            "displayName": "AMQ Name",
+            "name": "AMQ_NAME",
+            "required": true,
+            "value": "broker"
+        },
+        {
+            "description": "Specifies the maximum amount of memory that message data can consume. If no value is specified, half of the system\u2019s memory is allocated.",
+            "displayName": "AMQ Global Max Size",
+            "example": "10 gb",
+            "name": "AMQ_GLOBAL_MAX_SIZE",
             "required": false
         },
         {
-            "description": "KIE server user name. (Sets the org.kie.server.user system property)",
-            "displayName": "KIE Server User",
-            "name": "KIE_SERVER_USER",
-            "required": false,
-            "value": "executionUser"
+            "description": "Size of persistent storage for AMQ broker volume.",
+            "displayName": "Broker Volume Capacity",
+            "name": "AMQ_VOLUME_CAPACITY",
+            "required": true,
+            "value": "1Gi"
         },
         {
-            "description": "KIE server password. (Sets the org.kie.server.pwd system property)",
-            "displayName": "KIE Server Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_PWD",
-            "required": false
+            "description": "Number of broker replicas for a cluster",
+            "displayName": "Number of Replicas",
+            "name": "AMQ_REPLICAS",
+            "required": true,
+            "value": "2"
         },
         {
             "description": "If set to true, turns on KIE server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
@@ -1448,264 +1821,120 @@
             "value": "60000"
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
             "value": "openshift"
         },
         {
-            "description": "The name of the image stream to use for KIE server. Default is \"rhpam-kieserver-rhel8\".",
+            "description": "The name of the image stream to use for Decision Central. Default is \"rhdm-decisioncentral-rhel8\".",
+            "displayName": "Decision Central ImageStream Name",
+            "name": "DECISION_CENTRAL_IMAGE_STREAM_NAME",
+            "required": true,
+            "value": "rhdm-decisioncentral-rhel8"
+        },
+        {
+            "description": "The name of the image stream to use for KIE server. Default is \"rhdm-kieserver-rhel8\".",
             "displayName": "KIE Server ImageStream Name",
             "name": "KIE_SERVER_IMAGE_STREAM_NAME",
             "required": true,
-            "value": "rhpam-kieserver-rhel8"
+            "value": "rhdm-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"7.6.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.7.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "7.6.0"
+            "value": "7.7.0"
         },
         {
-            "description": "KIE server controller user name. (Sets the org.kie.server.controller.user system property)",
-            "displayName": "KIE Server Controller User",
-            "name": "KIE_SERVER_CONTROLLER_USER",
-            "required": false,
-            "value": "controllerUser"
-        },
-        {
-            "description": "KIE server controller password. (Sets the org.kie.server.controller.pwd system property)",
-            "displayName": "KIE Server Controller Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_CONTROLLER_PWD",
+            "description": "Maven mirror that Decision Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services.",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
             "required": false
         },
         {
-            "description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)",
-            "displayName": "KIE Server Controller Token",
-            "name": "KIE_SERVER_CONTROLLER_TOKEN",
+            "description": "Maven mirror configuration for KIE server.",
+            "displayName": "Maven mirror of",
+            "name": "MAVEN_MIRROR_OF",
+            "required": false,
+            "value": "external:*,!repo-rhdmcentr"
+        },
+        {
+            "description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhdmcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
+            "displayName": "Maven repository ID",
+            "name": "MAVEN_REPO_ID",
+            "required": false,
+            "value": "repo-custom"
+        },
+        {
+            "description": "Fully qualified URL to a Maven repository or service.",
+            "displayName": "Maven repository URL",
+            "example": "http://nexus.nexus-project.svc.cluster.local:8081/nexus/content/groups/public/",
+            "name": "MAVEN_REPO_URL",
             "required": false
         },
         {
-            "description": "KIE server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
-            "displayName": "KIE Server Persistence DS",
-            "name": "KIE_SERVER_PERSISTENCE_DS",
-            "required": false,
-            "value": "java:/jboss/datasources/rhpam"
-        },
-        {
-            "description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
-            "displayName": "PostgreSQL ImageStream Namespace",
-            "name": "POSTGRESQL_IMAGE_STREAM_NAMESPACE",
-            "required": false,
-            "value": "openshift"
-        },
-        {
-            "description": "The PostgreSQL image version, which is intended to correspond to the PostgreSQL version. Default is \"10\".",
-            "displayName": "PostgreSQL ImageStream Tag",
-            "name": "POSTGRESQL_IMAGE_STREAM_TAG",
-            "required": false,
-            "value": "10"
-        },
-        {
-            "description": "KIE server PostgreSQL database user name.",
-            "displayName": "KIE Server PostgreSQL Database User",
-            "name": "KIE_SERVER_POSTGRESQL_USER",
-            "required": false,
-            "value": "rhpam"
-        },
-        {
-            "description": "KIE server PostgreSQL database password.",
-            "displayName": "KIE Server PostgreSQL Database Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_POSTGRESQL_PWD",
+            "description": "User name for accessing the Maven repository, if required.",
+            "displayName": "Maven repository user name",
+            "name": "MAVEN_REPO_USERNAME",
             "required": false
         },
         {
-            "description": "KIE server PostgreSQL database name.",
-            "displayName": "KIE Server PostgreSQL Database Name",
-            "name": "KIE_SERVER_POSTGRESQL_DB",
-            "required": false,
-            "value": "rhpam7"
+            "description": "Password to access the Maven repository, if required.",
+            "displayName": "Maven repository password",
+            "name": "MAVEN_REPO_PASSWORD",
+            "required": false
         },
         {
-            "description": "Allows the PostgreSQL to handle XA transactions.",
-            "displayName": "PostgreSQL Database max prepared connections",
-            "name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-            "required": true,
-            "value": "100"
+            "description": "The directory to use for git hooks, if required.",
+            "displayName": "Git hooks directory",
+            "example": "/opt/kie/data/git/hooks",
+            "name": "GIT_HOOKS_DIR",
+            "required": false
         },
         {
-            "description": "Size of persistent storage for the database volume.",
-            "displayName": "Database Volume Capacity",
-            "name": "DB_VOLUME_CAPACITY",
+            "description": "Size of the persistent storage for Decision Central's runtime data.",
+            "displayName": "Decision Central Volume Capacity",
+            "name": "DECISION_CENTRAL_VOLUME_CAPACITY",
             "required": true,
             "value": "1Gi"
         },
         {
-            "description": "KIE server PostgreSQL Hibernate dialect.",
-            "displayName": "KIE Server PostgreSQL Dialect",
-            "name": "KIE_SERVER_POSTGRESQL_DIALECT",
+            "description": "Decision Central Container memory limit.",
+            "displayName": "Decision Central Container Memory Limit",
+            "name": "DECISION_CENTRAL_MEMORY_LIMIT",
             "required": true,
-            "value": "org.hibernate.dialect.PostgreSQLDialect"
+            "value": "8Gi"
         },
         {
-            "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
-            "displayName": "KIE Server Mode",
-            "name": "KIE_SERVER_MODE",
-            "required": false,
-            "value": "PRODUCTION"
+            "description": "Decision Central Container JVM max memory ratio. -Xmx is set to a ratio of the memory available on the container. The default is 80, which means the upper boundary is 80% of the available memory. To skip adding the -Xmx option, set this value to 0.",
+            "displayName": "Decision Central Container JVM Max Memory Ratio",
+            "name": "DECISION_CENTRAL_JAVA_MAX_MEM_RATIO",
+            "required": true,
+            "value": "80"
         },
         {
-            "description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
-            "displayName": "KIE MBeans",
-            "name": "KIE_MBEANS",
-            "required": false,
-            "value": "enabled"
-        },
-        {
-            "description": "KIE server class filtering. (Sets the org.drools.server.filter.classes system property)",
-            "displayName": "Drools Server Filter Classes",
-            "name": "DROOLS_SERVER_FILTER_CLASSES",
-            "required": false,
-            "value": "true"
-        },
-        {
-            "description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)",
-            "displayName": "Prometheus Server Extension Disabled",
-            "example": "false",
-            "name": "PROMETHEUS_SERVER_EXT_DISABLED",
-            "required": false
-        },
-        {
-            "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: insecure-<application-name>-rhpamcentrmon-<project>.<default-domain-suffix>",
-            "displayName": "Business Central Monitoring Custom http Route Hostname",
-            "name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>-rhpamcentrmon-<project>.<default-domain-suffix>",
-            "displayName": "Business Central Monitoring Custom https Route Hostname",
-            "name": "BUSINESS_CENTRAL_HOSTNAME_HTTPS",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: insecure-<application-name>-kieserver-<project>.<default-domain-suffix>",
-            "displayName": "KIE Server Custom http Route Hostname",
-            "name": "KIE_SERVER_HOSTNAME_HTTP",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: <application-name>-kieserver-<project>.<default-domain-suffix>",
-            "displayName": "KIE Server Custom https Route Hostname",
-            "name": "KIE_SERVER_HOSTNAME_HTTPS",
-            "required": false,
-            "value": ""
-        },
-        {
-            "description": "The name of the secret containing the keystore file for Business Central.",
-            "displayName": "Business Central Monitoring Server Keystore Secret Name",
-            "example": "businesscentral-app-secret",
-            "name": "BUSINESS_CENTRAL_HTTPS_SECRET",
-            "required": true
-        },
-        {
-            "description": "The name of the keystore file within the secret.",
-            "displayName": "Business Central Monitoring Server Keystore Filename",
-            "name": "BUSINESS_CENTRAL_HTTPS_KEYSTORE",
-            "required": false,
-            "value": "keystore.jks"
-        },
-        {
-            "description": "The name associated with the server certificate.",
-            "displayName": "Business Central Monitoring Server Certificate Name",
-            "name": "BUSINESS_CENTRAL_HTTPS_NAME",
-            "required": false,
-            "value": "jboss"
-        },
-        {
-            "description": "The password for the keystore and certificate.",
-            "displayName": "Business Central Monitoring Server Keystore Password",
-            "name": "BUSINESS_CENTRAL_HTTPS_PASSWORD",
-            "required": false,
-            "value": "mykeystorepass"
-        },
-        {
-            "description": "The name of the secret containing the keystore file for KIE server.",
-            "displayName": "KIE Server Keystore Secret Name",
-            "example": "kieserver-app-secret",
-            "name": "KIE_SERVER_HTTPS_SECRET",
-            "required": true
-        },
-        {
-            "description": "The name of the keystore file within the secret.",
-            "displayName": "KIE Server Keystore Filename",
-            "name": "KIE_SERVER_HTTPS_KEYSTORE",
-            "required": false,
-            "value": "keystore.jks"
-        },
-        {
-            "description": "The name associated with the server certificate.",
-            "displayName": "KIE Server Certificate Name",
-            "name": "KIE_SERVER_HTTPS_NAME",
-            "required": false,
-            "value": "jboss"
-        },
-        {
-            "description": "The password for the keystore and certificate.",
-            "displayName": "KIE Server Keystore Password",
-            "name": "KIE_SERVER_HTTPS_PASSWORD",
-            "required": false,
-            "value": "mykeystorepass"
-        },
-        {
-            "description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
-            "displayName": "KIE Server Bypass Auth User",
-            "name": "KIE_SERVER_BYPASS_AUTH_USER",
-            "required": false,
-            "value": "false"
-        },
-        {
-            "description": "Sets refresh-interval for the EJB timer service database-data-store.",
-            "displayName": "Timer service data store refresh interval (in milliseconds)",
-            "name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-            "required": false,
-            "value": "30000"
-        },
-        {
-            "description": "Business Central Monitoring Container memory limit.",
-            "displayName": "Business Central Monitoring Container Memory Limit",
-            "name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
-            "required": false,
-            "value": "2Gi"
+            "description": "Decision Central Container CPU limit.",
+            "displayName": "Decision Central Container CPU Limit",
+            "name": "DECISION_CENTRAL_CPU_LIMIT",
+            "required": true,
+            "value": "2000m"
         },
         {
             "description": "KIE server Container memory limit.",
             "displayName": "KIE Server Container Memory Limit",
             "name": "KIE_SERVER_MEMORY_LIMIT",
-            "required": false,
+            "required": true,
             "value": "1Gi"
         },
         {
-            "description": "Business Central Monitoring Container Replicas, will define how much Business Central Monitoring containers will be started.",
-            "displayName": "Business Central Monitoring Container Replicas",
-            "name": "BUSINESS_CENTRAL_MONITORING_CONTAINER_REPLICAS",
+            "description": "KIE server Container CPU limit.",
+            "displayName": "KIE Server Container CPU Limit",
+            "name": "KIE_SERVER_CPU_LIMIT",
             "required": true,
-            "value": "3"
-        },
-        {
-            "description": "KIE Server Container Replicas, will define how much KIE Server containers will be started.",
-            "displayName": "KIE Server Container Replicas",
-            "name": "KIE_SERVER_CONTAINER_REPLICAS",
-            "required": true,
-            "value": "3"
+            "value": "1000m"
         },
         {
             "description": "RH-SSO URL.",
@@ -1721,16 +1950,16 @@
             "required": false
         },
         {
-            "description": "Business Central Monitoring RH-SSO Client name.",
-            "displayName": "Business Central Monitoring RH-SSO Client name",
-            "name": "BUSINESS_CENTRAL_SSO_CLIENT",
+            "description": "Decision Central RH-SSO Client name.",
+            "displayName": "Decision Central RH-SSO Client name",
+            "name": "DECISION_CENTRAL_SSO_CLIENT",
             "required": false
         },
         {
-            "description": "Business Central Monitoring RH-SSO Client Secret.",
-            "displayName": "Business Central Monitoring RH-SSO Client Secret",
+            "description": "Decision Central RH-SSO Client Secret.",
+            "displayName": "Decision Central RH-SSO Client Secret",
             "example": "252793ed-7118-4ca8-8dab-5622fa97d892",
-            "name": "BUSINESS_CENTRAL_SSO_SECRET",
+            "name": "DECISION_CENTRAL_SSO_SECRET",
             "required": false
         },
         {
@@ -1747,7 +1976,7 @@
             "required": false
         },
         {
-            "description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist.",
+            "description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist.",
             "displayName": "RH-SSO Realm admin user name",
             "name": "SSO_USERNAME",
             "required": false
