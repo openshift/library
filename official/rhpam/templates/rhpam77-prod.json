@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "7.6",
-        "template": "rhpam76-prod"
+        "rhpam": "7.7",
+        "template": "rhpam77-prod"
     },
-    "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe user name/password for accessing Business Central Monitoring is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${KIE_ADMIN_PWD}\n\nBoth sets of KIE servers are configured with the user name/password\n\n    User name: ${KIE_SERVER_USER}\n    Password: ${KIE_SERVER_PWD}\n\nPlease be sure to create the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
+    "message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
     "metadata": {
         "annotations": {
-            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.6 - Deprecated",
+            "description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.7 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.6 production environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.7 production environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,prod",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/deploying_a_red_hat_process_automation_manager_7.6_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.6, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.7/html/deploying_a_red_hat_process_automation_manager_7.7_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.7, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.6"
+            "version": "7.7"
         },
-        "name": "rhpam76-prod"
+        "name": "rhpam77-prod"
     },
     "objects": [
         {
@@ -591,20 +591,22 @@
                                         "value": "/opt/kie/data/configuration/application-roles.properties"
                                     },
                                     {
-                                        "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
-                                    },
-                                    {
                                         "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
+                                        "name": "KIE_ADMIN_PWD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "MAVEN_MIRROR_URL",
@@ -625,14 +627,6 @@
                                     {
                                         "name": "MAVEN_REPO_PASSWORD",
                                         "value": "${MAVEN_REPO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TOKEN",
@@ -944,6 +938,24 @@
                             {
                                 "env": [
                                     {
+                                        "name": "KIE_ADMIN_USER",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "KIE_ADMIN_PWD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
+                                    },
+                                    {
                                         "name": "KIE_SERVER_ROUTER_HOST",
                                         "valueFrom": {
                                             "fieldRef": {
@@ -994,14 +1006,6 @@
                                     {
                                         "name": "KIE_SERVER_ROUTER_TLS_KEYSTORE",
                                         "value": "/etc/smartrouter-secret-volume/${KIE_SERVER_ROUTER_HTTPS_KEYSTORE}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TOKEN",
@@ -1132,11 +1136,21 @@
                                 "env": [
                                     {
                                         "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_MODE",
@@ -1157,14 +1171,6 @@
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
                                         "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TOKEN",
@@ -1189,14 +1195,6 @@
                                     {
                                         "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
                                         "value": "${KIE_SERVER1_USE_SECURE_ROUTE_NAME}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
@@ -1225,14 +1223,6 @@
                                     {
                                         "name": "RHPAMCENTR_MAVEN_REPO_PATH",
                                         "value": "/maven2/"
-                                    },
-                                    {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
-                                    },
-                                    {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_PASSWORD}"
                                     },
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_ID",
@@ -1746,11 +1736,21 @@
                                 "env": [
                                     {
                                         "name": "KIE_ADMIN_USER",
-                                        "value": "${KIE_ADMIN_USER}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_USER",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_ADMIN_PWD",
-                                        "value": "${KIE_ADMIN_PWD}"
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "KIE_ADMIN_PWD",
+                                                "name": "${CREDENTIALS_SECRET}"
+                                            }
+                                        }
                                     },
                                     {
                                         "name": "KIE_SERVER_MODE",
@@ -1771,14 +1771,6 @@
                                     {
                                         "name": "KIE_SERVER_BYPASS_AUTH_USER",
                                         "value": "${KIE_SERVER_BYPASS_AUTH_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${KIE_SERVER_CONTROLLER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TOKEN",
@@ -1803,14 +1795,6 @@
                                     {
                                         "name": "KIE_SERVER_USE_SECURE_ROUTE_NAME",
                                         "value": "${KIE_SERVER2_USE_SECURE_ROUTE_NAME}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${KIE_SERVER_PWD}"
                                     },
                                     {
                                         "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
@@ -1839,14 +1823,6 @@
                                     {
                                         "name": "RHPAMCENTR_MAVEN_REPO_PATH",
                                         "value": "/maven2/"
-                                    },
-                                    {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
-                                    },
-                                    {
-                                        "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_PASSWORD}"
                                     },
                                     {
                                         "name": "EXTERNAL_MAVEN_REPO_ID",
@@ -2459,51 +2435,14 @@
             "required": false
         },
         {
-            "description": "User name for accessing the Maven service hosted by Business Central inside EAP.",
-            "displayName": "User name for the Maven service hosted by Business Central",
-            "example": "mavenUser",
-            "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
-            "required": false
+            "description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values",
+            "displayName": "Credentials secret",
+            "example": "rhpam-credentials",
+            "name": "CREDENTIALS_SECRET",
+            "required": true
         },
         {
-            "description": "Password to access the Maven service hosted by Business Central inside EAP.",
-            "displayName": "Password for the Maven service hosted by Business Central",
-            "example": "maven1!",
-            "name": "BUSINESS_CENTRAL_MAVEN_PASSWORD",
-            "required": false
-        },
-        {
-            "description": "KIE administrator user name.",
-            "displayName": "KIE Admin User",
-            "name": "KIE_ADMIN_USER",
-            "required": false,
-            "value": "adminUser"
-        },
-        {
-            "description": "KIE administrator password.",
-            "displayName": "KIE Admin Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_ADMIN_PWD",
-            "required": false
-        },
-        {
-            "description": "KIE server user name. (Sets the org.kie.server.user system property)",
-            "displayName": "KIE Server User",
-            "name": "KIE_SERVER_USER",
-            "required": false,
-            "value": "executionUser"
-        },
-        {
-            "description": "KIE server password. (Sets the org.kie.server.pwd system property)",
-            "displayName": "KIE Server Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_PWD",
-            "required": false
-        },
-        {
-            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
@@ -2517,11 +2456,11 @@
             "value": "rhpam-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"7.6.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.7.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "7.6.0"
+            "value": "7.7.0"
         },
         {
             "description": "Custom hostname for http service route.  Leave blank for default hostname, e.g. <application-name>-smartrouter-<project>.<default-domain-suffix>'",
@@ -2565,21 +2504,6 @@
             "value": "KIE Server Router"
         },
         {
-            "description": "KIE server controller user name. (Sets the org.kie.server.controller.user system property)",
-            "displayName": "KIE Server Controller User",
-            "name": "KIE_SERVER_CONTROLLER_USER",
-            "required": false,
-            "value": "controllerUser"
-        },
-        {
-            "description": "KIE server controller password. (Sets the org.kie.server.controller.pwd system property)",
-            "displayName": "KIE Server Controller Password",
-            "from": "[a-zA-Z]{6}[0-9]{1}!",
-            "generate": "expression",
-            "name": "KIE_SERVER_CONTROLLER_PWD",
-            "required": false
-        },
-        {
             "description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)",
             "displayName": "KIE Server Controller Token",
             "name": "KIE_SERVER_CONTROLLER_TOKEN",
@@ -2593,7 +2517,7 @@
             "value": "java:/jboss/datasources/rhpam"
         },
         {
-            "description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You should only need to modify this if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+            "description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
             "displayName": "PostgreSQL ImageStream Namespace",
             "name": "POSTGRESQL_IMAGE_STREAM_NAMESPACE",
             "required": false,

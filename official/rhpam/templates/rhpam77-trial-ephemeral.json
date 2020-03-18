@@ -2,24 +2,24 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhpam": "7.6",
-        "template": "rhpam76-trial-ephemeral"
+        "rhpam": "7.7",
+        "template": "rhpam77-trial-ephemeral"
     },
-    "message": "A new Process Automation Manager trial environment has been created.\nThe user name/password for accessing the Business Central interface is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nThe user name/password for calls to the KIE server is\n\n    User name: ${KIE_SERVER_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
+    "message": "A new Process Automation Manager trial environment has been created.\nThe user name/password for accessing the Business Central interface and calls to the KIE server is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
     "metadata": {
         "annotations": {
-            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.6 - Deprecated",
+            "description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.7 - Deprecated",
             "iconClass": "icon-jboss",
-            "openshift.io/display-name": "Red Hat Process Automation Manager 7.6 ephemeral trial environment",
+            "openshift.io/display-name": "Red Hat Process Automation Manager 7.7 ephemeral trial environment",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "rhpam,processserver,jboss,trial",
             "template.openshift.io/bindable": "false",
-            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.6/html/deploying_a_red_hat_process_automation_manager_7.6_authoring_environment_on_red_hat_openshift_container_platform/",
-            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.6, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+            "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.7/html/deploying_a_red_hat_process_automation_manager_7.7_authoring_environment_on_red_hat_openshift_container_platform/",
+            "template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.7, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.6"
+            "version": "7.7"
         },
-        "name": "rhpam76-trial-ephemeral"
+        "name": "rhpam77-trial-ephemeral"
     },
     "objects": [
         {
@@ -191,7 +191,7 @@
                                 "env": [
                                     {
                                         "name": "WORKBENCH_ROUTE_NAME",
-                                        "value": "${APPLICATION_NAME}-rhpamcentr"
+                                        "value": "insecure-${APPLICATION_NAME}-rhpamcentr"
                                     },
                                     {
                                         "name": "KIE_ADMIN_USER",
@@ -206,6 +206,10 @@
                                         "value": "${KIE_MBEANS}"
                                     },
                                     {
+                                        "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_ENABLED",
+                                        "value": "true"
+                                    },
+                                    {
                                         "name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
                                         "value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
                                     },
@@ -216,26 +220,6 @@
                                     {
                                         "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
                                         "value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
-                                    },
-                                    {
-                                        "name": "KIE_WORKBENCH_CONTROLLER_OPENSHIFT_ENABLED",
-                                        "value": "true"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_USER",
-                                        "value": "${KIE_SERVER_CONTROLLER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_CONTROLLER_PWD",
-                                        "value": "${DEFAULT_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${DEFAULT_PASSWORD}"
                                     },
                                     {
                                         "name": "MAVEN_REPO_ID",
@@ -252,14 +236,6 @@
                                     {
                                         "name": "MAVEN_REPO_PASSWORD",
                                         "value": "${MAVEN_REPO_PASSWORD}"
-                                    },
-                                    {
-                                        "name": "KIE_MAVEN_USER",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
-                                    },
-                                    {
-                                        "name": "KIE_MAVEN_PWD",
-                                        "value": "${DEFAULT_PASSWORD}"
                                     },
                                     {
                                         "name": "GIT_HOOKS_DIR",
@@ -556,14 +532,6 @@
                                         "value": "OpenShiftStartupStrategy"
                                     },
                                     {
-                                        "name": "KIE_SERVER_USER",
-                                        "value": "${KIE_SERVER_USER}"
-                                    },
-                                    {
-                                        "name": "KIE_SERVER_PWD",
-                                        "value": "${DEFAULT_PASSWORD}"
-                                    },
-                                    {
                                         "name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
                                         "value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
                                     },
@@ -585,7 +553,7 @@
                                     },
                                     {
                                         "name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
-                                        "value": "${BUSINESS_CENTRAL_MAVEN_USERNAME}"
+                                        "value": "${KIE_ADMIN_USER}"
                                     },
                                     {
                                         "name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
@@ -895,25 +863,11 @@
             "value": "adminUser"
         },
         {
-            "description": "KIE server user name. (Sets the org.kie.server.user system property)",
-            "displayName": "KIE Server User",
-            "name": "KIE_SERVER_USER",
-            "required": false,
-            "value": "executionUser"
-        },
-        {
             "description": "Allows the KIE server to bypass the authenticated user for task-related operations e.g. queries. (Sets the org.kie.server.bypass.auth.user system property)",
             "displayName": "KIE Server Bypass Auth User",
             "name": "KIE_SERVER_BYPASS_AUTH_USER",
             "required": false,
             "value": "false"
-        },
-        {
-            "description": "KIE server controller user name. (Sets the org.kie.server.controller.user system property)",
-            "displayName": "KIE Server Controller User",
-            "name": "KIE_SERVER_CONTROLLER_USER",
-            "required": false,
-            "value": "controllerUser"
         },
         {
             "description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
@@ -1011,10 +965,10 @@
             "displayName": "KIE ServerTemplate Cache TTL",
             "name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
             "required": false,
-            "value": "60000"
+            "value": "5000"
         },
         {
-            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you installed the ImageStreams in a different namespace/project.",
+            "description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
             "displayName": "ImageStream Namespace",
             "name": "IMAGE_STREAM_NAMESPACE",
             "required": true,
@@ -1028,11 +982,11 @@
             "value": "rhpam-kieserver-rhel8"
         },
         {
-            "description": "A named pointer to an image in an image stream. Default is \"7.6.0\".",
+            "description": "A named pointer to an image in an image stream. Default is \"7.7.0\".",
             "displayName": "ImageStream Tag",
             "name": "IMAGE_STREAM_TAG",
             "required": true,
-            "value": "7.6.0"
+            "value": "7.7.0"
         },
         {
             "description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2",
@@ -1066,13 +1020,6 @@
             "displayName": "Maven repository password",
             "name": "MAVEN_REPO_PASSWORD",
             "required": false
-        },
-        {
-            "description": "User name for accessing the Maven service hosted by Business Central inside EAP.",
-            "displayName": "User name for the Maven service hosted by Business Central",
-            "name": "BUSINESS_CENTRAL_MAVEN_USERNAME",
-            "required": true,
-            "value": "mavenUser"
         },
         {
             "description": "The directory to use for git hooks, if required.",
