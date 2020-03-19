@@ -323,14 +323,14 @@ Path: official/redis/templates/redis-persistent.json
 # rhdm
 ## imagestreams
 ### rhdm-kieserver-rhel8
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.6.0.GA/rhdm76-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.6.0.GA/rhdm76-image-streams.yaml )  
-Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.6/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.6/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index)  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.7.0.GA/rhdm77-image-streams.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.7.0.GA/rhdm77-image-streams.yaml )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.7/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index](https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.7/html/deploying_a_red_hat_decision_manager_immutable_server_environment_on_red_hat_openshift_container_platform/index)  
 Path: official/rhdm/imagestreams/rhdm-kieserver-rhel8.json  
 ## templates
-### rhdm76-kieserver
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.6.0.GA/templates/rhdm76-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.6.0.GA/templates/rhdm76-kieserver.yaml )  
-Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.6.0.GA/templates/docs/rhdm76-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.6.0.GA/templates/docs/rhdm76-kieserver.adoc)  
-Path: official/rhdm/templates/rhdm76-kieserver.json  
+### rhdm77-kieserver
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.7.0.GA/templates/rhdm77-kieserver.yaml](https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/7.7.0.GA/templates/rhdm77-kieserver.yaml )  
+Docs: [https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.7.0.GA/templates/docs/rhdm77-kieserver.adoc](https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/7.7.0.GA/templates/docs/rhdm77-kieserver.adoc)  
+Path: official/rhdm/templates/rhdm77-kieserver.json  
 # ruby
 ## imagestreams
 ### ruby
