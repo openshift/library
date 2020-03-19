@@ -267,6 +267,26 @@
                 "referencePolicy": {
                     "type": "Local"
                 }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run WildFly 19 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/current/README.md.",
+                    "iconClass": "icon-wildfly",
+                    "openshift.io/display-name": "WildFly 19",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+                    "supports": "wildfly:19,jee,java",
+                    "tags": "builder,wildfly,java",
+                    "version": "19.0"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "quay.io/wildfly/wildfly-centos7:19.0"
+                },
+                "name": "19.0",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
