@@ -422,43 +422,43 @@ Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/re
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7.json  
 ### redhat-openjdk18-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7-ppc64le.json  
 ### openjdk-11-rhel7
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/openjdk-11-rhel7-rhel7-ppc64le.json  
 ### openjdk-8-rhel8
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/openjdk-8-rhel8-rhel7-ppc64le.json  
 ### openjdk-11-rhel8
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/openjdk-11-rhel8-rhel7-ppc64le.json  
 ### java
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-ppc64le.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-ppc64le.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7-ppc64le.json  
-### openj9-8-rhel7
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+### redhat-openjdk18-openshift
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openj9-8-rhel7-rhel7-s390x.json  
-### openj9-11-rhel7
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7-s390x.json  
+### openjdk-11-rhel7
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openj9-11-rhel7-rhel7-s390x.json  
-### openj9-8-rhel8
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Path: official/java/imagestreams/openjdk-11-rhel7-rhel7-s390x.json  
+### openjdk-8-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openj9-8-rhel8-rhel7-s390x.json  
-### openj9-11-rhel8
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Path: official/java/imagestreams/openjdk-8-rhel8-rhel7-s390x.json  
+### openjdk-11-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openj9-11-rhel8-rhel7-s390x.json  
+Path: official/java/imagestreams/openjdk-11-rhel8-rhel7-s390x.json  
 ### java
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/image-streams-s390x.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams-s390x.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/java-rhel7-s390x.json  
 ## templates
