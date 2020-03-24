@@ -2,7 +2,7 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "rhsso": "7.3.2.GA",
+        "rhsso": "7.3.7.GA",
         "template": "sso73-https"
     },
     "message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
@@ -16,7 +16,7 @@
             "template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
             "template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.3 server based deployment, securing RH-SSO communication using passthrough TLS.",
             "template.openshift.io/support-url": "https://access.redhat.com",
-            "version": "7.3.2.GA"
+            "version": "7.3.7.GA"
         },
         "name": "sso73-https"
     },
