@@ -767,6 +767,10 @@ Path: official/sso/imagestreams/redhat-sso-cd-openshift-rhel8-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.7.GA/templates/sso73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.7.GA/templates/sso73-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/)  
 Path: official/sso/imagestreams/redhat-sso73-openshift-rhel7.json  
+### sso74-openshift-rhel8
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-image-stream.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.4/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.4/html-single/red_hat_single_sign-on_for_openshift/)  
+Path: official/sso/imagestreams/sso74-openshift-rhel8.json  
 ## templates
 ### sso72-https
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-https.json )  
@@ -828,6 +832,26 @@ Path: official/sso/templates/sso73-x509-mysql-persistent.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.7.GA/templates/sso73-x509-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.7.GA/templates/sso73-x509-postgresql-persistent.json )  
 Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.7.GA/docs/templates/sso73-x509-postgresql-persistent.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.7.GA/docs/templates/sso73-x509-postgresql-persistent.adoc)  
 Path: official/sso/templates/sso73-x509-postgresql-persistent.json  
+### sso74-https
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-https.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-https.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-https.adoc)  
+Path: official/sso/templates/sso74-https.json  
+### sso74-postgresql-persistent
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-postgresql-persistent.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-postgresql-persistent.adoc)  
+Path: official/sso/templates/sso74-postgresql-persistent.json  
+### sso74-postgresql
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-postgresql.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-postgresql.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-postgresql.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-postgresql.adoc)  
+Path: official/sso/templates/sso74-postgresql.json  
+### sso74-x509-https
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-x509-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-x509-https.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-x509-https.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-x509-https.adoc)  
+Path: official/sso/templates/sso74-x509-https.json  
+### sso74-x509-postgresql-persistent
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-x509-postgresql-persistent.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.4.0.GA/templates/sso74-x509-postgresql-persistent.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-x509-postgresql-persistent.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.4.0.GA/docs/templates/sso74-x509-postgresql-persistent.adoc)  
+Path: official/sso/templates/sso74-x509-postgresql-persistent.json  
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift
