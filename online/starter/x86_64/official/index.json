@@ -332,7 +332,7 @@
                 "source_url": "https://raw.githubusercontent.com/openshift/jenkins/master/openshift/templates/jenkins-persistent.json"
             },
             {
-                "description": "Jenkins service, with persistent storage.\n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
+                "description": "Jenkins service, with persistent storage. \n\n To run this template extra RBAC permissions need to be provideed to the use to be able to create the ServiceMonitor Custom Resource managed by the prometheus-operator. \n\nNOTE: You must have persistent volumes available in your cluster to use this template.",
                 "docs": "https://github.com/openshift/origin/blob/master/examples/jenkins/README.md",
                 "name": "jenkins-persistent-monitored",
                 "path": "official/jenkins/templates/jenkins-persistent-monitored.json",
