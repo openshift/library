@@ -242,7 +242,7 @@ data:
           - arch_s390x
           - arch_x86_64
     imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-rhel7.yaml
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins
         suffix: rhel7
@@ -253,7 +253,18 @@ data:
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
-      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-base-rhel7.yaml
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins-agent-base
+        suffix: rhel7
+        tags:
+          - ocp
+          - online-starter
+          - online-professional
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-rhel7.yaml
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins-agent-nodejs
         suffix: rhel7
@@ -264,7 +275,7 @@ data:
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
-      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.json
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-rhel7.yaml
         docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
         regex: jenkins-agent-maven
         suffix: rhel7
