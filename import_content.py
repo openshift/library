@@ -59,7 +59,7 @@ def is_yaml(data):
     if data[0] == "{":
         return False
     try:
-        yaml.load(data)
+        yaml.safe_load(data)
     except:
         return False
     return True
@@ -77,7 +77,7 @@ def is_valid(data):
 
     """
     if is_yaml(data):
-        return True, yaml.load(data)
+        return True, yaml.safe_load(data)
     elif is_json(data):
         data = data.replace("\t", " ")
         return True, json.loads(data)
