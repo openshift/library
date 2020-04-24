@@ -23,15 +23,19 @@ Path: community/httpd/imagestreams/httpd-centos7.json
 # jenkins
 ## imagestreams
 ### jenkins
-Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.yaml](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos7.yaml )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: community/jenkins/imagestreams/jenkins-centos7.json  
+### jenkins-agent-base
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-base-centos.yaml](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-base-centos.yaml )  
+Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
+Path: community/jenkins/imagestreams/jenkins-agent-base-centos7.json  
 ### jenkins-agent-maven
-Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.yaml](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-centos7.yaml )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: community/jenkins/imagestreams/jenkins-agent-maven-centos7.json  
 ### jenkins-agent-nodejs
-Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.json](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.json )  
+Source URL: [https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.yaml](https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-centos7.yaml )  
 Docs: [https://github.com/openshift/origin/blob/master/examples/jenkins/README.md](https://github.com/openshift/origin/blob/master/examples/jenkins/README.md)  
 Path: community/jenkins/imagestreams/jenkins-agent-nodejs-centos7.json  
 # mariadb
