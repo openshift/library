@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/openshift/library.svg?branch=master)](https://travis-ci.org/openshift/library)
 [![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=update_openshift_library)](https://ci.openshift.redhat.com/jenkins/job/update_openshift_library/)
 
-This repository contains a curated set of image streams and templates for OpenShift. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)** and **[templates](https://docs.okd.io/latest/dev_guide/templates.html)**.
+This repository contains a curated set of image streams and templates for OpenShift. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/openshift_images/image-streams-manage.html)** and **[templates](https://docs.okd.io/latest/openshift_images/using-templates.html)**.
 
 
 - [Overview](#overview)
@@ -136,8 +136,7 @@ The **suffix** is applied to the end of the filename that is created right befor
 
 You can find more information about creating templates and image-streams in the official [OpenShift Documentation](https://docs.okd.io/latest).  Below are some quick links to important sections:
 
-- [Writing Image Streams](https://docs.okd.io/latest/dev_guide/managing_images.html#writing-image-streams-for-s2i-builders)
-- [Writing Templates](https://docs.okd.io/latest/dev_guide/templates.html#writing-templates)
-- [Quickstart Templates](https://docs.okd.io/latest/dev_guide/dev_tutorials/quickstarts.html)
-- [Image Streams](https://docs.okd.io/latest/architecture/core_concepts/builds_and_image_streams.html#image-streams)
-- [Managing Images](https://docs.okd.io/latest/dev_guide/managing_images.html#dev-guide-managing-images)
+- [Writing Templates](https://docs.okd.io/latest/openshift_images/using-templates.html#templates-writing_using-templates)
+- [Quickstart Templates](https://docs.okd.io/latest/openshift_images/using-templates.html#templates-using-instant-app-quickstart_using-templates)
+- [Image Streams](https://docs.okd.io/latest/openshift_images/image-streams-manage.html)
+- [Managing Images](https://docs.okd.io/latest/openshift_images/managing_images/managing-images-overview.html)
