@@ -51,26 +51,6 @@
             },
             {
                 "annotations": {
-                    "description": "Build and serve static content via Nginx HTTP server and a reverse proxy (nginx) on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.10/README.md.",
-                    "iconClass": "icon-nginx",
-                    "openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.10",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "sampleRepo": "https://github.com/sclorg/nginx-ex.git",
-                    "supports": "nginx",
-                    "tags": "builder,nginx",
-                    "version": "1.10"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/rhscl/nginx-110-rhel7:latest"
-                },
-                "name": "1.10",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
                     "description": "Build and serve static content via Nginx HTTP server and a reverse proxy (nginx) on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.14/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Nginx available on OpenShift, including major version updates.",
                     "iconClass": "icon-nginx",
                     "openshift.io/display-name": "Nginx HTTP server and a reverse proxy (Latest)",
