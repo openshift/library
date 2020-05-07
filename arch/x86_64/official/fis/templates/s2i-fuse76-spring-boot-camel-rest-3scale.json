@@ -2,18 +2,18 @@
     "apiVersion": "v1",
     "kind": "Template",
     "labels": {
-        "template": "s2i-fuse75-spring-boot-camel-rest-3scale"
+        "template": "s2i-fuse76-spring-boot-camel-rest-3scale"
     },
     "metadata": {
         "annotations": {
             "description": "Spring Boot, Camel REST DSL and 3Scale QuickStart. This example demonstrates how to use Camel's REST DSL to expose a RESTful API and expose it to 3scale.",
             "iconClass": "icon-rh-integration",
-            "openshift.io/display-name": "Red Hat Fuse 7.5 Camel REST DSL and 3Scale",
+            "openshift.io/display-name": "Red Hat Fuse 7.6 Camel REST DSL and 3Scale",
             "openshift.io/provider-display-name": "Red Hat, Inc.",
             "tags": "quickstart,java,springboot,fis,jboss-fuse,3scale",
-            "version": "1.5"
+            "version": "1.6"
         },
-        "name": "s2i-fuse75-spring-boot-camel-rest-3scale"
+        "name": "s2i-fuse76-spring-boot-camel-rest-3scale"
     },
     "objects": [
         {
@@ -141,6 +141,10 @@
                             {
                                 "name": "MAVEN_ARGS_APPEND",
                                 "value": "${MAVEN_ARGS_APPEND}"
+                            },
+                            {
+                                "name": "MAVEN_MIRROR_URL",
+                                "value": "${MAVEN_MIRROR_URL}"
                             }
                         ],
                         "forcePull": true,
@@ -295,7 +299,7 @@
             "displayName": "Application Name",
             "name": "APP_NAME",
             "required": true,
-            "value": "s2i-fuse75-spring-boot-camel-rest-3scale"
+            "value": "s2i-fuse76-spring-boot-camel-rest-3scale"
         },
         {
             "description": "The URL of the repository with your application source code.",
@@ -308,7 +312,7 @@
             "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
             "displayName": "Git Reference",
             "name": "GIT_REF",
-            "value": "spring-boot-camel-rest-3scale-1.0.0.fuse-750020-redhat-00002"
+            "value": "spring-boot-camel-rest-3scale-1.0.0.fuse-760022-redhat-00001"
         },
         {
             "description": "Exposed service name.",
@@ -320,13 +324,13 @@
             "description": "The version of the FIS S2I builder image to use.",
             "displayName": "Builder version",
             "name": "BUILDER_VERSION",
-            "value": "1.5"
+            "value": "1.6"
         },
         {
             "description": "The application version.",
             "displayName": "Application Version",
             "name": "APP_VERSION",
-            "value": "1.0.0.fuse-750020-redhat-00002"
+            "value": "1.0.0.fuse-760022-redhat-00001"
         },
         {
             "description": "Arguments passed to mvn in the build.",
@@ -338,6 +342,12 @@
             "description": "Extra arguments passed to mvn, e.g. for multi-module builds.",
             "displayName": "Extra Maven Arguments",
             "name": "MAVEN_ARGS_APPEND"
+        },
+        {
+            "description": "Maven mirror to use for S2I builds.",
+            "displayName": "Maven mirror URL",
+            "name": "MAVEN_MIRROR_URL",
+            "required": false
         },
         {
             "description": "Directory of the artifact to be built, e.g. for multi-module builds.",
@@ -398,7 +408,7 @@
             "displayName": "Build Memory limit",
             "name": "BUILD_MEMORY_LIMIT",
             "required": true,
-            "value": "0.8G"
+            "value": "1G"
         }
     ]
 }

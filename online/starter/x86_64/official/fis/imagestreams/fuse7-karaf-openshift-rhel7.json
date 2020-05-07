@@ -117,6 +117,24 @@
                 "referencePolicy": {
                     "type": "Local"
                 }
+            },
+            {
+                "annotations": {
+                    "description": "Red Hat Fuse 7.6 Karaf S2I images.",
+                    "iconClass": "icon-rh-integration",
+                    "openshift.io/display-name": "Red Hat Fuse 7.6 Karaf",
+                    "supports": "jboss-fuse:7.6.0,java:8,xpaas:1.2",
+                    "tags": "builder,jboss-fuse,java,karaf,xpaas,hidden",
+                    "version": "1.6"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/fuse7/fuse-karaf-openshift:1.6"
+                },
+                "name": "1.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
             }
         ]
     }
