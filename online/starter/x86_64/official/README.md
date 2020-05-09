@@ -160,14 +160,14 @@ Path: official/java/imagestreams/redhat-openjdk18-openshift-rhel7.json
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
 Path: official/java/imagestreams/openjdk-11-rhel7-rhel7.json  
-### openjdk-8-rhel8
+### ubi8-openjdk-8
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openjdk-8-rhel8-rhel7.json  
-### openjdk-11-rhel8
+Path: official/java/imagestreams/ubi8-openjdk-8-rhel7.json  
+### ubi8-openjdk-11
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
-Path: official/java/imagestreams/openjdk-11-rhel8-rhel7.json  
+Path: official/java/imagestreams/ubi8-openjdk-11-rhel7.json  
 ### openjdk-11-rhel8
 Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/image-streams.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
