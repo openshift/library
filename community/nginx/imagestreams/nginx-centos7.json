@@ -11,20 +11,19 @@
         "tags": [
             {
                 "annotations": {
-                    "description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.14/README.md.",
+                    "description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Nginx available on OpenShift, including major version updates.",
                     "iconClass": "icon-nginx",
-                    "openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.14",
+                    "openshift.io/display-name": "Nginx HTTP server and a reverse proxy (Latest)",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/sclorg/nginx-ex.git",
                     "supports": "nginx",
-                    "tags": "builder,nginx",
-                    "version": "1.14"
+                    "tags": "builder,nginx"
                 },
                 "from": {
-                    "kind": "DockerImage",
-                    "name": "docker.io/centos/nginx-114-centos7:latest"
+                    "kind": "ImageStreamTag",
+                    "name": "1.16"
                 },
-                "name": "1.14",
+                "name": "latest",
                 "referencePolicy": {
                     "type": "Local"
                 }
@@ -51,19 +50,20 @@
             },
             {
                 "annotations": {
-                    "description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Nginx available on OpenShift, including major version updates.",
+                    "description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.14/README.md.",
                     "iconClass": "icon-nginx",
-                    "openshift.io/display-name": "Nginx HTTP server and a reverse proxy (Latest)",
+                    "openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.14",
                     "openshift.io/provider-display-name": "Red Hat, Inc.",
                     "sampleRepo": "https://github.com/sclorg/nginx-ex.git",
                     "supports": "nginx",
-                    "tags": "builder,nginx"
+                    "tags": "builder,nginx",
+                    "version": "1.14"
                 },
                 "from": {
-                    "kind": "ImageStreamTag",
-                    "name": "1.16"
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/nginx-114-centos7:latest"
                 },
-                "name": "latest",
+                "name": "1.14",
                 "referencePolicy": {
                     "type": "Local"
                 }
