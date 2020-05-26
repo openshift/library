@@ -30,26 +30,6 @@
             },
             {
                 "annotations": {
-                    "description": "Build and run Python 2.7 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/2.7/README.md.",
-                    "iconClass": "icon-python",
-                    "openshift.io/display-name": "Python 2.7",
-                    "openshift.io/provider-display-name": "Red Hat, Inc.",
-                    "sampleRepo": "https://github.com/sclorg/django-ex.git",
-                    "supports": "python:2.7,python",
-                    "tags": "builder,python",
-                    "version": "2.7"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "docker.io/centos/python-27-centos7:latest"
-                },
-                "name": "2.7",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
                     "description": "Build and run Python 3.6 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/3.6/README.md.",
                     "iconClass": "icon-python",
                     "openshift.io/display-name": "Python 3.6",
@@ -64,6 +44,26 @@
                     "name": "docker.io/centos/python-36-centos7:latest"
                 },
                 "name": "3.6",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Build and run Python 2.7 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-python-container/blob/master/2.7/README.md.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python 2.7",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "sampleRepo": "https://github.com/sclorg/django-ex.git",
+                    "supports": "python:2.7,python",
+                    "tags": "builder,python",
+                    "version": "2.7"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "docker.io/centos/python-27-centos7:latest"
+                },
+                "name": "2.7",
                 "referencePolicy": {
                     "type": "Local"
                 }
