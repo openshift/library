@@ -6,8 +6,8 @@ variables:
   eap_cd_version: CD18
   rhsso72_zstream_version: v7.2.6.GA
   rhsso_tpcd_version: sso-cd-dev
-  rhsso73_zstream_version: v7.3.8.GA
-  rhsso74_zstream_version: v7.4.0.GA
+  rhsso73_zstream_version: v7.3.8.GA-RHBZ-1813894-fix
+  rhsso74_zstream_version: v7.4.0.GA-RHBZ-1813894-fix
   webserver_version: ose-v1.4.17
   webserver3_version: jws31-v1.4
   webserver5_version: jws50-v1.2
@@ -1042,18 +1042,18 @@ data:
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-postgresql.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-x509-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-ocp4-x509-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-ocp4-x509-https.adoc
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-x509-mysql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-x509-mysql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-ocp4-x509-mysql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-ocp4-x509-mysql-persistent.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-x509-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso73_zstream_version}/templates/sso73-ocp4-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso73_zstream_version}/docs/templates/sso73-ocp4-x509-postgresql-persistent.adoc
         tags:
           - ocp
       # List templates for RH-SSO 7.4.x on OpenJDK stable / zstream images stream below
@@ -1069,12 +1069,12 @@ data:
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_zstream_version}/docs/templates/sso74-postgresql.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_zstream_version}/templates/sso74-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_zstream_version}/docs/templates/sso74-x509-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_zstream_version}/templates/sso74-ocp4-x509-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_zstream_version}/docs/templates/sso74-ocp4-x509-https.adoc
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_zstream_version}/templates/sso74-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_zstream_version}/docs/templates/sso74-x509-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_zstream_version}/templates/sso74-ocp4-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_zstream_version}/docs/templates/sso74-ocp4-x509-postgresql-persistent.adoc
         tags:
           - ocp
     imagestreams:
