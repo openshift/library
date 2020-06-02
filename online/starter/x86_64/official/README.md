@@ -356,22 +356,14 @@ Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on_continuous_delivery)  
 Path: official/sso/imagestreams/redhat-sso-cd-openshift-rhel8-rhel7.json  
 ### redhat-sso73-openshift
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA/templates/sso73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA/templates/sso73-image-stream.json )  
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA-RHBZ-1813894-fix/templates/sso73-image-stream.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA-RHBZ-1813894-fix/templates/sso73-image-stream.json )  
 Docs: [https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.3/html-single/red_hat_single_sign-on_for_openshift/)  
 Path: official/sso/imagestreams/redhat-sso73-openshift-rhel7.json  
 ## templates
-### sso72-x509-https
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-x509-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.2.6.GA/templates/sso72-x509-https.json )  
-Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.2.6.GA/docs/templates/sso72-x509-https.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.2.6.GA/docs/templates/sso72-x509-https.adoc)  
-Path: official/sso/templates/sso72-x509-https.json  
-### sso-cd-x509-https
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-x509-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/templates/sso-cd-x509-https.json )  
-Docs: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/docs/templates/sso-cd-x509-https.adoc](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/sso-cd-dev/docs/templates/sso-cd-x509-https.adoc)  
-Path: official/sso/templates/sso-cd-x509-https.json  
-### sso73-x509-https
-Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA/templates/sso73-x509-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA/templates/sso73-x509-https.json )  
-Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.8.GA/docs/templates/sso73-x509-https.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.8.GA/docs/templates/sso73-x509-https.adoc)  
-Path: official/sso/templates/sso73-x509-https.json  
+### sso73-ocp4-x509-https
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA-RHBZ-1813894-fix/templates/sso73-ocp4-x509-https.json](https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/v7.3.8.GA-RHBZ-1813894-fix/templates/sso73-ocp4-x509-https.json )  
+Docs: [https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.8.GA-RHBZ-1813894-fix/docs/templates/sso73-ocp4-x509-https.adoc](https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/v7.3.8.GA-RHBZ-1813894-fix/docs/templates/sso73-ocp4-x509-https.adoc)  
+Path: official/sso/templates/sso73-ocp4-x509-https.json  
 # webserver
 ## imagestreams
 ### jboss-webserver30-tomcat7-openshift
