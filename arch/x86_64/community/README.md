@@ -30,6 +30,17 @@ Path: community/infinispan/templates/infinispan-ephemeral.json
 Source URL: [https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-persistent.yaml](https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-persistent.yaml )  
 Docs: [https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc](https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc)  
 Path: community/infinispan/templates/infinispan-persistent.json  
+# java
+## imagestreams
+### java
+Source URL: [https://github.com/jboss-container-images/openjdk/raw/develop/templates/community-image-streams.json](https://github.com/jboss-container-images/openjdk/raw/develop/templates/community-image-streams.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: community/java/imagestreams/java-ubi8.json  
+## templates
+### openjdk-web-basic-s2i
+Source URL: [https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/openjdk-web-basic-s2i.json](https://raw.githubusercontent.com/jboss-container-images/openjdk/release/templates/openjdk-web-basic-s2i.json )  
+Docs: [https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/](https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/)  
+Path: community/java/templates/openjdk-web-basic-s2i.json  
 # jenkins
 ## imagestreams
 ### jenkins
