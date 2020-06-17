@@ -105,14 +105,14 @@ data:
           - okd
   java:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/openjdk-web-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/openjdk-web-basic-s2i.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
         tags:
           - okd
           - online-starter
           - online-professional
     imagestreams:
-      - location: https://github.com/jboss-container-images/openjdk/raw/develop/templates/community-image-streams.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/community-image-streams.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
         regex: java
         suffix: ubi8
