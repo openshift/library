@@ -2,15 +2,15 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws50-tomcat9-mongodb-s2i",
+		"name": "jws53-openjdk11-tomcat9-mongodb-s2i",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "Application template for JWS MongoDB applications built using S2I.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9 + MongoDB (Ephemeral with https)",
+			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJDK11 + MongoDB (Ephemeral with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss,hidden",
-			"version": "1.2"
+			"version": "1.0"
 		}
 	},
 	"message": "A new JWS application for Apache Tomcat 9 (using MongoDB) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MongoDB database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
@@ -181,7 +181,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver50-tomcat9-openshift:1.2",
+							"name": "jboss-webserver53-openjdk11-tomcat9-openshift:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -680,7 +680,7 @@
 		}
 	],
 	"labels": {
-		"jws50": "1.2",
-		"template": "jws50-tomcat9-mongodb-s2i"
+		"jws53": "1.0",
+		"template": "jws53-openjdk11-tomcat9-mongodb-s2i"
 	}
 }

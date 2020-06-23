@@ -2,21 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws50-tomcat9-basic-s2i",
+		"name": "jws53-openjdk11-tomcat9-https-s2i",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9 (no https)",
+			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJDK11 (with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "tomcat,tomcat9,java,jboss",
+			"tags": "tomcat,tomcat9,java,jboss,hidden",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.0 Apache Tomcat 9 based application, including a build configuration, and an application deployment configuration.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.3 Apache Tomcat 9 based application, including a build configuration, application deployment configuration, and secure communication using https.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "1.2"
+			"version": "1.0"
 		}
 	},
-	"message": "A new JWS application for Apache Tomcat 9 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}.",
+	"message": "A new JWS application for Apache Tomcat 9 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -44,6 +44,30 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The web server's https port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 8443,
+						"targetPort": 8443
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"id": "${APPLICATION_NAME}-http",
 			"kind": "Route",
 			"metadata": {
@@ -59,6 +83,29 @@
 				"host": "${HOSTNAME_HTTP}",
 				"to": {
 					"name": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"id": "${APPLICATION_NAME}-https",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for application's https service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"host": "${HOSTNAME_HTTPS}",
+				"tls": {
+					"termination": "passthrough"
+				},
+				"to": {
+					"name": "secure-${APPLICATION_NAME}"
 				}
 			}
 		},
@@ -111,7 +158,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver50-tomcat9-openshift:1.2",
+							"name": "jboss-webserver53-openjdk11-tomcat9-openshift:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -170,6 +217,22 @@
 							{
 								"env": [
 									{
+										"name": "JWS_HTTPS_CERTIFICATE_DIR",
+										"value": "/etc/jws-secret-volume"
+									},
+									{
+										"name": "JWS_HTTPS_CERTIFICATE",
+										"value": "${JWS_HTTPS_CERTIFICATE}"
+									},
+									{
+										"name": "JWS_HTTPS_CERTIFICATE_KEY",
+										"value": "${JWS_HTTPS_CERTIFICATE_KEY}"
+									},
+									{
+										"name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
+										"value": "${JWS_HTTPS_CERTIFICATE_PASSWORD}"
+									},
+									{
 										"name": "JWS_ADMIN_USERNAME",
 										"value": "${JWS_ADMIN_USERNAME}"
 									},
@@ -191,6 +254,11 @@
 										"containerPort": 8080,
 										"name": "http",
 										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8443,
+										"name": "https",
+										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
@@ -201,10 +269,25 @@
 											"curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer\u0026att=stateName' |grep -iq 'stateName *= *STARTED'"
 										]
 									}
-								}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/etc/jws-secret-volume",
+										"name": "jws-certificate-volume",
+										"readOnly": true
+									}
+								]
 							}
 						],
-						"terminationGracePeriodSeconds": 60
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"name": "jws-certificate-volume",
+								"secret": {
+									"secretName": "${JWS_HTTPS_SECRET}"
+								}
+							}
+						]
 					}
 				},
 				"triggers": [
@@ -242,6 +325,11 @@
 			"description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
+			"name": "HOSTNAME_HTTPS",
+			"displayName": "Custom https Route Hostname",
+			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-\u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "Git source URI for application",
@@ -259,6 +347,30 @@
 			"displayName": "Context Directory",
 			"description": "Path within Git project to build; empty for root project directory.",
 			"value": "tomcat-websocket-chat"
+		},
+		{
+			"name": "JWS_HTTPS_SECRET",
+			"displayName": "Secret Name",
+			"description": "The name of the secret containing the certificate files",
+			"value": "jws-app-secret",
+			"required": true
+		},
+		{
+			"name": "JWS_HTTPS_CERTIFICATE",
+			"displayName": "Certificate Name",
+			"description": "The name of the certificate file within the secret",
+			"value": "server.crt"
+		},
+		{
+			"name": "JWS_HTTPS_CERTIFICATE_KEY",
+			"displayName": "Certificate Key Name",
+			"description": "The name of the certificate key file within the secret",
+			"value": "server.key"
+		},
+		{
+			"name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
+			"displayName": "Certificate Password",
+			"description": "The certificate password"
 		},
 		{
 			"name": "JWS_ADMIN_USERNAME",
@@ -310,7 +422,7 @@
 		}
 	],
 	"labels": {
-		"jws50": "1.2",
-		"template": "jws50-tomcat9-basic-s2i"
+		"jws53": "1.0",
+		"template": "jws53-openjdk11-tomcat9-https-s2i"
 	}
 }
