@@ -1,99 +1,111 @@
 {
-    "apiVersion": "v1",
-    "kind": "ImageStream",
-    "labels": {
-        "jws50": "1.2"
-    },
-    "metadata": {
-        "annotations": {
-            "openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
-            "openshift.io/provider-display-name": "Red Hat, Inc.",
-            "version": "1.2"
-        },
-        "name": "jboss-webserver50-tomcat9-openshift"
-    },
-    "spec": {
-        "tags": [
-            {
-                "annotations": {
-                    "description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
-                    "iconClass": "icon-rh-tomcat",
-                    "openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
-                    "sampleContextDir": "tomcat-websocket-chat",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "supports": "tomcat9:5.0,tomcat:9,java:8",
-                    "tags": "builder,tomcat,tomcat9,java,jboss,hidden",
-                    "version": "latest"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:latest"
-                },
-                "name": "latest",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
-                    "iconClass": "icon-rh-tomcat",
-                    "openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
-                    "sampleContextDir": "tomcat-websocket-chat",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "supports": "tomcat9:5.0,tomcat:9,java:8",
-                    "tags": "builder,tomcat,tomcat9,java,jboss,hidden",
-                    "version": "1.0"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.0"
-                },
-                "name": "1.0",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
-                    "iconClass": "icon-rh-tomcat",
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 5.0 Apache Tomcat 9",
-                    "sampleContextDir": "tomcat-websocket-chat",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "supports": "tomcat9:5.0,tomcat:9,java:8",
-                    "tags": "builder,tomcat,tomcat9,java,jboss,hidden",
-                    "version": "1.1"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.1"
-                },
-                "name": "1.1",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
-                    "iconClass": "icon-rh-tomcat",
-                    "openshift.io/display-name": "Red Hat JBoss Web Server 5.0 Apache Tomcat 9",
-                    "sampleContextDir": "tomcat-websocket-chat",
-                    "sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
-                    "supports": "tomcat9:5.0,tomcat:9,java:8",
-                    "tags": "builder,tomcat,tomcat9,java,jboss,hidden",
-                    "version": "1.2"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.2"
-                },
-                "name": "1.2",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            }
-        ]
-    }
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "jboss-webserver50-tomcat9-openshift",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"version": "1.2"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+					"supports": "tomcat9:5.0,tomcat:9,java:8",
+					"tags": "builder,tomcat,tomcat9,java,jboss,hidden",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.0",
+				"annotations": {
+					"description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+					"supports": "tomcat9:5.0,tomcat:9,java:8",
+					"tags": "builder,tomcat,tomcat9,java,jboss,hidden",
+					"version": "1.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.1",
+				"annotations": {
+					"description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "Red Hat JBoss Web Server 5.0 Apache Tomcat 9",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+					"supports": "tomcat9:5.0,tomcat:9,java:8",
+					"tags": "builder,tomcat,tomcat9,java,jboss,hidden",
+					"version": "1.1"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.1"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.2",
+				"annotations": {
+					"description": "JBoss Web Server 5.0 Apache Tomcat 9 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "Red Hat JBoss Web Server 5.0 Apache Tomcat 9",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
+					"supports": "tomcat9:5.0,tomcat:9,java:8",
+					"tags": "builder,tomcat,tomcat9,java,jboss,hidden",
+					"version": "1.2"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-5/webserver50-tomcat9-openshift:1.2"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
 }
