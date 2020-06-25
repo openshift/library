@@ -1,195 +1,195 @@
 {
-    "apiVersion": "v1",
-    "kind": "Template",
-    "labels": {
-        "template": "memcached-template"
-    },
-    "metadata": {
-        "annotations": {
-            "description": "Memcached service. It uses memcached image from official repository at docker hub. https://hub.docker.com/r/library/memcached/",
-            "tags": "memcached,database"
-        },
-        "creationTimestamp": null,
-        "name": "memcached"
-    },
-    "objects": [
-        {
-            "apiVersion": "v1",
-            "kind": "ImageStream",
-            "metadata": {
-                "creationTimestamp": null,
-                "labels": {
-                    "app": "memcached"
-                },
-                "name": "is-memcached"
-            },
-            "spec": {
-                "dockerImageRepository": "",
-                "tags": [
-                    {
-                        "from": {
-                            "kind": "DockerImage",
-                            "name": "memcached:${MEMCACHED_IMAGE_DOCKER_TAG}"
-                        },
-                        "importPolicy": {
-                            "scheduled": true
-                        },
-                        "name": "memcached_pseudo_tag"
-                    }
-                ]
-            },
-            "status": {
-                "dockerImageRepository": ""
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "Service",
-            "metadata": {
-                "creationTimestamp": null,
-                "name": "${MEMCACHED_SERVICE_NAME}"
-            },
-            "spec": {
-                "portalIP": "",
-                "ports": [
-                    {
-                        "name": "memcached",
-                        "nodePort": 0,
-                        "port": 11211,
-                        "protocol": "TCP",
-                        "targetPort": 11211
-                    }
-                ],
-                "selector": {
-                    "name": "${MEMCACHED_SERVICE_NAME}"
-                },
-                "sessionAffinity": "None",
-                "type": "ClusterIP"
-            },
-            "status": {
-                "loadBalancer": {}
-            }
-        },
-        {
-            "apiVersion": "v1",
-            "kind": "DeploymentConfig",
-            "metadata": {
-                "creationTimestamp": null,
-                "name": "dc-${MEMCACHED_SERVICE_NAME}"
-            },
-            "spec": {
-                "replicas": 1,
-                "selector": {
-                    "name": "${MEMCACHED_SERVICE_NAME}"
-                },
-                "strategy": {
-                    "type": "Recreate"
-                },
-                "template": {
-                    "metadata": {
-                        "creationTimestamp": null,
-                        "labels": {
-                            "name": "${MEMCACHED_SERVICE_NAME}"
-                        }
-                    },
-                    "spec": {
-                        "containers": [
-                            {
-                                "args": [
-                                    "-m",
-                                    "${CACHE_SIZE}"
-                                ],
-                                "capabilities": {},
-                                "image": " ",
-                                "imagePullPolicy": "IfNotPresent",
-                                "livenessProbe": {
-                                    "initialDelaySeconds": 5,
-                                    "tcpSocket": {
-                                        "port": 11211
-                                    },
-                                    "timeoutSeconds": 1
-                                },
-                                "name": "cnt-memcached",
-                                "ports": [
-                                    {
-                                        "containerPort": 11211,
-                                        "protocol": "TCP"
-                                    }
-                                ],
-                                "readinessProbe": {
-                                    "exec": {
-                                        "command": [
-                                            "/usr/bin/pgrep",
-                                            "memcached"
-                                        ]
-                                    },
-                                    "initialDelaySeconds": 5,
-                                    "timeoutSeconds": 1
-                                },
-                                "resources": {
-                                    "limits": {
-                                        "memory": "${MEMORY_LIMIT}"
-                                    }
-                                },
-                                "securityContext": {
-                                    "capabilities": {},
-                                    "privileged": false
-                                },
-                                "terminationMessagePath": "/dev/termination-log"
-                            }
-                        ],
-                        "dnsPolicy": "ClusterFirst",
-                        "restartPolicy": "Always"
-                    }
-                },
-                "triggers": [
-                    {
-                        "imageChangeParams": {
-                            "automatic": true,
-                            "containerNames": [
-                                "cnt-memcached"
-                            ],
-                            "from": {
-                                "kind": "ImageStreamTag",
-                                "name": "is-memcached:memcached_pseudo_tag"
-                            },
-                            "lastTriggeredImage": ""
-                        },
-                        "type": "ImageChange"
-                    },
-                    {
-                        "type": "ConfigChange"
-                    }
-                ]
-            },
-            "status": {}
-        }
-    ],
-    "parameters": [
-        {
-            "description": "Memcached cache size.",
-            "displayName": "Cache size (in MB)",
-            "name": "CACHE_SIZE",
-            "value": "64"
-        },
-        {
-            "description": "Maximum amount of memory the container can use.",
-            "displayName": "Memory Limit",
-            "name": "MEMORY_LIMIT",
-            "value": "512Mi"
-        },
-        {
-            "description": "The name of the OpenShift Service exposed for the Memcached.",
-            "displayName": "Memcached Service Name",
-            "name": "MEMCACHED_SERVICE_NAME",
-            "required": true,
-            "value": "memcached"
-        },
-        {
-            "description": "Tag of memcached image (alpine or latest). Check https://hub.docker.com/r/library/memcached/tags/ for list of supported values",
-            "displayName": "Image Tag at Docker Hub",
-            "name": "MEMCACHED_IMAGE_DOCKER_TAG",
-            "value": "alpine"
-        }
-    ]
+	"kind": "Template",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "memcached",
+		"creationTimestamp": null,
+		"annotations": {
+			"description": "Memcached service. It uses memcached image from official repository at docker hub. https://hub.docker.com/r/library/memcached/",
+			"tags": "memcached,database"
+		}
+	},
+	"objects": [
+		{
+			"apiVersion": "v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"creationTimestamp": null,
+				"labels": {
+					"app": "memcached"
+				},
+				"name": "is-memcached"
+			},
+			"spec": {
+				"dockerImageRepository": "",
+				"tags": [
+					{
+						"from": {
+							"kind": "DockerImage",
+							"name": "memcached:${MEMCACHED_IMAGE_DOCKER_TAG}"
+						},
+						"importPolicy": {
+							"scheduled": true
+						},
+						"name": "memcached_pseudo_tag"
+					}
+				]
+			},
+			"status": {
+				"dockerImageRepository": ""
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"creationTimestamp": null,
+				"name": "${MEMCACHED_SERVICE_NAME}"
+			},
+			"spec": {
+				"portalIP": "",
+				"ports": [
+					{
+						"name": "memcached",
+						"nodePort": 0,
+						"port": 11211,
+						"protocol": "TCP",
+						"targetPort": 11211
+					}
+				],
+				"selector": {
+					"name": "${MEMCACHED_SERVICE_NAME}"
+				},
+				"sessionAffinity": "None",
+				"type": "ClusterIP"
+			},
+			"status": {
+				"loadBalancer": {}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"creationTimestamp": null,
+				"name": "dc-${MEMCACHED_SERVICE_NAME}"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"name": "${MEMCACHED_SERVICE_NAME}"
+				},
+				"strategy": {
+					"type": "Recreate"
+				},
+				"template": {
+					"metadata": {
+						"creationTimestamp": null,
+						"labels": {
+							"name": "${MEMCACHED_SERVICE_NAME}"
+						}
+					},
+					"spec": {
+						"containers": [
+							{
+								"args": [
+									"-m",
+									"${CACHE_SIZE}"
+								],
+								"capabilities": {},
+								"image": " ",
+								"imagePullPolicy": "IfNotPresent",
+								"livenessProbe": {
+									"initialDelaySeconds": 5,
+									"tcpSocket": {
+										"port": 11211
+									},
+									"timeoutSeconds": 1
+								},
+								"name": "cnt-memcached",
+								"ports": [
+									{
+										"containerPort": 11211,
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/usr/bin/pgrep",
+											"memcached"
+										]
+									},
+									"initialDelaySeconds": 5,
+									"timeoutSeconds": 1
+								},
+								"resources": {
+									"limits": {
+										"memory": "${MEMORY_LIMIT}"
+									}
+								},
+								"securityContext": {
+									"capabilities": {},
+									"privileged": false
+								},
+								"terminationMessagePath": "/dev/termination-log"
+							}
+						],
+						"dnsPolicy": "ClusterFirst",
+						"restartPolicy": "Always"
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"cnt-memcached"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "is-memcached:memcached_pseudo_tag"
+							},
+							"lastTriggeredImage": ""
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			},
+			"status": {}
+		}
+	],
+	"parameters": [
+		{
+			"name": "CACHE_SIZE",
+			"displayName": "Cache size (in MB)",
+			"description": "Memcached cache size.",
+			"value": "64"
+		},
+		{
+			"name": "MEMORY_LIMIT",
+			"displayName": "Memory Limit",
+			"description": "Maximum amount of memory the container can use.",
+			"value": "512Mi"
+		},
+		{
+			"name": "MEMCACHED_SERVICE_NAME",
+			"displayName": "Memcached Service Name",
+			"description": "The name of the OpenShift Service exposed for the Memcached.",
+			"value": "memcached",
+			"required": true
+		},
+		{
+			"name": "MEMCACHED_IMAGE_DOCKER_TAG",
+			"displayName": "Image Tag at Docker Hub",
+			"description": "Tag of memcached image (alpine or latest). Check https://hub.docker.com/r/library/memcached/tags/ for list of supported values",
+			"value": "alpine"
+		}
+	],
+	"labels": {
+		"template": "memcached-template"
+	}
 }
