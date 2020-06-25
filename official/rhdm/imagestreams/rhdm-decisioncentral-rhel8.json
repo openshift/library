@@ -1,49 +1,60 @@
 {
-    "apiVersion": "v1",
-    "kind": "ImageStream",
-    "metadata": {
-        "annotations": {
-            "openshift.io/display-name": "Red Hat Decision Manager Decision Central 7.7",
-            "openshift.io/provider-display-name": "Red Hat, Inc."
-        },
-        "name": "rhdm-decisioncentral-rhel8"
-    },
-    "spec": {
-        "tags": [
-            {
-                "annotations": {
-                    "description": "Red Hat Decision Manager 7.7 - Decision Central image.",
-                    "iconClass": "icon-jboss",
-                    "supports": "rhdm:7.7",
-                    "tags": "rhdm",
-                    "version": "7.7.0"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/rhdm-7/rhdm-decisioncentral-rhel8:7.7.0"
-                },
-                "name": "7.7.0",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            },
-            {
-                "annotations": {
-                    "description": "Red Hat Decision Manager 7.7 - Decision Central image.",
-                    "iconClass": "icon-jboss",
-                    "supports": "rhdm:7.7",
-                    "tags": "rhdm",
-                    "version": "7.7.1"
-                },
-                "from": {
-                    "kind": "DockerImage",
-                    "name": "registry.redhat.io/rhdm-7/rhdm-decisioncentral-rhel8:7.7.1"
-                },
-                "name": "7.7.1",
-                "referencePolicy": {
-                    "type": "Local"
-                }
-            }
-        ]
-    }
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "rhdm-decisioncentral-rhel8",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Red Hat Decision Manager Decision Central 7.7",
+			"openshift.io/provider-display-name": "Red Hat, Inc."
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "7.7.0",
+				"annotations": {
+					"description": "Red Hat Decision Manager 7.7 - Decision Central image.",
+					"iconClass": "icon-jboss",
+					"supports": "rhdm:7.7",
+					"tags": "rhdm",
+					"version": "7.7.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhdm-7/rhdm-decisioncentral-rhel8:7.7.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.7.1",
+				"annotations": {
+					"description": "Red Hat Decision Manager 7.7 - Decision Central image.",
+					"iconClass": "icon-jboss",
+					"supports": "rhdm:7.7",
+					"tags": "rhdm",
+					"version": "7.7.1"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhdm-7/rhdm-decisioncentral-rhel8:7.7.1"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
 }

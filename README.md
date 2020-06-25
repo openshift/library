@@ -1,6 +1,5 @@
 # OpenShift Image Streams and Templates
 
-[![Build Status](https://travis-ci.org/openshift/library.svg?branch=master)](https://travis-ci.org/openshift/library)
 [![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=update_openshift_library)](https://ci.openshift.redhat.com/jenkins/job/update_openshift_library/)
 
 This repository contains a curated set of image streams and templates for OpenShift. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/openshift_images/image-streams-manage.html)** and **[templates](https://docs.okd.io/latest/openshift_images/using-templates.html)**.
@@ -10,7 +9,6 @@ This repository contains a curated set of image streams and templates for OpenSh
     - [Official](#official)
     - [Community](#community)
 - [Building the Library](#building-the-library)
-    - [Python Dependencies](#python-dependencies)
     - [Running the Script](#running-the-script)
     - [Verifying Your Updates](#verifying-your-updates)
 - [Contributing](#contributing)
@@ -46,21 +44,35 @@ Community templates and image streams are **not** provided or supported by Red H
 
 ## Building the Library
 
-### Python Dependencies
+You must build the library executable before you can run the import.
 
-    $ pip install -r requirements.txt
+    $ make build
 
 ### Running the Script
-
+    # Imports the official.yaml and community.yaml without any
+    # additional flags or filters
     $ make import
+
+    # Imports the templates and imagestreams into some_dir
+    $ make import DIR=some_dir
+
+    # Imports only the foo.yaml and bar.yaml documents
+    $ make import DOCUMENTS=foo.yaml,bar.yaml
+
+    # Imports only the templates and imagestreams tagged with
+    # tag1 OR tag2
+    $ make import TAGS=tag1,tag2
+
+    # Imports only the templates and imagestreams tagged with
+    # tag1 AND tag2
+    $ make import TAGS=tag1,tag2 MATCHALL=true
     
 ## Verifying Your Updates
 
     $ make verify
     
 The `make verify` command runs the following checks:
- - verifies YAML syntax
- - verifies the Python script *(using pylint)* 
+ - verifies the Go syntax *(using gofmt)* 
  - verifies that make import has been run
 
 ## Contributing

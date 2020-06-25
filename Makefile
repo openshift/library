@@ -1,24 +1,43 @@
+# If no documents are specified, use these as the default
+DOCUMENTS ?= official,community
+
+ifeq ($(MATCHALL),true)
+	MATCHALLTAGS=--match-all
+endif
+
 .DEFAULT_GOAL := help
 
-verify: ## Run core verification. Example: make verify
-	python -V
-	pip -V
-	hack/verify-python.sh
-	hack/verify-yaml.sh
-	hack/verify-pullrequest.sh
+verify: verify-gofmt verify-pullrequest ## Run verifications. Example: make verify
 .PHONY: verify
 
+verify-gofmt: ## Run gofmt verification. Example: make verify-gofmt
+	hack/verify-gofmt.sh
+.PHONY: verify-gofmt
+
+verify-pullrequest: ## Run pull request verification. Example: make verify-pullrequest
+	hack/verify-pullrequest.sh $(DOCUMENTS)
+.PHONY: verify-pullrequest
+
+# Using -race here since we are running concurrently
+build: ## Build the library executable. Example: make build
+	go version
+	go build -race
+.PHONY: build
+
 import: ## Run the import script. Example: make import
-	python -V
-	pip -V
-	python import_content.py
+	./library import --documents=$(DOCUMENTS) --tags=$(TAGS) $(MATCHALLTAGS) --dir=$(DIR)
 .PHONY: import
 
-dep: ## Install Dependencies. Example: make dep
-	pip install -r requirements.txt
-.PHONY: dependencies
+vendor: ## Vendor Go Dependencies. Example: make vendor
+	go mod vendor
+.PHONY: vendor
 
-help: ## [Default Target] - Print this help. Example: make help
+clean: ## Clean up the workspace. Example: make clean
+	rm -f library
+	rm -rf _output/
+.PHONY: clean
+
+help: ## Print this help. Example: make help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 .PHONY: help
 
