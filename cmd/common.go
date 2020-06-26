@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/ghodss/yaml"
@@ -15,6 +16,11 @@ import (
 )
 
 func writeToFile(data []byte, filePath string) error {
+	if _, err := os.Stat(filepath.Dir(filePath)); os.IsNotExist(err) {
+		if err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil {
+			return fmt.Errorf("Error creating directory %q: %v", filepath.Dir(filePath), err)
+		}
+	}
 	return ioutil.WriteFile(filePath, data, os.ModePerm)
 }
 
