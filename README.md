@@ -1,7 +1,5 @@
 # OpenShift Image Streams and Templates
 
-[![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=update_openshift_library)](https://ci.openshift.redhat.com/jenkins/job/update_openshift_library/)
-
 This repository contains a curated set of image streams and templates for OpenShift. See the official OpenShift documentation for more information about **[image streams](https://docs.okd.io/latest/openshift_images/image-streams-manage.html)** and **[templates](https://docs.okd.io/latest/openshift_images/using-templates.html)**.
 
 
