@@ -8,6 +8,7 @@ import (
 	"path"
 	"reflect"
 	"regexp"
+	"sort"
 	"strings"
 	"sync"
 
@@ -101,24 +102,12 @@ var importCmd = &cobra.Command{
 				// If this item has imagestreams, create the directory
 				if len(item.ImageStreams) != 0 {
 					isPath := path.Join(dir, document, folder, "imagestreams")
-					if _, err := os.Stat(isPath); os.IsNotExist(err) {
-						if err := os.MkdirAll(isPath, os.ModePerm); err != nil {
-							klog.Errorf("Error creating directory %q: %v", isPath, err)
-							os.Exit(1)
-						}
-					}
 					wg.Add(1)
 					go processImagestreams(&wg, document, folder, isPath, item.ImageStreams, errorChan)
 				}
 				// If this item has templates, create the directory
 				if len(item.Templates) != 0 {
 					tPath := path.Join(dir, document, folder, "templates")
-					if _, err := os.Stat(tPath); os.IsNotExist(err) {
-						if err := os.MkdirAll(tPath, os.ModePerm); err != nil {
-							klog.Errorf("Error creating directory %q: %v", tPath, err)
-							os.Exit(1)
-						}
-					}
 					wg.Add(1)
 					go processTemplates(&wg, document, folder, tPath, item.Templates, errorChan)
 				}
@@ -147,6 +136,10 @@ func hasTag(itemTags []string, filterTags []string, matchAll bool) bool {
 		return true
 	}
 
+	if len(filterTags) != 0 && len(itemTags) == 0 {
+		return false
+	}
+
 	archFound := false
 
 	for _, tag := range itemTags {
@@ -155,26 +148,37 @@ func hasTag(itemTags []string, filterTags []string, matchAll bool) bool {
 		}
 	}
 
+	// If no architecture tag is present, set a default of arch_x86_64
 	if !archFound {
 		itemTags = append(itemTags, "arch_x86_64")
 	}
 
-	if !matchAll {
+	// If we sort the slices, and there is going to be a match
+	// chances are we will find it faster
+	// We also need filterTags sorted for comparison with foundTags
+	// if we need to match all of the tags
+	sort.Strings(filterTags)
+	sort.Strings(itemTags)
+
+	var foundTags []string
+
+	for _, filterTag := range filterTags {
 		for _, itemTag := range itemTags {
-			for _, filterTag := range filterTags {
-				if itemTag == filterTag {
+			if itemTag == filterTag {
+				// If we don't have to match all tags, and we find a match, return true
+				if !matchAll {
 					return true
 				}
+				// If we have to match all tags, append the found tag to foundTags
+				foundTags = append(foundTags, filterTag)
 			}
 		}
-		return false
 	}
 
-	if len(itemTags) != 0 {
-		return reflect.DeepEqual(itemTags, filterTags)
-	}
+	// Sort foundTags so we can compare it with filterTags
+	sort.Strings(foundTags)
 
-	return false
+	return reflect.DeepEqual(foundTags, filterTags)
 }
 
 func processImagestreams(wg *sync.WaitGroup, document string, folder string, isPath string, imagestreams []libraryapiv1.ItemImageStream, errorChan chan<- error) {
