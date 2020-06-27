@@ -52,6 +52,10 @@ You must build the library executable before you can run the import.
     # Imports the official.yaml and community.yaml without any
     # additional flags or filters
     $ make import
+    
+    # Increase the log level
+    # Supported levels: 0,2,5
+    $ make import LOGLEVEL=2
 
     # Imports the templates and imagestreams into some_dir
     $ make import DIR=some_dir

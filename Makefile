@@ -1,5 +1,6 @@
 # If no documents are specified, use these as the default
 DOCUMENTS ?= official,community
+LOGLEVEL ?= 0
 
 ifeq ($(MATCHALL),true)
 	MATCHALLTAGS=--match-all
@@ -25,7 +26,7 @@ build: ## Build the library executable. Example: make build
 .PHONY: build
 
 import: ## Run the import script. Example: make import
-	./library import --documents=$(DOCUMENTS) --tags=$(TAGS) $(MATCHALLTAGS) --dir=$(DIR)
+	./library import --documents=$(DOCUMENTS) --tags=$(TAGS) $(MATCHALLTAGS) --dir=$(DIR) -v=$(LOGLEVEL)
 .PHONY: import
 
 vendor: ## Vendor Go Dependencies. Example: make vendor
