@@ -71,63 +71,67 @@ var importCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		for _, document := range documents {
-			klog.Infof("[%s] Processing ...", document)
-			if strings.HasSuffix(document, ".yaml") {
-				document = strings.Replace(document, ".yaml", "", 1)
-			}
-
-			// Delete the old directory
-			if err := os.RemoveAll(path.Join(dir, document)); err != nil {
-				klog.Errorf("unable to remove directory %q: %v", path.Join(dir, document), err)
-				os.Exit(1)
-			}
-
-			// Read the YAML file
-			contents, err := ioutil.ReadFile(fmt.Sprintf("%s.yaml", document))
-			if err != nil {
-				klog.Errorf("[%s] unable to read specified file: %v", document, err)
-				os.Exit(1)
-			}
-			// Convert the YAML to JSON
-			contents, err = yaml.YAMLToJSON(contents)
-			klog.V(5).Infof("[%s] Converting yaml to json", document)
-			if err != nil {
-				klog.Errorf("[%s] unable to convert yaml to json: %v", document, err)
-				os.Exit(1)
-			}
-			// Unmarshal just the variables from the contents
-			var variables libraryapiv1.Document
-			if err = yaml.Unmarshal(contents, &variables); err != nil {
-				klog.Errorf("[%s] unable to unMarshal variable replacements: %s", document, err)
-				os.Exit(1)
-			}
-
-			// Replace variable keys with their values in the contents
-			klog.Infof("[%s] Processing variable replacements ...", document)
-			if err := replaceVariables(document, &contents, variables.Variables); err != nil {
-				klog.Errorf("[%s] unable to replace variables: %v", document, err)
-				os.Exit(1)
-			}
-
-			// Unmarshal the data from the contents
-			documentData := libraryapiv1.DocumentData{}
-			if err = yaml.Unmarshal(contents, &documentData); err != nil {
-				klog.Errorf("[%s] unable to unMarshal yaml after variable replacement: %v", document, err)
-				os.Exit(1)
-			}
-			for folder, item := range documentData.Data {
-				klog.Infof("[%s] Processing folder %q", document, folder)
-				if len(item.ImageStreams) != 0 {
-					isPath := path.Join(dir, document, folder, "imagestreams")
-					wg.Add(1)
-					go processImagestreams(&wg, document, folder, isPath, item.ImageStreams)
+			wg.Add(1)
+			go func(document string) {
+				defer wg.Done()
+				klog.Infof("[%s] Processing ...", document)
+				if strings.HasSuffix(document, ".yaml") {
+					document = strings.Replace(document, ".yaml", "", 1)
 				}
-				if len(item.Templates) != 0 {
-					tPath := path.Join(dir, document, folder, "templates")
-					wg.Add(1)
-					go processTemplates(&wg, document, folder, tPath, item.Templates)
+
+				// Delete the old directory
+				if err := os.RemoveAll(path.Join(dir, document)); err != nil {
+					klog.Errorf("unable to remove directory %q: %v", path.Join(dir, document), err)
+					os.Exit(1)
 				}
-			}
+
+				// Read the YAML file
+				contents, err := ioutil.ReadFile(fmt.Sprintf("%s.yaml", document))
+				if err != nil {
+					klog.Errorf("[%s] unable to read specified file: %v", document, err)
+					os.Exit(1)
+				}
+				// Convert the YAML to JSON
+				contents, err = yaml.YAMLToJSON(contents)
+				klog.V(5).Infof("[%s] Converting yaml to json", document)
+				if err != nil {
+					klog.Errorf("[%s] unable to convert yaml to json: %v", document, err)
+					os.Exit(1)
+				}
+				// Unmarshal just the variables from the contents
+				var variables libraryapiv1.Document
+				if err = yaml.Unmarshal(contents, &variables); err != nil {
+					klog.Errorf("[%s] unable to unMarshal variable replacements: %s", document, err)
+					os.Exit(1)
+				}
+
+				// Replace variable keys with their values in the contents
+				klog.Infof("[%s] Processing variable replacements ...", document)
+				if err := replaceVariables(document, &contents, variables.Variables); err != nil {
+					klog.Errorf("[%s] unable to replace variables: %v", document, err)
+					os.Exit(1)
+				}
+
+				// Unmarshal the data from the contents
+				documentData := libraryapiv1.DocumentData{}
+				if err = yaml.Unmarshal(contents, &documentData); err != nil {
+					klog.Errorf("[%s] unable to unMarshal yaml after variable replacement: %v", document, err)
+					os.Exit(1)
+				}
+				for folder, item := range documentData.Data {
+					klog.Infof("[%s] Processing folder %q", document, folder)
+					if len(item.ImageStreams) != 0 {
+						isPath := path.Join(dir, document, folder, "imagestreams")
+						wg.Add(1)
+						go processImagestreams(&wg, document, folder, isPath, item.ImageStreams)
+					}
+					if len(item.Templates) != 0 {
+						tPath := path.Join(dir, document, folder, "templates")
+						wg.Add(1)
+						go processTemplates(&wg, document, folder, tPath, item.Templates)
+					}
+				}
+			}(document)
 		}
 		wg.Wait()
 	},
@@ -207,90 +211,102 @@ func hasTag(document string, location string, itemTags []string, filterTags []st
 func processImagestreams(wg *sync.WaitGroup, document string, folder string, isPath string, imagestreams []libraryapiv1.ItemImageStream) {
 	defer wg.Done()
 	for _, imagestream := range imagestreams {
-		if !hasTag(document, imagestream.Location, imagestream.Tags, tags, matchAll) {
-			klog.V(5).Infof("[%s] Tags do not match, skipping %s", document, imagestream.Location)
-			continue
-		}
-		foundImageStreams := make([]imageapiv1.ImageStream, 1)
-		body, err := fetchURL(document, imagestream.Location)
-		if err != nil {
-			klog.Errorf("[%s] unable to fetch imagestream url %q: %v", document, imagestream.Location, err)
-			continue
-		}
-		is := imageapiv1.ImageStream{}
-		if err := unMarshalImageStream(body, &is); err != nil {
-			klog.Errorf("[%s] unable to unMarshal imagestream %q: %v", imagestream.Location, err)
-		}
-		if is.Kind == "ImageStream" {
-			foundImageStreams = append(foundImageStreams, is)
-		} else if is.Kind == "List" || is.Kind == "ImageStreamList" {
-			isl := imageapiv1.ImageStreamList{}
-			if err := unMarshalImageStreamList(body, &isl); err != nil {
-				klog.Errorf("[%s] unable to unMarshal imagestream list: %v:", document, err)
+		wg.Add(1)
+		go func(wg *sync.WaitGroup, document string, folder string, isPath string, imagestream libraryapiv1.ItemImageStream) {
+			defer wg.Done()
+			if !hasTag(document, imagestream.Location, imagestream.Tags, tags, matchAll) {
+				klog.V(5).Infof("[%s] Tags do not match, skipping %s", document, imagestream.Location)
+				return
 			}
-			for _, item := range isl.Items {
-				foundImageStreams = append(foundImageStreams, item)
+			foundImageStreams := make([]imageapiv1.ImageStream, 1)
+			body, err := fetchURL(document, imagestream.Location)
+			if err != nil {
+				klog.Errorf("[%s] unable to fetch imagestream url %q: %v", document, imagestream.Location, err)
+				return
 			}
-		}
-		for _, stream := range foundImageStreams {
-			var match bool
-			if len(imagestream.Regex) != 0 {
-				match, _ = regexp.MatchString(imagestream.Regex, stream.Name)
+			is := imageapiv1.ImageStream{}
+			if err := unMarshalImageStream(body, &is); err != nil {
+				klog.Errorf("[%s] unable to unMarshal imagestream %q: %v", imagestream.Location, err)
 			}
-			if len(stream.Name) != 0 && (match || len(imagestream.Regex) == 0) {
-				klog.Infof("[%s] Processing imagestream %q", document, stream.Name)
-				fileName := stream.Name
-				if len(imagestream.Suffix) != 0 {
-					fileName = fmt.Sprintf("%s-%s", stream.Name, imagestream.Suffix)
+			if is.Kind == "ImageStream" {
+				foundImageStreams = append(foundImageStreams, is)
+			} else if is.Kind == "List" || is.Kind == "ImageStreamList" {
+				isl := imageapiv1.ImageStreamList{}
+				if err := unMarshalImageStreamList(body, &isl); err != nil {
+					klog.Errorf("[%s] unable to unMarshal imagestream list: %v:", document, err)
 				}
-				imageStreamPath := path.Join(isPath, fmt.Sprintf("%s.json", fileName))
-				data, err := json.MarshalIndent(stream, "", "\t")
-				if err != nil {
-					klog.Errorf("[%s] unable to marshal imagestream %q to json: %v", document, stream.Name, err)
-				}
-				if err := writeToFile(document, data, imageStreamPath); err != nil {
-					klog.Errorf("[%s] unable to write data for %q to file: %v", document, stream.Name, err)
+				for _, item := range isl.Items {
+					foundImageStreams = append(foundImageStreams, item)
 				}
 			}
-		}
+			for _, stream := range foundImageStreams {
+				wg.Add(1)
+				go func(wg *sync.WaitGroup, document string, folder string, isPath string, imagestream libraryapiv1.ItemImageStream, stream imageapiv1.ImageStream) {
+					defer wg.Done()
+					var match bool
+					if len(imagestream.Regex) != 0 {
+						match, _ = regexp.MatchString(imagestream.Regex, stream.Name)
+					}
+					if len(stream.Name) != 0 && (match || len(imagestream.Regex) == 0) {
+						klog.Infof("[%s] Processing imagestream %q", document, stream.Name)
+						fileName := stream.Name
+						if len(imagestream.Suffix) != 0 {
+							fileName = fmt.Sprintf("%s-%s", stream.Name, imagestream.Suffix)
+						}
+						imageStreamPath := path.Join(isPath, fmt.Sprintf("%s.json", fileName))
+						data, err := json.MarshalIndent(stream, "", "\t")
+						if err != nil {
+							klog.Errorf("[%s] unable to marshal imagestream %q to json: %v", document, stream.Name, err)
+						}
+						if err := writeToFile(document, data, imageStreamPath); err != nil {
+							klog.Errorf("[%s] unable to write data for %q to file: %v", document, stream.Name, err)
+						}
+					}
+				}(wg, document, folder, isPath, imagestream, stream)
+			}
+		}(wg, document, folder, isPath, imagestream)
 	}
 }
 
 func processTemplates(wg *sync.WaitGroup, document string, folder string, tPath string, templates []libraryapiv1.ItemTemplate) {
 	defer wg.Done()
 	for _, template := range templates {
-		if !hasTag(document, template.Location, template.Tags, tags, matchAll) {
-			klog.V(5).Infof("[%s] Tags do not match, skipping %s", document, template.Location)
-			continue
-		}
+		wg.Add(1)
+		go func(wg *sync.WaitGroup, document string, folder string, isPath string, template libraryapiv1.ItemTemplate) {
+			defer wg.Done()
+			if !hasTag(document, template.Location, template.Tags, tags, matchAll) {
+				klog.V(5).Infof("[%s] Tags do not match, skipping %s", document, template.Location)
+				return
+			}
 
-		body, err := fetchURL(document, template.Location)
-		if err != nil {
-			klog.Errorf("[%s] unable to fetch template url %q: %v", document, template.Location, err)
-			continue
-		}
-		t := templateapiv1.Template{}
-		if err := unMarshalTemplate(body, &t); err != nil {
-			klog.Errorf("[%s] unable to unMarshal template %q: %v", template.Location, err)
-		}
-		var match bool
-		if len(template.Regex) != 0 {
-			match, _ = regexp.MatchString(template.Regex, t.Name)
-		}
-		if len(t.Name) != 0 && (match || len(template.Regex) == 0) {
-			klog.Infof("[%s] Processing template %q", document, t.Name)
-			fileName := t.Name
-			if len(template.Suffix) != 0 {
-				fileName = fmt.Sprintf("%s-%s", t.Name, template.Suffix)
-			}
-			templatePath := path.Join(tPath, fmt.Sprintf("%s.json", fileName))
-			data, err := json.MarshalIndent(t, "", "\t")
+			body, err := fetchURL(document, template.Location)
 			if err != nil {
-				klog.Errorf("[%s] unable to marshal template %q to json: %v", document, t.Name, err)
+				klog.Errorf("[%s] unable to fetch template url %q: %v", document, template.Location, err)
+				return
 			}
-			if err := writeToFile(document, data, templatePath); err != nil {
-				klog.Errorf("[%s] unable to write data for %q to file: %v", document, t.Name, err)
+			t := templateapiv1.Template{}
+			if err := unMarshalTemplate(body, &t); err != nil {
+				klog.Errorf("[%s] unable to unMarshal template %q: %v", template.Location, err)
 			}
-		}
+			var match bool
+			if len(template.Regex) != 0 {
+				match, _ = regexp.MatchString(template.Regex, t.Name)
+			}
+			if len(t.Name) != 0 && (match || len(template.Regex) == 0) {
+				klog.Infof("[%s] Processing template %q", document, t.Name)
+				fileName := t.Name
+				if len(template.Suffix) != 0 {
+					fileName = fmt.Sprintf("%s-%s", t.Name, template.Suffix)
+				}
+				templatePath := path.Join(tPath, fmt.Sprintf("%s.json", fileName))
+				data, err := json.MarshalIndent(t, "", "\t")
+				if err != nil {
+					klog.Errorf("[%s] unable to marshal template %q to json: %v", document, t.Name, err)
+				}
+				if err := writeToFile(document, data, templatePath); err != nil {
+					klog.Errorf("[%s] unable to write data for %q to file: %v", document, t.Name, err)
+				}
+			}
+		}(wg, document, folder, tPath, template)
 	}
 }
