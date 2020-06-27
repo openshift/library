@@ -54,7 +54,7 @@ You must build the library executable before you can run the import.
     $ make import
     
     # Increase the log level
-    # Supported levels: 0,2,5
+    # Supported levels: 0,2,5,8
     $ make import LOGLEVEL=2
 
     # Imports the templates and imagestreams into some_dir

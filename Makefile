@@ -19,6 +19,10 @@ verify-pullrequest: ## Run pull request verification. Example: make verify-pullr
 	hack/verify-pullrequest.sh $(DOCUMENTS)
 .PHONY: verify-pullrequest
 
+verify-periodic: ## Run pull request verification. Example: make verify-pullrequest
+	hack/verify-periodic.sh
+.PHONY: verify-periodic
+
 # Using -race here since we are running concurrently
 build: ## Build the library executable. Example: make build
 	go version

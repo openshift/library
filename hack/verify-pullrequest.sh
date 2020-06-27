@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+start=`date +%s`
+
 echo "Creating data to check against"
 make import DIR=_output
 
@@ -20,3 +22,5 @@ done
 
 echo "Cleaning up"
 rm -rf _output
+
+echo "Verification ran in $((`date +%s`-start)) seconds"
