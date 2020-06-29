@@ -1,5 +1,6 @@
 # If no documents are specified, use these as the default
 DOCUMENTS ?= official,community
+LOGLEVEL ?= 0
 
 ifeq ($(MATCHALL),true)
 	MATCHALLTAGS=--match-all
@@ -18,6 +19,10 @@ verify-pullrequest: ## Run pull request verification. Example: make verify-pullr
 	hack/verify-pullrequest.sh $(DOCUMENTS)
 .PHONY: verify-pullrequest
 
+verify-periodic: ## Run pull request verification. Example: make verify-pullrequest
+	hack/verify-periodic.sh
+.PHONY: verify-periodic
+
 # Using -race here since we are running concurrently
 build: ## Build the library executable. Example: make build
 	go version
@@ -25,7 +30,7 @@ build: ## Build the library executable. Example: make build
 .PHONY: build
 
 import: ## Run the import script. Example: make import
-	./library import --documents=$(DOCUMENTS) --tags=$(TAGS) $(MATCHALLTAGS) --dir=$(DIR)
+	./library import --documents=$(DOCUMENTS) --tags=$(TAGS) $(MATCHALLTAGS) --dir=$(DIR) -v=$(LOGLEVEL)
 .PHONY: import
 
 vendor: ## Vendor Go Dependencies. Example: make vendor

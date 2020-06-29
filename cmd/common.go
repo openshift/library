@@ -11,11 +11,14 @@ import (
 
 	"github.com/ghodss/yaml"
 
+	"k8s.io/klog"
+
 	imageapiv1 "github.com/openshift/api/image/v1"
 	templateapiv1 "github.com/openshift/api/template/v1"
 )
 
-func writeToFile(data []byte, filePath string) error {
+func writeToFile(document string, data []byte, filePath string) error {
+	klog.V(5).Infof("[%s] Writing file %s", document, filePath)
 	if _, err := os.Stat(filepath.Dir(filePath)); os.IsNotExist(err) {
 		if err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm); err != nil {
 			return fmt.Errorf("Error creating directory %q: %v", filepath.Dir(filePath), err)
@@ -24,15 +27,17 @@ func writeToFile(data []byte, filePath string) error {
 	return ioutil.WriteFile(filePath, data, os.ModePerm)
 }
 
-func replaceVariables(d *[]byte, v map[string]string) error {
+func replaceVariables(document string, d *[]byte, v map[string]string) error {
 	for k, v := range v {
+		klog.V(5).Infof("[%s] Replacing variable {%s} with %s", document, k, v)
 		*d = []byte(strings.ReplaceAll(string(*d), fmt.Sprintf("{%s}", k), fmt.Sprintf("%s", v)))
 	}
 
 	return nil
 }
 
-func fetchURL(path string) ([]byte, error) {
+func fetchURL(document string, path string) ([]byte, error) {
+	klog.V(5).Infof("[%s] Fetching %s", document, path)
 	resp, err := http.Get(path)
 	if err != nil {
 		return []byte{}, err
