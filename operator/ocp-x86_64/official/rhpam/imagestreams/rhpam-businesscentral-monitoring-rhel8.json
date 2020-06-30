@@ -1,0 +1,60 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "rhpam-businesscentral-monitoring-rhel8",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Red Hat Process Automation Manager Business Central Monitoring 7.7",
+			"openshift.io/provider-display-name": "Red Hat, Inc."
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "7.7.0",
+				"annotations": {
+					"description": "Red Hat Process Automation Manager 7.7 - Business Central Monitoring image.",
+					"iconClass": "icon-jboss",
+					"supports": "rhpam:7.7",
+					"tags": "rhpam",
+					"version": "7.7.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhpam-7/rhpam-businesscentral-monitoring-rhel8:7.7.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.7.1",
+				"annotations": {
+					"description": "Red Hat Process Automation Manager 7.7 - Business Central Monitoring image.",
+					"iconClass": "icon-jboss",
+					"supports": "rhpam:7.7",
+					"tags": "rhpam",
+					"version": "7.7.1"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhpam-7/rhpam-businesscentral-monitoring-rhel8:7.7.1"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
