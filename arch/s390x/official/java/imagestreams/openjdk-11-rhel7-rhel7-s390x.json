@@ -19,6 +19,28 @@
 		},
 		"tags": [
 			{
+				"name": "1.0",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJDK 11.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 11",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:11",
+					"tags": "builder,java,openjdk,hidden",
+					"version": "1.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "1.1",
 				"annotations": {
 					"description": "Build and run Java applications using Maven and OpenJDK 11.",
