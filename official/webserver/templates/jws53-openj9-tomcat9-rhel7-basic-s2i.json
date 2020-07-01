@@ -2,18 +2,18 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws50-tomcat9-basic-s2i",
+		"name": "jws53-openj9-tomcat9-rhel7-basic-s2i",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.0 Apache Tomcat 9 (no https)",
+			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJ9 JDK11 (no https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.0 Apache Tomcat 9 based application, including a build configuration, and an application deployment configuration.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.3 Apache Tomcat 9 based application, including a build configuration, and an application deployment configuration.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "1.2"
+			"version": "1.0"
 		}
 	},
 	"message": "A new JWS application for Apache Tomcat 9 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}.",
@@ -111,7 +111,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver50-tomcat9-openshift:1.2",
+							"name": "jboss-webserver53-openj9-tomcat9-rhel7-openshift:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -310,7 +310,7 @@
 		}
 	],
 	"labels": {
-		"jws50": "1.2",
-		"template": "jws50-tomcat9-basic-s2i"
+		"jws53openj9el7": "1.1",
+		"template": "jws53-openj9-tomcat9-rhel7-basic-s2i"
 	}
 }
