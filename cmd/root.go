@@ -10,7 +10,6 @@ import (
 )
 
 var cfgFile string
-var documents []string
 
 var rootCmd = &cobra.Command{
 	Use:     "library",
@@ -29,8 +28,6 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringSliceVar(&documents, "documents", []string{}, "The documents to process (separated by comma ',')")
-	rootCmd.MarkPersistentFlagRequired("documents")
 }
 
 func initConfig() {
