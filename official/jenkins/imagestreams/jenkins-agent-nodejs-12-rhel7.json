@@ -1,0 +1,48 @@
+{
+    "apiVersion": "v1",
+    "kind": "ImageStream",
+    "metadata": {
+        "annotations": {
+            "openshift.io/display-name": "Jenkins NodeJS 12 Agent"
+        },
+        "name": "jenkins-agent-nodejs-12"
+    },
+    "spec": {
+        "tags": [
+            {
+                "annotations": {
+                    "description": "Provides a Jenkins Agent with NodeJS 12 tooling",
+                    "iconClass": "icon-jenkins",
+                    "openshift.io/display-name": "Jenkins NodeJS 12 Agent",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "jenkins"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "v4.3"
+                },
+                "name": "latest",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            },
+            {
+                "annotations": {
+                    "description": "Provides a Jenkins Agent with NodeJS 12 tooling",
+                    "iconClass": "icon-jenkins",
+                    "openshift.io/display-name": "Jenkins NodeJS 12 Agent",
+                    "openshift.io/provider-display-name": "Red Hat, Inc.",
+                    "tags": "jenkins"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "registry.redhat.io/openshift4/jenkins-agent-nodejs-12-rhel7:v4.3"
+                },
+                "name": "v4.3",
+                "referencePolicy": {
+                    "type": "Local"
+                }
+            }
+        ]
+    }
+}
