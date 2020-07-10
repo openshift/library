@@ -19,9 +19,13 @@ verify-pullrequest: ## Run pull request verification. Example: make verify-pullr
 	hack/verify-pullrequest.sh $(DOCUMENTS)
 .PHONY: verify-pullrequest
 
-verify-periodic: ## Run pull request verification. Example: make verify-pullrequest
+verify-periodic: ## Run periodic job verification. Example: make verify-periodic
 	hack/verify-periodic.sh
 .PHONY: verify-periodic
+
+verify-periodic-old: ## Run periodic job verification using the old syntax. Example: make verify-periodic-old
+	hack/verify-periodic-old.sh
+.PHONY: verify-periodic-old
 
 # Using -race here since we are running concurrently
 build: ## Build the library executable. Example: make build

@@ -1,0 +1,71 @@
+configs:
+  - documents:
+      - official.yaml
+      - community.yaml
+    outputDir: _output
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - arch_x86_64
+    outputDir: _output/arch/x86_64
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - arch_ppc64le
+    outputDir: _output/arch/ppc64le
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - arch_s390x
+    outputDir: _output/arch/s390x
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - okd
+      - arch_x86_64
+    matchAllTags: true
+    outputDir: _output/operator/okd-x86_64
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - ocp
+      - arch_x86_64
+    matchAllTags: true
+    outputDir: _output/operator/ocp-x86_64
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - ocp
+      - arch_ppc64le
+    matchAllTags: true
+    outputDir: _output/operator/ocp-ppc64le
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - ocp
+      - arch_s390x
+    matchAllTags: true
+    outputDir: _output/operator/ocp-s390x
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - online-starter
+      - arch_x86_64
+    matchAllTags: true
+    outputDir: _output/online/starter/x86_64
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - online-professional
+      - arch_x86_64
+    matchAllTags: true
+    outputDir: _output/online/professional/x86_64

@@ -1,5 +1,18 @@
 package v1
 
+// Configs holds an array of Config objects
+type Configs struct {
+	Configs []Config `yaml:"config"`
+}
+
+// Config holds a library import configuration object
+type Config struct {
+	Documents    []string `yaml:"documents"`
+	Tags         []string `yaml:"tags"`
+	MatchAllTags bool     `yaml:"matchAllTags"`
+	OutputDir    string   `yaml:"outputDir"`
+}
+
 // ItemImageStream is an object that describes an OpenShift ImageStream that we need to import
 type ItemImageStream struct {
 	Location string   `yaml:"location"`

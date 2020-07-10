@@ -3,16 +3,7 @@
 start=`date +%s`
 
 echo "Creating data to check against"
-./library import --documents official,community --tags arch_x86_64 --dir _output/arch/x86_64
-./library import --documents official,community --tags arch_ppc64le --dir _output/arch/ppc64le
-./library import --documents official,community --tags arch_s390x --dir _output/arch/s390x
-./library import --documents official,community --tags okd,arch_x86_64 --dir _output/operator/okd-x86_64 --match-all-tags
-./library import --documents official,community --tags ocp,arch_x86_64 --dir _output/operator/ocp-x86_64 --match-all-tags
-./library import --documents official,community --tags ocp,arch_ppc64le --dir _output/operator/ocp-ppc64le --match-all-tags
-./library import --documents official,community --tags ocp,arch_s390x --dir _output/operator/ocp-s390x --match-all-tags
-./library import --documents official,community --tags online-starter,arch_x86_64 --dir _output/online/starter/x86_64 --match-all-tags
-./library import --documents official,community --tags online-professional,arch_x86_64 --dir _output/online/professional/x86_64 --match-all-tags
-./library import --documents official,community --dir _output
+./library import --config configs/verify-cluster-samples-operator-periodic.yaml
 
 DOCUMENTS=($(echo "official,community,arch,operator,online" | tr ',' '\n'))
 for document in "${DOCUMENTS[@]}"
