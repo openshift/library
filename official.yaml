@@ -31,20 +31,9 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-ppc64le.json
-        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
-        regex: ruby
-        suffix: rhel7-ppc64le
-        tags:
-          - ocp
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-rhel7-s390x.json
-        docs: https://github.com/sclorg/s2i-ruby-container/blob/master/README.md
-        regex: ruby
-        suffix: rhel7-s390x
-        tags:
-          - ocp
           - arch_s390x
+          - arch_x86_64
   rails:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql.json
@@ -428,20 +417,9 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-ppc64le.json
-        docs: https://github.com/sclorg/nginx-container/blob/master/README.md
-        regex: nginx
-        suffix: rhel7-ppc64le
-        tags:
-          - ocp
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/sclorg/nginx-container/master/imagestreams/nginx-rhel7-s390x.json
-        docs: https://github.com/sclorg/nginx-container/blob/master/README.md
-        regex: nginx
-        suffix: rhel7-s390x
-        tags:
-          - ocp
           - arch_s390x
+          - arch_x86_64
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nginx-ex/master/openshift/templates/nginx.json
         docs: https://github.com/sclorg/nginx-ex/blob/master/README.md
