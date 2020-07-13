@@ -1,0 +1,57 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "sso74-openshift-rhel8",
+		"creationTimestamp": null,
+		"annotations": {
+			"description": "Red Hat Single Sign-On 7.4 on OpenJDK",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJDK",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"version": "7.4.0.GA"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": null,
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "7.4"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": ""
+				}
+			},
+			{
+				"name": "7.4",
+				"annotations": {
+					"description": "Red Hat Single Sign-On 7.4 on OpenJDK image",
+					"iconClass": "icon-sso",
+					"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJDK",
+					"supports": "sso:7.4",
+					"tags": "sso,keycloak,redhat,hidden",
+					"version": "1.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rh-sso-7/sso74-openshift-rhel8:7.4"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
