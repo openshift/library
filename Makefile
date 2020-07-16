@@ -1,4 +1,5 @@
 # If no documents are specified, use these as the default
+DIR ?= .
 DOCUMENTS ?= official,community
 LOGLEVEL ?= 0
 
