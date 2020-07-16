@@ -1,4 +1,5 @@
 # If no documents are specified, use these as the default
+DIR ?= .
 DOCUMENTS ?= official,community
 LOGLEVEL ?= 0
 
@@ -29,8 +30,8 @@ verify-periodic-old: ## Run periodic job verification using the old syntax. Exam
 
 # Using -race here since we are running concurrently
 build: ## Build the library executable. Example: make build
-	go version
-	go build -race
+	@go version
+	go build -mod=vendor -race
 .PHONY: build
 
 import: ## Run the import script. Example: make import
