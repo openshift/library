@@ -2,16 +2,16 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "sso74-ocp4-x509-postgresql-persistent",
+		"name": "sso74-openj9-ocp4-x509-postgresql-persistent",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.4 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-dev/docs.",
+			"description": "An example application based on RH-SSO 7.4 on OpenJ9 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-dev/docs.",
 			"iconClass": "icon-sso",
-			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJDK + PostgreSQL (Persistent)",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJ9 + PostgreSQL (Persistent)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "sso,keycloak,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJDK server based deployment, deployment configuration for PostgreSQL using persistence, and securing RH-SSO communication using re-encrypt TLS.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJ9 server based deployment, deployment configuration for PostgreSQL using persistence, and securing RH-SSO communication using re-encrypt TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
 			"version": "7.4.1.GA"
 		}
@@ -341,7 +341,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "sso74-openshift-rhel8:7.4",
+								"name": "sso74-openj9-openshift-rhel8:7.4",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -636,6 +636,6 @@
 	],
 	"labels": {
 		"rhsso": "7.4.1.GA",
-		"template": "sso74-ocp4-x509-postgresql-persistent"
+		"template": "sso74-openj9-ocp4-x509-postgresql-persistent"
 	}
 }
