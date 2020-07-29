@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam77-kieserver-externaldb",
+		"name": "rhpam78-kieserver-externaldb",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.7 - Deprecated",
+			"description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.8 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.7 managed KIE Server with an external database",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.8 managed KIE Server with an external database",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhpam,processserver,jboss,kieserver,externaldb",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.7/html/deploying_a_red_hat_process_automation_manager_7.7_managed_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.7, including application deployment configuration, secure and insecure http communication, using a external database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.8/html/deploying_a_red_hat_process_automation_manager_7.8_managed_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.8, including application deployment configuration, secure and insecure http communication, using a external database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.7"
+			"version": "7.8"
 		}
 	},
 	"message": "A new Process Automation Manager KIE server application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -813,8 +813,7 @@
 		{
 			"name": "MAVEN_REPO_URL",
 			"displayName": "Maven repository URL",
-			"description": "Fully qualified URL to a Maven repository or service.",
-			"required": true
+			"description": "Fully qualified URL to a Maven repository or service."
 		},
 		{
 			"name": "MAVEN_REPO_USERNAME",
@@ -854,8 +853,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.7.1\".",
-			"value": "7.7.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.8.0\".",
+			"value": "7.8.0",
 			"required": true
 		},
 		{
@@ -957,8 +956,8 @@
 		{
 			"name": "EXTENSIONS_IMAGE",
 			"displayName": "Drivers Extension Image",
-			"description": "ImageStreamTag definition for the image containing the drivers and configuration. For example, custom-driver-image:7.7.1.",
-			"value": "custom-driver-extension:7.7.1",
+			"description": "ImageStreamTag definition for the image containing the drivers and configuration. For example, custom-driver-image:7.8.0.",
+			"value": "custom-driver-extension:7.8.0",
 			"required": true
 		},
 		{
@@ -1219,7 +1218,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.7",
-		"template": "rhpam77-kieserver-externaldb"
+		"rhpam": "7.8",
+		"template": "rhpam78-kieserver-externaldb"
 	}
 }

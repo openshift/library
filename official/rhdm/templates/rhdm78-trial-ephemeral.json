@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm77-trial-ephemeral",
+		"name": "rhdm78-trial-ephemeral",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.7 - Deprecated",
+			"description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.8 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.7 ephemeral trial environment",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.8 ephemeral trial environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhdm,decisionserver,jboss,trial",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.7/html/deploying_a_red_hat_decision_manager_7.7_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.7, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.8/html/deploying_a_red_hat_decision_manager_7.8_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.8, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.7"
+			"version": "7.8"
 		}
 	},
 	"message": "A new Decision Manager trial environment has been created.\nThe user name/password for accessing the Decision Central and KIE Server interfaces is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
@@ -962,8 +962,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.7.1\".",
-			"value": "7.7.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.8.0\".",
+			"value": "7.8.0",
 			"required": true
 		},
 		{
@@ -1178,7 +1178,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.7",
-		"template": "rhdm77-trial-ephemeral"
+		"rhdm": "7.8",
+		"template": "rhdm78-trial-ephemeral"
 	}
 }
