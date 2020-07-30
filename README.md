@@ -44,6 +44,7 @@ Community templates and image streams are **not** provided or supported by Red H
 
 You must build the library executable before you can run the import.
 
+    # requires go 1.13+
     $ make build
 
 ### Running the Script
