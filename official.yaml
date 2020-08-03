@@ -3,7 +3,6 @@ variables:
   openjdk_version: release
   amq_version: ose-v1.4.18
   eap_version: ose-v1.4.18
-  eap_cd_version: CD18
   rhsso72_zstream_version: v7.2.6.GA
   rhsso_tpcd_version: sso-cd-dev
   rhsso73_zstream_version: v7.3.8.GA-RHBZ-1813894-fix
@@ -640,17 +639,17 @@ data:
           - online-professional
   eap-cd:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-basic-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/tree/{eap_cd_version}/docs/templates/eap-cd-basic-s2i.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-basic-s2i.json
+        docs: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/docs/eap-cd-basic-s2i.adoc
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-starter-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-starter-s2i.json
         tags:
           - ocp
           - online-starter
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/{eap_cd_version}/templates/eap-cd-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/
         regex: eap-cd
         suffix: rhel8
