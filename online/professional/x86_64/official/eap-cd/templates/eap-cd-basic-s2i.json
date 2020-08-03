@@ -7,13 +7,13 @@
 		"annotations": {
 			"description": "An example JBoss Enterprise Application Platform continuous delivery application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap-cd/README.adoc",
 			"iconClass": "icon-eap",
-			"openshift.io/display-name": "JBoss EAP CD 18",
+			"openshift.io/display-name": "JBoss EAP CD",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "eap,javaee,java,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform continuous delivery based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "18.0"
+			"version": "20.0"
 		}
 	},
 	"message": "A new JBoss EAP CD based application has been created in your project.",
@@ -163,7 +163,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "eap-cd-openshift:18",
+							"name": "eap-cd-openshift:latest",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						},
 						"incremental": true
@@ -210,7 +210,7 @@
 					}
 				},
 				"source": {
-					"dockerfile": "FROM eap-cd-runtime-openshift:18\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME \u0026\u0026 chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+					"dockerfile": "FROM eap-cd-runtime-openshift:latest\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME \u0026\u0026 chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
 					"images": [
 						{
 							"from": {
@@ -230,7 +230,7 @@
 					"dockerStrategy": {
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "eap-cd-runtime-openshift:18",
+							"name": "eap-cd-runtime-openshift:latest",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						},
 						"imageOptimizationPolicy": "SkipLayers"
@@ -506,6 +506,6 @@
 	],
 	"labels": {
 		"template": "eap-cd-basic-s2i",
-		"xpaas": "18.0"
+		"xpaas": "20.0"
 	}
 }

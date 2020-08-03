@@ -7,7 +7,7 @@
 		"annotations": {
 			"openshift.io/display-name": "JBoss EAP continuous delivery runtime image",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"version": "18.0"
+			"version": "20.0"
 		}
 	},
 	"spec": {
@@ -21,13 +21,53 @@
 					"description": "The latest available build of JBoss EAP continuous delivery runtime image [Tech Preview]",
 					"iconClass": "icon-eap",
 					"openshift.io/display-name": "JBoss EAP continuous delivery (Tech Preview)",
-					"supports": "eap:7.3,javaee:8,java:11",
+					"supports": "eap:7.4,javaee:8,java:11",
 					"tags": "eap,javaee,java,jboss,hidden",
 					"version": "latest"
 				},
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "20",
+				"annotations": {
+					"description": "JBoss EAP continuous delivery runtime image version 20 [Tech Preview]",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP continuous delivery 20 (Tech Preview)",
+					"supports": "eap:7.4,javaee:8,java:11",
+					"tags": "eap,javaee,java,jboss,hidden",
+					"version": "20"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "20.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "19",
+				"annotations": {
+					"description": "JBoss EAP continuous delivery runtime image version 19 [Tech Preview]",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP continuous delivery 19 (Tech Preview)",
+					"supports": "eap:7.4,javaee:8,java:11",
+					"tags": "eap,javaee,java,jboss,hidden",
+					"version": "19"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "19.0"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -68,6 +108,46 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8:18.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "19.0",
+				"annotations": {
+					"description": "JBoss EAP continuous delivery 19 runtime image [Tech Preview]",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP continuous delivery 19 (Tech Preview)",
+					"supports": "eap:7.4,javaee:8,java:11",
+					"tags": "eap,javaee,java,jboss,hidden",
+					"version": "19.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8:19.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "20.0",
+				"annotations": {
+					"description": "JBoss EAP continuous delivery 20 runtime image [Tech Preview]",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP continuous delivery 20 (Tech Preview)",
+					"supports": "eap:7.4,javaee:8,java:11",
+					"tags": "eap,javaee,java,jboss,hidden",
+					"version": "20.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7-tech-preview/eap-cd-runtime-openshift-rhel8:20.0"
 				},
 				"generation": null,
 				"importPolicy": {},
