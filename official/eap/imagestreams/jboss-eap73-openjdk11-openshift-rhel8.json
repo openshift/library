@@ -1,0 +1,92 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "jboss-eap73-openjdk11-openshift",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11)",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"version": "7.3"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "The latest available build of JBoss EAP 7.3 with OpenJDK 11.",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11)",
+					"sampleContextDir": "kitchensink",
+					"sampleRef": "openshift",
+					"sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+					"supports": "eap:7.3,javaee:8,java:11",
+					"tags": "builder,eap,javaee,java,jboss,hidden",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.3",
+				"annotations": {
+					"description": "The latest available build of JBoss EAP 7.3 with OpenJDK 11.",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 11)",
+					"sampleContextDir": "kitchensink",
+					"sampleRef": "openshift",
+					"sampleRepo": "https://github.com/jbossas/eap-quickstarts/openshift",
+					"supports": "eap:7.3,javaee:8,java:11",
+					"tags": "builder,eap,javaee,java,jboss,hidden",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.3.0",
+				"annotations": {
+					"description": "JBoss EAP 7.3.0",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP 7.3.0 (OpenJDK 11)",
+					"sampleContextDir": "kitchensink",
+					"sampleRef": "openshift",
+					"sampleRepo": "https://github.com/jboss-developer/jboss-eap-quickstarts.git",
+					"supports": "eap:7.3,javaee:8,java:11",
+					"tags": "builder,eap,javaee,java,jboss,hidden",
+					"version": "7.3.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7/eap73-openjdk11-openshift-rhel8:7.3.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
