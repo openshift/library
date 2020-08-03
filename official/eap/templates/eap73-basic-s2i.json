@@ -2,21 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "eap72-https-s2i",
+		"name": "eap73-basic-s2i",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Red Hat JBoss EAP 7 application configured with secure communication using HTTPS. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap72/README.adoc",
+			"description": "An example JBoss Enterprise Application Platform application. For more information about using this template, see https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/7.3.x/README.adoc",
 			"iconClass": "icon-eap",
-			"openshift.io/display-name": "JBoss EAP 7.2 with passthrough TLS",
+			"openshift.io/display-name": "JBoss EAP 7.3 (OpenJDK 8)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "eap,javaee,java,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop a Red Hat JBoss Enterprise Application Platform 7.2 application, including a build configuration, application deployment configuration and secure communication using passthrough TLS.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop a JBoss Enterprise Application Platform based application, including a build configuration, application deployment configuration and secure communication using edge TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "1.2.0"
+			"version": "7.3"
 		}
 	},
-	"message": "A new EAP based application with SSL support has been created in your project. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications.",
+	"message": "A new JBoss EAP based application has been created in your project.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -35,30 +35,6 @@
 					{
 						"port": 8080,
 						"targetPort": 8080
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The web server's https port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}"
-				},
-				"name": "secure-${APPLICATION_NAME}"
-			},
-			"spec": {
-				"ports": [
-					{
-						"port": 8443,
-						"targetPort": 8443
 					}
 				],
 				"selector": {
@@ -95,25 +71,6 @@
 		},
 		{
 			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-http",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for application's http service."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}"
-				},
-				"name": "${APPLICATION_NAME}"
-			},
-			"spec": {
-				"to": {
-					"name": "${APPLICATION_NAME}"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
 			"id": "${APPLICATION_NAME}-https",
 			"kind": "Route",
 			"metadata": {
@@ -123,15 +80,15 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "secure-${APPLICATION_NAME}"
+				"name": "${APPLICATION_NAME}"
 			},
 			"spec": {
-				"host": "${HOSTNAME_HTTPS}",
 				"tls": {
-					"termination": "passthrough"
+					"insecureEdgeTerminationPolicy": "Redirect",
+					"termination": "edge"
 				},
 				"to": {
-					"name": "secure-${APPLICATION_NAME}"
+					"name": "${APPLICATION_NAME}"
 				}
 			}
 		},
@@ -147,18 +104,28 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-build-artifacts"
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"kind": "BuildConfig",
 			"metadata": {
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}"
+				"name": "${APPLICATION_NAME}-build-artifacts"
 			},
 			"spec": {
 				"output": {
 					"to": {
 						"kind": "ImageStreamTag",
-						"name": "${APPLICATION_NAME}:latest"
+						"name": "${APPLICATION_NAME}-build-artifacts:latest"
 					}
 				},
 				"source": {
@@ -181,6 +148,14 @@
 								"value": "${MAVEN_ARGS_APPEND}"
 							},
 							{
+								"name": "GALLEON_PROVISION_LAYERS",
+								"value": "${GALLEON_PROVISION_LAYERS}"
+							},
+							{
+								"name": "GALLEON_PROVISION_DEFAULT_FAT_SERVER",
+								"value": "true"
+							},
+							{
 								"name": "ARTIFACT_DIR",
 								"value": "${ARTIFACT_DIR}"
 							}
@@ -188,7 +163,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-eap72-openshift:1.2",
+							"name": "${EAP_IMAGE_NAME}",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						},
 						"incremental": true
@@ -210,6 +185,66 @@
 					},
 					{
 						"imageChange": {},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "BuildConfig",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"output": {
+					"to": {
+						"kind": "ImageStreamTag",
+						"name": "${APPLICATION_NAME}:latest"
+					}
+				},
+				"source": {
+					"dockerfile": "FROM ${EAP_RUNTIME_IMAGE_NAME}\nCOPY /server $JBOSS_HOME\nUSER root\nRUN chown -R jboss:root $JBOSS_HOME \u0026\u0026 chmod -R ug+rwX $JBOSS_HOME\nUSER jboss\nCMD $JBOSS_HOME/bin/openshift-launch.sh",
+					"images": [
+						{
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${APPLICATION_NAME}-build-artifacts:latest"
+							},
+							"paths": [
+								{
+									"destinationDir": ".",
+									"sourcePath": "/s2i-output/server/"
+								}
+							]
+						}
+					]
+				},
+				"strategy": {
+					"dockerStrategy": {
+						"from": {
+							"kind": "ImageStreamTag",
+							"name": "${EAP_RUNTIME_IMAGE_NAME}",
+							"namespace": "${IMAGE_STREAM_NAMESPACE}"
+						},
+						"imageOptimizationPolicy": "SkipLayers"
+					},
+					"type": "Docker"
+				},
+				"triggers": [
+					{
+						"imageChange": {
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${APPLICATION_NAME}-build-artifacts:latest"
+							}
+						},
 						"type": "ImageChange"
 					},
 					{
@@ -260,26 +295,6 @@
 										"value": "8888"
 									},
 									{
-										"name": "HTTPS_KEYSTORE_DIR",
-										"value": "/etc/eap-secret-volume"
-									},
-									{
-										"name": "HTTPS_KEYSTORE",
-										"value": "${HTTPS_KEYSTORE}"
-									},
-									{
-										"name": "HTTPS_KEYSTORE_TYPE",
-										"value": "${HTTPS_KEYSTORE_TYPE}"
-									},
-									{
-										"name": "HTTPS_NAME",
-										"value": "${HTTPS_NAME}"
-									},
-									{
-										"name": "HTTPS_PASSWORD",
-										"value": "${HTTPS_PASSWORD}"
-									},
-									{
 										"name": "MQ_CLUSTER_PASSWORD",
 										"value": "${MQ_CLUSTER_PASSWORD}"
 									},
@@ -292,32 +307,16 @@
 										"value": "${MQ_TOPICS}"
 									},
 									{
-										"name": "JGROUPS_ENCRYPT_SECRET",
-										"value": "${JGROUPS_ENCRYPT_SECRET}"
-									},
-									{
-										"name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
-										"value": "/etc/jgroups-encrypt-secret-volume"
-									},
-									{
-										"name": "JGROUPS_ENCRYPT_KEYSTORE",
-										"value": "${JGROUPS_ENCRYPT_KEYSTORE}"
-									},
-									{
-										"name": "JGROUPS_ENCRYPT_NAME",
-										"value": "${JGROUPS_ENCRYPT_NAME}"
-									},
-									{
-										"name": "JGROUPS_ENCRYPT_PASSWORD",
-										"value": "${JGROUPS_ENCRYPT_PASSWORD}"
-									},
-									{
 										"name": "JGROUPS_CLUSTER_PASSWORD",
 										"value": "${JGROUPS_CLUSTER_PASSWORD}"
 									},
 									{
 										"name": "AUTO_DEPLOY_EXPLODED",
 										"value": "${AUTO_DEPLOY_EXPLODED}"
+									},
+									{
+										"name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+										"value": "${ENABLE_GENERATE_DEFAULT_DATASOURCE}"
 									}
 								],
 								"image": "${APPLICATION_NAME}",
@@ -345,11 +344,6 @@
 										"protocol": "TCP"
 									},
 									{
-										"containerPort": 8443,
-										"name": "https",
-										"protocol": "TCP"
-									},
-									{
 										"containerPort": 8888,
 										"name": "ping",
 										"protocol": "TCP"
@@ -360,7 +354,7 @@
 										"command": [
 											"/bin/bash",
 											"-c",
-											"/opt/eap/bin/readinessProbe.sh false"
+											"/opt/eap/bin/readinessProbe.sh"
 										]
 									},
 									"initialDelaySeconds": 10
@@ -369,36 +363,10 @@
 									"limits": {
 										"memory": "${MEMORY_LIMIT}"
 									}
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/etc/eap-secret-volume",
-										"name": "eap-keystore-volume",
-										"readOnly": true
-									},
-									{
-										"mountPath": "/etc/jgroups-encrypt-secret-volume",
-										"name": "eap-jgroups-keystore-volume",
-										"readOnly": true
-									}
-								]
+								}
 							}
 						],
-						"terminationGracePeriodSeconds": 75,
-						"volumes": [
-							{
-								"name": "eap-keystore-volume",
-								"secret": {
-									"secretName": "${HTTPS_SECRET}"
-								}
-							},
-							{
-								"name": "eap-jgroups-keystore-volume",
-								"secret": {
-									"secretName": "${JGROUPS_ENCRYPT_SECRET}"
-								}
-							}
-						]
+						"terminationGracePeriodSeconds": 75
 					}
 				},
 				"triggers": [
@@ -431,9 +399,18 @@
 			"required": true
 		},
 		{
-			"name": "HOSTNAME_HTTPS",
-			"displayName": "Custom https Route Hostname",
-			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-\u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"name": "EAP_IMAGE_NAME",
+			"displayName": "EAP Image Name",
+			"description": "Name of the EAP image to use, example: jboss-eap73-openshift:7.3",
+			"value": "jboss-eap73-openshift:7.3",
+			"required": true
+		},
+		{
+			"name": "EAP_RUNTIME_IMAGE_NAME",
+			"displayName": "EAP Runtime Image Name",
+			"description": "Name of the EAP image to use, example: jboss-eap73-runtime-openshift:7.3",
+			"value": "jboss-eap73-runtime-openshift:7.3",
+			"required": true
 		},
 		{
 			"name": "SOURCE_REPOSITORY_URL",
@@ -455,6 +432,17 @@
 			"value": "kitchensink"
 		},
 		{
+			"name": "GALLEON_PROVISION_LAYERS",
+			"displayName": "Galleon layers",
+			"description": "Comma separated list of Galleon layers to provision a server."
+		},
+		{
+			"name": "ENABLE_GENERATE_DEFAULT_DATASOURCE",
+			"displayName": "Enable ExampleDS datasource",
+			"description": "Enable ExampleDS datasource.",
+			"value": "false"
+		},
+		{
 			"name": "MQ_QUEUES",
 			"displayName": "Queues",
 			"description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all queues used by the application *must* be specified here in order to be created automatically on the remote AMQ broker."
@@ -463,34 +451,6 @@
 			"name": "MQ_TOPICS",
 			"displayName": "Topics",
 			"description": "Topic names, separated by commas. These topics will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. Note that all topics used by the application *must* be specified here in order to be created automatically on the remote AMQ broker."
-		},
-		{
-			"name": "HTTPS_SECRET",
-			"displayName": "Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file",
-			"value": "eap7-app-secret",
-			"required": true
-		},
-		{
-			"name": "HTTPS_KEYSTORE",
-			"displayName": "Server Keystore Filename",
-			"description": "The name of the keystore file within the secret",
-			"value": "keystore.jks"
-		},
-		{
-			"name": "HTTPS_KEYSTORE_TYPE",
-			"displayName": "Server Keystore Type",
-			"description": "The type of the keystore file (JKS or JCEKS)"
-		},
-		{
-			"name": "HTTPS_NAME",
-			"displayName": "Server Certificate Name",
-			"description": "The name associated with the server certificate"
-		},
-		{
-			"name": "HTTPS_PASSWORD",
-			"displayName": "Server Keystore Password",
-			"description": "The password for the keystore and certificate"
 		},
 		{
 			"name": "MQ_CLUSTER_PASSWORD",
@@ -522,28 +482,6 @@
 			"description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
 			"value": "openshift",
 			"required": true
-		},
-		{
-			"name": "JGROUPS_ENCRYPT_SECRET",
-			"displayName": "JGroups Secret Name",
-			"description": "The name of the secret containing the keystore file",
-			"value": "eap7-app-secret"
-		},
-		{
-			"name": "JGROUPS_ENCRYPT_KEYSTORE",
-			"displayName": "JGroups Keystore Filename",
-			"description": "The name of the keystore file within the secret",
-			"value": "jgroups.jceks"
-		},
-		{
-			"name": "JGROUPS_ENCRYPT_NAME",
-			"displayName": "JGroups Certificate Name",
-			"description": "The name associated with the server certificate"
-		},
-		{
-			"name": "JGROUPS_ENCRYPT_PASSWORD",
-			"displayName": "JGroups Keystore Password",
-			"description": "The password for the keystore and certificate"
 		},
 		{
 			"name": "JGROUPS_CLUSTER_PASSWORD",
@@ -581,7 +519,7 @@
 		}
 	],
 	"labels": {
-		"template": "eap72-https-s2i",
-		"xpaas": "1.2.0"
+		"template": "eap73-basic-s2i",
+		"xpaas": "7.3"
 	}
 }
