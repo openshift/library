@@ -182,7 +182,13 @@
 										"name": "https",
 										"protocol": "TCP"
 									}
-								]
+								],
+								"readinessProbe": {
+									"initialDelaySeconds": 5,
+									"tcpSocket": {
+										"port": 8080
+									}
+								}
 							}
 						],
 						"terminationGracePeriodSeconds": 75
