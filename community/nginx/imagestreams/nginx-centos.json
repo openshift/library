@@ -16,7 +16,7 @@
 			{
 				"name": "latest",
 				"annotations": {
-					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Nginx available on OpenShift, including major version updates.",
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Nginx available on OpenShift, including major version updates.",
 					"iconClass": "icon-nginx",
 					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy (Latest)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -26,7 +26,7 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "1.16"
+					"name": "1.16-el7"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -35,11 +35,11 @@
 				}
 			},
 			{
-				"name": "1.16",
+				"name": "1.16-el7",
 				"annotations": {
 					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.",
 					"iconClass": "icon-nginx",
-					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.16",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.16 (CentOS 7)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
 					"supports": "nginx",
@@ -57,6 +57,50 @@
 				}
 			},
 			{
+				"name": "1.16",
+				"annotations": {
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.16/README.md.",
+					"iconClass": "icon-nginx",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.16",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
+					"supports": "nginx",
+					"tags": "builder,nginx,hidden",
+					"version": "1.16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/nginx-116-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.14-el7",
+				"annotations": {
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.14/README.md.",
+					"iconClass": "icon-nginx",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.14 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
+					"supports": "nginx",
+					"tags": "builder,nginx",
+					"version": "1.14"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/nginx-114-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "1.14",
 				"annotations": {
 					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.14/README.md.",
@@ -65,7 +109,7 @@
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
 					"supports": "nginx",
-					"tags": "builder,nginx",
+					"tags": "builder,nginx,hidden",
 					"version": "1.14"
 				},
 				"from": {
