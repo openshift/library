@@ -16,7 +16,7 @@
 			{
 				"name": "latest",
 				"annotations": {
-					"description": "Provides a Redis database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major version updates.",
+					"description": "Provides a Redis database on CentOS. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major version updates.",
 					"iconClass": "icon-redis",
 					"openshift.io/display-name": "Redis (Latest)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -24,7 +24,27 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "5"
+					"name": "5-el7"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5-el7",
+				"annotations": {
+					"description": "Provides a Redis 5 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.",
+					"iconClass": "icon-redis",
+					"openshift.io/display-name": "Redis 5 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "redis",
+					"version": "5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/redis-5-centos7:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -39,7 +59,7 @@
 					"iconClass": "icon-redis",
 					"openshift.io/display-name": "Redis 5",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "redis",
+					"tags": "redis,hidden",
 					"version": "5"
 				},
 				"from": {
