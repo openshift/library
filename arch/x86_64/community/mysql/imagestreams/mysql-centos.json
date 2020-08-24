@@ -24,7 +24,27 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "8.0-el7"
+					"name": "8.0-el8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "8.0-el8",
+				"annotations": {
+					"description": "Provides a MySQL 8.0 database on CentOS 8. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.",
+					"iconClass": "icon-mysql-database",
+					"openshift.io/display-name": "MySQL 8.0 (CentOS 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "mysql",
+					"version": "8.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/mysql-80-centos8:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
