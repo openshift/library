@@ -1,0 +1,152 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "perl",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Perl"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Build and run Perl applications on UBI. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.30/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Perl available on OpenShift, including major version updates.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl",
+					"tags": "builder,perl"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "5.30-el7"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5.30-el7",
+				"annotations": {
+					"description": "Build and run Perl 5.30 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.30/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.30 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.30,perl",
+					"tags": "builder,perl",
+					"version": "5.30"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/perl-530-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5.30",
+				"annotations": {
+					"description": "Build and run Perl 5.30 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.30/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.30",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.30,perl",
+					"tags": "builder,perl,hidden",
+					"version": "5.30"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/perl-530-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5.26-ubi8",
+				"annotations": {
+					"description": "Build and run Perl 5.26 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.26/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.26 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.26,perl",
+					"tags": "builder,perl",
+					"version": "5.26"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/perl-526:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5.26-el7",
+				"annotations": {
+					"description": "Build and run Perl 5.26 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.26/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.26 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.26,perl",
+					"tags": "builder,perl",
+					"version": "5.26"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/perl-526-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "5.26",
+				"annotations": {
+					"description": "Build and run Perl 5.26 applications on CentOS 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.26/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.26",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.26,perl",
+					"tags": "builder,perl,hidden",
+					"version": "5.26"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/centos/perl-526-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
