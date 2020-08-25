@@ -117,8 +117,9 @@ var importCmd = &cobra.Command{
 				klog.Infof("[Config %d] Processing ...", i)
 				// Process each document specified in the configuration
 				for _, document := range config.Documents {
-					_, err := os.Stat(config.OutputDir)
+					_, err := os.Stat(path.Join(config.OutputDir, document))
 					if !os.IsNotExist(err) {
+						klog.V(5).Infof("Removing directory %q", path.Join(config.OutputDir, document))
 						if err := os.RemoveAll(path.Join(config.OutputDir, document)); err != nil {
 							klog.Errorf("unable to remove directory %q: %v", path.Join(config.OutputDir, document), err)
 							os.Exit(1)
