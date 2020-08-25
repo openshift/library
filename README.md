@@ -155,3 +155,4 @@ You can find more information about creating templates and image-streams in the 
 - [Quickstart Templates](https://docs.okd.io/latest/openshift_images/using-templates.html#templates-using-instant-app-quickstart_using-templates)
 - [Image Streams](https://docs.okd.io/latest/openshift_images/image-streams-manage.html)
 - [Managing Images](https://docs.okd.io/latest/openshift_images/managing_images/managing-images-overview.html)
+
