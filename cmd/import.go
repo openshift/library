@@ -117,11 +117,15 @@ var importCmd = &cobra.Command{
 				klog.Infof("[Config %d] Processing ...", i)
 				// Process each document specified in the configuration
 				for _, document := range config.Documents {
+					if strings.HasSuffix(document, ".yaml") {
+						document = strings.Replace(document, ".yaml", "", 1)
+					}
+					klog.Infof("[Config %d] Checking directory %q", i, path.Join(config.OutputDir, document))
 					_, err := os.Stat(path.Join(config.OutputDir, document))
 					if !os.IsNotExist(err) {
-						klog.V(5).Infof("Removing directory %q", path.Join(config.OutputDir, document))
+						klog.Infof("[Config %d] Removing directory %q", i, path.Join(config.OutputDir, document))
 						if err := os.RemoveAll(path.Join(config.OutputDir, document)); err != nil {
-							klog.Errorf("unable to remove directory %q: %v", path.Join(config.OutputDir, document), err)
+							klog.Errorf("[Config %d] unable to remove directory %q: %v", i, path.Join(config.OutputDir, document), err)
 							os.Exit(1)
 						}
 					}
