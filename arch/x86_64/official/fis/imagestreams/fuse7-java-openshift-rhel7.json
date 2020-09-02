@@ -137,16 +137,36 @@
 			{
 				"name": "1.6",
 				"annotations": {
-					"description": "Red Hat Fuse 7.6 Java S2I images.",
+					"description": "Red Hat Fuse 7.7 Java S2I images.",
 					"iconClass": "icon-rh-integration",
 					"openshift.io/display-name": "Red Hat Fuse 7.6 Java",
 					"supports": "jboss-fuse:7.6.0,java:8,xpaas:1.2",
 					"tags": "builder,jboss-fuse,java,xpaas,hidden",
-					"version": "1.6"
+					"version": "1.7"
 				},
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/fuse7/fuse-java-openshift:1.6"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.7",
+				"annotations": {
+					"description": "Red Hat Fuse 7.7 Java S2I images.",
+					"iconClass": "icon-rh-integration",
+					"openshift.io/display-name": "Red Hat Fuse 7.7 Java",
+					"supports": "jboss-fuse:7.7.0,java:8,xpaas:1.2",
+					"tags": "builder,jboss-fuse,java,xpaas,hidden",
+					"version": "1.7"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/fuse7/fuse-java-openshift:1.7"
 				},
 				"generation": null,
 				"importPolicy": {},
