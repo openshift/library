@@ -115,7 +115,7 @@
 						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "perl:5.26-ubi8",
+							"name": "perl:${PERL_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -421,6 +421,13 @@
 			"required": true
 		},
 		{
+			"name": "PERL_VERSION",
+			"displayName": "Version of Perl Image",
+			"description": "Version of Perl image to be used (5.26-el7, 5.26-ubi8, or latest).",
+			"value": "5.26-ubi8",
+			"required": true
+		},
+		{
 			"name": "MEMORY_LIMIT",
 			"displayName": "Memory Limit",
 			"description": "Maximum amount of memory the Perl Dancer container can use.",
@@ -507,7 +514,7 @@
 		{
 			"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
 			"displayName": "MySQL authentication plugin",
-			"description": "The custom MySQL default authentication plugin (default: mysql_native_password), might be changed to caching_sha2_password once PHP client supports it.",
+			"description": "The custom MySQL default authentication plugin (default: mysql_native_password), might be changed to caching_sha2_password once clients support it.",
 			"value": "mysql_native_password"
 		}
 	],

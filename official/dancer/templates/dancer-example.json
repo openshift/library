@@ -102,7 +102,7 @@
 						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "perl:5.26-ubi8",
+							"name": "perl:${PERL_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -224,6 +224,13 @@
 			"displayName": "Namespace",
 			"description": "The OpenShift Namespace where the ImageStream resides.",
 			"value": "openshift",
+			"required": true
+		},
+		{
+			"name": "PERL_VERSION",
+			"displayName": "Version of Perl Image",
+			"description": "Version of Perl image to be used (5.26-el7, 5.26-ubi8, or latest).",
+			"value": "5.26-ubi8",
 			"required": true
 		},
 		{
