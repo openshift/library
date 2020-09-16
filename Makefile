@@ -28,10 +28,9 @@ verify-periodic-old: ## Run periodic job verification using the old syntax. Exam
 	hack/verify-periodic-old.sh
 .PHONY: verify-periodic-old
 
-# Using -race here since we are running concurrently
 build: ## Build the library executable. Example: make build
 	@go version
-	go build -mod=vendor -race
+	go build -mod=vendor $(DEBUGFLAGS)
 .PHONY: build
 
 import: ## Run the import script. Example: make import
