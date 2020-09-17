@@ -361,20 +361,9 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-ppc64le.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-        regex: mongodb
-        suffix: rhel7-ppc64le
-        tags:
-          - ocp
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7-s390x.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-        regex: mongodb
-        suffix: rhel7-s390x
-        tags:
-          - ocp
           - arch_s390x
+          - arch_x86_64
   mysql:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json
@@ -460,20 +449,9 @@ data:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel-ppc64le.json
-        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
-        regex: postgresql
-        suffix: rhel-ppc64le
-        tags:
-          - ocp
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/sclorg/postgresql-container/master/imagestreams/postgresql-rhel-s390x.json
-        docs: https://github.com/sclorg/postgresql-container/blob/master/README.md
-        regex: postgresql
-        suffix: rhel-s390x
-        tags:
-          - ocp
           - arch_s390x
+          - arch_x86_64
   redis:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/redis-container/master/examples/redis-ephemeral-template.json
