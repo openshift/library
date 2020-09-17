@@ -121,50 +121,6 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
-			},
-			{
-				"name": "7.2-ubi7",
-				"annotations": {
-					"description": "Build and run PHP 7.2 applications on UBI 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.2/README.md.",
-					"iconClass": "icon-php",
-					"openshift.io/display-name": "PHP 7.2 (UBI 7)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
-					"supports": "php:7.2,php",
-					"tags": "builder,php",
-					"version": "7.2"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.redhat.io/ubi7/php-72:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "7.2",
-				"annotations": {
-					"description": "Build and run PHP 7.2 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.2/README.md.",
-					"iconClass": "icon-php",
-					"openshift.io/display-name": "PHP 7.2",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
-					"supports": "php:7.2,php",
-					"tags": "builder,php,hidden",
-					"version": "7.2"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.redhat.io/rhscl/php-72-rhel7:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
 			}
 		]
 	},
