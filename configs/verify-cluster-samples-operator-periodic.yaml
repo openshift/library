@@ -25,6 +25,12 @@ configs:
       - official.yaml
       - community.yaml
     tags:
+      - arch_aarch64
+    outputDir: _output/arch/aarch64
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
       - okd
       - arch_x86_64
     matchAllTags: true
@@ -53,6 +59,14 @@ configs:
       - arch_s390x
     matchAllTags: true
     outputDir: _output/operator/ocp-s390x
+  - documents:
+      - official.yaml
+      - community.yaml
+    tags:
+      - ocp
+      - arch_aarch64
+    matchAllTags: true
+    outputDir: _output/operator/ocp-aarch64
   - documents:
       - official.yaml
       - community.yaml
