@@ -839,6 +839,7 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_aarch64
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
@@ -850,6 +851,12 @@ data:
           - ocp
           - online-starter
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/image-streams-aarch64.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
+        suffix: rhel-aarch64
+        tags:
+          - ocp
+          - arch_aarch64
       - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/image-streams-ppc64le.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
         suffix: rhel-ppc64le
