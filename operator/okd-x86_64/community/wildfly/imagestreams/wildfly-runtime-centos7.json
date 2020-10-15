@@ -116,6 +116,27 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
+			},
+			{
+				"name": "21.0",
+				"annotations": {
+					"description": "WildFly 21 runtime dependencies image based on CentOS 7. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/current/README.md.",
+					"iconClass": "icon-wildfly",
+					"openshift.io/display-name": "WildFly Runtime Dependencies 21",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"supports": "wildfly:21,jee,java",
+					"tags": "wildfly,java",
+					"version": "21.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/wildfly/wildfly-runtime-centos7:21.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
 			}
 		]
 	},
