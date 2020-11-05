@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam78-managed",
+		"name": "rhpam79-kieserver-externaldb",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.8 - Deprecated",
+			"description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.8 managed production environment.",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.9 managed KIE Server with an external database",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhpam,processserver,jboss,prod",
+			"tags": "rhpam,processserver,jboss,kieserver,externaldb",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.8/html/deploying_a_red_hat_process_automation_manager_7.8_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.8, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.9/html/deploying_a_red_hat_process_automation_manager_7.9_managed_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE server 7.9, including application deployment configuration, secure and insecure http communication, using a external database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.8"
+			"version": "7.9"
 		}
 	},
-	"message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+	"message": "A new Process Automation Manager KIE server application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -26,7 +26,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhpamsvc"
+				"name": "${APPLICATION_NAME}-kieserver"
 			}
 		},
 		{
@@ -36,7 +36,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhpamsvc-edit"
+				"name": "${APPLICATION_NAME}-kieserver-edit"
 			},
 			"roleRef": {
 				"name": "edit"
@@ -44,7 +44,7 @@
 			"subjects": [
 				{
 					"kind": "ServiceAccount",
-					"name": "${APPLICATION_NAME}-rhpamsvc"
+					"name": "${APPLICATION_NAME}-kieserver"
 				}
 			]
 		},
@@ -53,66 +53,7 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "All the Business Central Monitoring web server's ports."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "${APPLICATION_NAME}-rhpamcentrmon"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "http",
-						"port": 8080,
-						"targetPort": 8080
-					},
-					{
-						"name": "https",
-						"port": 8443,
-						"targetPort": 8443
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "${APPLICATION_NAME}-rhpamcentrmon-ping"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"ports": [
-					{
-						"name": "ping",
-						"port": 8888,
-						"targetPort": 8888
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "All the KIE server web server's ports. (First KIE server)"
+					"description": "All the KIE server web server's ports."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -174,89 +115,11 @@
 		},
 		{
 			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The first database server's port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-postgresql"
-				},
-				"name": "${APPLICATION_NAME}-postgresql"
-			},
-			"spec": {
-				"ports": [
-					{
-						"port": 5432,
-						"targetPort": 5432
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "insecure-${APPLICATION_NAME}-rhpamcentrmon-http",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for Business Central Monitoring's http service.",
-					"haproxy.router.openshift.io/timeout": "1h"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "insecure-${APPLICATION_NAME}-rhpamcentrmon"
-			},
-			"spec": {
-				"host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
-				"port": {
-					"targetPort": "http"
-				},
-				"to": {
-					"name": "${APPLICATION_NAME}-rhpamcentrmon"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-rhpamcentrmon-https",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for Business Central Monitoring's https service.",
-					"haproxy.router.openshift.io/timeout": "1h"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "${APPLICATION_NAME}-rhpamcentrmon"
-			},
-			"spec": {
-				"host": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}",
-				"port": {
-					"targetPort": "https"
-				},
-				"tls": {
-					"termination": "passthrough"
-				},
-				"to": {
-					"name": "${APPLICATION_NAME}-rhpamcentrmon"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
 			"id": "insecure-${APPLICATION_NAME}-kieserver-http",
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for First KIE server's http service.",
+					"description": "Route for KIE server's http service.",
 					"haproxy.router.openshift.io/balance": "source"
 				},
 				"labels": {
@@ -281,7 +144,7 @@
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for First KIE server's https service."
+					"description": "Route for KIE server's https service."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -304,366 +167,80 @@
 		},
 		{
 			"apiVersion": "v1",
-			"kind": "DeploymentConfig",
+			"kind": "ImageStream",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-kieserver"
+				},
+				"name": "${APPLICATION_NAME}-kieserver"
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "BuildConfig",
 			"metadata": {
 				"annotations": {
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
+					"service": "${APPLICATION_NAME}-kieserver"
 				},
-				"name": "${APPLICATION_NAME}-rhpamcentrmon"
+				"name": "${APPLICATION_NAME}-kieserver"
 			},
 			"spec": {
-				"replicas": "${{BUSINESS_CENTRAL_MONITORING_CONTAINER_REPLICAS}}",
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
+				"output": {
+					"to": {
+						"kind": "ImageStreamTag",
+						"name": "${APPLICATION_NAME}-kieserver:latest"
+					}
+				},
+				"source": {
+					"images": [
+						{
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${EXTENSIONS_IMAGE}",
+								"namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
+							},
+							"paths": [
+								{
+									"destinationDir": "./extensions/extras",
+									"sourcePath": "${EXTENSIONS_INSTALL_DIR}/."
+								}
+							]
+						}
+					]
 				},
 				"strategy": {
-					"rollingParams": {
-						"maxSurge": "100%",
-						"maxUnavailable": 0
-					},
-					"type": "Rolling"
-				},
-				"template": {
-					"metadata": {
-						"labels": {
-							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon",
-							"service": "${APPLICATION_NAME}-rhpamcentrmon"
-						},
-						"name": "${APPLICATION_NAME}-rhpamcentrmon"
-					},
-					"spec": {
-						"containers": [
+					"sourceStrategy": {
+						"env": [
 							{
-								"env": [
-									{
-										"name": "APPLICATION_USERS_PROPERTIES",
-										"value": "/opt/kie/data/configuration/application-users.properties"
-									},
-									{
-										"name": "APPLICATION_ROLES_PROPERTIES",
-										"value": "/opt/kie/data/configuration/application-roles.properties"
-									},
-									{
-										"name": "KIE_ADMIN_USER",
-										"valueFrom": {
-											"secretKeyRef": {
-												"key": "KIE_ADMIN_USER",
-												"name": "${CREDENTIALS_SECRET}"
-											}
-										}
-									},
-									{
-										"name": "KIE_ADMIN_PWD",
-										"valueFrom": {
-											"secretKeyRef": {
-												"key": "KIE_ADMIN_PWD",
-												"name": "${CREDENTIALS_SECRET}"
-											}
-										}
-									},
-									{
-										"name": "MAVEN_MIRROR_URL",
-										"value": "${MAVEN_MIRROR_URL}"
-									},
-									{
-										"name": "MAVEN_REPO_ID",
-										"value": "${MAVEN_REPO_ID}"
-									},
-									{
-										"name": "MAVEN_REPO_URL",
-										"value": "${MAVEN_REPO_URL}"
-									},
-									{
-										"name": "MAVEN_REPO_USERNAME",
-										"value": "${MAVEN_REPO_USERNAME}"
-									},
-									{
-										"name": "MAVEN_REPO_PASSWORD",
-										"value": "${MAVEN_REPO_PASSWORD}"
-									},
-									{
-										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_ENABLED",
-										"value": "true"
-									},
-									{
-										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
-										"value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED}"
-									},
-									{
-										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
-										"value": "${KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE}"
-									},
-									{
-										"name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
-										"value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
-									},
-									{
-										"name": "KIE_SERVER_CONTROLLER_TOKEN",
-										"value": "${KIE_SERVER_CONTROLLER_TOKEN}"
-									},
-									{
-										"name": "HTTPS_KEYSTORE_DIR",
-										"value": "/etc/businesscentral-secret-volume"
-									},
-									{
-										"name": "HTTPS_KEYSTORE",
-										"value": "${BUSINESS_CENTRAL_HTTPS_KEYSTORE}"
-									},
-									{
-										"name": "HTTPS_NAME",
-										"value": "${BUSINESS_CENTRAL_HTTPS_NAME}"
-									},
-									{
-										"name": "HTTPS_PASSWORD",
-										"value": "${BUSINESS_CENTRAL_HTTPS_PASSWORD}"
-									},
-									{
-										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
-									},
-									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-rhpamcentrmon-ping"
-									},
-									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-										"value": "8888"
-									},
-									{
-										"name": "SSO_URL",
-										"value": "${SSO_URL}"
-									},
-									{
-										"name": "SSO_OPENIDCONNECT_DEPLOYMENTS",
-										"value": "ROOT.war"
-									},
-									{
-										"name": "SSO_REALM",
-										"value": "${SSO_REALM}"
-									},
-									{
-										"name": "SSO_SECRET",
-										"value": "${BUSINESS_CENTRAL_SSO_SECRET}"
-									},
-									{
-										"name": "SSO_CLIENT",
-										"value": "${BUSINESS_CENTRAL_SSO_CLIENT}"
-									},
-									{
-										"name": "SSO_USERNAME",
-										"value": "${SSO_USERNAME}"
-									},
-									{
-										"name": "SSO_PASSWORD",
-										"value": "${SSO_PASSWORD}"
-									},
-									{
-										"name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
-										"value": "${SSO_DISABLE_SSL_CERTIFICATE_VALIDATION}"
-									},
-									{
-										"name": "SSO_PRINCIPAL_ATTRIBUTE",
-										"value": "${SSO_PRINCIPAL_ATTRIBUTE}"
-									},
-									{
-										"name": "HOSTNAME_HTTP",
-										"value": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}"
-									},
-									{
-										"name": "HOSTNAME_HTTPS",
-										"value": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}"
-									},
-									{
-										"name": "AUTH_LDAP_URL",
-										"value": "${AUTH_LDAP_URL}"
-									},
-									{
-										"name": "AUTH_LDAP_BIND_DN",
-										"value": "${AUTH_LDAP_BIND_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_BIND_CREDENTIAL",
-										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
-									},
-									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
-										"name": "AUTH_LDAP_BASE_CTX_DN",
-										"value": "${AUTH_LDAP_BASE_CTX_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_BASE_FILTER",
-										"value": "${AUTH_LDAP_BASE_FILTER}"
-									},
-									{
-										"name": "AUTH_LDAP_SEARCH_SCOPE",
-										"value": "${AUTH_LDAP_SEARCH_SCOPE}"
-									},
-									{
-										"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
-										"value": "${AUTH_LDAP_SEARCH_TIME_LIMIT}"
-									},
-									{
-										"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-										"value": "${AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_USERNAME",
-										"value": "${AUTH_LDAP_PARSE_USERNAME}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-										"value": "${AUTH_LDAP_USERNAME_BEGIN_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_END_STRING",
-										"value": "${AUTH_LDAP_USERNAME_END_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_ID}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLES_CTX_DN",
-										"value": "${AUTH_LDAP_ROLES_CTX_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_FILTER",
-										"value": "${AUTH_LDAP_ROLE_FILTER}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_RECURSION",
-										"value": "${AUTH_LDAP_ROLE_RECURSION}"
-									},
-									{
-										"name": "AUTH_LDAP_DEFAULT_ROLE",
-										"value": "${AUTH_LDAP_DEFAULT_ROLE}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-										"value": "${AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-										"value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
-									},
-									{
-										"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
-										"value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
-									},
-									{
-										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
-									}
-								],
-								"image": "rhpam-businesscentral-monitoring-rhel8",
-								"imagePullPolicy": "Always",
-								"livenessProbe": {
-									"httpGet": {
-										"path": "/rest/healthy",
-										"port": 8080,
-										"scheme": "HTTP"
-									},
-									"initialDelaySeconds": 180,
-									"periodSeconds": 15,
-									"timeoutSeconds": 2
-								},
-								"name": "${APPLICATION_NAME}-rhpamcentrmon",
-								"ports": [
-									{
-										"containerPort": 8778,
-										"name": "jolokia",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8080,
-										"name": "http",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8443,
-										"name": "https",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8888,
-										"name": "ping",
-										"protocol": "TCP"
-									}
-								],
-								"readinessProbe": {
-									"failureThreshold": 36,
-									"httpGet": {
-										"path": "/rest/ready",
-										"port": 8080,
-										"scheme": "HTTP"
-									},
-									"initialDelaySeconds": 30,
-									"periodSeconds": 5,
-									"timeoutSeconds": 2
-								},
-								"resources": {
-									"limits": {
-										"memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
-									}
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/etc/businesscentral-secret-volume",
-										"name": "businesscentral-keystore-volume",
-										"readOnly": true
-									},
-									{
-										"mountPath": "/opt/kie/data",
-										"name": "${APPLICATION_NAME}-rhpamcentr-pvol"
-									}
-								]
+								"name": "CUSTOM_INSTALL_DIRECTORIES",
+								"value": "extensions/*"
 							}
 						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
-						"terminationGracePeriodSeconds": 60,
-						"volumes": [
-							{
-								"name": "businesscentral-keystore-volume",
-								"secret": {
-									"secretName": "${BUSINESS_CENTRAL_HTTPS_SECRET}"
-								}
-							},
-							{
-								"name": "${APPLICATION_NAME}-rhpamcentr-pvol",
-								"persistentVolumeClaim": {
-									"claimName": "${APPLICATION_NAME}-rhpamcentr-claim"
-								}
-							}
-						]
-					}
+						"forcePull": true,
+						"from": {
+							"kind": "ImageStreamTag",
+							"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
+							"namespace": "${IMAGE_STREAM_NAMESPACE}"
+						}
+					},
+					"type": "Source"
 				},
 				"triggers": [
 					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"${APPLICATION_NAME}-rhpamcentrmon"
-							],
+						"imageChange": {},
+						"type": "ImageChange"
+					},
+					{
+						"imageChange": {
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "rhpam-businesscentral-monitoring-rhel8:${IMAGE_STREAM_TAG}",
-								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+								"name": "${EXTENSIONS_IMAGE}",
+								"namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
 							}
 						},
 						"type": "ImageChange"
@@ -689,7 +266,7 @@
 				"name": "${APPLICATION_NAME}-kieserver"
 			},
 			"spec": {
-				"replicas": "${{KIE_SERVER_CONTAINER_REPLICAS}}",
+				"replicas": 1,
 				"revisionHistoryLimit": 10,
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}-kieserver"
@@ -717,7 +294,7 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-rhpamcentrmon"
+										"value": "${BUSINESS_CENTRAL_SERVICE}"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
@@ -770,8 +347,8 @@
 										"value": "${APPLICATION_NAME}-kieserver"
 									},
 									{
-										"name": "KIE_SERVER_STARTUP_STRATEGY",
-										"value": "OpenShiftStartupStrategy"
+										"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
+										"value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
 									},
 									{
 										"name": "MAVEN_MIRROR_URL",
@@ -832,48 +409,100 @@
 										"value": "${MAVEN_REPO_PASSWORD}"
 									},
 									{
+										"name": "KIE_SERVER_MGMT_DISABLED",
+										"value": "${KIE_SERVER_MGMT_DISABLED}"
+									},
+									{
+										"name": "KIE_SERVER_STARTUP_STRATEGY",
+										"value": "OpenShiftStartupStrategy"
+									},
+									{
 										"name": "KIE_SERVER_PERSISTENCE_DS",
-										"value": "${KIE_SERVER_PERSISTENCE_DS}"
+										"value": "${KIE_SERVER_EXTERNALDB_JNDI}"
+									},
+									{
+										"name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+										"value": "${KIE_SERVER_PERSISTENCE_SCHEMA}"
+									},
+									{
+										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
+										"value": "${KIE_SERVER_EXTERNALDB_DIALECT}"
 									},
 									{
 										"name": "DATASOURCES",
 										"value": "RHPAM"
 									},
 									{
+										"name": "RHPAM_DATABASE",
+										"value": "${KIE_SERVER_EXTERNALDB_DB}"
+									},
+									{
+										"name": "RHPAM_SERVICE_HOST",
+										"value": "${KIE_SERVER_EXTERNALDB_SERVICE_HOST}"
+									},
+									{
+										"name": "RHPAM_SERVICE_PORT",
+										"value": "${KIE_SERVER_EXTERNALDB_SERVICE_PORT}"
+									},
+									{
 										"name": "RHPAM_JNDI",
-										"value": "${KIE_SERVER_PERSISTENCE_DS}"
+										"value": "${KIE_SERVER_EXTERNALDB_JNDI}"
+									},
+									{
+										"name": "RHPAM_DRIVER",
+										"value": "${KIE_SERVER_EXTERNALDB_DRIVER}"
+									},
+									{
+										"name": "RHPAM_USERNAME",
+										"value": "${KIE_SERVER_EXTERNALDB_USER}"
+									},
+									{
+										"name": "RHPAM_PASSWORD",
+										"value": "${KIE_SERVER_EXTERNALDB_PWD}"
+									},
+									{
+										"name": "RHPAM_NONXA",
+										"value": "${KIE_SERVER_EXTERNALDB_NONXA}"
+									},
+									{
+										"name": "RHPAM_URL",
+										"value": "${KIE_SERVER_EXTERNALDB_URL}"
+									},
+									{
+										"name": "RHPAM_XA_CONNECTION_PROPERTY_URL",
+										"value": "${KIE_SERVER_EXTERNALDB_URL}"
+									},
+									{
+										"name": "RHPAM_MIN_POOL_SIZE",
+										"value": "${KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE}"
+									},
+									{
+										"name": "RHPAM_MAX_POOL_SIZE",
+										"value": "${KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE}"
+									},
+									{
+										"name": "RHPAM_CONNECTION_CHECKER",
+										"value": "${KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER}"
+									},
+									{
+										"name": "RHPAM_EXCEPTION_SORTER",
+										"value": "${KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER}"
+									},
+									{
+										"name": "RHPAM_BACKGROUND_VALIDATION",
+										"value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION}"
+									},
+									{
+										"name": "RHPAM_VALIDATION_MILLIS",
+										"value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS}"
+									},
+									{
+										"name": "RHPAM_DRIVER_TYPE",
+										"value": "${KIE_SERVER_EXTERNALDB_DRIVER_TYPE}"
 									},
 									{
 										"name": "RHPAM_JTA",
 										"value": "true"
-									},
-									{
-										"name": "RHPAM_DATABASE",
-										"value": "${KIE_SERVER_POSTGRESQL_DB}"
-									},
-									{
-										"name": "RHPAM_DRIVER",
-										"value": "postgresql"
-									},
-									{
-										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
-										"value": "${KIE_SERVER_POSTGRESQL_DIALECT}"
-									},
-									{
-										"name": "RHPAM_USERNAME",
-										"value": "${KIE_SERVER_POSTGRESQL_USER}"
-									},
-									{
-										"name": "RHPAM_PASSWORD",
-										"value": "${KIE_SERVER_POSTGRESQL_PWD}"
-									},
-									{
-										"name": "RHPAM_SERVICE_HOST",
-										"value": "${APPLICATION_NAME}-postgresql"
-									},
-									{
-										"name": "RHPAM_SERVICE_PORT",
-										"value": "5432"
 									},
 									{
 										"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
@@ -1123,20 +752,7 @@
 								]
 							}
 						],
-						"initContainers": [
-							{
-								"command": [
-									"/bin/bash",
-									"-c",
-									"replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-postgresql; replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
-								],
-								"image": "registry.redhat.io/openshift3/ose-cli",
-								"imagePullPolicy": "IfNotPresent",
-								"name": "${APPLICATION_NAME}-postgresql-init",
-								"terminationMessagePolicy": "FallbackToLogsOnError"
-							}
-						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+						"serviceAccountName": "${APPLICATION_NAME}-kieserver",
 						"terminationGracePeriodSeconds": 90,
 						"volumes": [
 							{
@@ -1157,8 +773,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
-								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+								"name": "${APPLICATION_NAME}-kieserver:latest"
 							}
 						},
 						"type": "ImageChange"
@@ -1167,167 +782,6 @@
 						"type": "ConfigChange"
 					}
 				]
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "DeploymentConfig",
-			"metadata": {
-				"annotations": {
-					"template.alpha.openshift.io/wait-for-ready": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-postgresql"
-				},
-				"name": "${APPLICATION_NAME}-postgresql"
-			},
-			"spec": {
-				"replicas": 1,
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
-				},
-				"strategy": {
-					"type": "Recreate"
-				},
-				"template": {
-					"metadata": {
-						"labels": {
-							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-postgresql",
-							"service": "${APPLICATION_NAME}-postgresql"
-						},
-						"name": "${APPLICATION_NAME}-postgresql"
-					},
-					"spec": {
-						"containers": [
-							{
-								"env": [
-									{
-										"name": "POSTGRESQL_USER",
-										"value": "${KIE_SERVER_POSTGRESQL_USER}"
-									},
-									{
-										"name": "POSTGRESQL_PASSWORD",
-										"value": "${KIE_SERVER_POSTGRESQL_PWD}"
-									},
-									{
-										"name": "POSTGRESQL_DATABASE",
-										"value": "${KIE_SERVER_POSTGRESQL_DB}"
-									},
-									{
-										"name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-										"value": "${POSTGRESQL_MAX_PREPARED_TRANSACTIONS}"
-									}
-								],
-								"image": "postgresql",
-								"imagePullPolicy": "Always",
-								"livenessProbe": {
-									"exec": {
-										"command": [
-											"/usr/libexec/check-container",
-											"--live"
-										]
-									},
-									"initialDelaySeconds": 120,
-									"timeoutSeconds": 10
-								},
-								"name": "${APPLICATION_NAME}-postgresql",
-								"ports": [
-									{
-										"containerPort": 5432,
-										"protocol": "TCP"
-									}
-								],
-								"readinessProbe": {
-									"exec": {
-										"command": [
-											"/usr/libexec/check-container"
-										]
-									},
-									"initialDelaySeconds": 5,
-									"timeoutSeconds": 1
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/var/lib/pgsql/data",
-										"name": "${APPLICATION_NAME}-postgresql-pvol"
-									}
-								]
-							}
-						],
-						"terminationGracePeriodSeconds": 60,
-						"volumes": [
-							{
-								"name": "${APPLICATION_NAME}-postgresql-pvol",
-								"persistentVolumeClaim": {
-									"claimName": "${APPLICATION_NAME}-postgresql-claim"
-								}
-							}
-						]
-					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"${APPLICATION_NAME}-postgresql"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
-								"namespace": "${POSTGRESQL_IMAGE_STREAM_NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "PersistentVolumeClaim",
-			"metadata": {
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-postgresql"
-				},
-				"name": "${APPLICATION_NAME}-postgresql-claim"
-			},
-			"spec": {
-				"accessModes": [
-					"ReadWriteOnce"
-				],
-				"resources": {
-					"requests": {
-						"storage": "${DB_VOLUME_CAPACITY}"
-					}
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "PersistentVolumeClaim",
-			"metadata": {
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "${APPLICATION_NAME}-rhpamcentr-claim"
-			},
-			"spec": {
-				"accessModes": [
-					"ReadWriteMany"
-				],
-				"resources": {
-					"requests": {
-						"storage": "64Mi"
-					}
-				}
 			}
 		}
 	],
@@ -1359,8 +813,7 @@
 		{
 			"name": "MAVEN_REPO_URL",
 			"displayName": "Maven repository URL",
-			"description": "Fully qualified URL to a Maven repository or service.",
-			"required": true
+			"description": "Fully qualified URL to a Maven repository or service."
 		},
 		{
 			"name": "MAVEN_REPO_USERNAME",
@@ -1384,24 +837,6 @@
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
-			"displayName": "Enable KIE server global discovery",
-			"description": "If set to true, turns on KIE server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
-			"value": "false"
-		},
-		{
-			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_PREFER_KIESERVER_SERVICE",
-			"displayName": "Prefer KIE Server OpenShift Service",
-			"description": "If OpenShift integration of Business Central is turned on, setting this parameter to true enables connection to KIE Server via an OpenShift internal Service endpoint. (Sets the org.kie.server.controller.openshift.prefer.kieserver.service system property)",
-			"value": "true"
-		},
-		{
-			"name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
-			"displayName": "KIE ServerTemplate Cache TTL",
-			"description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
-			"value": "5000"
-		},
-		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
 			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
@@ -1418,71 +853,125 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.8.1\".",
-			"value": "7.8.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
+			"value": "7.9.0",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_CONTROLLER_TOKEN",
-			"displayName": "KIE Server Controller Token",
-			"description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)"
+			"name": "KIE_SERVER_PERSISTENCE_SCHEMA",
+			"displayName": "KIE Server Persistence Schema",
+			"description": "Hibernate persistence schema."
 		},
 		{
-			"name": "KIE_SERVER_PERSISTENCE_DS",
-			"displayName": "KIE Server Persistence DS",
-			"description": "KIE server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
-			"value": "java:/jboss/datasources/rhpam"
-		},
-		{
-			"name": "POSTGRESQL_IMAGE_STREAM_NAMESPACE",
-			"displayName": "PostgreSQL ImageStream Namespace",
-			"description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
-			"value": "openshift"
-		},
-		{
-			"name": "POSTGRESQL_IMAGE_STREAM_TAG",
-			"displayName": "PostgreSQL ImageStream Tag",
-			"description": "The PostgreSQL image version, which is intended to correspond to the PostgreSQL version. Default is \"10\".",
-			"value": "10"
-		},
-		{
-			"name": "KIE_SERVER_POSTGRESQL_USER",
-			"displayName": "KIE Server PostgreSQL Database User",
-			"description": "KIE server PostgreSQL database user name.",
-			"value": "rhpam"
-		},
-		{
-			"name": "KIE_SERVER_POSTGRESQL_PWD",
-			"displayName": "KIE Server PostgreSQL Database Password",
-			"description": "KIE server PostgreSQL database password.",
-			"generate": "expression",
-			"from": "[a-zA-Z]{6}[0-9]{1}!"
-		},
-		{
-			"name": "KIE_SERVER_POSTGRESQL_DB",
-			"displayName": "KIE Server PostgreSQL Database Name",
-			"description": "KIE server PostgreSQL database name.",
-			"value": "rhpam7"
-		},
-		{
-			"name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-			"displayName": "PostgreSQL Database max prepared connections",
-			"description": "Allows the PostgreSQL to handle XA transactions.",
-			"value": "100",
+			"name": "KIE_SERVER_EXTERNALDB_DIALECT",
+			"displayName": "KIE Server External Database Dialect",
+			"description": "KIE server external database Hibernate dialect.",
 			"required": true
 		},
 		{
-			"name": "DB_VOLUME_CAPACITY",
-			"displayName": "Database Volume Capacity",
-			"description": "Size of persistent storage for the database volume.",
-			"value": "1Gi",
+			"name": "KIE_SERVER_EXTERNALDB_SERVICE_HOST",
+			"displayName": "Datasource Service Host",
+			"description": "Sets the datasource service host. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL parameter is set."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_SERVICE_PORT",
+			"displayName": "Database service Port",
+			"description": "Sets the datasource service port. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL parameter is set."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_NONXA",
+			"displayName": "Non XA datasource",
+			"description": "Sets the datasources type. It can be XA or NONXA. For non XA set it to true. Default value is true."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_URL",
+			"displayName": "KIE Server External Database URL",
+			"description": "Sets the datasource jdbc connection url. Note that, if you are using PostgreSQL do not use this field, use the SERVICE_HOST and PORT. If using SERVICE_PORT and HOST there is no need to fill this parameter."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_DRIVER",
+			"displayName": "KIE Server External Database Driver",
+			"description": "The predefined driver name, available values are mysql, postgresql or the preferred name for the external driver.",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_POSTGRESQL_DIALECT",
-			"displayName": "KIE Server PostgreSQL Dialect",
-			"description": "KIE server PostgreSQL Hibernate dialect.",
-			"value": "org.hibernate.dialect.PostgreSQLDialect",
+			"name": "KIE_SERVER_EXTERNALDB_JNDI",
+			"displayName": "Database JNDI Name",
+			"description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS.",
+			"value": "java:jboss/datasources/jbpmDS",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_DB",
+			"displayName": "KIE Server External Database name",
+			"description": "KIE server external database name. Leave blank if the KIE_SERVER_EXTERNALDB_URL is set."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_USER",
+			"displayName": "KIE Server External Database User",
+			"description": "KIE server external database user name.",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_PWD",
+			"displayName": "KIE Server External Database Password",
+			"description": "KIE server external database password.",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE",
+			"displayName": "Datasource Minimum Pool Size",
+			"description": "Sets xa-pool/min-pool-size for the configured datasource."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE",
+			"displayName": "Datasource Maximum Pool Size",
+			"description": "Sets xa-pool/max-pool-size for the configured datasource."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER",
+			"displayName": "JDBC Connection Checker class",
+			"description": "An org.jboss.jca.adapters.jdbc.ValidConnectionChecker that provides a SQLException isValidConnection(Connection e) method to validate if a connection is valid."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER",
+			"displayName": "JDBC Exception Sorter class",
+			"description": "An org.jboss.jca.adapters.jdbc.ExceptionSorter that provides a boolean isExceptionFatal(SQLException e) method to validate if an exception should be broadcast to all javax.resource.spi.ConnectionEventListener as a connectionErrorOccurred."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION",
+			"displayName": "JDBC background validation",
+			"description": "Sets the sql validation method to background-validation, if set to false the validate-on-match method will be used."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS",
+			"displayName": "JDBC Background Validation Millis",
+			"description": "Defines the interval for the background-validation check for the jdbc connections."
+		},
+		{
+			"name": "KIE_SERVER_EXTERNALDB_DRIVER_TYPE",
+			"displayName": "KIE Server External Database Driver Type",
+			"description": "KIE server external database driver type, applicable only for DB2, possible values are 4 (default) or 2."
+		},
+		{
+			"name": "EXTENSIONS_IMAGE",
+			"displayName": "Drivers Extension Image",
+			"description": "ImageStreamTag definition for the image containing the drivers and configuration. For example, custom-driver-image:7.9.0.",
+			"value": "custom-driver-extension:7.9.0",
+			"required": true
+		},
+		{
+			"name": "EXTENSIONS_IMAGE_NAMESPACE",
+			"displayName": "Drivers ImageStream Namespace",
+			"description": "Namespace within which the ImageStream definition for the image containing the drivers and configuration is located.",
+			"value": "openshift",
+			"required": true
+		},
+		{
+			"name": "EXTENSIONS_INSTALL_DIR",
+			"displayName": "Drivers Image Install Directory",
+			"description": "Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.).",
+			"value": "/extensions",
 			"required": true
 		},
 		{
@@ -1494,29 +983,19 @@
 		{
 			"name": "KIE_MBEANS",
 			"displayName": "KIE MBeans",
-			"description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+			"description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties).",
 			"value": "enabled"
 		},
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE server class filtering. (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property).",
 			"value": "true"
 		},
 		{
 			"name": "PROMETHEUS_SERVER_EXT_DISABLED",
 			"displayName": "Prometheus Server Extension Disabled",
 			"description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)"
-		},
-		{
-			"name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
-			"displayName": "Business Central Monitoring Custom http Route Hostname",
-			"description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhpamcentrmon-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
-		},
-		{
-			"name": "BUSINESS_CENTRAL_HOSTNAME_HTTPS",
-			"displayName": "Business Central Monitoring Custom https Route Hostname",
-			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-rhpamcentrmon-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "KIE_SERVER_HOSTNAME_HTTP",
@@ -1529,33 +1008,9 @@
 			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
-			"name": "BUSINESS_CENTRAL_HTTPS_SECRET",
-			"displayName": "Business Central Monitoring Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file for Business Central.",
-			"required": true
-		},
-		{
-			"name": "BUSINESS_CENTRAL_HTTPS_KEYSTORE",
-			"displayName": "Business Central Monitoring Server Keystore Filename",
-			"description": "The name of the keystore file within the secret.",
-			"value": "keystore.jks"
-		},
-		{
-			"name": "BUSINESS_CENTRAL_HTTPS_NAME",
-			"displayName": "Business Central Monitoring Server Certificate Name",
-			"description": "The name associated with the server certificate.",
-			"value": "jboss"
-		},
-		{
-			"name": "BUSINESS_CENTRAL_HTTPS_PASSWORD",
-			"displayName": "Business Central Monitoring Server Keystore Password",
-			"description": "The password for the keystore and certificate.",
-			"value": "mykeystorepass"
-		},
-		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
 			"displayName": "KIE Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file for KIE server.",
+			"description": "The name of the secret containing the keystore file.",
 			"required": true
 		},
 		{
@@ -1585,14 +1040,8 @@
 		{
 			"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
 			"displayName": "Timer service data store refresh interval (in milliseconds)",
-			"description": "Sets refresh-interval for the EJB timer service database-data-store.",
+			"description": "Sets refresh-interval for the EJB timer database data-store service.",
 			"value": "30000"
-		},
-		{
-			"name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
-			"displayName": "Business Central Monitoring Container Memory Limit",
-			"description": "Business Central Monitoring Container memory limit.",
-			"value": "2Gi"
 		},
 		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
@@ -1601,18 +1050,14 @@
 			"value": "1Gi"
 		},
 		{
-			"name": "BUSINESS_CENTRAL_MONITORING_CONTAINER_REPLICAS",
-			"displayName": "Business Central Monitoring Container Replicas",
-			"description": "Business Central Monitoring Container Replicas, will define how much Business Central Monitoring containers will be started.",
-			"value": "3",
-			"required": true
+			"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
+			"displayName": "KIE Server Container Deployment",
+			"description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2"
 		},
 		{
-			"name": "KIE_SERVER_CONTAINER_REPLICAS",
-			"displayName": "KIE Server Container Replicas",
-			"description": "KIE Server Container Replicas, will define how much KIE Server containers will be started.",
-			"value": "3",
-			"required": true
+			"name": "KIE_SERVER_MGMT_DISABLED",
+			"displayName": "Disable KIE Server Management",
+			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
 		},
 		{
 			"name": "SSO_URL",
@@ -1623,16 +1068,6 @@
 			"name": "SSO_REALM",
 			"displayName": "RH-SSO Realm name",
 			"description": "RH-SSO Realm name."
-		},
-		{
-			"name": "BUSINESS_CENTRAL_SSO_CLIENT",
-			"displayName": "Business Central Monitoring RH-SSO Client name",
-			"description": "Business Central Monitoring RH-SSO Client name."
-		},
-		{
-			"name": "BUSINESS_CENTRAL_SSO_SECRET",
-			"displayName": "Business Central Monitoring RH-SSO Client Secret",
-			"description": "Business Central Monitoring RH-SSO Client Secret."
 		},
 		{
 			"name": "KIE_SERVER_SSO_CLIENT",
@@ -1669,7 +1104,7 @@
 		{
 			"name": "AUTH_LDAP_URL",
 			"displayName": "LDAP Endpoint",
-			"description": "LDAP Endpoint to connect for authentication."
+			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_DN",
@@ -1749,7 +1184,7 @@
 		{
 			"name": "AUTH_LDAP_DEFAULT_ROLE",
 			"displayName": "LDAP Default role",
-			"description": "A role included for all authenticated users"
+			"description": "A role included for all authenticated users."
 		},
 		{
 			"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
@@ -1774,7 +1209,7 @@
 		{
 			"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 			"displayName": "RoleMapping rolesProperties file path",
-			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This parameter defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
+			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
 		},
 		{
 			"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
@@ -1783,7 +1218,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.8",
-		"template": "rhpam78-managed"
+		"rhpam": "7.9",
+		"template": "rhpam79-kieserver-externaldb"
 	}
 }

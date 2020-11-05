@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam78-authoring-ha",
+		"name": "rhpam79-authoring-ha",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.8 - Deprecated",
+			"description": "Application template for a HA persistent authoring environment, for Red Hat Process Automation Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.8 authoring environment (HA, persistent, with https)",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.9 authoring environment (HA, persistent, with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhpam,processserver,jboss,authoring,ha",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.8/html/deploying_a_red_hat_process_automation_manager_7.8_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.8 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.9/html/deploying_a_red_hat_process_automation_manager_7.9_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.9 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.8"
+			"version": "7.9"
 		}
 	},
 	"message": "A new persistent HA Process Automation Manager application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
@@ -1189,6 +1189,15 @@
 										"value": "${KIE_SERVER_HTTPS_PASSWORD}"
 									},
 									{
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
+									},
+									{
 										"name": "SSO_URL",
 										"value": "${SSO_URL}"
 									},
@@ -1986,7 +1995,7 @@
 			"name": "DATAGRID_IMAGE",
 			"displayName": "DataGrid Image",
 			"description": "DataGrid image.",
-			"value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.5",
+			"value": "registry.redhat.io/jboss-datagrid-7/datagrid73-openshift:1.6",
 			"required": true
 		},
 		{
@@ -2014,7 +2023,7 @@
 			"name": "AMQ_BROKER_IMAGE",
 			"displayName": "Image",
 			"description": "AMQ Broker Image.",
-			"value": "registry.redhat.io/amq7/amq-broker:7.6",
+			"value": "registry.redhat.io/amq7/amq-broker:7.7",
 			"required": true
 		},
 		{
@@ -2092,8 +2101,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.8.1\".",
-			"value": "7.8.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
+			"value": "7.9.0",
 			"required": true
 		},
 		{
@@ -2251,7 +2260,7 @@
 		{
 			"name": "AUTH_LDAP_URL",
 			"displayName": "LDAP Endpoint",
-			"description": "LDAP Endpoint to connect for authentication."
+			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_DN",
@@ -2365,7 +2374,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.8",
-		"template": "rhpam78-authoring-ha"
+		"rhpam": "7.9",
+		"template": "rhpam79-authoring-ha"
 	}
 }
