@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam78-trial-ephemeral",
+		"name": "rhdm79-trial-ephemeral",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an ephemeral authoring and testing environment, for Red Hat Process Automation Manager 7.8 - Deprecated",
+			"description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.8 ephemeral trial environment",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.9 ephemeral trial environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhpam,processserver,jboss,trial",
+			"tags": "rhdm,decisionserver,jboss,trial",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.8/html/deploying_a_red_hat_process_automation_manager_7.8_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Process Automation Manager 7.8, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.9/html/deploying_a_red_hat_decision_manager_7.9_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.9, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.8"
+			"version": "7.9"
 		}
 	},
-	"message": "A new Process Automation Manager trial environment has been created.\nThe user name/password for accessing the Business Central interface and calls to the KIE server is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
+	"message": "A new Decision Manager trial environment has been created.\nThe user name/password for accessing the Decision Central and KIE Server interfaces is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -26,7 +26,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhpamsvc"
+				"name": "${APPLICATION_NAME}-rhdmsvc"
 			}
 		},
 		{
@@ -36,7 +36,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhpamsvc-edit"
+				"name": "${APPLICATION_NAME}-rhdmsvc-edit"
 			},
 			"roleRef": {
 				"name": "edit"
@@ -44,7 +44,7 @@
 			"subjects": [
 				{
 					"kind": "ServiceAccount",
-					"name": "${APPLICATION_NAME}-rhpamsvc"
+					"name": "${APPLICATION_NAME}-rhdmsvc"
 				}
 			]
 		},
@@ -53,13 +53,13 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "All the Business Central web server's ports."
+					"description": "All the Decision Central web server's ports."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentr"
+					"service": "${APPLICATION_NAME}-rhdmcentr"
 				},
-				"name": "${APPLICATION_NAME}-rhpamcentr"
+				"name": "${APPLICATION_NAME}-rhdmcentr"
 			},
 			"spec": {
 				"ports": [
@@ -70,7 +70,7 @@
 					}
 				],
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr"
+					"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
 				}
 			}
 		},
@@ -107,26 +107,26 @@
 		},
 		{
 			"apiVersion": "v1",
-			"id": "insecure-${APPLICATION_NAME}-rhpamcentr-http",
+			"id": "insecure-${APPLICATION_NAME}-rhdmcentr-http",
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for Business Central's http service.",
+					"description": "Route for Decision Central's http service.",
 					"haproxy.router.openshift.io/timeout": "1h"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentr"
+					"service": "${APPLICATION_NAME}-rhdmcentr"
 				},
-				"name": "insecure-${APPLICATION_NAME}-rhpamcentr"
+				"name": "insecure-${APPLICATION_NAME}-rhdmcentr"
 			},
 			"spec": {
-				"host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
+				"host": "${DECISION_CENTRAL_HOSTNAME_HTTP}",
 				"port": {
 					"targetPort": "http"
 				},
 				"to": {
-					"name": "${APPLICATION_NAME}-rhpamcentr"
+					"name": "${APPLICATION_NAME}-rhdmcentr"
 				}
 			}
 		},
@@ -161,14 +161,14 @@
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentr"
+					"service": "${APPLICATION_NAME}-rhdmcentr"
 				},
-				"name": "${APPLICATION_NAME}-rhpamcentr"
+				"name": "${APPLICATION_NAME}-rhdmcentr"
 			},
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr"
+					"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -177,19 +177,15 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr",
-							"service": "${APPLICATION_NAME}-rhpamcentr"
+							"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr",
+							"service": "${APPLICATION_NAME}-rhdmcentr"
 						},
-						"name": "${APPLICATION_NAME}-rhpamcentr"
+						"name": "${APPLICATION_NAME}-rhdmcentr"
 					},
 					"spec": {
 						"containers": [
 							{
 								"env": [
-									{
-										"name": "WORKBENCH_ROUTE_NAME",
-										"value": "insecure-${APPLICATION_NAME}-rhpamcentr"
-									},
 									{
 										"name": "KIE_ADMIN_USER",
 										"value": "${KIE_ADMIN_USER}"
@@ -219,6 +215,10 @@
 										"value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
 									},
 									{
+										"name": "WORKBENCH_ROUTE_NAME",
+										"value": "insecure-${APPLICATION_NAME}-rhdmcentr"
+									},
+									{
 										"name": "MAVEN_REPO_ID",
 										"value": "${MAVEN_REPO_ID}"
 									},
@@ -239,6 +239,15 @@
 										"value": "${GIT_HOOKS_DIR}"
 									},
 									{
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
+									},
+									{
 										"name": "SSO_URL",
 										"value": "${SSO_URL}"
 									},
@@ -252,11 +261,11 @@
 									},
 									{
 										"name": "SSO_SECRET",
-										"value": "${BUSINESS_CENTRAL_SSO_SECRET}"
+										"value": "${DECISION_CENTRAL_SSO_SECRET}"
 									},
 									{
 										"name": "SSO_CLIENT",
-										"value": "${BUSINESS_CENTRAL_SSO_CLIENT}"
+										"value": "${DECISION_CENTRAL_SSO_CLIENT}"
 									},
 									{
 										"name": "SSO_USERNAME",
@@ -276,7 +285,7 @@
 									},
 									{
 										"name": "HOSTNAME_HTTP",
-										"value": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}"
+										"value": "${DECISION_CENTRAL_HOSTNAME_HTTP}"
 									},
 									{
 										"name": "AUTH_LDAP_URL",
@@ -371,7 +380,7 @@
 										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
 									}
 								],
-								"image": "rhpam-businesscentral-rhel8",
+								"image": "rhdm-decisioncentral-rhel8",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
 									"httpGet": {
@@ -383,7 +392,7 @@
 									"periodSeconds": 15,
 									"timeoutSeconds": 2
 								},
-								"name": "${APPLICATION_NAME}-rhpamcentr",
+								"name": "${APPLICATION_NAME}-rhdmcentr",
 								"ports": [
 									{
 										"containerPort": 8778,
@@ -409,12 +418,12 @@
 								},
 								"resources": {
 									"limits": {
-										"memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
+										"memory": "${DECISION_CENTRAL_MEMORY_LIMIT}"
 									}
 								}
 							}
 						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+						"serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
 						"terminationGracePeriodSeconds": 60
 					}
 				},
@@ -423,11 +432,11 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"${APPLICATION_NAME}-rhpamcentr"
+								"${APPLICATION_NAME}-rhdmcentr"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "rhpam-businesscentral-rhel8:${IMAGE_STREAM_TAG}",
+								"name": "rhdm-decisioncentral-rhel8:${IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -482,7 +491,7 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-rhpamcentr"
+										"value": "${APPLICATION_NAME}-rhdmcentr"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
@@ -534,26 +543,26 @@
 									},
 									{
 										"name": "MAVEN_REPOS",
-										"value": "RHPAMCENTR,EXTERNAL"
+										"value": "RHDMCENTR,EXTERNAL"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_ID",
-										"value": "repo-rhpamcentr"
+										"name": "RHDMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhdmcentr"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
-										"value": "${APPLICATION_NAME}-rhpamcentr"
+										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
+										"value": "${APPLICATION_NAME}-rhdmcentr"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_PATH",
+										"name": "RHDMCENTR_MAVEN_REPO_PATH",
 										"value": "/maven2/"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
+										"name": "RHDMCENTR_MAVEN_REPO_USERNAME",
 										"value": "${KIE_ADMIN_USER}"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
+										"name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
 										"value": "${DEFAULT_PASSWORD}"
 									},
 									{
@@ -747,6 +756,15 @@
 									{
 										"name": "AC_MAX_AGE_FILTER_RESPONSE_HEADER_VALUE",
 										"value": "${KIE_SERVER_ACCESS_CONTROL_MAX_AGE}"
+									},
+									{
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									}
 								],
 								"image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -811,7 +829,7 @@
 								}
 							}
 						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+						"serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
 						"terminationGracePeriodSeconds": 90
 					}
 				},
@@ -861,7 +879,7 @@
 		{
 			"name": "KIE_SERVER_BYPASS_AUTH_USER",
 			"displayName": "KIE Server Bypass Auth User",
-			"description": "Allows the KIE server to bypass the authenticated user for task-related operations e.g. queries. (Sets the org.kie.server.bypass.auth.user system property)",
+			"description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
 			"value": "false"
 		},
 		{
@@ -923,9 +941,9 @@
 			"value": "1"
 		},
 		{
-			"name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
-			"displayName": "Business Central Custom http Route Hostname",
-			"description": "Custom hostname for http service route for Business Central. Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhpamcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"name": "DECISION_CENTRAL_HOSTNAME_HTTP",
+			"displayName": "Decision Central Custom http Route Hostname",
+			"description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhdmcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
@@ -943,27 +961,27 @@
 			"name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
 			"displayName": "KIE ServerTemplate Cache TTL",
 			"description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
-			"value": "5000"
+			"value": "60000"
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+			"description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
 			"value": "openshift",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE server. Default is \"rhpam-kieserver-rhel8\".",
-			"value": "rhpam-kieserver-rhel8",
+			"description": "The name of the image stream to use for KIE server. Default is \"rhdm-kieserver-rhel8\".",
+			"value": "rhdm-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.8.1\".",
-			"value": "7.8.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
+			"value": "7.9.0",
 			"required": true
 		},
 		{
@@ -998,9 +1016,9 @@
 			"description": "The directory to use for git hooks, if required."
 		},
 		{
-			"name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
-			"displayName": "Business Central Container Memory Limit",
-			"description": "Business Central Container memory limit.",
+			"name": "DECISION_CENTRAL_MEMORY_LIMIT",
+			"displayName": "Decision Central Container Memory Limit",
+			"description": "Decision Central Container memory limit.",
 			"value": "2Gi"
 		},
 		{
@@ -1020,14 +1038,14 @@
 			"description": "RH-SSO Realm name."
 		},
 		{
-			"name": "BUSINESS_CENTRAL_SSO_CLIENT",
-			"displayName": "Business Central RH-SSO Client name",
-			"description": "Business Central RH-SSO Client name."
+			"name": "DECISION_CENTRAL_SSO_CLIENT",
+			"displayName": "Decision Central RH-SSO Client name",
+			"description": "Decision Central RH-SSO Client name."
 		},
 		{
-			"name": "BUSINESS_CENTRAL_SSO_SECRET",
-			"displayName": "Business Central RH-SSO Client Secret",
-			"description": "Business Central RH-SSO Client Secret."
+			"name": "DECISION_CENTRAL_SSO_SECRET",
+			"displayName": "Decision Central RH-SSO Client Secret",
+			"description": "Decision Central RH-SSO Client Secret."
 		},
 		{
 			"name": "KIE_SERVER_SSO_CLIENT",
@@ -1042,7 +1060,7 @@
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist."
+			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
@@ -1064,7 +1082,7 @@
 		{
 			"name": "AUTH_LDAP_URL",
 			"displayName": "LDAP Endpoint",
-			"description": "LDAP Endpoint to connect for authentication."
+			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_DN",
@@ -1178,7 +1196,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.8",
-		"template": "rhpam78-trial-ephemeral"
+		"rhdm": "7.9",
+		"template": "rhdm79-trial-ephemeral"
 	}
 }

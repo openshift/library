@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm78-prod-immutable-kieserver-amq",
+		"name": "rhdm79-prod-immutable-kieserver-amq",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.8 - Deprecated",
+			"description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.8 immutable production environment with ActiveMQ.",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.9 immutable production environment with ActiveMQ.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i,amq",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.8/html/deploying_a_red_hat_decision_manager_7.8_immutable_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.8, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.9/html/deploying_a_red_hat_decision_manager_7.9_immutable_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.9, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.8"
+			"version": "7.9"
 		}
 	},
 	"message": "A new immutable Red Hat Decision Manager KIE server has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -1222,8 +1222,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.8.1\".",
-			"value": "7.8.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
+			"value": "7.9.0",
 			"required": true
 		},
 		{
@@ -1447,7 +1447,7 @@
 			"name": "AMQ_BROKER_IMAGESTREAM_NAME",
 			"displayName": "AMQ Broker Image Stream Name",
 			"description": "AMQ Broker Image Stream Name",
-			"value": "amq-broker:7.6",
+			"value": "amq-broker:7.7",
 			"required": true
 		},
 		{
@@ -1502,7 +1502,7 @@
 		{
 			"name": "AUTH_LDAP_URL",
 			"displayName": "LDAP Endpoint",
-			"description": "LDAP Endpoint to connect for authentication"
+			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_DN",
@@ -1616,7 +1616,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.8",
-		"template": "rhdm78-prod-immutable-kieserver-amq"
+		"rhdm": "7.9",
+		"template": "rhdm79-prod-immutable-kieserver-amq"
 	}
 }

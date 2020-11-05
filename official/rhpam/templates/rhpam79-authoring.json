@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm78-trial-ephemeral",
+		"name": "rhpam79-authoring",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an ephemeral authoring and testing environment, for Red Hat Decision Manager 7.8 - Deprecated",
+			"description": "Application template for a non-HA persistent authoring environment, for Red Hat Process Automation Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.8 ephemeral trial environment",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.9 authoring environment (non-HA, persistent, with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,trial",
+			"tags": "rhpam,processserver,jboss,authoring",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.8/html/deploying_a_red_hat_decision_manager_7.8_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an ephemeral authoring and testing environment for Red Hat Decision Manager 7.8, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.9/html/deploying_a_red_hat_process_automation_manager_7.9_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules and Processes on Red Hat Process Automation Manager 7.9, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.8"
+			"version": "7.9"
 		}
 	},
-	"message": "A new Decision Manager trial environment has been created.\nThe user name/password for accessing the Decision Central and KIE Server interfaces is\n\n    User name: ${KIE_ADMIN_USER}\n    Password: ${DEFAULT_PASSWORD}\n\nPlease remember that this is an ephemeral environment and any work will be LOST with a simple pod restart.",
+	"message": "A new persistent Process Automation Manager application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -26,7 +26,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhdmsvc"
+				"name": "${APPLICATION_NAME}-rhpamsvc"
 			}
 		},
 		{
@@ -36,7 +36,7 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-rhdmsvc-edit"
+				"name": "${APPLICATION_NAME}-rhpamsvc-edit"
 			},
 			"roleRef": {
 				"name": "edit"
@@ -44,7 +44,7 @@
 			"subjects": [
 				{
 					"kind": "ServiceAccount",
-					"name": "${APPLICATION_NAME}-rhdmsvc"
+					"name": "${APPLICATION_NAME}-rhpamsvc"
 				}
 			]
 		},
@@ -53,13 +53,13 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "All the Decision Central web server's ports."
+					"description": "All the Business Central web server's ports."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhdmcentr"
+					"service": "${APPLICATION_NAME}-rhpamcentr"
 				},
-				"name": "${APPLICATION_NAME}-rhdmcentr"
+				"name": "${APPLICATION_NAME}-rhpamcentr"
 			},
 			"spec": {
 				"ports": [
@@ -67,10 +67,15 @@
 						"name": "http",
 						"port": 8080,
 						"targetPort": 8080
+					},
+					{
+						"name": "https",
+						"port": 8443,
+						"targetPort": 8443
 					}
 				],
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
+					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr"
 				}
 			}
 		},
@@ -90,8 +95,14 @@
 			"spec": {
 				"ports": [
 					{
+						"name": "http",
 						"port": 8080,
 						"targetPort": 8080
+					},
+					{
+						"name": "https",
+						"port": 8443,
+						"targetPort": 8443
 					}
 				],
 				"selector": {
@@ -107,26 +118,54 @@
 		},
 		{
 			"apiVersion": "v1",
-			"id": "insecure-${APPLICATION_NAME}-rhdmcentr-http",
+			"id": "insecure-${APPLICATION_NAME}-rhpamcentr-http",
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for Decision Central's http service.",
+					"description": "Route for Business Central's http service.",
 					"haproxy.router.openshift.io/timeout": "1h"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhdmcentr"
+					"service": "${APPLICATION_NAME}-rhpamcentr"
 				},
-				"name": "insecure-${APPLICATION_NAME}-rhdmcentr"
+				"name": "insecure-${APPLICATION_NAME}-rhpamcentr"
 			},
 			"spec": {
-				"host": "${DECISION_CENTRAL_HOSTNAME_HTTP}",
+				"host": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}",
 				"port": {
 					"targetPort": "http"
 				},
 				"to": {
-					"name": "${APPLICATION_NAME}-rhdmcentr"
+					"name": "${APPLICATION_NAME}-rhpamcentr"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"id": "${APPLICATION_NAME}-rhpamcentr-https",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for Business Central's https service.",
+					"haproxy.router.openshift.io/timeout": "1h"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-rhpamcentr"
+				},
+				"name": "${APPLICATION_NAME}-rhpamcentr"
+			},
+			"spec": {
+				"host": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}",
+				"port": {
+					"targetPort": "https"
+				},
+				"tls": {
+					"termination": "passthrough"
+				},
+				"to": {
+					"name": "${APPLICATION_NAME}-rhpamcentr"
 				}
 			}
 		},
@@ -147,6 +186,36 @@
 			},
 			"spec": {
 				"host": "${KIE_SERVER_HOSTNAME_HTTP}",
+				"port": {
+					"targetPort": "http"
+				},
+				"to": {
+					"name": "${APPLICATION_NAME}-kieserver"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"id": "${APPLICATION_NAME}-kieserver-https",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for KIE server's https service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-kieserver"
+				},
+				"name": "${APPLICATION_NAME}-kieserver"
+			},
+			"spec": {
+				"host": "${KIE_SERVER_HOSTNAME_HTTPS}",
+				"port": {
+					"targetPort": "https"
+				},
+				"tls": {
+					"termination": "passthrough"
+				},
 				"to": {
 					"name": "${APPLICATION_NAME}-kieserver"
 				}
@@ -161,14 +230,14 @@
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhdmcentr"
+					"service": "${APPLICATION_NAME}-rhpamcentr"
 				},
-				"name": "${APPLICATION_NAME}-rhdmcentr"
+				"name": "${APPLICATION_NAME}-rhpamcentr"
 			},
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
+					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr"
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -177,22 +246,40 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr",
-							"service": "${APPLICATION_NAME}-rhdmcentr"
+							"deploymentConfig": "${APPLICATION_NAME}-rhpamcentr",
+							"service": "${APPLICATION_NAME}-rhpamcentr"
 						},
-						"name": "${APPLICATION_NAME}-rhdmcentr"
+						"name": "${APPLICATION_NAME}-rhpamcentr"
 					},
 					"spec": {
 						"containers": [
 							{
 								"env": [
 									{
+										"name": "APPLICATION_USERS_PROPERTIES",
+										"value": "/opt/kie/data/configuration/application-users.properties"
+									},
+									{
+										"name": "APPLICATION_ROLES_PROPERTIES",
+										"value": "/opt/kie/data/configuration/application-roles.properties"
+									},
+									{
 										"name": "KIE_ADMIN_USER",
-										"value": "${KIE_ADMIN_USER}"
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_USER",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
 										"name": "KIE_ADMIN_PWD",
-										"value": "${DEFAULT_PASSWORD}"
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_PWD",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
 										"name": "KIE_MBEANS",
@@ -200,7 +287,7 @@
 									},
 									{
 										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_ENABLED",
-										"value": "true"
+										"value": "false"
 									},
 									{
 										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
@@ -215,8 +302,12 @@
 										"value": "${KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL}"
 									},
 									{
-										"name": "WORKBENCH_ROUTE_NAME",
-										"value": "insecure-${APPLICATION_NAME}-rhdmcentr"
+										"name": "KIE_SERVER_CONTROLLER_TOKEN",
+										"value": "${KIE_SERVER_CONTROLLER_TOKEN}"
+									},
+									{
+										"name": "MAVEN_MIRROR_URL",
+										"value": "${MAVEN_MIRROR_URL}"
 									},
 									{
 										"name": "MAVEN_REPO_ID",
@@ -239,6 +330,35 @@
 										"value": "${GIT_HOOKS_DIR}"
 									},
 									{
+										"name": "HTTPS_KEYSTORE_DIR",
+										"value": "/etc/businesscentral-secret-volume"
+									},
+									{
+										"name": "HTTPS_KEYSTORE",
+										"value": "${BUSINESS_CENTRAL_HTTPS_KEYSTORE}"
+									},
+									{
+										"name": "HTTPS_NAME",
+										"value": "${BUSINESS_CENTRAL_HTTPS_NAME}"
+									},
+									{
+										"name": "HTTPS_PASSWORD",
+										"value": "${BUSINESS_CENTRAL_HTTPS_PASSWORD}"
+									},
+									{
+										"name": "WORKBENCH_ROUTE_NAME",
+										"value": "${APPLICATION_NAME}-rhpamcentr"
+									},
+									{
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
+									},
+									{
 										"name": "SSO_URL",
 										"value": "${SSO_URL}"
 									},
@@ -252,11 +372,11 @@
 									},
 									{
 										"name": "SSO_SECRET",
-										"value": "${DECISION_CENTRAL_SSO_SECRET}"
+										"value": "${BUSINESS_CENTRAL_SSO_SECRET}"
 									},
 									{
 										"name": "SSO_CLIENT",
-										"value": "${DECISION_CENTRAL_SSO_CLIENT}"
+										"value": "${BUSINESS_CENTRAL_SSO_CLIENT}"
 									},
 									{
 										"name": "SSO_USERNAME",
@@ -276,7 +396,11 @@
 									},
 									{
 										"name": "HOSTNAME_HTTP",
-										"value": "${DECISION_CENTRAL_HOSTNAME_HTTP}"
+										"value": "${BUSINESS_CENTRAL_HOSTNAME_HTTP}"
+									},
+									{
+										"name": "HOSTNAME_HTTPS",
+										"value": "${BUSINESS_CENTRAL_HOSTNAME_HTTPS}"
 									},
 									{
 										"name": "AUTH_LDAP_URL",
@@ -371,7 +495,7 @@
 										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
 									}
 								],
-								"image": "rhdm-decisioncentral-rhel8",
+								"image": "rhpam-businesscentral-rhel8",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
 									"httpGet": {
@@ -383,7 +507,7 @@
 									"periodSeconds": 15,
 									"timeoutSeconds": 2
 								},
-								"name": "${APPLICATION_NAME}-rhdmcentr",
+								"name": "${APPLICATION_NAME}-rhpamcentr",
 								"ports": [
 									{
 										"containerPort": 8778,
@@ -393,6 +517,11 @@
 									{
 										"containerPort": 8080,
 										"name": "http",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8443,
+										"name": "https",
 										"protocol": "TCP"
 									}
 								],
@@ -409,13 +538,38 @@
 								},
 								"resources": {
 									"limits": {
-										"memory": "${DECISION_CENTRAL_MEMORY_LIMIT}"
+										"memory": "${BUSINESS_CENTRAL_MEMORY_LIMIT}"
 									}
-								}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/etc/businesscentral-secret-volume",
+										"name": "businesscentral-keystore-volume",
+										"readOnly": true
+									},
+									{
+										"mountPath": "/opt/kie/data",
+										"name": "${APPLICATION_NAME}-rhpamcentr-pvol"
+									}
+								]
 							}
 						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
-						"terminationGracePeriodSeconds": 60
+						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"name": "businesscentral-keystore-volume",
+								"secret": {
+									"secretName": "${BUSINESS_CENTRAL_HTTPS_SECRET}"
+								}
+							},
+							{
+								"name": "${APPLICATION_NAME}-rhpamcentr-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-rhpamcentr-claim"
+								}
+							}
+						]
 					}
 				},
 				"triggers": [
@@ -423,11 +577,11 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"${APPLICATION_NAME}-rhdmcentr"
+								"${APPLICATION_NAME}-rhpamcentr"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "rhdm-decisioncentral-rhel8:${IMAGE_STREAM_TAG}",
+								"name": "rhpam-businesscentral-rhel8:${IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -460,11 +614,7 @@
 					"deploymentConfig": "${APPLICATION_NAME}-kieserver"
 				},
 				"strategy": {
-					"rollingParams": {
-						"maxSurge": "100%",
-						"maxUnavailable": 0
-					},
-					"type": "Rolling"
+					"type": "Recreate"
 				},
 				"template": {
 					"metadata": {
@@ -482,15 +632,65 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-rhdmcentr"
+										"value": "${APPLICATION_NAME}-rhpamcentr"
+									},
+									{
+										"name": "DATASOURCES",
+										"value": "RHPAM"
+									},
+									{
+										"name": "RHPAM_DATABASE",
+										"value": "rhpam7"
+									},
+									{
+										"name": "RHPAM_JNDI",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
+									},
+									{
+										"name": "RHPAM_JTA",
+										"value": "true"
+									},
+									{
+										"name": "RHPAM_DRIVER",
+										"value": "h2"
+									},
+									{
+										"name": "RHPAM_USERNAME",
+										"value": "${KIE_SERVER_H2_USER}"
+									},
+									{
+										"name": "RHPAM_PASSWORD",
+										"value": "${KIE_SERVER_H2_PWD}"
+									},
+									{
+										"name": "RHPAM_NONXA",
+										"value": "false"
+									},
+									{
+										"name": "RHPAM_XA_CONNECTION_PROPERTY_URL",
+										"value": "jdbc:h2:/opt/kie/data/h2/rhpam;AUTO_SERVER=TRUE"
+									},
+									{
+										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
+										"value": "org.hibernate.dialect.H2Dialect"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
-										"value": "${KIE_ADMIN_USER}"
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_USER",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
 										"name": "KIE_ADMIN_PWD",
-										"value": "${DEFAULT_PASSWORD}"
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_PWD",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
 										"name": "KIE_SERVER_MODE",
@@ -513,6 +713,14 @@
 										"value": "${KIE_SERVER_BYPASS_AUTH_USER}"
 									},
 									{
+										"name": "KIE_SERVER_CONTROLLER_SERVICE",
+										"value": "${APPLICATION_NAME}-rhpamcentr"
+									},
+									{
+										"name": "KIE_SERVER_CONTROLLER_PROTOCOL",
+										"value": "ws"
+									},
+									{
 										"name": "KIE_SERVER_ID",
 										"valueFrom": {
 											"fieldRef": {
@@ -525,36 +733,54 @@
 										"value": "insecure-${APPLICATION_NAME}-kieserver"
 									},
 									{
-										"name": "KIE_SERVER_STARTUP_STRATEGY",
-										"value": "OpenShiftStartupStrategy"
+										"name": "KIE_SERVER_PERSISTENCE_DS",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
 									},
 									{
-										"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
-										"value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
+										"name": "KIE_SERVER_STARTUP_STRATEGY",
+										"value": "ControllerBasedStartupStrategy"
+									},
+									{
+										"name": "MAVEN_MIRROR_URL",
+										"value": "${MAVEN_MIRROR_URL}"
+									},
+									{
+										"name": "MAVEN_MIRROR_OF",
+										"value": "${MAVEN_MIRROR_OF}"
 									},
 									{
 										"name": "MAVEN_REPOS",
-										"value": "RHDMCENTR,EXTERNAL"
+										"value": "RHPAMCENTR,EXTERNAL"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_ID",
-										"value": "repo-rhdmcentr"
+										"name": "RHPAMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhpamcentr"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
-										"value": "${APPLICATION_NAME}-rhdmcentr"
+										"name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
+										"value": "${APPLICATION_NAME}-rhpamcentr"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PATH",
+										"name": "RHPAMCENTR_MAVEN_REPO_PATH",
 										"value": "/maven2/"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_USERNAME",
-										"value": "${KIE_ADMIN_USER}"
+										"name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_USER",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
-										"value": "${DEFAULT_PASSWORD}"
+										"name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "KIE_ADMIN_PWD",
+												"name": "${CREDENTIALS_SECRET}"
+											}
+										}
 									},
 									{
 										"name": "EXTERNAL_MAVEN_REPO_ID",
@@ -571,6 +797,31 @@
 									{
 										"name": "EXTERNAL_MAVEN_REPO_PASSWORD",
 										"value": "${MAVEN_REPO_PASSWORD}"
+									},
+									{
+										"name": "HTTPS_KEYSTORE_DIR",
+										"value": "/etc/kieserver-secret-volume"
+									},
+									{
+										"name": "HTTPS_KEYSTORE",
+										"value": "${KIE_SERVER_HTTPS_KEYSTORE}"
+									},
+									{
+										"name": "HTTPS_NAME",
+										"value": "${KIE_SERVER_HTTPS_NAME}"
+									},
+									{
+										"name": "HTTPS_PASSWORD",
+										"value": "${KIE_SERVER_HTTPS_PASSWORD}"
+									},
+									{
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									},
 									{
 										"name": "SSO_URL",
@@ -613,6 +864,10 @@
 										"value": "${KIE_SERVER_HOSTNAME_HTTP}"
 									},
 									{
+										"name": "HOSTNAME_HTTPS",
+										"value": "${KIE_SERVER_HOSTNAME_HTTPS}"
+									},
+									{
 										"name": "AUTH_LDAP_URL",
 										"value": "${AUTH_LDAP_URL}"
 									},
@@ -703,50 +958,6 @@
 									{
 										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
 										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
-									},
-									{
-										"name": "FILTERS",
-										"value": "AC_ALLOW_ORIGIN,AC_ALLOW_METHODS,AC_ALLOW_HEADERS,AC_ALLOW_CREDENTIALS,AC_MAX_AGE"
-									},
-									{
-										"name": "AC_ALLOW_ORIGIN_FILTER_RESPONSE_HEADER_NAME",
-										"value": "Access-Control-Allow-Origin"
-									},
-									{
-										"name": "AC_ALLOW_ORIGIN_FILTER_RESPONSE_HEADER_VALUE",
-										"value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_ORIGIN}"
-									},
-									{
-										"name": "AC_ALLOW_METHODS_FILTER_RESPONSE_HEADER_NAME",
-										"value": "Access-Control-Allow-Methods"
-									},
-									{
-										"name": "AC_ALLOW_METHODS_FILTER_RESPONSE_HEADER_VALUE",
-										"value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_METHODS}"
-									},
-									{
-										"name": "AC_ALLOW_HEADERS_FILTER_RESPONSE_HEADER_NAME",
-										"value": "Access-Control-Allow-Headers"
-									},
-									{
-										"name": "AC_ALLOW_HEADERS_FILTER_RESPONSE_HEADER_VALUE",
-										"value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_HEADERS}"
-									},
-									{
-										"name": "AC_ALLOW_CREDENTIALS_FILTER_RESPONSE_HEADER_NAME",
-										"value": "Access-Control-Allow-Credentials"
-									},
-									{
-										"name": "AC_ALLOW_CREDENTIALS_FILTER_RESPONSE_HEADER_VALUE",
-										"value": "${KIE_SERVER_ACCESS_CONTROL_ALLOW_CREDENTIALS}"
-									},
-									{
-										"name": "AC_MAX_AGE_FILTER_RESPONSE_HEADER_NAME",
-										"value": "Access-Control-Max-Age"
-									},
-									{
-										"name": "AC_MAX_AGE_FILTER_RESPONSE_HEADER_VALUE",
-										"value": "${KIE_SERVER_ACCESS_CONTROL_MAX_AGE}"
 									}
 								],
 								"image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -791,6 +1002,11 @@
 										"containerPort": 8080,
 										"name": "http",
 										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8443,
+										"name": "https",
+										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
@@ -808,11 +1024,36 @@
 									"limits": {
 										"memory": "${KIE_SERVER_MEMORY_LIMIT}"
 									}
-								}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/etc/kieserver-secret-volume",
+										"name": "kieserver-keystore-volume",
+										"readOnly": true
+									},
+									{
+										"mountPath": "/opt/kie/data",
+										"name": "${APPLICATION_NAME}-kie-pvol"
+									}
+								]
 							}
 						],
-						"serviceAccountName": "${APPLICATION_NAME}-rhdmsvc",
-						"terminationGracePeriodSeconds": 90
+						"serviceAccountName": "${APPLICATION_NAME}-rhpamsvc",
+						"terminationGracePeriodSeconds": 90,
+						"volumes": [
+							{
+								"name": "kieserver-keystore-volume",
+								"secret": {
+									"secretName": "${KIE_SERVER_HTTPS_SECRET}"
+								}
+							},
+							{
+								"name": "${APPLICATION_NAME}-kie-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-kie-claim"
+								}
+							}
+						]
 					}
 				},
 				"triggers": [
@@ -835,6 +1076,48 @@
 					}
 				]
 			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-rhpamcentr"
+				},
+				"name": "${APPLICATION_NAME}-rhpamcentr-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${BUSINESS_CENTRAL_VOLUME_CAPACITY}"
+					}
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-kieserver"
+				},
+				"name": "${APPLICATION_NAME}-kie-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${DB_VOLUME_CAPACITY}"
+					}
+				}
+			}
 		}
 	],
 	"parameters": [
@@ -846,17 +1129,15 @@
 			"required": true
 		},
 		{
-			"name": "DEFAULT_PASSWORD",
-			"displayName": "Default Password",
-			"description": "Default password used for multiple components for user convenience in this trial environment.",
-			"value": "RedHat",
+			"name": "CREDENTIALS_SECRET",
+			"displayName": "Credentials secret",
+			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values.",
 			"required": true
 		},
 		{
-			"name": "KIE_ADMIN_USER",
-			"displayName": "KIE Admin User",
-			"description": "KIE administrator user name.",
-			"value": "adminUser"
+			"name": "KIE_SERVER_CONTROLLER_TOKEN",
+			"displayName": "KIE Server Controller Token",
+			"description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)"
 		},
 		{
 			"name": "KIE_SERVER_BYPASS_AUTH_USER",
@@ -865,9 +1146,28 @@
 			"value": "false"
 		},
 		{
+			"name": "KIE_SERVER_PERSISTENCE_DS",
+			"displayName": "KIE Server Persistence DS",
+			"description": "KIE server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
+			"value": "java:/jboss/datasources/rhpam"
+		},
+		{
+			"name": "KIE_SERVER_H2_USER",
+			"displayName": "KIE Server H2 Database User",
+			"description": "KIE server H2 database user name.",
+			"value": "sa"
+		},
+		{
+			"name": "KIE_SERVER_H2_PWD",
+			"displayName": "KIE Server H2 Database Password",
+			"description": "KIE server H2 database password.",
+			"generate": "expression",
+			"from": "[a-zA-Z]{6}[0-9]{1}!"
+		},
+		{
 			"name": "KIE_SERVER_MODE",
 			"displayName": "KIE Server Mode",
-			"description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
+			"description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property)",
 			"value": "DEVELOPMENT"
 		},
 		{
@@ -888,44 +1188,79 @@
 			"description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)"
 		},
 		{
+			"name": "BUSINESS_CENTRAL_HOSTNAME_HTTP",
+			"displayName": "Business Central Custom http Route Hostname",
+			"description": "Custom hostname for the http service route for Business Central. Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhpamcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
+			"name": "BUSINESS_CENTRAL_HOSTNAME_HTTPS",
+			"displayName": "Business Central Custom https Route Hostname",
+			"description": "Custom hostname for the https service route for Business Central. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-rhpamcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
 			"name": "KIE_SERVER_HOSTNAME_HTTP",
 			"displayName": "KIE Server Custom http Route Hostname",
-			"description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for the http service route for KIE Server. Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
-			"name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_ORIGIN",
-			"displayName": "KIE Server Access-Control-Allow-Origin response header",
-			"description": "Sets the Access-Control-Allow-Origin response header value in the KIE Server (useful for CORS support).",
-			"value": "*"
+			"name": "KIE_SERVER_HOSTNAME_HTTPS",
+			"displayName": "KIE Server Custom https Route Hostname",
+			"description": "Custom hostname for the https service route for KIE Server. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
-			"name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_METHODS",
-			"displayName": "KIE Server Access-Control-Allow-Methods response header",
-			"description": "Sets the Access-Control-Allow-Methods response header value in the KIE Server (useful for CORS support).",
-			"value": "GET, POST, OPTIONS, PUT"
+			"name": "BUSINESS_CENTRAL_HTTPS_SECRET",
+			"displayName": "Business Central Server Keystore Secret Name",
+			"description": "The name of the secret containing the keystore file for Business Central.",
+			"required": true
 		},
 		{
-			"name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_HEADERS",
-			"displayName": "KIE Server Access-Control-Allow-Headers response header",
-			"description": "Sets the Access-Control-Allow-Headers response header value in the KIE Server (useful for CORS support).",
-			"value": "Accept, Authorization, Content-Type, X-Requested-With"
+			"name": "BUSINESS_CENTRAL_HTTPS_KEYSTORE",
+			"displayName": "Business Central Server Keystore Filename",
+			"description": "The name of the keystore file within the secret.",
+			"value": "keystore.jks"
 		},
 		{
-			"name": "KIE_SERVER_ACCESS_CONTROL_ALLOW_CREDENTIALS",
-			"displayName": "KIE Server Access-Control-Allow-Credentials response header",
-			"description": "Sets the Access-Control-Allow-Credentials response header value in the KIE Server (useful for CORS support).",
-			"value": "true"
+			"name": "BUSINESS_CENTRAL_HTTPS_NAME",
+			"displayName": "Business Central Server Certificate Name",
+			"description": "The name associated with the server certificate.",
+			"value": "jboss"
 		},
 		{
-			"name": "KIE_SERVER_ACCESS_CONTROL_MAX_AGE",
-			"displayName": "KIE Server Access-Control-Max-Age response header",
-			"description": "Sets the Access-Control-Max-Age response header value in the KIE Server (useful for CORS support).",
-			"value": "1"
+			"name": "BUSINESS_CENTRAL_HTTPS_PASSWORD",
+			"displayName": "Business Central Server Keystore Password",
+			"description": "The password for the keystore and certificate.",
+			"value": "mykeystorepass"
 		},
 		{
-			"name": "DECISION_CENTRAL_HOSTNAME_HTTP",
-			"displayName": "Decision Central Custom http Route Hostname",
-			"description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhdmcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"name": "KIE_SERVER_HTTPS_SECRET",
+			"displayName": "KIE Server Keystore Secret Name",
+			"description": "The name of the secret containing the keystore file for KIE server.",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_HTTPS_KEYSTORE",
+			"displayName": "KIE Server Keystore Filename",
+			"description": "The name of the keystore file within the secret.",
+			"value": "keystore.jks"
+		},
+		{
+			"name": "KIE_SERVER_HTTPS_NAME",
+			"displayName": "KIE Server Certificate Name",
+			"description": "The name associated with the server certificate.",
+			"value": "jboss"
+		},
+		{
+			"name": "KIE_SERVER_HTTPS_PASSWORD",
+			"displayName": "KIE Server Keystore Password",
+			"description": "The password for the keystore and certificate.",
+			"value": "mykeystorepass"
+		},
+		{
+			"name": "DB_VOLUME_CAPACITY",
+			"displayName": "Database Volume Capacity",
+			"description": "Size of persistent storage for the database volume.",
+			"value": "1Gi",
+			"required": true
 		},
 		{
 			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
@@ -943,38 +1278,44 @@
 			"name": "KIE_SERVER_CONTROLLER_TEMPLATE_CACHE_TTL",
 			"displayName": "KIE ServerTemplate Cache TTL",
 			"description": "KIE ServerTemplate Cache TTL in milliseconds. (Sets the org.kie.server.controller.template.cache.ttl system property)",
-			"value": "60000"
+			"value": "5000"
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
+			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
 			"value": "openshift",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE server. Default is \"rhdm-kieserver-rhel8\".",
-			"value": "rhdm-kieserver-rhel8",
+			"description": "The name of the image stream to use for KIE server. Default is \"rhpam-kieserver-rhel8\".",
+			"value": "rhpam-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.8.1\".",
-			"value": "7.8.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
+			"value": "7.9.0",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
-			"displayName": "KIE Server Container Deployment",
-			"description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2"
+			"name": "MAVEN_MIRROR_URL",
+			"displayName": "Maven mirror URL",
+			"description": "Maven mirror that Business Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services."
+		},
+		{
+			"name": "MAVEN_MIRROR_OF",
+			"displayName": "Maven mirror of",
+			"description": "Maven mirror configuration for KIE server.",
+			"value": "external:*,!repo-rhpamcentr"
 		},
 		{
 			"name": "MAVEN_REPO_ID",
 			"displayName": "Maven repository ID",
-			"description": "The id to use for the maven repository, if set. Default is generated randomly.",
+			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhpamcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
 			"value": "repo-custom"
 		},
 		{
@@ -998,9 +1339,16 @@
 			"description": "The directory to use for git hooks, if required."
 		},
 		{
-			"name": "DECISION_CENTRAL_MEMORY_LIMIT",
-			"displayName": "Decision Central Container Memory Limit",
-			"description": "Decision Central Container memory limit.",
+			"name": "BUSINESS_CENTRAL_VOLUME_CAPACITY",
+			"displayName": "Business Central Volume Capacity",
+			"description": "Size of the persistent storage for Business Central runtime data.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "BUSINESS_CENTRAL_MEMORY_LIMIT",
+			"displayName": "Business Central Container Memory Limit",
+			"description": "Business Central Container memory limit.",
 			"value": "2Gi"
 		},
 		{
@@ -1020,14 +1368,14 @@
 			"description": "RH-SSO Realm name."
 		},
 		{
-			"name": "DECISION_CENTRAL_SSO_CLIENT",
-			"displayName": "Decision Central RH-SSO Client name",
-			"description": "Decision Central RH-SSO Client name."
+			"name": "BUSINESS_CENTRAL_SSO_CLIENT",
+			"displayName": "Business Central RH-SSO Client name",
+			"description": "Business Central RH-SSO Client name."
 		},
 		{
-			"name": "DECISION_CENTRAL_SSO_SECRET",
-			"displayName": "Decision Central RH-SSO Client Secret",
-			"description": "Decision Central RH-SSO Client Secret."
+			"name": "BUSINESS_CENTRAL_SSO_SECRET",
+			"displayName": "Business Central RH-SSO Client Secret",
+			"description": "Business Central RH-SSO Client Secret."
 		},
 		{
 			"name": "KIE_SERVER_SSO_CLIENT",
@@ -1042,7 +1390,7 @@
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist."
+			"description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
@@ -1064,7 +1412,7 @@
 		{
 			"name": "AUTH_LDAP_URL",
 			"displayName": "LDAP Endpoint",
-			"description": "LDAP Endpoint to connect for authentication."
+			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_DN",
@@ -1144,7 +1492,7 @@
 		{
 			"name": "AUTH_LDAP_DEFAULT_ROLE",
 			"displayName": "LDAP Default role",
-			"description": "A role included for all authenticated users."
+			"description": "A role included for all authenticated users"
 		},
 		{
 			"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
@@ -1178,7 +1526,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.8",
-		"template": "rhdm78-trial-ephemeral"
+		"rhpam": "7.9",
+		"template": "rhpam79-authoring"
 	}
 }
