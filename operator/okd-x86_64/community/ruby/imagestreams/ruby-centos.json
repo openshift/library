@@ -26,7 +26,29 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "2.7-ubi7"
+					"name": "2.7-ubi8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "2.7-ubi8",
+				"annotations": {
+					"description": "Build and run Ruby 2.7 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.7/README.md.",
+					"iconClass": "icon-ruby",
+					"openshift.io/display-name": "Ruby 2.7 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+					"supports": "ruby:2.7,ruby",
+					"tags": "builder,ruby",
+					"version": "2.7"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/ruby-27:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
