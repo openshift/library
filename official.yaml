@@ -1319,10 +1319,12 @@ data:
         tags:
           - ocp
           - arch_s390x
+          - arch_ppc64le
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws54-openj9-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - arch_s390x
+          - arch_ppc64le
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-image-stream.json
         docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
@@ -1355,6 +1357,7 @@ data:
         tags:
           - ocp
           - arch_s390x
+          - arch_ppc64le
   fis:
     templates:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/quickstarts/spring-boot-camel-template.json
