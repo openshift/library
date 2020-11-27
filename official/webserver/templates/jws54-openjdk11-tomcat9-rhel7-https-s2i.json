@@ -2,26 +2,28 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws53-openjdk8-tomcat9-mongodb-s2i",
+		"name": "jws54-openjdk11-tomcat9-rhel7-https-s2i",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for JWS MongoDB applications built using S2I.",
+			"description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJDK8 + MongoDB (Ephemeral with https)",
+			"openshift.io/display-name": "JBoss Web Server 5.4 Apache Tomcat 9 OpenJDK11 on RHEL7 (with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss,hidden",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.4 Apache Tomcat 9 based application, including a build configuration, application deployment configuration, and secure communication using https.",
+			"template.openshift.io/support-url": "https://access.redhat.com",
 			"version": "1.0"
 		}
 	},
-	"message": "A new JWS application for Apache Tomcat 9 (using MongoDB) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MongoDB database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD} (Admin password is \"${DB_ADMIN_PASSWORD}\"). Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
+	"message": "A new JWS application for Apache Tomcat 9 has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The web server's http port.",
-					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
+					"description": "The web server's http port."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -45,8 +47,7 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The web server's https port.",
-					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mongodb\", \"kind\": \"Service\"}]"
+					"description": "The web server's https port."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -62,30 +63,6 @@
 				],
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The database server's port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}"
-				},
-				"name": "${APPLICATION_NAME}-mongodb"
-			},
-			"spec": {
-				"ports": [
-					{
-						"port": 27017,
-						"targetPort": 27017
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-mongodb"
 				}
 			}
 		},
@@ -181,7 +158,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver53-openjdk8-tomcat9-openshift:1.0",
+							"name": "jboss-webserver54-openjdk11-tomcat9-openshift-rhel7:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -240,42 +217,6 @@
 							{
 								"env": [
 									{
-										"name": "DB_SERVICE_PREFIX_MAPPING",
-										"value": "${APPLICATION_NAME}-mongodb=DB"
-									},
-									{
-										"name": "DB_JNDI",
-										"value": "${DB_JNDI}"
-									},
-									{
-										"name": "DB_USERNAME",
-										"value": "${DB_USERNAME}"
-									},
-									{
-										"name": "DB_PASSWORD",
-										"value": "${DB_PASSWORD}"
-									},
-									{
-										"name": "DB_DATABASE",
-										"value": "${DB_DATABASE}"
-									},
-									{
-										"name": "DB_ADMIN_PASSWORD",
-										"value": "${DB_ADMIN_PASSWORD}"
-									},
-									{
-										"name": "DB_MIN_POOL_SIZE",
-										"value": "${DB_MIN_POOL_SIZE}"
-									},
-									{
-										"name": "DB_MAX_POOL_SIZE",
-										"value": "${DB_MAX_POOL_SIZE}"
-									},
-									{
-										"name": "DB_TX_ISOLATION",
-										"value": "${DB_TX_ISOLATION}"
-									},
-									{
 										"name": "JWS_HTTPS_CERTIFICATE_DIR",
 										"value": "/etc/jws-secret-volume"
 									},
@@ -325,7 +266,7 @@
 										"command": [
 											"/bin/bash",
 											"-c",
-											"curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer\u0026att=stateName' |grep -iq 'stateName *= *STARTED'"
+											"curl --noproxy '*' -is 'http://localhost:8080/health' | grep -iq '\"status\": \"UP\"'"
 										]
 									}
 								},
@@ -368,132 +309,6 @@
 					}
 				]
 			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "DeploymentConfig",
-			"metadata": {
-				"labels": {
-					"application": "${APPLICATION_NAME}"
-				},
-				"name": "${APPLICATION_NAME}-mongodb"
-			},
-			"spec": {
-				"replicas": 1,
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-mongodb"
-				},
-				"strategy": {
-					"type": "Recreate"
-				},
-				"template": {
-					"metadata": {
-						"labels": {
-							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-mongodb"
-						},
-						"name": "${APPLICATION_NAME}-mongodb"
-					},
-					"spec": {
-						"containers": [
-							{
-								"env": [
-									{
-										"name": "MONGODB_USER",
-										"value": "${DB_USERNAME}"
-									},
-									{
-										"name": "MONGODB_PASSWORD",
-										"value": "${DB_PASSWORD}"
-									},
-									{
-										"name": "MONGODB_DATABASE",
-										"value": "${DB_DATABASE}"
-									},
-									{
-										"name": "MONGODB_ADMIN_PASSWORD",
-										"value": "${DB_ADMIN_PASSWORD}"
-									},
-									{
-										"name": "MONGODB_NOPREALLOC",
-										"value": "${MONGODB_NOPREALLOC}"
-									},
-									{
-										"name": "MONGODB_SMALLFILES",
-										"value": "${MONGODB_SMALLFILES}"
-									},
-									{
-										"name": "MONGODB_QUIET",
-										"value": "${MONGODB_QUIET}"
-									}
-								],
-								"image": "mongodb",
-								"imagePullPolicy": "Always",
-								"livenessProbe": {
-									"initialDelaySeconds": 30,
-									"tcpSocket": {
-										"port": 27017
-									},
-									"timeoutSeconds": 1
-								},
-								"name": "${APPLICATION_NAME}-mongodb",
-								"ports": [
-									{
-										"containerPort": 27017,
-										"protocol": "TCP"
-									}
-								],
-								"readinessProbe": {
-									"exec": {
-										"command": [
-											"/bin/sh",
-											"-i",
-											"-c",
-											"mongo 127.0.0.1:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD --eval=\"quit()\""
-										]
-									},
-									"initialDelaySeconds": 3,
-									"timeoutSeconds": 1
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/var/lib/mongodb/data",
-										"name": "${APPLICATION_NAME}-data"
-									}
-								]
-							}
-						],
-						"terminationGracePeriodSeconds": 60,
-						"volumes": [
-							{
-								"emptyDir": {
-									"medium": ""
-								},
-								"name": "${APPLICATION_NAME}-data"
-							}
-						]
-					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"${APPLICATION_NAME}-mongodb"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "mongodb:${MONGODB_IMAGE_STREAM_TAG}",
-								"namespace": "${IMAGE_STREAM_NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
-			}
 		}
 	],
 	"parameters": [
@@ -518,7 +333,7 @@
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "Git source URI for application",
-			"value": "https://github.com/jboss-openshift/openshift-quickstarts",
+			"value": "https://github.com/jboss-openshift/openshift-quickstarts.git",
 			"required": true
 		},
 		{
@@ -531,19 +346,7 @@
 			"name": "CONTEXT_DIR",
 			"displayName": "Context Directory",
 			"description": "Path within Git project to build; empty for root project directory.",
-			"value": "todolist/todolist-mongodb"
-		},
-		{
-			"name": "DB_JNDI",
-			"displayName": "Database JNDI Name",
-			"description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/mongodb"
-		},
-		{
-			"name": "DB_DATABASE",
-			"displayName": "Database Name",
-			"description": "Database name",
-			"value": "root",
-			"required": true
+			"value": "tomcat-websocket-chat"
 		},
 		{
 			"name": "JWS_HTTPS_SECRET",
@@ -568,60 +371,6 @@
 			"name": "JWS_HTTPS_CERTIFICATE_PASSWORD",
 			"displayName": "Certificate Password",
 			"description": "The certificate password"
-		},
-		{
-			"name": "DB_MIN_POOL_SIZE",
-			"displayName": "Datasource Minimum Pool Size",
-			"description": "Sets xa-pool/min-pool-size for the configured datasource."
-		},
-		{
-			"name": "DB_MAX_POOL_SIZE",
-			"displayName": "Datasource Maximum Pool Size",
-			"description": "Sets xa-pool/max-pool-size for the configured datasource."
-		},
-		{
-			"name": "DB_TX_ISOLATION",
-			"displayName": "Datasource Transaction Isolation",
-			"description": "Sets transaction-isolation for the configured datasource."
-		},
-		{
-			"name": "MONGODB_NOPREALLOC",
-			"displayName": "MongoDB No Preallocation",
-			"description": "Disable data file preallocation."
-		},
-		{
-			"name": "MONGODB_SMALLFILES",
-			"displayName": "MongoDB Small Files",
-			"description": "Set MongoDB to use a smaller default data file size."
-		},
-		{
-			"name": "MONGODB_QUIET",
-			"displayName": "MongoDB Quiet",
-			"description": "Runs MongoDB in a quiet mode that attempts to limit the amount of output."
-		},
-		{
-			"name": "DB_USERNAME",
-			"displayName": "Database Username",
-			"description": "Database user name",
-			"generate": "expression",
-			"from": "user[a-zA-Z0-9]{3}",
-			"required": true
-		},
-		{
-			"name": "DB_PASSWORD",
-			"displayName": "Database Password",
-			"description": "Database user password",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{8}",
-			"required": true
-		},
-		{
-			"name": "DB_ADMIN_PASSWORD",
-			"displayName": "Database admin password",
-			"description": "Database admin password",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{8}",
-			"required": true
 		},
 		{
 			"name": "JWS_ADMIN_USERNAME",
@@ -670,17 +419,10 @@
 		{
 			"name": "ARTIFACT_DIR",
 			"description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied."
-		},
-		{
-			"name": "MONGODB_IMAGE_STREAM_TAG",
-			"displayName": "MongoDB Image Stream Tag",
-			"description": "The tag to use for the \"mongodb\" image stream.  Typically, this aligns with the major.minor version of MongoDB.",
-			"value": "3.2",
-			"required": true
 		}
 	],
 	"labels": {
-		"jws53": "1.0",
-		"template": "jws53-openjdk8-tomcat9-mongodb-s2i"
+		"jws54jdk11el7": "1.0",
+		"template": "jws54-openjdk11-tomcat9-rhel7-https-s2i"
 	}
 }
