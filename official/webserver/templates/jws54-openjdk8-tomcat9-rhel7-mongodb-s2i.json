@@ -2,12 +2,12 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws53-openj9-tomcat9-rhel7-mongodb-s2i",
+		"name": "jws54-openjdk8-tomcat9-rhel7-mongodb-s2i",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "Application template for JWS MongoDB applications built using S2I.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 + MongoDB (Ephemeral with https)",
+			"openshift.io/display-name": "JBoss Web Server 5.4 Apache Tomcat 9 OpenJDK8 on RHEL7 + MongoDB (Ephemeral with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss,hidden",
 			"version": "1.0"
@@ -181,7 +181,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver53-openj9-tomcat9-rhel7-openshift:1.0",
+							"name": "jboss-webserver54-openjdk8-tomcat9-openshift-rhel7:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -325,7 +325,7 @@
 										"command": [
 											"/bin/bash",
 											"-c",
-											"curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer\u0026att=stateName' |grep -iq 'stateName *= *STARTED'"
+											"curl --noproxy '*' -is 'http://localhost:8080/health' | grep -iq '\"status\": \"UP\"'"
 										]
 									}
 								},
@@ -675,12 +675,12 @@
 			"name": "MONGODB_IMAGE_STREAM_TAG",
 			"displayName": "MongoDB Image Stream Tag",
 			"description": "The tag to use for the \"mongodb\" image stream.  Typically, this aligns with the major.minor version of MongoDB.",
-			"value": "3.6",
+			"value": "3.2",
 			"required": true
 		}
 	],
 	"labels": {
-		"jws53openj9el7": "1.1",
-		"template": "jws53-openj9-tomcat9-rhel7-mongodb-s2i"
+		"jws54jdk8el7": "1.0",
+		"template": "jws54-openjdk8-tomcat9-rhel7-mongodb-s2i"
 	}
 }

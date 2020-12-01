@@ -2,18 +2,18 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws53-openjdk8-tomcat9-postgresql-s2i",
+		"name": "jws54-openjdk8-tomcat9-rhel7-mysql-s2i",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for JWS PostgreSQL applications built using S2I.",
+			"description": "Application template for JWS MySQL applications built using S2I.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJDK8 + PostgreSQL (Ephemeral with https)",
+			"openshift.io/display-name": "JBoss Web Server 5.4 Apache Tomcat 9 OpenJDK8 on RHEL7 + MySQL (Ephemeral with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss,hidden",
 			"version": "1.0"
 		}
 	},
-	"message": "A new JWS application for Apache Tomcat 9 (using PostgreSQL) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the PostgreSQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
+	"message": "A new JWS application for Apache Tomcat 9 (using MySQL) has been created in your project. The username/password for administering your JWS is ${JWS_ADMIN_USERNAME}/${JWS_ADMIN_PASSWORD}. For accessing the MySQL database \"${DB_DATABASE}\" use the credentials ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the secret named \"${JWS_HTTPS_SECRET}\" containing the ${JWS_HTTPS_CERTIFICATE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -21,7 +21,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "The web server's http port.",
-					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -46,7 +46,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "The web server's https port.",
-					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
+					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-mysql\", \"kind\": \"Service\"}]"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -75,17 +75,17 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-postgresql"
+				"name": "${APPLICATION_NAME}-mysql"
 			},
 			"spec": {
 				"ports": [
 					{
-						"port": 5432,
-						"targetPort": 5432
+						"port": 3306,
+						"targetPort": 3306
 					}
 				],
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
 				}
 			}
 		},
@@ -181,7 +181,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver53-openjdk8-tomcat9-openshift:1.0",
+							"name": "jboss-webserver54-openjdk8-tomcat9-openshift-rhel7:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -241,7 +241,7 @@
 								"env": [
 									{
 										"name": "DB_SERVICE_PREFIX_MAPPING",
-										"value": "${APPLICATION_NAME}-postgresql=DB"
+										"value": "${APPLICATION_NAME}-mysql=DB"
 									},
 									{
 										"name": "DB_JNDI",
@@ -321,7 +321,7 @@
 										"command": [
 											"/bin/bash",
 											"-c",
-											"curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer\u0026att=stateName' |grep -iq 'stateName *= *STARTED'"
+											"curl --noproxy '*' -is 'http://localhost:8080/health' | grep -iq '\"status\": \"UP\"'"
 										]
 									}
 								},
@@ -334,6 +334,7 @@
 								]
 							}
 						],
+						"terminationGracePeriodSeconds": 60,
 						"volumes": [
 							{
 								"name": "jws-certificate-volume",
@@ -371,12 +372,12 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-postgresql"
+				"name": "${APPLICATION_NAME}-mysql"
 			},
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -385,51 +386,59 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-postgresql"
+							"deploymentConfig": "${APPLICATION_NAME}-mysql"
 						},
-						"name": "${APPLICATION_NAME}-postgresql"
+						"name": "${APPLICATION_NAME}-mysql"
 					},
 					"spec": {
 						"containers": [
 							{
 								"env": [
 									{
-										"name": "POSTGRESQL_USER",
+										"name": "MYSQL_USER",
 										"value": "${DB_USERNAME}"
 									},
 									{
-										"name": "POSTGRESQL_PASSWORD",
+										"name": "MYSQL_PASSWORD",
 										"value": "${DB_PASSWORD}"
 									},
 									{
-										"name": "POSTGRESQL_DATABASE",
+										"name": "MYSQL_DATABASE",
 										"value": "${DB_DATABASE}"
 									},
 									{
-										"name": "POSTGRESQL_MAX_CONNECTIONS",
-										"value": "${POSTGRESQL_MAX_CONNECTIONS}"
+										"name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+										"value": "${MYSQL_LOWER_CASE_TABLE_NAMES}"
 									},
 									{
-										"name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
-										"value": "${POSTGRESQL_MAX_CONNECTIONS}"
+										"name": "MYSQL_MAX_CONNECTIONS",
+										"value": "${MYSQL_MAX_CONNECTIONS}"
 									},
 									{
-										"name": "POSTGRESQL_SHARED_BUFFERS",
-										"value": "${POSTGRESQL_SHARED_BUFFERS}"
+										"name": "MYSQL_FT_MIN_WORD_LEN",
+										"value": "${MYSQL_FT_MIN_WORD_LEN}"
+									},
+									{
+										"name": "MYSQL_FT_MAX_WORD_LEN",
+										"value": "${MYSQL_FT_MAX_WORD_LEN}"
+									},
+									{
+										"name": "MYSQL_AIO",
+										"value": "${MYSQL_AIO}"
 									}
 								],
-								"image": "postgresql",
+								"image": "mysql",
 								"livenessProbe": {
 									"initialDelaySeconds": 30,
 									"tcpSocket": {
-										"port": 5432
+										"port": 3306
 									},
 									"timeoutSeconds": 1
 								},
-								"name": "${APPLICATION_NAME}-postgresql",
+								"name": "${APPLICATION_NAME}-mysql",
 								"ports": [
 									{
-										"containerPort": 5432,
+										"containerPort": 3306,
 										"protocol": "TCP"
 									}
 								],
@@ -439,7 +448,7 @@
 											"/bin/sh",
 											"-i",
 											"-c",
-											"psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"
+											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
 										]
 									},
 									"initialDelaySeconds": 5,
@@ -447,12 +456,13 @@
 								},
 								"volumeMounts": [
 									{
-										"mountPath": "/var/lib/pgsql/data",
+										"mountPath": "/var/lib/mysql/data",
 										"name": "${APPLICATION_NAME}-data"
 									}
 								]
 							}
 						],
+						"terminationGracePeriodSeconds": 60,
 						"volumes": [
 							{
 								"emptyDir": {
@@ -468,11 +478,11 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"${APPLICATION_NAME}-postgresql"
+								"${APPLICATION_NAME}-mysql"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
+								"name": "mysql:${MYSQL_IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -525,7 +535,7 @@
 		{
 			"name": "DB_JNDI",
 			"displayName": "Database JNDI Name",
-			"description": "Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/postgresqlDS",
+			"description": "Database JNDI name used by application to resolve the datasource, e.g. jboss/datasources/mysqlDS",
 			"value": "jboss/datasources/defaultDS"
 		},
 		{
@@ -575,14 +585,29 @@
 			"description": "Sets transaction-isolation for the configured datasource."
 		},
 		{
-			"name": "POSTGRESQL_MAX_CONNECTIONS",
-			"displayName": "PostgreSQL Maximum number of connections",
-			"description": "The maximum number of client connections allowed. This also sets the maximum number of prepared transactions."
+			"name": "MYSQL_LOWER_CASE_TABLE_NAMES",
+			"displayName": "MySQL Lower Case Table Names",
+			"description": "Sets how the table names are stored and compared."
 		},
 		{
-			"name": "POSTGRESQL_SHARED_BUFFERS",
-			"displayName": "PostgreSQL Shared Buffers",
-			"description": "Configures how much memory is dedicated to PostgreSQL for caching data."
+			"name": "MYSQL_MAX_CONNECTIONS",
+			"displayName": "MySQL Maximum number of connections",
+			"description": "The maximum permitted number of simultaneous client connections."
+		},
+		{
+			"name": "MYSQL_FT_MIN_WORD_LEN",
+			"displayName": "MySQL FullText Minimum Word Length",
+			"description": "The minimum length of the word to be included in a FULLTEXT index."
+		},
+		{
+			"name": "MYSQL_FT_MAX_WORD_LEN",
+			"displayName": "MySQL FullText Maximum Word Length",
+			"description": "The maximum length of the word to be included in a FULLTEXT index."
+		},
+		{
+			"name": "MYSQL_AIO",
+			"displayName": "MySQL AIO",
+			"description": "Controls the innodb_use_native_aio setting value if the native AIO is broken."
 		},
 		{
 			"name": "DB_USERNAME",
@@ -649,15 +674,15 @@
 			"description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied."
 		},
 		{
-			"name": "POSTGRESQL_IMAGE_STREAM_TAG",
-			"displayName": "PostgreSQL Image Stream Tag",
-			"description": "The tag to use for the \"postgresql\" image stream.  Typically, this aligns with the major.minor version of PostgreSQL.",
-			"value": "9.5",
+			"name": "MYSQL_IMAGE_STREAM_TAG",
+			"displayName": "MySQL Image Stream Tag",
+			"description": "The tag to use for the \"mysql\" image stream.  Typically, this aligns with the major.minor version of MySQL.",
+			"value": "5.7",
 			"required": true
 		}
 	],
 	"labels": {
-		"jws53": "1.0",
-		"template": "jws53-openjdk8-tomcat9-postgresql-s2i"
+		"jws54jdk8el7": "1.0",
+		"template": "jws5e-openjdk8-tomcat9-rhel7-mysql-s2i"
 	}
 }

@@ -2,16 +2,16 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "jws53-openjdk11-tomcat9-basic-s2i",
+		"name": "jws54-openjdk8-tomcat9-rhel7-basic-s2i",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "An example JBoss Web Server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
 			"iconClass": "icon-rh-tomcat",
-			"openshift.io/display-name": "JBoss Web Server 5.3 Apache Tomcat 9 OpenJDK11 (no https)",
+			"openshift.io/display-name": "JBoss Web Server 5.4 Apache Tomcat 9 OpenJDK8 on RHEL7 (no https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "tomcat,tomcat9,java,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-web-server/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.3 Apache Tomcat 9 based application, including a build configuration, and an application deployment configuration.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss Web Server 5.4 Apache Tomcat 9 based application, including a build configuration, and an application deployment configuration.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
 			"version": "1.0"
 		}
@@ -111,7 +111,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-webserver53-openjdk11-tomcat9-openshift:1.0",
+							"name": "jboss-webserver54-openjdk8-tomcat9-openshift-rhel7:1.0",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -198,7 +198,7 @@
 										"command": [
 											"/bin/bash",
 											"-c",
-											"curl --noproxy '*' -s -u ${JWS_ADMIN_USERNAME}:${JWS_ADMIN_PASSWORD} 'http://localhost:8080/manager/jmxproxy/?get=Catalina%3Atype%3DServer\u0026att=stateName' |grep -iq 'stateName *= *STARTED'"
+											"curl --noproxy '*' -is 'http://localhost:8080/health' | grep -iq '\"status\": \"UP\"'"
 										]
 									}
 								}
@@ -310,7 +310,7 @@
 		}
 	],
 	"labels": {
-		"jws53": "1.0",
-		"template": "jws53-openjdk11-tomcat9-basic-s2i"
+		"jws54jdk8el7": "1.0",
+		"template": "jws54-openjdk8-tomcat9-rhel7-basic-s2i"
 	}
 }
