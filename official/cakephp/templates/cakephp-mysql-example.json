@@ -419,7 +419,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "mysql:8.0-el8",
+								"name": "mysql:${MYSQL_VERSION}",
 								"namespace": "${NAMESPACE}"
 							}
 						},
@@ -452,6 +452,13 @@
 			"displayName": "PHP Version",
 			"description": "Version of PHP image to be used (7.3-ubi7, 7.3-ubi8, or latest).",
 			"value": "7.3-ubi8",
+			"required": true
+		},
+		{
+			"name": "MYSQL_VERSION",
+			"displayName": "MySQL Version",
+			"description": "Version of MySQL image to be used (8.0-el8 or latest).",
+			"value": "8.0-el8",
 			"required": true
 		},
 		{
