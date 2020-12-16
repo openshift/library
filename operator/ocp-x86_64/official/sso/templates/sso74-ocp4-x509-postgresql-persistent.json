@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJDK server based deployment, deployment configuration for PostgreSQL using persistence, and securing RH-SSO communication using re-encrypt TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.4.3.GA"
+			"version": "7.4.4.GA"
 		}
 	},
 	"message": "A new persistent RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets.",
@@ -635,7 +635,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.4.3.GA",
+		"rhsso": "7.4.4.GA",
 		"template": "sso74-ocp4-x509-postgresql-persistent"
 	}
 }
