@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "processserver64-basic-s2i",
+		"name": "decisionserver64-https-s2i",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example BPM Suite application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
-			"iconClass": "icon-processserver",
-			"openshift.io/display-name": "JBoss BPM Suite 6.4 intelligent process server (no https)",
+			"description": "An example BRMS decision server application. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
+			"iconClass": "icon-decisionserver",
+			"openshift.io/display-name": "JBoss BRMS 6.4 decision server (with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "processserver,jboss",
+			"tags": "decisionserver,jboss",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-bpm-suite/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Business Process Suite intelligent process server 6.4 based application, including a build configuration, application deployment configuration and insecure communication using http.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-jboss-brms/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat JBoss BRMS 6.4 decision server, including a build configuration,  application deployment configuration and secured using https.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
 			"version": "1.4.17"
 		}
 	},
-	"message": "A new BPMS application has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}.",
+	"message": "A new BRMS application with SSL support has been created in your project. The username/password for accessing the KIE Server REST or JMS interface is ${KIE_SERVER_USER}/${KIE_SERVER_PASSWORD}. Please be sure to create the secret named \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -45,6 +45,30 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The web server's https port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 8443,
+						"targetPort": 8443
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"id": "${APPLICATION_NAME}-http",
 			"kind": "Route",
 			"metadata": {
@@ -60,6 +84,29 @@
 				"host": "${HOSTNAME_HTTP}",
 				"to": {
 					"name": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"id": "${APPLICATION_NAME}-https",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for application's https service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"host": "${HOSTNAME_HTTPS}",
+				"tls": {
+					"termination": "passthrough"
+				},
+				"to": {
+					"name": "secure-${APPLICATION_NAME}"
 				}
 			}
 		},
@@ -119,7 +166,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "jboss-processserver64-openshift:1.6",
+							"name": "jboss-decisionserver64-openshift:1.6",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						}
 					},
@@ -186,12 +233,36 @@
 										"value": "${KIE_CONTAINER_DEPLOYMENT}"
 									},
 									{
+										"name": "KIE_SERVER_PROTOCOL",
+										"value": "${KIE_SERVER_PROTOCOL}"
+									},
+									{
+										"name": "KIE_SERVER_PORT",
+										"value": "${KIE_SERVER_PORT}"
+									},
+									{
 										"name": "KIE_SERVER_USER",
 										"value": "${KIE_SERVER_USER}"
 									},
 									{
 										"name": "KIE_SERVER_PASSWORD",
 										"value": "${KIE_SERVER_PASSWORD}"
+									},
+									{
+										"name": "HTTPS_KEYSTORE_DIR",
+										"value": "/etc/decisionserver-secret-volume"
+									},
+									{
+										"name": "HTTPS_KEYSTORE",
+										"value": "${HTTPS_KEYSTORE}"
+									},
+									{
+										"name": "HTTPS_NAME",
+										"value": "${HTTPS_NAME}"
+									},
+									{
+										"name": "HTTPS_PASSWORD",
+										"value": "${HTTPS_PASSWORD}"
 									},
 									{
 										"name": "HORNETQ_CLUSTER_PASSWORD",
@@ -229,6 +300,11 @@
 										"containerPort": 8080,
 										"name": "http",
 										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8443,
+										"name": "https",
+										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
@@ -244,10 +320,25 @@
 									"limits": {
 										"memory": "${MEMORY_LIMIT}"
 									}
-								}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/etc/decisionserver-secret-volume",
+										"name": "decisionserver-keystore-volume",
+										"readOnly": true
+									}
+								]
 							}
 						],
-						"terminationGracePeriodSeconds": 60
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"name": "decisionserver-keystore-volume",
+								"secret": {
+									"secretName": "${HTTPS_SECRET}"
+								}
+							}
+						]
 					}
 				},
 				"triggers": [
@@ -276,7 +367,19 @@
 			"name": "KIE_CONTAINER_DEPLOYMENT",
 			"displayName": "KIE Container Deployment",
 			"description": "The KIE Container deployment configuration in format: containerId=groupId:artifactId:version|c2=g2:a2:v2",
-			"value": "processserver-library=org.openshift.quickstarts:processserver-library:1.4.0.Final"
+			"value": "decisionserver-hellorules=org.openshift.quickstarts:decisionserver-hellorules:1.4.0.Final"
+		},
+		{
+			"name": "KIE_SERVER_PROTOCOL",
+			"displayName": "KIE Server Protocol",
+			"description": "The protocol to access the KIE Server REST interface.",
+			"value": "https"
+		},
+		{
+			"name": "KIE_SERVER_PORT",
+			"displayName": "KIE Server Port",
+			"description": "The port to access the KIE Server REST interface.",
+			"value": "8443"
 		},
 		{
 			"name": "KIE_SERVER_USER",
@@ -304,6 +407,11 @@
 			"description": "Custom hostname for http service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
+			"name": "HOSTNAME_HTTPS",
+			"displayName": "Custom https Route Hostname",
+			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: secure-\u003capplication-name\u003e-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "Git source URI for application",
@@ -320,7 +428,7 @@
 			"name": "CONTEXT_DIR",
 			"displayName": "Context Directory",
 			"description": "Path within Git project to build; empty for root project directory.",
-			"value": "processserver/library"
+			"value": "decisionserver/hellorules"
 		},
 		{
 			"name": "HORNETQ_QUEUES",
@@ -331,6 +439,31 @@
 			"name": "HORNETQ_TOPICS",
 			"displayName": "Topics",
 			"description": "Topic names"
+		},
+		{
+			"name": "HTTPS_SECRET",
+			"displayName": "Server Keystore Secret Name",
+			"description": "The name of the secret containing the keystore file",
+			"value": "decisionserver-app-secret",
+			"required": true
+		},
+		{
+			"name": "HTTPS_KEYSTORE",
+			"displayName": "Server Keystore Filename",
+			"description": "The name of the keystore file within the secret",
+			"value": "keystore.jks"
+		},
+		{
+			"name": "HTTPS_NAME",
+			"displayName": "Server Certificate Name",
+			"description": "The name associated with the server certificate",
+			"value": "jboss"
+		},
+		{
+			"name": "HTTPS_PASSWORD",
+			"displayName": "Server Keystore Password",
+			"description": "The password for the keystore and certificate",
+			"value": "mykeystorepass"
 		},
 		{
 			"name": "HORNETQ_CLUSTER_PASSWORD",
@@ -381,7 +514,7 @@
 		}
 	],
 	"labels": {
-		"template": "processserver64-basic-s2i",
+		"template": "decisionserver64-https-s2i",
 		"xpaas": "1.4.17"
 	}
 }
