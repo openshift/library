@@ -2,7 +2,7 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "fuse77-console",
+		"name": "fuse78-console",
 		"creationTimestamp": null,
 		"labels": {
 			"template": "fuse-console"
@@ -10,17 +10,17 @@
 		"annotations": {
 			"description": "The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.",
 			"iconClass": "icon-rh-integration",
-			"openshift.io/display-name": "Red Hat Fuse 7.7 Console",
+			"openshift.io/display-name": "Red Hat Fuse 7.8 Console",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "hawtio,java,fis,jboss-fuse",
-			"version": "1.7"
+			"version": "1.8"
 		}
 	},
 	"objects": [
 		{
 			"apiVersion": "v1",
 			"data": {
-				"hawtconfig.json": "{\n  \"about\": {\n    \"title\": \"Red Hat Fuse Console\",\n    \"productInfo\": [],\n    \"additionalInfo\": \"The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.\",\n    \"copyright\": \"\",\n    \"imgSrc\": \"../online/img/Logo-RedHat-A-Reverse-RGB.png\"\n  },\n  \"branding\": {\n    \"appName\": \"Fuse Console\",\n    \"appLogoUrl\": \"../online/img/Logo-Red_Hat-Fuse-A-Reverse-RGB.png\"\n  },\n  \"disabledRoutes\": [\n    \"/camel/source\",\n    \"/diagnostics\",\n    \"/jvm/discover\",\n    \"/jvm/local\"\n  ]\n}\n"
+				"hawtconfig.json": "{\n  \"about\": {\n    \"title\": \"Red Hat Fuse Console\",\n    \"productInfo\": [],\n    \"additionalInfo\": \"The Red Hat Fuse Console eases the discovery and management of Fuse applications deployed on OpenShift.\",\n    \"copyright\": \"\",\n    \"imgSrc\": \"../online/img/Logo-RedHat-A-Reverse-RGB.png\"\n  },\n  \"branding\": {\n    \"appName\": \"Fuse Console\",\n    \"appLogoUrl\": \"../online/img/Logo-Red_Hat-Fuse-A-Reverse-RGB.png\"\n  },\n  \"disabledRoutes\": []\n}\n"
 			},
 			"kind": "ConfigMap",
 			"metadata": {
@@ -125,9 +125,14 @@
 						"creationTimestamp": null,
 						"labels": {
 							"app": "${APP_NAME}",
+							"com.company": "Red_Hat",
 							"component": "${APP_NAME}",
 							"deploymentconfig": "${APP_NAME}",
 							"group": "console",
+							"rht.comp": "${APP_NAME}",
+							"rht.comp_ver": "${APP_VERSION}",
+							"rht.prod_name": "Red_Hat_Integration",
+							"rht.prod_ver": "7.8",
 							"version": "${APP_VERSION}"
 						}
 					},
@@ -248,14 +253,14 @@
 			"name": "APP_NAME",
 			"displayName": "Application Name",
 			"description": "The name assigned to the application.",
-			"value": "fuse77-console",
+			"value": "fuse78-console",
 			"required": true
 		},
 		{
 			"name": "APP_VERSION",
 			"displayName": "Application Version",
 			"description": "The application version.",
-			"value": "1.7",
+			"value": "1.8",
 			"required": true
 		},
 		{

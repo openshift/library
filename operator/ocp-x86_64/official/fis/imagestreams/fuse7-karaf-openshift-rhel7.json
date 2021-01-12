@@ -135,18 +135,18 @@
 				}
 			},
 			{
-				"name": "1.7",
+				"name": "1.6",
 				"annotations": {
-					"description": "Red Hat Fuse 7.7 Karaf S2I images.",
+					"description": "Red Hat Fuse 7.6 Karaf S2I images.",
 					"iconClass": "icon-rh-integration",
-					"openshift.io/display-name": "Red Hat Fuse 7.7 Karaf",
-					"supports": "jboss-fuse:7.7.0,java:8,xpaas:1.2",
+					"openshift.io/display-name": "Red Hat Fuse 7.6 Karaf",
+					"supports": "jboss-fuse:7.6.0,java:8,xpaas:1.2",
 					"tags": "builder,jboss-fuse,java,karaf,xpaas,hidden",
-					"version": "1.7"
+					"version": "1.6"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/fuse7/fuse-karaf-openshift:1.7"
+					"name": "registry.redhat.io/fuse7/fuse-karaf-openshift:1.6"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -167,6 +167,26 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/fuse7/fuse-karaf-openshift:1.7"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.8",
+				"annotations": {
+					"description": "Red Hat Fuse 7.8 Karaf S2I images.",
+					"iconClass": "icon-rh-integration",
+					"openshift.io/display-name": "Red Hat Fuse 7.8 Karaf",
+					"supports": "jboss-fuse:7.8.0,java:8,xpaas:1.2",
+					"tags": "builder,jboss-fuse,java,karaf,xpaas,hidden",
+					"version": "1.8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/fuse7/fuse-karaf-openshift:1.8"
 				},
 				"generation": null,
 				"importPolicy": {},
