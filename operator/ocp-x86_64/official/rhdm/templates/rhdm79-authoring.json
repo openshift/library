@@ -84,7 +84,7 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "All the KIE server web server's ports."
+					"description": "All the KIE Server web server's ports."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -175,7 +175,7 @@
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for KIE server's http service.",
+					"description": "Route for KIE Server's http service.",
 					"haproxy.router.openshift.io/balance": "source"
 				},
 				"labels": {
@@ -200,7 +200,7 @@
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for KIE server's https service."
+					"description": "Route for KIE Server's https service."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -498,6 +498,7 @@
 								"image": "rhdm-decisioncentral-rhel8",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
+									"failureThreshold": 36,
 									"httpGet": {
 										"path": "/rest/healthy",
 										"port": 8080,
@@ -532,13 +533,18 @@
 										"port": 8080,
 										"scheme": "HTTP"
 									},
-									"initialDelaySeconds": 30,
+									"initialDelaySeconds": 60,
 									"periodSeconds": 5,
 									"timeoutSeconds": 2
 								},
 								"resources": {
 									"limits": {
+										"cpu": "${DECISION_CENTRAL_CPU_LIMIT}",
 										"memory": "${DECISION_CENTRAL_MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${DECISION_CENTRAL_CPU_REQUEST}",
+										"memory": "${DECISION_CENTRAL_MEMORY_REQUEST}"
 									}
 								},
 								"volumeMounts": [
@@ -978,7 +984,12 @@
 								},
 								"resources": {
 									"limits": {
+										"cpu": "${KIE_SERVER_CPU_LIMIT}",
 										"memory": "${KIE_SERVER_MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${KIE_SERVER_CPU_REQUEST}",
+										"memory": "${KIE_SERVER_MEMORY_REQUEST}"
 									}
 								},
 								"volumeMounts": [
@@ -1062,30 +1073,30 @@
 		{
 			"name": "KIE_SERVER_CONTROLLER_TOKEN",
 			"displayName": "KIE Server Controller Token",
-			"description": "KIE server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)"
+			"description": "KIE Server controller token for bearer authentication. (Sets the org.kie.server.controller.token system property)"
 		},
 		{
 			"name": "KIE_SERVER_BYPASS_AUTH_USER",
 			"displayName": "KIE Server Bypass Auth User",
-			"description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
+			"description": "Allows the KIE Server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
 			"value": "false"
 		},
 		{
 			"name": "KIE_SERVER_MODE",
 			"displayName": "KIE Server Mode",
-			"description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
+			"description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE Server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
 			"value": "DEVELOPMENT"
 		},
 		{
 			"name": "KIE_MBEANS",
 			"displayName": "KIE MBeans",
-			"description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+			"description": "KIE Server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
 			"value": "enabled"
 		},
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1163,8 +1174,8 @@
 		},
 		{
 			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
-			"displayName": "Enable KIE server global discovery",
-			"description": "If set to true, turns on KIE server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
+			"displayName": "Enable KIE Server global discovery",
+			"description": "If set to true, turns on KIE Server global discovery feature (Sets the org.kie.server.controller.openshift.global.discovery.enabled system property)",
 			"value": "false"
 		},
 		{
@@ -1189,26 +1200,26 @@
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE server. Default is \"rhdm-kieserver-rhel8\".",
+			"description": "The name of the image stream to use for KIE Server. Default is \"rhdm-kieserver-rhel8\".",
 			"value": "rhdm-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
-			"value": "7.9.0",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.1\".",
+			"value": "7.9.1",
 			"required": true
 		},
 		{
 			"name": "MAVEN_MIRROR_URL",
 			"displayName": "Maven mirror URL",
-			"description": "Maven mirror that Decision Central and KIE server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services."
+			"description": "Maven mirror that Decision Central and KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services."
 		},
 		{
 			"name": "MAVEN_MIRROR_OF",
 			"displayName": "Maven mirror of",
-			"description": "Maven mirror configuration for KIE server.",
+			"description": "Maven mirror configuration for KIE Server.",
 			"value": "external:*,!repo-rhdmcentr"
 		},
 		{
@@ -1248,13 +1259,57 @@
 			"name": "DECISION_CENTRAL_MEMORY_LIMIT",
 			"displayName": "Decision Central Container Memory Limit",
 			"description": "Decision Central Container memory limit.",
-			"value": "2Gi"
+			"value": "4Gi",
+			"required": true
+		},
+		{
+			"name": "DECISION_CENTRAL_CPU_LIMIT",
+			"displayName": "Decision Central Container CPU Limit",
+			"description": "Decision Central Container CPU limit.",
+			"value": "2",
+			"required": true
+		},
+		{
+			"name": "DECISION_CENTRAL_MEMORY_REQUEST",
+			"displayName": "Decision Central Container Memory Request",
+			"description": "Decision Central Container memory request.",
+			"value": "3Gi",
+			"required": true
+		},
+		{
+			"name": "DECISION_CENTRAL_CPU_REQUEST",
+			"displayName": "Decision Central Container CPU Request",
+			"description": "Decision Central Container CPU request.",
+			"value": "1500m",
+			"required": true
 		},
 		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
 			"displayName": "KIE Server Container Memory Limit",
-			"description": "KIE server Container memory limit.",
-			"value": "1Gi"
+			"description": "KIE Server Container memory limit.",
+			"value": "2Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_MEMORY_REQUEST",
+			"displayName": "KIE Server Container Memory Request",
+			"description": "KIE Server Container memory Request.",
+			"value": "1.5Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_CPU_LIMIT",
+			"displayName": "KIE Server Container CPU Limit",
+			"description": "KIE Server Container CPU limit.",
+			"value": "1",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_CPU_REQUEST",
+			"displayName": "KIE Server Container CPU Request",
+			"description": "KIE Server Container CPU Request.",
+			"value": "750m",
+			"required": true
 		},
 		{
 			"name": "SSO_URL",
