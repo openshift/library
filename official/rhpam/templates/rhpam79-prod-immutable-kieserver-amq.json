@@ -5,7 +5,7 @@
 		"name": "rhpam79-prod-immutable-kieserver-amq",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an immutable KIE server in a production environment integrated with ActiveMQ, for Red Hat Process Automation Manager 7.9 - Deprecated",
+			"description": "Application template for an immutable KIE Server in a production environment integrated with ActiveMQ, for Red Hat Process Automation Manager 7.9 - Deprecated",
 			"iconClass": "icon-jboss",
 			"openshift.io/display-name": "Red Hat Process Automation Manager 7.9 immutable production environment with ActiveMQ",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -17,7 +17,7 @@
 			"version": "7.9"
 		}
 	},
-	"message": "A new immutable Red Hat Process Automation Manager KIE server have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
+	"message": "A new immutable Red Hat Process Automation Manager KIE Server have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -53,7 +53,7 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "All the KIE server web server's ports."
+					"description": "All the KIE Server web server's ports."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -380,7 +380,7 @@
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for KIE server's http service.",
+					"description": "Route for KIE Server's http service.",
 					"haproxy.router.openshift.io/balance": "source"
 				},
 				"labels": {
@@ -405,7 +405,7 @@
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
-					"description": "Route for KIE server's https service."
+					"description": "Route for KIE Server's https service."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
@@ -1063,7 +1063,12 @@
 								},
 								"resources": {
 									"limits": {
+										"cpu": "${KIE_SERVER_CPU_LIMIT}",
 										"memory": "${KIE_SERVER_MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${KIE_SERVER_CPU_REQUEST}",
+										"memory": "${KIE_SERVER_MEMORY_REQUEST}"
 									}
 								},
 								"volumeMounts": [
@@ -1469,21 +1474,21 @@
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE server. Default is \"rhpam-kieserver-rhel8\".",
+			"description": "The name of the image stream to use for KIE Server. Default is \"rhpam-kieserver-rhel8\".",
 			"value": "rhpam-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.9.0\".",
-			"value": "7.9.0",
+			"description": "A named pointer to an image in an image stream. Default is \"7.9.1\".",
+			"value": "7.9.1",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_PERSISTENCE_DS",
 			"displayName": "KIE Server Persistence DS",
-			"description": "KIE server persistence datasource (Sets the org.kie.server.persistence.ds system property)",
+			"description": "KIE Server persistence datasource (Sets the org.kie.server.persistence.ds system property)",
 			"value": "java:/jboss/datasources/rhpam"
 		},
 		{
@@ -1501,20 +1506,20 @@
 		{
 			"name": "KIE_SERVER_POSTGRESQL_USER",
 			"displayName": "KIE Server PostgreSQL Database User",
-			"description": "KIE server PostgreSQL database user name",
+			"description": "KIE Server PostgreSQL database user name",
 			"value": "rhpam"
 		},
 		{
 			"name": "KIE_SERVER_POSTGRESQL_PWD",
 			"displayName": "KIE Server PostgreSQL Database Password",
-			"description": "KIE server PostgreSQL database password",
+			"description": "KIE Server PostgreSQL database password",
 			"generate": "expression",
 			"from": "[a-zA-Z]{6}[0-9]{1}!"
 		},
 		{
 			"name": "KIE_SERVER_POSTGRESQL_DB",
 			"displayName": "KIE Server PostgreSQL Database Name",
-			"description": "KIE server PostgreSQL database name",
+			"description": "KIE Server PostgreSQL database name",
 			"value": "rhpam7"
 		},
 		{
@@ -1534,13 +1539,13 @@
 		{
 			"name": "KIE_MBEANS",
 			"displayName": "KIE MBeans",
-			"description": "KIE server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+			"description": "KIE Server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
 			"value": "enabled"
 		},
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE server class filtering (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1585,7 +1590,7 @@
 		{
 			"name": "KIE_SERVER_BYPASS_AUTH_USER",
 			"displayName": "KIE Server Bypass Auth User",
-			"description": "Allows the KIE server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
+			"description": "Allows the KIE Server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
 			"value": "false"
 		},
 		{
@@ -1670,8 +1675,30 @@
 		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
 			"displayName": "KIE Server Container Memory Limit",
-			"description": "KIE server Container memory limit",
-			"value": "1Gi"
+			"description": "KIE Server Container memory limit.",
+			"value": "2Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_MEMORY_REQUEST",
+			"displayName": "KIE Server Container Memory Request",
+			"description": "KIE Server Container memory request.",
+			"value": "1.5Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_CPU_LIMIT",
+			"displayName": "KIE Server Container CPU Limit",
+			"description": "KIE Server Container CPU limit.",
+			"value": "1",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_CPU_REQUEST",
+			"displayName": "KIE Server Container CPU Request",
+			"description": "KIE Server Container CPU request.",
+			"value": "750m",
+			"required": true
 		},
 		{
 			"name": "KIE_SERVER_MGMT_DISABLED",
