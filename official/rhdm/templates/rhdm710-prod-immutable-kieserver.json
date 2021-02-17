@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm79-prod-immutable-kieserver",
+		"name": "rhdm710-prod-immutable-kieserver",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an immutable KIE Server in a production environment, for Red Hat Decision Manager 7.9 - Deprecated",
+			"description": "Application template for an immutable KIE Server in a production environment, for Red Hat Decision Manager 7.10 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.9 immutable production environment",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.10 immutable production environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.9/html/deploying_a_red_hat_decision_manager_7.9_immutable_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.9, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.10/html/deploying_a_red_hat_decision_manager_7.10_immutable_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.10, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.9"
+			"version": "7.10"
 		}
 	},
 	"message": "A new immutable Red Hat Decision Manager KIE Server has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -506,6 +506,10 @@
 										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
 									},
 									{
+										"name": "AUTH_LDAP_LOGIN_MODULE",
+										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
 										"value": "${AUTH_LDAP_BASE_CTX_DN}"
 									},
@@ -730,8 +734,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.9.1\".",
-			"value": "7.9.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.10.0\".",
+			"value": "7.10.0",
 			"required": true
 		},
 		{
@@ -969,6 +973,11 @@
 			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
 		},
 		{
+			"name": "AUTH_LDAP_LOGIN_MODULE",
+			"displayName": "LDAP Flag Login Module",
+			"description": "A flag to set login module to optional. The default value is required"
+		},
+		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
 			"displayName": "LDAP Base DN",
 			"description": "LDAP Base DN of the top-level context to begin the user search."
@@ -1065,7 +1074,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.9",
-		"template": "rhdm79-prod-immutable-kieserver"
+		"rhdm": "7.10",
+		"template": "rhdm710-prod-immutable-kieserver"
 	}
 }
