@@ -146,7 +146,7 @@
 											"/bin/sh",
 											"-i",
 											"-c",
-											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysqladmin -u $MYSQL_USER ping"
+											"MYSQL_PWD=\"$MYSQL_PASSWORD\" && mysqladmin -u $MYSQL_USER ping"
 										]
 									},
 									"initialDelaySeconds": 30,
@@ -164,7 +164,7 @@
 											"/bin/sh",
 											"-i",
 											"-c",
-											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysqladmin -u $MYSQL_USER ping"
+											"MYSQL_PWD=\"$MYSQL_PASSWORD\" && mysqladmin -u $MYSQL_USER ping"
 										]
 									},
 									"initialDelaySeconds": 5,
