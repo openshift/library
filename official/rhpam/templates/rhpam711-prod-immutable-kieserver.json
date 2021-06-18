@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm710-prod-immutable-kieserver-amq",
+		"name": "rhpam711-prod-immutable-kieserver",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an immutable KIE Server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.10 - Deprecated",
+			"description": "Application template for an immutable KIE Server in a production environment, for Red Hat Process Automation Manager 7.11 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.10 immutable production environment with ActiveMQ.",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.11 immutable production environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i,amq",
+			"tags": "rhpam,processserver,jboss,kieserver,immutable,s2i",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.10/html/deploying_a_red_hat_decision_manager_7.10_immutable_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.10, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.11/html/deploying_a_red_hat_process_automation_manager_7.11_immutable_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for a immutable production runtime environment for Red Hat Process Automation Manager 7.11, including a source-to-image (S2I) build of your services, application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.10"
+			"version": "7.11"
 		}
 	},
-	"message": "A new immutable Red Hat Decision Manager KIE Server has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
+	"message": "A new immutable Red Hat Process Automation Manager KIE Server have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -90,262 +90,23 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+					"description": "The database server's port."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-kieserver"
+					"service": "${APPLICATION_NAME}-postgresql"
 				},
-				"name": "${APPLICATION_NAME}-kieserver-ping"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"ports": [
-					{
-						"name": "ping",
-						"port": 8888,
-						"targetPort": 8888
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-kieserver"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's console and Jolokia port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-jolokia"
+				"name": "${APPLICATION_NAME}-postgresql"
 			},
 			"spec": {
 				"ports": [
 					{
-						"name": "amq-jolokia-console",
-						"port": 8161,
-						"targetPort": 8161
+						"port": 5432,
+						"targetPort": 5432
 					}
 				],
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's AMQP port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-amqp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-amqp",
-						"port": 5672,
-						"targetPort": 5672
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's AMQP SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-amqp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-amqp-ssl",
-						"port": 5671,
-						"targetPort": 5671
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's MQTT port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-mqtt"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-mqtt",
-						"port": 1883,
-						"targetPort": 1883
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's MQTT SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-mqtt-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-mqtt-ssl",
-						"port": 8883,
-						"targetPort": 8883
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's STOMP port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-stomp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-stomp",
-						"port": 61613,
-						"targetPort": 61613
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's STOMP SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-stomp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-stomp-ssl",
-						"port": 61612,
-						"targetPort": 61612
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's OpenWire port.",
-					"service.alpha.openshift.io/dependencies": " [{\"name\": \"${APPLICATION_NAME}-amq-amqp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp\", \"kind\": \"Service\"}]"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-tcp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-tcp",
-						"port": 61616,
-						"targetPort": 61616
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's OpenWire (SSL) port.",
-					"service.alpha.openshift.io/dependencies": " [{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-amqp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-amqp-ssl\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt-ssl\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp-ssl\", \"kind\": \"Service\"}]"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-tcp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-tcp-ssl",
-						"port": 61617,
-						"targetPort": 61617
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
+					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
 				}
 			}
 		},
@@ -398,54 +159,6 @@
 				},
 				"to": {
 					"name": "${APPLICATION_NAME}-kieserver"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-amq-jolokia-console",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for AMQ Jolokia Service"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "console-jolokia"
-			},
-			"spec": {
-				"tls": {
-					"termination": "passthrough"
-				},
-				"to": {
-					"kind": "Service",
-					"name": "${APPLICATION_NAME}-amq-jolokia"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-amq-tcp-ssl",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for AMQ tcp-ssl Service"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "amq-tcp-ssl-external"
-			},
-			"spec": {
-				"tls": {
-					"termination": "passthrough"
-				},
-				"to": {
-					"kind": "Service",
-					"name": "${APPLICATION_NAME}-amq-tcp-ssl"
 				}
 			}
 		},
@@ -567,6 +280,7 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
+							"cluster": "jgrp.k8s.${APPLICATION_NAME}.kieserver",
 							"deploymentConfig": "${APPLICATION_NAME}-kieserver",
 							"service": "${APPLICATION_NAME}-kieserver",
 							"services.server.kie.org/kie-server-id": "${APPLICATION_NAME}-kieserver"
@@ -579,7 +293,7 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${DECISION_CENTRAL_SERVICE}"
+										"value": "${BUSINESS_CENTRAL_SERVICE}"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
@@ -629,26 +343,42 @@
 									},
 									{
 										"name": "KIE_SERVER_ROUTE_NAME",
-										"value": "${APPLICATION_NAME}-kieserver"
+										"value": "insecure-${APPLICATION_NAME}-kieserver"
+									},
+									{
+										"name": "KIE_SERVER_ROUTER_SERVICE",
+										"value": "${APPLICATION_NAME}-smartrouter"
 									},
 									{
 										"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
 										"value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
 									},
 									{
+										"name": "MAVEN_MIRROR_URL",
+										"value": "${MAVEN_MIRROR_URL}"
+									},
+									{
+										"name": "MAVEN_MIRROR_OF",
+										"value": "${MAVEN_MIRROR_OF}"
+									},
+									{
 										"name": "MAVEN_REPOS",
-										"value": "RHDMCENTR,EXTERNAL"
+										"value": "RHPAMCENTR,EXTERNAL"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
-										"value": "${DECISION_CENTRAL_SERVICE}"
+										"name": "RHPAMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhpamcentr"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PATH",
+										"name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
+										"value": "${BUSINESS_CENTRAL_SERVICE}"
+									},
+									{
+										"name": "RHPAMCENTR_MAVEN_REPO_PATH",
 										"value": "/maven2/"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_USERNAME",
+										"name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_USER",
@@ -657,7 +387,7 @@
 										}
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
+										"name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_PWD",
@@ -682,32 +412,52 @@
 										"value": "${MAVEN_REPO_PASSWORD}"
 									},
 									{
-										"name": "KIE_SERVER_JMS_QUEUE_REQUEST",
-										"value": "${KIE_SERVER_JMS_QUEUE_REQUEST}"
+										"name": "KIE_SERVER_PERSISTENCE_DS",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
 									},
 									{
-										"name": "KIE_SERVER_JMS_QUEUE_RESPONSE",
-										"value": "${KIE_SERVER_JMS_QUEUE_RESPONSE}"
+										"name": "DATASOURCES",
+										"value": "RHPAM"
 									},
 									{
-										"name": "MQ_SERVICE_PREFIX_MAPPING",
-										"value": "${APPLICATION_NAME}-amq7=AMQ"
+										"name": "RHPAM_DATABASE",
+										"value": "${KIE_SERVER_POSTGRESQL_DB}"
 									},
 									{
-										"name": "AMQ_USERNAME",
-										"value": "${AMQ_USERNAME}"
+										"name": "RHPAM_JNDI",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
 									},
 									{
-										"name": "AMQ_PASSWORD",
-										"value": "${AMQ_PASSWORD}"
+										"name": "RHPAM_JTA",
+										"value": "true"
 									},
 									{
-										"name": "AMQ_PROTOCOL",
-										"value": "tcp"
+										"name": "RHPAM_DRIVER",
+										"value": "postgresql"
 									},
 									{
-										"name": "AMQ_QUEUES",
-										"value": "${AMQ_QUEUES}"
+										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
+										"value": "${KIE_SERVER_POSTGRESQL_DIALECT}"
+									},
+									{
+										"name": "RHPAM_USERNAME",
+										"value": "${KIE_SERVER_POSTGRESQL_USER}"
+									},
+									{
+										"name": "RHPAM_PASSWORD",
+										"value": "${KIE_SERVER_POSTGRESQL_PWD}"
+									},
+									{
+										"name": "RHPAM_SERVICE_HOST",
+										"value": "${APPLICATION_NAME}-postgresql"
+									},
+									{
+										"name": "RHPAM_SERVICE_PORT",
+										"value": "5432"
+									},
+									{
+										"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+										"value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
 									},
 									{
 										"name": "HTTPS_KEYSTORE_DIR",
@@ -735,15 +485,19 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "kubernetes.KUBE_PING"
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-kieserver-ping"
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-										"value": "8888"
+										"name": "KUBERNETES_LABELS",
+										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.kieserver"
 									},
 									{
 										"name": "SSO_URL",
@@ -802,12 +556,12 @@
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
 									},
 									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
 										"name": "AUTH_LDAP_LOGIN_MODULE",
 										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
+										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
+										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -933,11 +687,6 @@
 										"containerPort": 8443,
 										"name": "https",
 										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8888,
-										"name": "ping",
-										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
@@ -968,6 +717,19 @@
 										"readOnly": true
 									}
 								]
+							}
+						],
+						"initContainers": [
+							{
+								"command": [
+									"/bin/bash",
+									"-c",
+									"replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-postgresql; replicas=$(oc get dc ${APPLICATION_NAME}-postgresql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
+								],
+								"image": "registry.redhat.io/openshift3/ose-cli",
+								"imagePullPolicy": "IfNotPresent",
+								"name": "${APPLICATION_NAME}-postgresql-init",
+								"terminationMessagePolicy": "FallbackToLogsOnError"
 							}
 						],
 						"serviceAccountName": "${APPLICATION_NAME}-kieserver",
@@ -1011,158 +773,80 @@
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
+					"service": "${APPLICATION_NAME}-postgresql"
 				},
-				"name": "${APPLICATION_NAME}-amq"
+				"name": "${APPLICATION_NAME}-postgresql"
 			},
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
+					"deploymentConfig": "${APPLICATION_NAME}-postgresql"
 				},
 				"strategy": {
-					"rollingParams": {
-						"maxSurge": "100%",
-						"maxUnavailable": 0
-					},
-					"type": "Rolling"
+					"type": "Recreate"
 				},
 				"template": {
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-amq",
-							"service": "${APPLICATION_NAME}-amq"
+							"deploymentConfig": "${APPLICATION_NAME}-postgresql",
+							"service": "${APPLICATION_NAME}-postgresql"
 						},
-						"name": "${APPLICATION_NAME}-amq"
+						"name": "${APPLICATION_NAME}-postgresql"
 					},
 					"spec": {
 						"containers": [
 							{
 								"env": [
 									{
-										"name": "AMQ_USER",
-										"value": "${AMQ_USERNAME}"
+										"name": "POSTGRESQL_USER",
+										"value": "${KIE_SERVER_POSTGRESQL_USER}"
 									},
 									{
-										"name": "AMQ_PASSWORD",
-										"value": "${AMQ_PASSWORD}"
+										"name": "POSTGRESQL_PASSWORD",
+										"value": "${KIE_SERVER_POSTGRESQL_PWD}"
 									},
 									{
-										"name": "AMQ_ROLE",
-										"value": "${AMQ_ROLE}"
+										"name": "POSTGRESQL_DATABASE",
+										"value": "${KIE_SERVER_POSTGRESQL_DB}"
 									},
 									{
-										"name": "AMQ_NAME",
-										"value": "${APPLICATION_NAME}-broker"
-									},
-									{
-										"name": "AMQ_TRANSPORTS",
-										"value": "${AMQ_PROTOCOL}"
-									},
-									{
-										"name": "AMQ_QUEUES",
-										"value": "${AMQ_QUEUES}"
-									},
-									{
-										"name": "AMQ_GLOBAL_MAX_SIZE",
-										"value": "${AMQ_GLOBAL_MAX_SIZE}"
-									},
-									{
-										"name": "AMQ_REQUIRE_LOGIN",
-										"value": "true"
-									},
-									{
-										"name": "AMQ_ANYCAST_PREFIX"
-									},
-									{
-										"name": "AMQ_MULTICAST_PREFIX"
-									},
-									{
-										"name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
-										"value": "/etc/amq-secret-volume"
-									},
-									{
-										"name": "AMQ_TRUSTSTORE",
-										"value": "${AMQ_TRUSTSTORE}"
-									},
-									{
-										"name": "AMQ_TRUSTSTORE_PASSWORD",
-										"value": "${AMQ_TRUSTSTORE_PASSWORD}"
-									},
-									{
-										"name": "AMQ_KEYSTORE",
-										"value": "${AMQ_KEYSTORE}"
-									},
-									{
-										"name": "AMQ_KEYSTORE_PASSWORD",
-										"value": "${AMQ_KEYSTORE_PASSWORD}"
+										"name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
+										"value": "${POSTGRESQL_MAX_PREPARED_TRANSACTIONS}"
 									}
 								],
-								"image": "${AMQ_BROKER_IMAGESTREAM_NAME}",
+								"image": "postgresql",
 								"imagePullPolicy": "Always",
-								"name": "${APPLICATION_NAME}-amq",
+								"livenessProbe": {
+									"exec": {
+										"command": [
+											"/usr/libexec/check-container",
+											"--live"
+										]
+									},
+									"initialDelaySeconds": 120,
+									"timeoutSeconds": 10
+								},
+								"name": "${APPLICATION_NAME}-postgresql",
 								"ports": [
 									{
-										"containerPort": 8161,
-										"name": "console-jolokia",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 5672,
-										"name": "amq-amqp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 5671,
-										"name": "amqp-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 1883,
-										"name": "amq-mqtt",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8883,
-										"name": "mqtt-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61613,
-										"name": "amq-stomp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61612,
-										"name": "stomp-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61616,
-										"name": "amq-tcp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61617,
-										"name": "amq-tcp-ssl",
+										"containerPort": 5432,
 										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
 									"exec": {
 										"command": [
-											"/bin/bash",
-											"-c",
-											"/opt/amq/bin/readinessProbe.sh"
+											"/usr/libexec/check-container"
 										]
-									}
+									},
+									"initialDelaySeconds": 5,
+									"timeoutSeconds": 1
 								},
 								"volumeMounts": [
 									{
-										"mountPath": "/etc/amq-secret-volume",
-										"name": "broker-secret-volume",
-										"readOnly": true
+										"mountPath": "/var/lib/pgsql/data",
+										"name": "${APPLICATION_NAME}-postgresql-pvol"
 									}
 								]
 							}
@@ -1170,9 +854,9 @@
 						"terminationGracePeriodSeconds": 60,
 						"volumes": [
 							{
-								"name": "broker-secret-volume",
-								"secret": {
-									"secretName": "${AMQ_SECRET}"
+								"name": "${APPLICATION_NAME}-postgresql-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-postgresql-claim"
 								}
 							}
 						]
@@ -1183,12 +867,12 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"${APPLICATION_NAME}-amq"
+								"${APPLICATION_NAME}-postgresql"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "${AMQ_BROKER_IMAGESTREAM_NAME}",
-								"namespace": "${AMQ_IMAGE_STREAM_NAMESPACE}"
+								"name": "postgresql:${POSTGRESQL_IMAGE_STREAM_TAG}",
+								"namespace": "${POSTGRESQL_IMAGE_STREAM_NAMESPACE}"
 							}
 						},
 						"type": "ImageChange"
@@ -1197,6 +881,27 @@
 						"type": "ConfigChange"
 					}
 				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-postgresql"
+				},
+				"name": "${APPLICATION_NAME}-postgresql-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${DB_VOLUME_CAPACITY}"
+					}
+				}
 			}
 		}
 	],
@@ -1211,28 +916,86 @@
 		{
 			"name": "CREDENTIALS_SECRET",
 			"displayName": "Credentials secret",
-			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values.",
+			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
+			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
 			"value": "openshift",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE Server. Default is \"rhdm-kieserver-rhel8\".",
-			"value": "rhdm-kieserver-rhel8",
+			"description": "The name of the image stream to use for KIE Server. Default is \"rhpam-kieserver-rhel8\".",
+			"value": "rhpam-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.10.1\".",
-			"value": "7.10.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.11.0\".",
+			"value": "7.11.0",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_PERSISTENCE_DS",
+			"displayName": "KIE Server Persistence DS",
+			"description": "KIE Server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
+			"value": "java:/jboss/datasources/rhpam"
+		},
+		{
+			"name": "POSTGRESQL_IMAGE_STREAM_NAMESPACE",
+			"displayName": "PostgreSQL ImageStream Namespace",
+			"description": "Namespace in which the ImageStream for the PostgreSQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+			"value": "openshift"
+		},
+		{
+			"name": "POSTGRESQL_IMAGE_STREAM_TAG",
+			"displayName": "PostgreSQL ImageStream Tag",
+			"description": "The PostgreSQL image version, which is intended to correspond to the PostgreSQL version. Default is \"10\".",
+			"value": "10"
+		},
+		{
+			"name": "KIE_SERVER_POSTGRESQL_USER",
+			"displayName": "KIE Server PostgreSQL Database User",
+			"description": "KIE Server PostgreSQL database user name.",
+			"value": "rhpam"
+		},
+		{
+			"name": "KIE_SERVER_POSTGRESQL_PWD",
+			"displayName": "KIE Server PostgreSQL Database Password",
+			"description": "KIE Server PostgreSQL database password.",
+			"generate": "expression",
+			"from": "[a-zA-Z]{6}[0-9]{1}!"
+		},
+		{
+			"name": "KIE_SERVER_POSTGRESQL_DB",
+			"displayName": "KIE Server PostgreSQL Database Name",
+			"description": "KIE Server PostgreSQL database name.",
+			"value": "rhpam7"
+		},
+		{
+			"name": "POSTGRESQL_MAX_PREPARED_TRANSACTIONS",
+			"displayName": "PostgreSQL Database max prepared connections",
+			"description": "Allows the PostgreSQL to handle XA transactions.",
+			"value": "100",
+			"required": true
+		},
+		{
+			"name": "DB_VOLUME_CAPACITY",
+			"displayName": "Database Volume Capacity",
+			"description": "Size of persistent storage for the database volume.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_POSTGRESQL_DIALECT",
+			"displayName": "KIE Server PostgreSQL Dialect",
+			"description": "KIE Server PostgreSQL Hibernate dialect.",
+			"value": "org.hibernate.dialect.PostgreSQLDialect",
 			"required": true
 		},
 		{
@@ -1244,7 +1007,7 @@
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE Server class filtering. (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1265,30 +1028,30 @@
 		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
 			"displayName": "KIE Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file",
+			"description": "The name of the secret containing the keystore file.",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_KEYSTORE",
 			"displayName": "KIE Server Keystore Filename",
-			"description": "The name of the keystore file within the secret",
+			"description": "The name of the keystore file within the secret.",
 			"value": "keystore.jks"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_NAME",
 			"displayName": "KIE Server Certificate Name",
-			"description": "The name associated with the server certificate",
+			"description": "The name associated with the server certificate.",
 			"value": "jboss"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_PASSWORD",
 			"displayName": "KIE Server Keystore Password",
-			"description": "The password for the keystore and certificate",
+			"description": "The password for the keystore and certificate.",
 			"value": "mykeystorepass"
 		},
 		{
 			"name": "KIE_SERVER_BYPASS_AUTH_USER",
-			"displayName": "KIE Server Bypass Auth User",
+			"displayName": "KIE Server bypass auth user.",
 			"description": "Allows the KIE Server to bypass the authenticated user for task-related operations, for example, queries. (Sets the org.kie.server.bypass.auth.user system property)",
 			"value": "false"
 		},
@@ -1301,13 +1064,13 @@
 		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
-			"description": "Git source URI for application",
+			"description": "Git source URI for application.",
 			"required": true
 		},
 		{
 			"name": "SOURCE_REPOSITORY_REF",
 			"displayName": "Git Reference",
-			"description": "Git branch/tag reference"
+			"description": "Git branch/tag reference."
 		},
 		{
 			"name": "CONTEXT_DIR",
@@ -1317,7 +1080,7 @@
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
 			"displayName": "Github Webhook Secret",
-			"description": "GitHub trigger secret",
+			"description": "GitHub trigger secret.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{8}",
 			"required": true
@@ -1325,7 +1088,7 @@
 		{
 			"name": "GENERIC_WEBHOOK_SECRET",
 			"displayName": "Generic Webhook Secret",
-			"description": "Generic build trigger secret",
+			"description": "Generic build trigger secret.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{8}",
 			"required": true
@@ -1333,12 +1096,19 @@
 		{
 			"name": "MAVEN_MIRROR_URL",
 			"displayName": "Maven mirror URL",
-			"description": "Maven mirror to use for S2I builds"
+			"description": "Maven mirror to use for S2I builds. If enabled, the mirror must contain all the artifacts necessary for building and running the required services."
+		},
+		{
+			"name": "MAVEN_MIRROR_OF",
+			"displayName": "Maven mirror of",
+			"description": "Maven mirror configuration for KIE Server.",
+			"value": "external:*"
 		},
 		{
 			"name": "MAVEN_REPO_ID",
 			"displayName": "Maven repository ID",
-			"description": "The id to use for the maven repository, if set. Default is generated randomly."
+			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhpamcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
+			"value": "repo-custom"
 		},
 		{
 			"name": "MAVEN_REPO_URL",
@@ -1356,14 +1126,20 @@
 			"description": "Password to access the Maven repository, if required."
 		},
 		{
-			"name": "DECISION_CENTRAL_SERVICE",
-			"displayName": "Name of the Decision Central service",
-			"description": "The Service name for the optional Decision Central, where it can be reached, to allow service lookups (for example, maven repo usage), if required."
+			"name": "BUSINESS_CENTRAL_SERVICE",
+			"displayName": "Name of the Business Central service",
+			"description": "The Service name for the optional Business Central, where it can be reached, to allow service lookups (for example,  maven repo usage), if required."
 		},
 		{
 			"name": "ARTIFACT_DIR",
 			"displayName": "List of directories from which archives will be copied into the deployment folder",
 			"description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied."
+		},
+		{
+			"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+			"displayName": "Timer service data store refresh interval (in milliseconds)",
+			"description": "Sets refresh-interval for the EJB timer service database-data-store.",
+			"value": "30000"
 		},
 		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
@@ -1375,7 +1151,7 @@
 		{
 			"name": "KIE_SERVER_MEMORY_REQUEST",
 			"displayName": "KIE Server Container Memory Request",
-			"description": "KIE Server Container memory Request.",
+			"description": "KIE Server Container memory request.",
 			"value": "1536Mi",
 			"required": true
 		},
@@ -1389,139 +1165,51 @@
 		{
 			"name": "KIE_SERVER_CPU_REQUEST",
 			"displayName": "KIE Server Container CPU Request",
-			"description": "KIE Server Container CPU Request.",
+			"description": "KIE Server Container CPU request.",
 			"value": "750m",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_MGMT_DISABLED",
 			"displayName": "Disable KIE Server Management",
-			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
+			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. (Sets the property org.kie.server.mgmt.api.disabled to true)",
 			"value": "true",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_JMS_QUEUE_REQUEST",
-			"displayName": "KIE Server JMS Request Queue",
-			"description": "JNDI name of request queue for JMS. The default value is queue/KIE.SERVER.REQUEST"
-		},
-		{
-			"name": "KIE_SERVER_JMS_QUEUE_RESPONSE",
-			"displayName": "KIE Server JMS Response Queue",
-			"description": "JNDI name of response queue for JMS. The default value is queue/KIE.SERVER.RESPONSE"
-		},
-		{
-			"name": "AMQ_USERNAME",
-			"displayName": "AMQ Username",
-			"description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-			"generate": "expression",
-			"from": "user[a-zA-Z0-9]{3}"
-		},
-		{
-			"name": "AMQ_PASSWORD",
-			"displayName": "AMQ Password",
-			"description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{8}"
-		},
-		{
-			"name": "AMQ_ROLE",
-			"displayName": "AMQ Role",
-			"description": "User role for standard broker user.",
-			"value": "admin",
-			"required": true
-		},
-		{
-			"name": "AMQ_QUEUES",
-			"displayName": "AMQ Queues",
-			"description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. These are the default queues needed by KIE Server. If using custom Queues, use the same values here as in the KIE_SERVER_JMS_QUEUE_RESPONSE and KIE_SERVER_JMS_QUEUE_REQUEST parameters.",
-			"value": "queue/KIE.SERVER.REQUEST,queue/KIE.SERVER.RESPONSE"
-		},
-		{
-			"name": "AMQ_GLOBAL_MAX_SIZE",
-			"displayName": "AMQ Global Max Size",
-			"description": "Specifies the maximum amount of memory that message data can consume. If no value is specified, half of the system’s memory is allocated."
-		},
-		{
-			"name": "AMQ_SECRET",
-			"displayName": "AMQ Secret Name",
-			"description": "The name of a secret containing AMQ SSL related files.",
-			"required": true
-		},
-		{
-			"name": "AMQ_TRUSTSTORE",
-			"displayName": "AMQ TRUSTSTORE",
-			"description": "The name of the AMQ SSL Trust Store file."
-		},
-		{
-			"name": "AMQ_TRUSTSTORE_PASSWORD",
-			"displayName": "AMQ TRUSTSTORE PASSWORD",
-			"description": "The password for the AMQ Trust Store."
-		},
-		{
-			"name": "AMQ_KEYSTORE",
-			"displayName": "AMQ KEYSTORE",
-			"description": "The name of the AMQ keystore file."
-		},
-		{
-			"name": "AMQ_KEYSTORE_PASSWORD",
-			"displayName": "AMQ KEYSTORE PASSWORD",
-			"description": "The password for the AMQ keystore and certificate."
-		},
-		{
-			"name": "AMQ_PROTOCOL",
-			"displayName": "AMQ Protocols",
-			"description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
-			"value": "openwire"
-		},
-		{
-			"name": "AMQ_BROKER_IMAGESTREAM_NAME",
-			"displayName": "AMQ Broker Image Stream Name",
-			"description": "AMQ Broker Image Stream Name",
-			"value": "amq-broker:7.8",
-			"required": true
-		},
-		{
-			"name": "AMQ_IMAGE_STREAM_NAMESPACE",
-			"displayName": "AMQ ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat AMQ images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
-			"value": "openshift",
 			"required": true
 		},
 		{
 			"name": "SSO_URL",
 			"displayName": "RH-SSO URL",
-			"description": "RH-SSO URL"
+			"description": "RH-SSO URL."
 		},
 		{
 			"name": "SSO_REALM",
 			"displayName": "RH-SSO Realm name",
-			"description": "RH-SSO Realm name"
+			"description": "RH-SSO Realm name."
 		},
 		{
 			"name": "KIE_SERVER_SSO_CLIENT",
 			"displayName": "KIE Server RH-SSO Client name",
-			"description": "KIE Server RH-SSO Client name"
+			"description": "KIE Server RH-SSO Client name."
 		},
 		{
 			"name": "KIE_SERVER_SSO_SECRET",
 			"displayName": "KIE Server RH-SSO Client Secret",
-			"description": "KIE Server RH-SSO Client Secret"
+			"description": "KIE Server RH-SSO Client Secret."
 		},
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist"
+			"description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
 			"displayName": "RH-SSO Realm Admin Password",
-			"description": "RH-SSO Realm Admin Password used to create the Client"
+			"description": "RH-SSO Realm Admin Password used to create the Client."
 		},
 		{
 			"name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
 			"displayName": "RH-SSO Disable SSL Certificate Validation",
-			"description": "RH-SSO Disable SSL Certificate Validation",
+			"description": "RH-SSO Disable SSL Certificate Validation.",
 			"value": "false"
 		},
 		{
@@ -1538,22 +1226,22 @@
 		{
 			"name": "AUTH_LDAP_BIND_DN",
 			"displayName": "LDAP Bind DN",
-			"description": "Bind DN used for authentication"
+			"description": "Bind DN used for authentication."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
-			"description": "LDAP Credentials used for authentication"
-		},
-		{
-			"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-			"displayName": "LDAP JAAS Security Domain",
-			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
+			"description": "LDAP Credentials used for authentication."
 		},
 		{
 			"name": "AUTH_LDAP_LOGIN_MODULE",
 			"displayName": "LDAP Flag Login Module",
 			"description": "A flag to set login module to optional. The default value is required"
+		},
+		{
+			"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
+			"displayName": "LDAP JAAS Security Domain",
+			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1643,7 +1331,7 @@
 		{
 			"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 			"displayName": "RoleMapping rolesProperties file path",
-			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
+			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This parameter defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
 		},
 		{
 			"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
@@ -1652,7 +1340,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.10",
-		"template": "rhdm710-prod-immutable-kieserver-amq"
+		"rhpam": "7.11",
+		"template": "rhpam711-prod-immutable-kieserver"
 	}
 }
