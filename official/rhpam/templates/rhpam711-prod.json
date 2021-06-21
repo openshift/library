@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam710-prod",
+		"name": "rhpam711-prod",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.10 - Deprecated",
+			"description": "Application template for a managed HA production runtime environment, for Red Hat Process Automation Manager 7.11 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.10 production environment",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.11 production environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "rhpam,processserver,jboss,prod",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.10/html/deploying_a_red_hat_process_automation_manager_7.10_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.10, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.11/html/deploying_a_red_hat_process_automation_manager_7.11_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for a HA production runtime environment for Red Hat Process Automation Manager 7.11, including application deployment configuration, secure and insecure http communication and persistent volume to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.10"
+			"version": "7.11"
 		}
 	},
 	"message": "A new environment has been set up for Red Hat Process Automation Manager 7.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\", \"${KIE_SERVER_HTTPS_SECRET}\" and\n\"${KIE_SERVER_ROUTER_HTTPS_SECRET}\" containing the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE}, ${KIE_SERVER_HTTPS_KEYSTORE} and\n${KIE_SERVER_ROUTER_HTTPS_KEYSTORE} files used for serving secure content.",
@@ -113,34 +113,6 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhpamcentrmon"
-				},
-				"name": "${APPLICATION_NAME}-rhpamcentrmon-ping"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"ports": [
-					{
-						"name": "ping",
-						"port": 8888,
-						"targetPort": 8888
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
 					"description": "The smart router server http and https ports."
 				},
 				"labels": {
@@ -203,34 +175,6 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-kieserver-1"
-				},
-				"name": "${APPLICATION_NAME}-kieserver-1-ping"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"ports": [
-					{
-						"name": "ping",
-						"port": 8888,
-						"targetPort": 8888
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-kieserver-1"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
 					"description": "All the KIE Server web server's ports. (Second KIE Server)"
 				},
 				"labels": {
@@ -250,34 +194,6 @@
 						"name": "https",
 						"port": 8443,
 						"targetPort": 8443
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-kieserver-2"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-kieserver-2"
-				},
-				"name": "${APPLICATION_NAME}-kieserver-2-ping"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"ports": [
-					{
-						"name": "ping",
-						"port": 8888,
-						"targetPort": 8888
 					}
 				],
 				"selector": {
@@ -570,6 +486,7 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
+							"cluster": "jgrp.k8s.${APPLICATION_NAME}.rhpamcentrmon",
 							"deploymentConfig": "${APPLICATION_NAME}-rhpamcentrmon",
 							"service": "${APPLICATION_NAME}-rhpamcentrmon"
 						},
@@ -647,15 +564,19 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "kubernetes.KUBE_PING"
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-rhpamcentrmon-ping"
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-										"value": "8888"
+										"name": "KUBERNETES_LABELS",
+										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.rhpamcentrmon"
 									},
 									{
 										"name": "SSO_URL",
@@ -827,11 +748,6 @@
 										"containerPort": 8443,
 										"name": "https",
 										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8888,
-										"name": "ping",
-										"protocol": "TCP"
 									}
 								],
 								"readinessProbe": {
@@ -935,6 +851,7 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
+							"cluster": "jgrp.k8s.${APPLICATION_NAME}.kieserver",
 							"deploymentConfig": "${APPLICATION_NAME}-smartrouter",
 							"service": "${APPLICATION_NAME}-smartrouter"
 						},
@@ -1132,6 +1049,7 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
+							"cluster": "jgrp.k8s.${APPLICATION_NAME}.kieserver",
 							"deploymentConfig": "${APPLICATION_NAME}-kieserver-1",
 							"service": "${APPLICATION_NAME}-kieserver-1"
 						},
@@ -1329,15 +1247,19 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "kubernetes.KUBE_PING"
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-kieserver-1-ping"
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-										"value": "8888"
+										"name": "KUBERNETES_LABELS",
+										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.kieserver"
 									},
 									{
 										"name": "SSO_URL",
@@ -1508,11 +1430,6 @@
 									{
 										"containerPort": 8443,
 										"name": "https",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8888,
-										"name": "ping",
 										"protocol": "TCP"
 									}
 								],
@@ -1741,6 +1658,7 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
+							"cluster": "jgrp.k8s.${APPLICATION_NAME}.kieserver",
 							"deploymentConfig": "${APPLICATION_NAME}-kieserver-2",
 							"service": "${APPLICATION_NAME}-kieserver-2"
 						},
@@ -1938,15 +1856,19 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "kubernetes.KUBE_PING"
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
-										"value": "${APPLICATION_NAME}-kieserver-2-ping"
+										"name": "KUBERNETES_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"fieldPath": "metadata.namespace"
+											}
+										}
 									},
 									{
-										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
-										"value": "8888"
+										"name": "KUBERNETES_LABELS",
+										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.kieserver"
 									},
 									{
 										"name": "SSO_URL",
@@ -2117,11 +2039,6 @@
 									{
 										"containerPort": 8443,
 										"name": "https",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8888,
-										"name": "ping",
 										"protocol": "TCP"
 									}
 								],
@@ -2474,8 +2391,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.10.1\".",
-			"value": "7.10.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.11.0\".",
+			"value": "7.11.0",
 			"required": true
 		},
 		{
@@ -2991,7 +2908,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.10",
-		"template": "rhpam710-prod"
+		"rhpam": "7.11",
+		"template": "rhpam711-prod"
 	}
 }
