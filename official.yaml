@@ -769,6 +769,15 @@ data:
         docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/docs/templates/eap73-third-party-db-s2i.adoc
         tags:
           - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-basic-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-https-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-sso-s2i.json
+        tags:
+          - ocp
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-image-stream.json
         docs: https://docs.openshift.com/enterprise/3.0/using_images/xpaas_images/eap.html
@@ -819,6 +828,18 @@ data:
         tags:
           - ocp
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk8-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/getting_started_with_jboss_eap_for_openshift_container_platform/index
+        regex: jboss-eap
+        suffix: rhel7
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk11-image-stream.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/getting_started_with_jboss_eap_for_openshift_container_platform/index
+        regex: jboss-eap
+        suffix: rhel8
+        tags:
+          - ocp
   java:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/openjdk-web-basic-s2i.json
