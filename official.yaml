@@ -702,73 +702,8 @@ data:
           - ocp
           - online-starter
           - online-professional
-  eap-cd:
-    templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-basic-s2i.json
-        docs: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/docs/eap-cd-basic-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-starter-s2i.json
-        tags:
-          - ocp
-          - online-starter
-    imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap-cd/templates/eap-cd-image-stream.json
-        docs: https://access.redhat.com/documentation/en-us/jboss_enterprise_application_platform_continuous_delivery/
-        regex: eap-cd
-        suffix: rhel8
-        tags:
-          - online-starter
-          - ocp
-          - online-professional
   eap:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-amq-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-amq-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-amq-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-amq-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-basic-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-https-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-mongodb-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-mongodb-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-mongodb-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-mongodb-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-mysql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-mysql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-mysql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-mysql-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-postgresql-persistent-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-postgresql-persistent-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-postgresql-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-postgresql-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-sso-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-sso-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-third-party-db-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-third-party-db-s2i.adoc
-      - location: https://raw.githubusercontent.com/jboss-openshift/application-templates/{eap_version}/eap/eap64-tx-recovery-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{eap_version}/docs/eap/eap64-tx-recovery-s2i.json
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap73/templates/eap73-sso-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/docs/templates/eap73-sso-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap73/templates/eap73-basic-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/docs/templates/eap73-basic-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap73/templates/eap73-https-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/docs/templates/eap73-https-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-7-openshift-image/eap73/templates/eap73-third-party-db-s2i.json
-        docs: https://github.com/jboss-container-images/jboss-eap-7-openshift-image/blob/eap73/docs/templates/eap73-third-party-db-s2i.adoc
-        tags:
-          - ocp
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-basic-s2i.json
         tags:
           - ocp
@@ -776,6 +711,9 @@ data:
         tags:
           - ocp
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-sso-s2i.json
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/eap-xp3-basic-s2i.json
         tags:
           - ocp
     imagestreams:
@@ -836,6 +774,12 @@ data:
           - ocp
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk11-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/getting_started_with_jboss_eap_for_openshift_container_platform/index
+        regex: jboss-eap
+        suffix: rhel8
+        tags:
+          - ocp
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json
+        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_microprofile_with_jboss_eap_xp_3.0.0/using-the-openshift-image-for-jboss-eap-xp_default
         regex: jboss-eap
         suffix: rhel8
         tags:
