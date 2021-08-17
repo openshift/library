@@ -2,15 +2,15 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "s2i-fuse78-spring-boot-2-camel-rest-3scale",
+		"name": "s2i-fuse79-spring-boot-2-camel-rest-3scale",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "Spring Boot 2, Camel REST DSL and 3Scale QuickStart. This example demonstrates how to use Camel's REST DSL to expose a RESTful API and expose it to 3scale.",
 			"iconClass": "icon-rh-integration",
-			"openshift.io/display-name": "Red Hat Fuse 7.8 Camel REST DSL and 3Scale",
+			"openshift.io/display-name": "Red Hat Fuse 7.9 Camel REST DSL and 3Scale",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "quickstart,java,springboot,fis,jboss-fuse,3scale",
-			"version": "1.8"
+			"version": "1.9"
 		}
 	},
 	"objects": [
@@ -148,7 +148,7 @@
 						"forcePull": true,
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "fuse7-java-openshift:${BUILDER_VERSION}",
+							"name": "${BASE_IMAGE_NAME}:${BUILDER_VERSION}",
 							"namespace": "${IMAGE_STREAM_NAMESPACE}"
 						},
 						"incremental": true
@@ -218,7 +218,7 @@
 							"rht.comp": "${APP_NAME}",
 							"rht.comp_ver": "${APP_VERSION}",
 							"rht.prod_name": "Red_Hat_Integration",
-							"rht.prod_ver": "7.8",
+							"rht.prod_ver": "7.9",
 							"version": "${APP_VERSION}"
 						}
 					},
@@ -301,7 +301,7 @@
 			"name": "APP_NAME",
 			"displayName": "Application Name",
 			"description": "The name assigned to the application.",
-			"value": "s2i-fuse78-spring-boot-2-camel-rest-3scale",
+			"value": "s2i-fuse79-spring-boot-2-camel-rest-3scale",
 			"required": true
 		},
 		{
@@ -315,7 +315,7 @@
 			"name": "GIT_REF",
 			"displayName": "Git Reference",
 			"description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
-			"value": "spring-boot-camel-rest-3scale-7.8.0.fuse-sb2-780043-redhat-00001"
+			"value": "spring-boot-camel-rest-3scale-7.9.0.fuse-sb2-790049-redhat-00002"
 		},
 		{
 			"name": "SERVICE_NAME",
@@ -324,22 +324,28 @@
 			"value": "camel-rest-3scale"
 		},
 		{
+			"name": "BASE_IMAGE_NAME",
+			"displayName": "Base Image Name, JDK11 or JDK8",
+			"description": "The base image used. Default is fuse7-java-openshift which is JDK8 based; fuse7-java11-openshift is JDK11 based",
+			"value": "fuse7-java-openshift"
+		},
+		{
 			"name": "BUILDER_VERSION",
 			"displayName": "Builder version",
 			"description": "The version of the FIS S2I builder image to use.",
-			"value": "1.8"
+			"value": "1.9"
 		},
 		{
 			"name": "APP_VERSION",
 			"displayName": "Application Version",
 			"description": "The application version.",
-			"value": "7.8.0.fuse-sb2-780043-redhat-00001"
+			"value": "7.9.0.fuse-sb2-790049-redhat-00002"
 		},
 		{
 			"name": "MAVEN_ARGS",
 			"displayName": "Maven Arguments",
 			"description": "Arguments passed to mvn in the build.",
-			"value": "package -DskipTests -Dfabric8.skip -e -B"
+			"value": "package -DskipTests -Djkube.skip -e -B"
 		},
 		{
 			"name": "MAVEN_ARGS_APPEND",
@@ -414,6 +420,6 @@
 		}
 	],
 	"labels": {
-		"template": "s2i-fuse78-spring-boot-2-camel-rest-3scale"
+		"template": "s2i-fuse79-spring-boot-2-camel-rest-3scale"
 	}
 }
