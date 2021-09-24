@@ -1,11 +1,11 @@
 {
 	"kind": "Template",
-	"apiVersion": "v1",
+	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
 		"name": "sso74-openj9-postgresql",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.4 on OpenJ9 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-dev/docs.",
+			"description": "An example application based on RH-SSO 7.4 on OpenJ9 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-cpaas-dev/docs.",
 			"iconClass": "icon-sso",
 			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJ9 + PostgreSQL (Ephemeral with passthrough TLS)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJ9 server based deployment, deployment configuration for PostgreSQL using ephemeral (temporary) storage, and securing RH-SSO communication using passthrough TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.4.8.GA"
+			"version": "7.4.9.GA"
 		}
 	},
 	"message": "A new RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
@@ -122,7 +122,7 @@
 			}
 		},
 		{
-			"apiVersion": "v1",
+			"apiVersion": "route.openshift.io/v1",
 			"id": "${APPLICATION_NAME}-http",
 			"kind": "Route",
 			"metadata": {
@@ -143,7 +143,7 @@
 			}
 		},
 		{
-			"apiVersion": "v1",
+			"apiVersion": "route.openshift.io/v1",
 			"id": "${APPLICATION_NAME}-https",
 			"kind": "Route",
 			"metadata": {
@@ -167,7 +167,7 @@
 			}
 		},
 		{
-			"apiVersion": "v1",
+			"apiVersion": "apps.openshift.io/v1",
 			"kind": "DeploymentConfig",
 			"metadata": {
 				"labels": {
@@ -439,7 +439,7 @@
 			}
 		},
 		{
-			"apiVersion": "v1",
+			"apiVersion": "apps.openshift.io/v1",
 			"kind": "DeploymentConfig",
 			"metadata": {
 				"labels": {
@@ -766,7 +766,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.4.8.GA",
+		"rhsso": "7.4.9.GA",
 		"template": "sso74-openj9-postgresql"
 	}
 }
