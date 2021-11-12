@@ -1446,6 +1446,19 @@ data:
           - ocp
           - online-starter
           - online-professional
+          - arch_x86_64
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_aarch64.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
+        suffix: rhel-aarch64
+        tags:
+          - ocp
+          - arch_aarch64
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/master/dotnet_imagestreams_s390x.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/master/README.md
+        suffix: rhel-s390x
+        tags:
+          - ocp
+          - arch_s390x
   3scale:
     templates:
       - location: https://raw.githubusercontent.com/3scale/3scale-amp-openshift-templates/{rhamp_version}/apicast-gateway/library/apicast.yml
