@@ -1,0 +1,545 @@
+{
+	"kind": "Template",
+	"apiVersion": "template.openshift.io/v1",
+	"metadata": {
+		"name": "sso74-openj9-https",
+		"creationTimestamp": null,
+		"annotations": {
+			"description": "An example application based on RH-SSO 7.4 on OpenJ9 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-cpaas-dev/docs.",
+			"iconClass": "icon-sso",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJ9 (Ephemeral with passthrough TLS)",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"tags": "sso,keycloak,jboss,hidden",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJ9 server based deployment, securing RH-SSO communication using passthrough TLS.",
+			"template.openshift.io/support-url": "https://access.redhat.com",
+			"version": "7.4.9.GA"
+		}
+	},
+	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
+	"objects": [
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The web server's http port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 8080,
+						"targetPort": 8080
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The web server's https port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 8443,
+						"targetPort": 8443
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The JGroups ping port for clustering.",
+					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-ping"
+			},
+			"spec": {
+				"clusterIP": "None",
+				"ports": [
+					{
+						"name": "ping",
+						"port": 8888
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
+			"id": "${APPLICATION_NAME}-http",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for application's http service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"host": "${HOSTNAME_HTTP}",
+				"to": {
+					"name": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
+			"id": "${APPLICATION_NAME}-https",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for application's https service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "secure-${APPLICATION_NAME}"
+			},
+			"spec": {
+				"host": "${HOSTNAME_HTTPS}",
+				"tls": {
+					"termination": "passthrough"
+				},
+				"to": {
+					"name": "secure-${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "apps.openshift.io/v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				},
+				"strategy": {
+					"type": "Recreate"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"application": "${APPLICATION_NAME}",
+							"deploymentConfig": "${APPLICATION_NAME}"
+						},
+						"name": "${APPLICATION_NAME}"
+					},
+					"spec": {
+						"containers": [
+							{
+								"env": [
+									{
+										"name": "SSO_HOSTNAME",
+										"value": "${SSO_HOSTNAME}"
+									},
+									{
+										"name": "DB_MIN_POOL_SIZE",
+										"value": "${DB_MIN_POOL_SIZE}"
+									},
+									{
+										"name": "DB_MAX_POOL_SIZE",
+										"value": "${DB_MAX_POOL_SIZE}"
+									},
+									{
+										"name": "DB_TX_ISOLATION",
+										"value": "${DB_TX_ISOLATION}"
+									},
+									{
+										"name": "JGROUPS_PING_PROTOCOL",
+										"value": "openshift.DNS_PING"
+									},
+									{
+										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+										"value": "${APPLICATION_NAME}-ping"
+									},
+									{
+										"name": "OPENSHIFT_DNS_PING_SERVICE_PORT",
+										"value": "8888"
+									},
+									{
+										"name": "HTTPS_KEYSTORE_DIR",
+										"value": "/etc/eap-secret-volume"
+									},
+									{
+										"name": "HTTPS_KEYSTORE",
+										"value": "${HTTPS_KEYSTORE}"
+									},
+									{
+										"name": "HTTPS_KEYSTORE_TYPE",
+										"value": "${HTTPS_KEYSTORE_TYPE}"
+									},
+									{
+										"name": "HTTPS_NAME",
+										"value": "${HTTPS_NAME}"
+									},
+									{
+										"name": "HTTPS_PASSWORD",
+										"value": "${HTTPS_PASSWORD}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_SECRET",
+										"value": "${JGROUPS_ENCRYPT_SECRET}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+										"value": "/etc/jgroups-encrypt-secret-volume"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_KEYSTORE",
+										"value": "${JGROUPS_ENCRYPT_KEYSTORE}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_NAME",
+										"value": "${JGROUPS_ENCRYPT_NAME}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_PASSWORD",
+										"value": "${JGROUPS_ENCRYPT_PASSWORD}"
+									},
+									{
+										"name": "JGROUPS_CLUSTER_PASSWORD",
+										"value": "${JGROUPS_CLUSTER_PASSWORD}"
+									},
+									{
+										"name": "SSO_ADMIN_USERNAME",
+										"value": "${SSO_ADMIN_USERNAME}"
+									},
+									{
+										"name": "SSO_ADMIN_PASSWORD",
+										"value": "${SSO_ADMIN_PASSWORD}"
+									},
+									{
+										"name": "SSO_REALM",
+										"value": "${SSO_REALM}"
+									},
+									{
+										"name": "SSO_SERVICE_USERNAME",
+										"value": "${SSO_SERVICE_USERNAME}"
+									},
+									{
+										"name": "SSO_SERVICE_PASSWORD",
+										"value": "${SSO_SERVICE_PASSWORD}"
+									},
+									{
+										"name": "SSO_TRUSTSTORE",
+										"value": "${SSO_TRUSTSTORE}"
+									},
+									{
+										"name": "SSO_TRUSTSTORE_DIR",
+										"value": "/etc/sso-secret-volume"
+									},
+									{
+										"name": "SSO_TRUSTSTORE_PASSWORD",
+										"value": "${SSO_TRUSTSTORE_PASSWORD}"
+									}
+								],
+								"image": "${APPLICATION_NAME}",
+								"imagePullPolicy": "Always",
+								"livenessProbe": {
+									"exec": {
+										"command": [
+											"/bin/bash",
+											"-c",
+											"/opt/eap/bin/livenessProbe.sh"
+										]
+									},
+									"initialDelaySeconds": 60
+								},
+								"name": "${APPLICATION_NAME}",
+								"ports": [
+									{
+										"containerPort": 8778,
+										"name": "jolokia",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8080,
+										"name": "http",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8443,
+										"name": "https",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8888,
+										"name": "ping",
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/bin/bash",
+											"-c",
+											"/opt/eap/bin/readinessProbe.sh"
+										]
+									}
+								},
+								"resources": {
+									"limits": {
+										"memory": "${MEMORY_LIMIT}"
+									}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/etc/eap-secret-volume",
+										"name": "eap-keystore-volume",
+										"readOnly": true
+									},
+									{
+										"mountPath": "/etc/jgroups-encrypt-secret-volume",
+										"name": "eap-jgroups-keystore-volume",
+										"readOnly": true
+									},
+									{
+										"mountPath": "/etc/sso-secret-volume",
+										"name": "sso-truststore-volume",
+										"readOnly": true
+									}
+								]
+							}
+						],
+						"terminationGracePeriodSeconds": 75,
+						"volumes": [
+							{
+								"name": "eap-keystore-volume",
+								"secret": {
+									"secretName": "${HTTPS_SECRET}"
+								}
+							},
+							{
+								"name": "eap-jgroups-keystore-volume",
+								"secret": {
+									"secretName": "${JGROUPS_ENCRYPT_SECRET}"
+								}
+							},
+							{
+								"name": "sso-truststore-volume",
+								"secret": {
+									"secretName": "${SSO_TRUSTSTORE_SECRET}"
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"${APPLICATION_NAME}"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "sso74-openj9-openshift-rhel8:7.4",
+								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		}
+	],
+	"parameters": [
+		{
+			"name": "APPLICATION_NAME",
+			"displayName": "Application Name",
+			"description": "The name for the application.",
+			"value": "sso",
+			"required": true
+		},
+		{
+			"name": "HOSTNAME_HTTP",
+			"displayName": "Custom http Route Hostname",
+			"description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e.\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
+			"name": "HOSTNAME_HTTPS",
+			"displayName": "Custom https Route Hostname",
+			"description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e.\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
+			"name": "SSO_HOSTNAME",
+			"displayName": "Custom RH-SSO Server Hostname",
+			"description": "Custom hostname for the RH-SSO server."
+		},
+		{
+			"name": "HTTPS_SECRET",
+			"displayName": "Server Keystore Secret Name",
+			"description": "The name of the secret containing the keystore file",
+			"value": "sso-app-secret"
+		},
+		{
+			"name": "HTTPS_KEYSTORE",
+			"displayName": "Server Keystore Filename",
+			"description": "The name of the keystore file within the secret",
+			"value": "keystore.jks"
+		},
+		{
+			"name": "HTTPS_KEYSTORE_TYPE",
+			"displayName": "Server Keystore Type",
+			"description": "The type of the keystore file (JKS or JCEKS)"
+		},
+		{
+			"name": "HTTPS_NAME",
+			"displayName": "Server Certificate Name",
+			"description": "The name associated with the server certificate (e.g. jboss)"
+		},
+		{
+			"name": "HTTPS_PASSWORD",
+			"displayName": "Server Keystore Password",
+			"description": "The password for the keystore and certificate (e.g. mykeystorepass)"
+		},
+		{
+			"name": "DB_MIN_POOL_SIZE",
+			"displayName": "Datasource Minimum Pool Size",
+			"description": "Sets xa-pool/min-pool-size for the configured datasource."
+		},
+		{
+			"name": "DB_MAX_POOL_SIZE",
+			"displayName": "Datasource Maximum Pool Size",
+			"description": "Sets xa-pool/max-pool-size for the configured datasource."
+		},
+		{
+			"name": "DB_TX_ISOLATION",
+			"displayName": "Datasource Transaction Isolation",
+			"description": "Sets transaction-isolation for the configured datasource."
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_SECRET",
+			"displayName": "JGroups Secret Name",
+			"description": "The name of the secret containing the keystore file",
+			"value": "sso-app-secret"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_KEYSTORE",
+			"displayName": "JGroups Keystore Filename",
+			"description": "The name of the keystore file within the secret",
+			"value": "jgroups.jceks"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_NAME",
+			"displayName": "JGroups Certificate Name",
+			"description": "The name associated with the server certificate (e.g. secret-key)"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_PASSWORD",
+			"displayName": "JGroups Keystore Password",
+			"description": "The password for the keystore and certificate (e.g. password)"
+		},
+		{
+			"name": "JGROUPS_CLUSTER_PASSWORD",
+			"displayName": "JGroups Cluster Password",
+			"description": "JGroups cluster password",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
+		},
+		{
+			"name": "IMAGE_STREAM_NAMESPACE",
+			"displayName": "ImageStream Namespace",
+			"description": "Namespace in which the ImageStreams for Red Hat Middleware images are installed. These ImageStreams are normally installed in the openshift namespace. You should only need to modify this if you've installed the ImageStreams in a different namespace/project.",
+			"value": "openshift",
+			"required": true
+		},
+		{
+			"name": "SSO_ADMIN_USERNAME",
+			"displayName": "RH-SSO Administrator Username",
+			"description": "RH-SSO Server administrator username",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
+		},
+		{
+			"name": "SSO_ADMIN_PASSWORD",
+			"displayName": "RH-SSO Administrator Password",
+			"description": "RH-SSO Server administrator password",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
+		},
+		{
+			"name": "SSO_REALM",
+			"displayName": "RH-SSO Realm",
+			"description": "Realm to be created in the RH-SSO server (e.g. demorealm)."
+		},
+		{
+			"name": "SSO_SERVICE_USERNAME",
+			"displayName": "RH-SSO Service Username",
+			"description": "The username used to access the RH-SSO service. This is used by clients to create the appliction client(s) within the specified RH-SSO realm."
+		},
+		{
+			"name": "SSO_SERVICE_PASSWORD",
+			"displayName": "RH-SSO Service Password",
+			"description": "The password for the RH-SSO service user."
+		},
+		{
+			"name": "SSO_TRUSTSTORE",
+			"displayName": "RH-SSO Trust Store",
+			"description": "The name of the truststore file within the secret (e.g. truststore.jks)"
+		},
+		{
+			"name": "SSO_TRUSTSTORE_PASSWORD",
+			"displayName": "RH-SSO Trust Store Password",
+			"description": "The password for the truststore and certificate (e.g. mykeystorepass)"
+		},
+		{
+			"name": "SSO_TRUSTSTORE_SECRET",
+			"displayName": "RH-SSO Trust Store Secret",
+			"description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
+			"value": "sso-app-secret"
+		},
+		{
+			"name": "MEMORY_LIMIT",
+			"displayName": "Container Memory Limit",
+			"description": "Container memory limit.",
+			"value": "1Gi"
+		}
+	],
+	"labels": {
+		"rhsso": "7.4.9.GA",
+		"template": "sso74-openj9-https"
+	}
+}
