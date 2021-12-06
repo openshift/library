@@ -13,8 +13,8 @@ variables:
   webserver_version: ose-v1.4.17
   webserver3_version: jws31-v1.4
   webserver5el7_version: jws54el7-v1.0
-  webserver5el8_version: jws54el8-v1.0
-  webserver5_openj9_version: jws54openj9ubi8-v1.0
+  webserver5el8_version: jws56el8-v5.6.0
+  webserver5_openj9_version: jws56el8-v5.6.0
   ips_ds_version: 6.4.12.GA
   rhdm_version: 7.11.1.GA
   rhpam_version: 7.11.1.GA
@@ -1300,13 +1300,7 @@ data:
         docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-postgresql-s2i.adoc
       # List the JWS 5 RHEL7 templates below
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-basic-s2i.json
-        tags:
-          - ocp
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-https-s2i.json
-        tags:
-          - ocp
-          - online-starter
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-mongodb-persistent-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-mongodb-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-mysql-persistent-s2i.json
@@ -1314,13 +1308,7 @@ data:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-postgresql-persistent-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-postgresql-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-basic-s2i.json
-        tags:
-          - ocp
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-https-s2i.json
-        tags:
-          - ocp
-          - online-starter
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-mongodb-persistent-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-mongodb-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-mysql-persistent-s2i.json
@@ -1328,29 +1316,29 @@ data:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-postgresql-persistent-s2i.json
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-postgresql-s2i.json
       # List the JWS 5 UBI8 templates below
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk8-tomcat9-ubi8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk8-tomcat9-ubi8-basic-s2i.json
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk8-tomcat9-ubi8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk8-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk11-tomcat9-ubi8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk11-tomcat9-ubi8-basic-s2i.json
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk11-tomcat9-ubi8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk11-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - online-starter
           - online-professional
       # List templates for OpenJ9 images below
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws54-openj9-tomcat9-ubi8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws56-openj9-tomcat9-ubi8-basic-s2i.json
         tags:
           - ocp
           - arch_s390x
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws54-openj9-tomcat9-ubi8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws56-openj9-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - arch_s390x
@@ -1372,27 +1360,19 @@ data:
           - online-professional
       # List the JWS 5 imagestreams below
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk8-tomcat9-rhel7-image-stream.json
-        tags:
-          - ocp
-          - online-starter
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el7_version}/templates/jws54-openjdk11-tomcat9-rhel7-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk8-tomcat9-ubi8-image-stream.json
         tags:
           - ocp
           - online-starter
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk8-tomcat9-ubi8-image-stream.json
-        tags:
-          - ocp
-          - online-starter
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws54-openjdk11-tomcat9-ubi8-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws56-openjdk11-tomcat9-ubi8-image-stream.json
         tags:
           - ocp
           - online-starter
           - online-professional
       # List imagestream for OpenJ9 images below
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws54-openj9-tomcat9-ubi8-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5_openj9_version}/templates/jws56-openj9-tomcat9-ubi8-image-stream.json
         tags:
           - ocp
           - arch_s390x
