@@ -1,6 +1,6 @@
 {
 	"kind": "ImageStream",
-	"apiVersion": "v1",
+	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
 		"name": "java",
 		"creationTimestamp": null,
@@ -55,6 +55,50 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/redhat-openjdk-18/openjdk18-openshift:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "openj9-8-el8",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJ9 1.8.0.",
+					"iconClass": "icon-rh-openj9",
+					"openshift.io/display-name": "OpenJ9 1.8.0 (RHEL 8)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:8,java",
+					"tags": "builder,java,openj9",
+					"version": "8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/openj9/openj9-8-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "openj9-8-el7",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJ9 1.8.0.",
+					"iconClass": "icon-rh-openj9",
+					"openshift.io/display-name": "OpenJ9 1.8.0 (RHEL 7)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:8,java",
+					"tags": "builder,java,openj9",
+					"version": "8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/openj9/openj9-8-rhel7:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -129,6 +173,50 @@
 				}
 			},
 			{
+				"name": "openj9-11-el8",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJ9 11.",
+					"iconClass": "icon-rh-openj9",
+					"openshift.io/display-name": "Red Hat OpenJ9 11 (RHEL 8)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:11,java",
+					"tags": "builder,java,openj9",
+					"version": "11"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/openj9/openj9-11-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "openj9-11-el7",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJ9 11.",
+					"iconClass": "icon-rh-openj9",
+					"openshift.io/display-name": "Red Hat OpenJ9 11 (RHEL 7)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:11,java",
+					"tags": "builder,java,openj9",
+					"version": "11"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/openj9/openj9-11-rhel7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "11",
 				"annotations": {
 					"description": "Build and run Java applications using Maven and OpenJDK 11.",
@@ -151,6 +239,28 @@
 				}
 			},
 			{
+				"name": "openjdk-17-ubi8",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJDK 17.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 17 (UBI 8)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java:17,java",
+					"tags": "builder,java,openjdk",
+					"version": "17"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi8/openjdk-17:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "latest",
 				"annotations": {
 					"description": "Build and run Java applications using Maven.",
@@ -164,7 +274,7 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "openjdk-11-ubi8"
+					"name": "openjdk-17-ubi8"
 				},
 				"generation": null,
 				"importPolicy": {},
