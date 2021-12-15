@@ -2,10 +2,10 @@
 	"kind": "ImageStream",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "fuse7-eap-openshift-java11",
+		"name": "fuse7-karaf-openshift-jdk11",
 		"creationTimestamp": null,
 		"annotations": {
-			"openshift.io/display-name": "Red Hat Fuse 7 EAP Java 11",
+			"openshift.io/display-name": "Red Hat Fuse 7 Karaf Java11",
 			"openshift.io/provider-display-name": "Red Hat, Inc."
 		}
 	},
@@ -17,16 +17,16 @@
 			{
 				"name": "1.10",
 				"annotations": {
-					"description": "Red Hat Fuse 7.10 EAP Java 11 S2I images.",
+					"description": "Red Hat Fuse 7.0 Karaf S2I images Java11.",
 					"iconClass": "icon-rh-integration",
-					"openshift.io/display-name": "Red Hat Fuse 7.10 EAP Java 11",
-					"supports": "jboss-fuse:7.10.0,java:11,xpaas:1.2",
-					"tags": "builder,jboss-fuse,java,eap,xpaas,hidden",
-					"version": "1.10"
+					"openshift.io/display-name": "Red Hat Fuse 7.0 Karaf Java11",
+					"supports": "jboss-fuse:7.0.0,java:11,xpaas:1.2",
+					"tags": "builder,jboss-fuse,java,karaf,xpaas,hidden",
+					"version": "1.0"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/fuse7/fuse-eap-openshift-jdk11-rhel8:1.10"
+					"name": "registry.redhat.io/fuse7/fuse-karaf-openshift-jdk11-rhel8:1.10"
 				},
 				"generation": null,
 				"importPolicy": {},
