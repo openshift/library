@@ -24,7 +24,7 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "2.11.0.GA"
+					"name": "2.11.1.GA"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -245,6 +245,26 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.11"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "2.11.1.GA",
+				"annotations": {
+					"description": "3scale's APIcast is an NGINX based API gateway used to integrate your internal and external API services with 3scale's API Management Platform. It supports OpenID connect to integrate with external Identity Providers such as Red Hat Single Sign On, for API traffic authentication.",
+					"iconClass": "icon-3scale",
+					"openshift.io/display-name": "3scale APIcast API Gateway 2.11.1.GA",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "api,gateway,3scale",
+					"version": "2.11.1.GA"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/3scale-amp2/apicast-gateway-rhel8:3scale2.11.1"
 				},
 				"generation": null,
 				"importPolicy": {},
