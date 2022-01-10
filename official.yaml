@@ -1,4 +1,5 @@
 variables:
+  django_version: 3.2.x
   xpaas_version: ose-v1.4.8-1
   openjdk_version: release
   amq_version: ose-v1.4.18
@@ -85,10 +86,10 @@ data:
           - arch_aarch64
   django:
     templates:
-      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django.json
-        docs: https://github.com/sclorg/django-ex/blob/master/README.md
-      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql.json
-        docs: https://github.com/sclorg/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/{django_version}/openshift/templates/django.json
+        docs: https://github.com/sclorg/django-ex/blob/{django_version}/README.md
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/{django_version}/openshift/templates/django-postgresql.json
+        docs: https://github.com/sclorg/django-ex/blob/{django_version}/README.md
         tags:
           - okd
           - ocp
@@ -96,8 +97,8 @@ data:
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
-      - location: https://raw.githubusercontent.com/sclorg/django-ex/master/openshift/templates/django-postgresql-persistent.json
-        docs: https://github.com/sclorg/django-ex/blob/master/README.md
+      - location: https://raw.githubusercontent.com/sclorg/django-ex/{django_version}/openshift/templates/django-postgresql-persistent.json
+        docs: https://github.com/sclorg/django-ex/blob/{django_version}/README.md
         tags:
           - okd
           - ocp
