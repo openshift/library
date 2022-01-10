@@ -1,6 +1,6 @@
 {
 	"kind": "ImageStream",
-	"apiVersion": "v1",
+	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
 		"name": "golang",
 		"creationTimestamp": null,
@@ -26,7 +26,7 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "1.14.7-ubi8"
+					"name": "1.16.7-ubi8"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -35,11 +35,11 @@
 				}
 			},
 			{
-				"name": "1.14.7-ubi8",
+				"name": "1.16.7-ubi8",
 				"annotations": {
 					"description": "Build and run Go applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/README.md.",
 					"iconClass": "icon-go-gopher",
-					"openshift.io/display-name": "Go 1.14.7 (UBI 8)",
+					"openshift.io/display-name": "Go 1.16.7 (UBI 8)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"sampleRepo": "https://github.com/sclorg/golang-ex.git",
 					"supports": "golang",
@@ -47,7 +47,7 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/ubi8/go-toolset:1.14.7"
+					"name": "registry.redhat.io/ubi8/go-toolset:1.16.7"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -56,11 +56,11 @@
 				}
 			},
 			{
-				"name": "1.13.4-ubi7",
+				"name": "1.16.7-ubi7",
 				"annotations": {
 					"description": "Build and run Go applications on UBI 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/golang-container/blob/master/README.md.",
 					"iconClass": "icon-go-gopher",
-					"openshift.io/display-name": "Go 1.13.4 (UBI 7)",
+					"openshift.io/display-name": "Go 1.16.7 (UBI 7)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"sampleRepo": "https://github.com/sclorg/golang-ex.git",
 					"supports": "golang",
@@ -68,7 +68,7 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/ubi7/go-toolset:1.13.4"
+					"name": "registry.redhat.io/ubi7/go-toolset:1.16.7"
 				},
 				"generation": null,
 				"importPolicy": {},
