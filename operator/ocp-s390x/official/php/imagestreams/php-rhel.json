@@ -1,0 +1,130 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "php",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "PHP"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Build and run PHP applications on UBI. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.4/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of PHP available on OpenShift, including major version updates.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"supports": "php",
+					"tags": "builder,php"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "7.4-ubi8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.4-ubi8",
+				"annotations": {
+					"description": "Build and run PHP 7.4 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.4/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 7.4 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"supports": "php:7.4,php",
+					"tags": "builder,php",
+					"version": "7.4"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi8/php-74:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.3-ubi8",
+				"annotations": {
+					"description": "Build and run PHP 7.3 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.3/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 7.3 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"supports": "php:7.3,php",
+					"tags": "builder,php",
+					"version": "7.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi8/php-73:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.3-ubi7",
+				"annotations": {
+					"description": "Build and run PHP 7.3 applications on UBI 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.3/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 7.3 (UBI 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"supports": "php:7.3,php",
+					"tags": "builder,php",
+					"version": "7.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi7/php-73:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "7.3",
+				"annotations": {
+					"description": "Build and run PHP 7.3 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.3/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 7.3",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"supports": "php:7.3,php",
+					"tags": "builder,php,hidden",
+					"version": "7.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhscl/php-73-rhel7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
