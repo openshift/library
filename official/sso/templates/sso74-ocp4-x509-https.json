@@ -2,18 +2,18 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "sso75-ocp4-x509-https",
+		"name": "sso74-ocp4-x509-https",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.5 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso75-cpaas-dev/docs.",
+			"description": "An example application based on RH-SSO 7.4 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-cpaas-dev/docs.",
 			"iconClass": "icon-sso",
-			"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK (Ephemeral)",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJDK (Ephemeral)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "sso,keycloak,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.5 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.5.1.GA"
+			"version": "7.4.9.GA"
 		}
 	},
 	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets.",
@@ -292,7 +292,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "sso75-openshift-rhel8:7.5",
+								"name": "sso74-openshift-rhel8:7.4",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -387,7 +387,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.5.1.GA",
-		"template": "sso75-ocp4-x509-https"
+		"rhsso": "7.4.9.GA",
+		"template": "sso74-ocp4-x509-https"
 	}
 }
