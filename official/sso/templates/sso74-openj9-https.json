@@ -2,34 +2,44 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "sso75-ocp4-x509-https",
+		"name": "sso74-openj9-https",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.5 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso75-cpaas-dev/docs.",
+			"description": "An example application based on RH-SSO 7.4 on OpenJ9 image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso74-cpaas-dev/docs.",
 			"iconClass": "icon-sso",
-			"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK (Ephemeral)",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.4 on OpenJ9 (Ephemeral with passthrough TLS)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "sso,keycloak,jboss",
+			"tags": "sso,keycloak,jboss,hidden",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.5 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.4 on OpenJ9 server based deployment, securing RH-SSO communication using passthrough TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.5.1.GA"
+			"version": "7.4.9.GA"
 		}
 	},
-	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets.",
+	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
 	"objects": [
 		{
 			"apiVersion": "v1",
-			"kind": "ConfigMap",
+			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "ConfigMap providing service ca bundle.",
-					"service.beta.openshift.io/inject-cabundle": "true"
+					"description": "The web server's http port."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}-service-ca"
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 8080,
+						"targetPort": 8080
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}"
+				}
 			}
 		},
 		{
@@ -37,13 +47,12 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The web server's https port.",
-					"service.alpha.openshift.io/serving-cert-secret-name": "sso-x509-https-secret"
+					"description": "The web server's https port."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}"
+				"name": "secure-${APPLICATION_NAME}"
 			},
 			"spec": {
 				"ports": [
@@ -63,8 +72,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true",
-					"service.alpha.openshift.io/serving-cert-secret-name": "sso-x509-jgroups-secret"
+					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -86,6 +94,26 @@
 		},
 		{
 			"apiVersion": "route.openshift.io/v1",
+			"id": "${APPLICATION_NAME}-http",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"description": "Route for application's http service."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}"
+			},
+			"spec": {
+				"host": "${HOSTNAME_HTTP}",
+				"to": {
+					"name": "${APPLICATION_NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
 			"id": "${APPLICATION_NAME}-https",
 			"kind": "Route",
 			"metadata": {
@@ -95,14 +123,15 @@
 				"labels": {
 					"application": "${APPLICATION_NAME}"
 				},
-				"name": "${APPLICATION_NAME}"
+				"name": "secure-${APPLICATION_NAME}"
 			},
 			"spec": {
+				"host": "${HOSTNAME_HTTPS}",
 				"tls": {
-					"termination": "reencrypt"
+					"termination": "passthrough"
 				},
 				"to": {
-					"name": "${APPLICATION_NAME}"
+					"name": "secure-${APPLICATION_NAME}"
 				}
 			}
 		},
@@ -164,8 +193,44 @@
 										"value": "8888"
 									},
 									{
-										"name": "X509_CA_BUNDLE",
-										"value": "/var/run/configmaps/service-ca/service-ca.crt /var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+										"name": "HTTPS_KEYSTORE_DIR",
+										"value": "/etc/eap-secret-volume"
+									},
+									{
+										"name": "HTTPS_KEYSTORE",
+										"value": "${HTTPS_KEYSTORE}"
+									},
+									{
+										"name": "HTTPS_KEYSTORE_TYPE",
+										"value": "${HTTPS_KEYSTORE_TYPE}"
+									},
+									{
+										"name": "HTTPS_NAME",
+										"value": "${HTTPS_NAME}"
+									},
+									{
+										"name": "HTTPS_PASSWORD",
+										"value": "${HTTPS_PASSWORD}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_SECRET",
+										"value": "${JGROUPS_ENCRYPT_SECRET}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_KEYSTORE_DIR",
+										"value": "/etc/jgroups-encrypt-secret-volume"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_KEYSTORE",
+										"value": "${JGROUPS_ENCRYPT_KEYSTORE}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_NAME",
+										"value": "${JGROUPS_ENCRYPT_NAME}"
+									},
+									{
+										"name": "JGROUPS_ENCRYPT_PASSWORD",
+										"value": "${JGROUPS_ENCRYPT_PASSWORD}"
 									},
 									{
 										"name": "JGROUPS_CLUSTER_PASSWORD",
@@ -190,6 +255,18 @@
 									{
 										"name": "SSO_SERVICE_PASSWORD",
 										"value": "${SSO_SERVICE_PASSWORD}"
+									},
+									{
+										"name": "SSO_TRUSTSTORE",
+										"value": "${SSO_TRUSTSTORE}"
+									},
+									{
+										"name": "SSO_TRUSTSTORE_DIR",
+										"value": "/etc/sso-secret-volume"
+									},
+									{
+										"name": "SSO_TRUSTSTORE_PASSWORD",
+										"value": "${SSO_TRUSTSTORE_PASSWORD}"
 									}
 								],
 								"image": "${APPLICATION_NAME}",
@@ -243,18 +320,18 @@
 								},
 								"volumeMounts": [
 									{
-										"mountPath": "/etc/x509/https",
-										"name": "sso-x509-https-volume",
+										"mountPath": "/etc/eap-secret-volume",
+										"name": "eap-keystore-volume",
 										"readOnly": true
 									},
 									{
-										"mountPath": "/etc/x509/jgroups",
-										"name": "sso-x509-jgroups-volume",
+										"mountPath": "/etc/jgroups-encrypt-secret-volume",
+										"name": "eap-jgroups-keystore-volume",
 										"readOnly": true
 									},
 									{
-										"mountPath": "/var/run/configmaps/service-ca",
-										"name": "service-ca",
+										"mountPath": "/etc/sso-secret-volume",
+										"name": "sso-truststore-volume",
 										"readOnly": true
 									}
 								]
@@ -263,22 +340,22 @@
 						"terminationGracePeriodSeconds": 75,
 						"volumes": [
 							{
-								"name": "sso-x509-https-volume",
+								"name": "eap-keystore-volume",
 								"secret": {
-									"secretName": "sso-x509-https-secret"
+									"secretName": "${HTTPS_SECRET}"
 								}
 							},
 							{
-								"name": "sso-x509-jgroups-volume",
+								"name": "eap-jgroups-keystore-volume",
 								"secret": {
-									"secretName": "sso-x509-jgroups-secret"
+									"secretName": "${JGROUPS_ENCRYPT_SECRET}"
 								}
 							},
 							{
-								"configMap": {
-									"name": "${APPLICATION_NAME}-service-ca"
-								},
-								"name": "service-ca"
+								"name": "sso-truststore-volume",
+								"secret": {
+									"secretName": "${SSO_TRUSTSTORE_SECRET}"
+								}
 							}
 						]
 					}
@@ -292,7 +369,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "sso75-openshift-rhel8:7.5",
+								"name": "sso74-openj9-openshift-rhel8:7.4",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -314,17 +391,46 @@
 			"required": true
 		},
 		{
+			"name": "HOSTNAME_HTTP",
+			"displayName": "Custom http Route Hostname",
+			"description": "Custom hostname for http service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e.\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
+			"name": "HOSTNAME_HTTPS",
+			"displayName": "Custom https Route Hostname",
+			"description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e.\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+		},
+		{
 			"name": "SSO_HOSTNAME",
 			"displayName": "Custom RH-SSO Server Hostname",
 			"description": "Custom hostname for the RH-SSO server."
 		},
 		{
-			"name": "JGROUPS_CLUSTER_PASSWORD",
-			"displayName": "JGroups Cluster Password",
-			"description": "The password for the JGroups cluster.",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{32}",
-			"required": true
+			"name": "HTTPS_SECRET",
+			"displayName": "Server Keystore Secret Name",
+			"description": "The name of the secret containing the keystore file",
+			"value": "sso-app-secret"
+		},
+		{
+			"name": "HTTPS_KEYSTORE",
+			"displayName": "Server Keystore Filename",
+			"description": "The name of the keystore file within the secret",
+			"value": "keystore.jks"
+		},
+		{
+			"name": "HTTPS_KEYSTORE_TYPE",
+			"displayName": "Server Keystore Type",
+			"description": "The type of the keystore file (JKS or JCEKS)"
+		},
+		{
+			"name": "HTTPS_NAME",
+			"displayName": "Server Certificate Name",
+			"description": "The name associated with the server certificate (e.g. jboss)"
+		},
+		{
+			"name": "HTTPS_PASSWORD",
+			"displayName": "Server Keystore Password",
+			"description": "The password for the keystore and certificate (e.g. mykeystorepass)"
 		},
 		{
 			"name": "DB_MIN_POOL_SIZE",
@@ -340,6 +446,36 @@
 			"name": "DB_TX_ISOLATION",
 			"displayName": "Datasource Transaction Isolation",
 			"description": "Sets transaction-isolation for the configured datasource."
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_SECRET",
+			"displayName": "JGroups Secret Name",
+			"description": "The name of the secret containing the keystore file",
+			"value": "sso-app-secret"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_KEYSTORE",
+			"displayName": "JGroups Keystore Filename",
+			"description": "The name of the keystore file within the secret",
+			"value": "jgroups.jceks"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_NAME",
+			"displayName": "JGroups Certificate Name",
+			"description": "The name associated with the server certificate (e.g. secret-key)"
+		},
+		{
+			"name": "JGROUPS_ENCRYPT_PASSWORD",
+			"displayName": "JGroups Keystore Password",
+			"description": "The password for the keystore and certificate (e.g. password)"
+		},
+		{
+			"name": "JGROUPS_CLUSTER_PASSWORD",
+			"displayName": "JGroups Cluster Password",
+			"description": "JGroups cluster password",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
@@ -359,9 +495,9 @@
 		{
 			"name": "SSO_ADMIN_PASSWORD",
 			"displayName": "RH-SSO Administrator Password",
-			"description": "RH-SSO Server admininistrator password",
+			"description": "RH-SSO Server administrator password",
 			"generate": "expression",
-			"from": "[a-zA-Z0-9]{32}",
+			"from": "[a-zA-Z0-9]{8}",
 			"required": true
 		},
 		{
@@ -380,6 +516,22 @@
 			"description": "The password for the RH-SSO service user."
 		},
 		{
+			"name": "SSO_TRUSTSTORE",
+			"displayName": "RH-SSO Trust Store",
+			"description": "The name of the truststore file within the secret (e.g. truststore.jks)"
+		},
+		{
+			"name": "SSO_TRUSTSTORE_PASSWORD",
+			"displayName": "RH-SSO Trust Store Password",
+			"description": "The password for the truststore and certificate (e.g. mykeystorepass)"
+		},
+		{
+			"name": "SSO_TRUSTSTORE_SECRET",
+			"displayName": "RH-SSO Trust Store Secret",
+			"description": "The name of the secret containing the truststore file (e.g. truststore-secret). Used for volume secretName",
+			"value": "sso-app-secret"
+		},
+		{
 			"name": "MEMORY_LIMIT",
 			"displayName": "Container Memory Limit",
 			"description": "Container memory limit.",
@@ -387,7 +539,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.5.1.GA",
-		"template": "sso75-ocp4-x509-https"
+		"rhsso": "7.4.9.GA",
+		"template": "sso74-openj9-https"
 	}
 }
