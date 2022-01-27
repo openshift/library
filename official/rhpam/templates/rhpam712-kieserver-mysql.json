@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm711-kieserver",
+		"name": "rhpam712-kieserver-mysql",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed KIE Server, for Red Hat Decision Manager 7.11 - Deprecated",
+			"description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.12 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.11 managed KIE Server",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.12 managed KIE Server with a MySQL database",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,kieserver",
+			"tags": "rhpam,processserver,jboss,kieserver",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.11/html/deploying_a_red_hat_decision_manager_7.11_managed_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to execute Rules on Red Hat Decision Manager KIE Server 7.11, including application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_a_red_hat_process_automation_manager_7.12_managed_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE Server 7.12, including application deployment configuration, secure and insecure http communication, using a MySQL database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.11"
+			"version": "7.12"
 		}
 	},
-	"message": "A new Red Hat Decision Manager KIE Server application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
+	"message": "A new Process Automation Manager KIE Server application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -82,6 +82,31 @@
 					"clientIP": {
 						"timeoutSeconds": 3600
 					}
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The database server's port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 3306,
+						"targetPort": 3306
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
 				}
 			}
 		},
@@ -181,7 +206,7 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${DECISION_CENTRAL_SERVICE}"
+										"value": "${BUSINESS_CENTRAL_SERVICE}"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
@@ -247,22 +272,22 @@
 									},
 									{
 										"name": "MAVEN_REPOS",
-										"value": "RHDMCENTR,EXTERNAL"
+										"value": "RHPAMCENTR,EXTERNAL"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_ID",
-										"value": "repo-rhdmcentr"
+										"name": "RHPAMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhpamcentr"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
-										"value": "${DECISION_CENTRAL_SERVICE}"
+										"name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
+										"value": "${BUSINESS_CENTRAL_SERVICE}"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PATH",
+										"name": "RHPAMCENTR_MAVEN_REPO_PATH",
 										"value": "/maven2/"
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_USERNAME",
+										"name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_USER",
@@ -271,7 +296,7 @@
 										}
 									},
 									{
-										"name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
+										"name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_PWD",
@@ -302,6 +327,62 @@
 									{
 										"name": "KIE_SERVER_STARTUP_STRATEGY",
 										"value": "OpenShiftStartupStrategy"
+									},
+									{
+										"name": "KIE_SERVER_PERSISTENCE_DS",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
+									},
+									{
+										"name": "DATASOURCES",
+										"value": "RHPAM"
+									},
+									{
+										"name": "RHPAM_JNDI",
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
+									},
+									{
+										"name": "RHPAM_CONNECTION_CHECKER",
+										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"
+									},
+									{
+										"name": "RHPAM_EXCEPTION_SORTER",
+										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"
+									},
+									{
+										"name": "RHPAM_DATABASE",
+										"value": "${KIE_SERVER_MYSQL_DB}"
+									},
+									{
+										"name": "RHPAM_DRIVER",
+										"value": "mariadb"
+									},
+									{
+										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
+										"value": "${KIE_SERVER_MYSQL_DIALECT}"
+									},
+									{
+										"name": "RHPAM_USERNAME",
+										"value": "${KIE_SERVER_MYSQL_USER}"
+									},
+									{
+										"name": "RHPAM_PASSWORD",
+										"value": "${KIE_SERVER_MYSQL_PWD}"
+									},
+									{
+										"name": "RHPAM_SERVICE_HOST",
+										"value": "${APPLICATION_NAME}-mysql"
+									},
+									{
+										"name": "RHPAM_SERVICE_PORT",
+										"value": "3306"
+									},
+									{
+										"name": "RHPAM_JTA",
+										"value": "true"
+									},
+									{
+										"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+										"value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
 									},
 									{
 										"name": "HTTPS_KEYSTORE_DIR",
@@ -384,20 +465,20 @@
 										"value": "${AUTH_LDAP_URL}"
 									},
 									{
+										"name": "AUTH_LDAP_LOGIN_MODULE",
+										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
+										"name": "AUTH_LDAP_LOGIN_FAILOVER",
+										"value": "${AUTH_LDAP_LOGIN_FAILOVER}"
+									},
+									{
 										"name": "AUTH_LDAP_BIND_DN",
 										"value": "${AUTH_LDAP_BIND_DN}"
 									},
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
-									},
-									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
-										"name": "AUTH_LDAP_LOGIN_MODULE",
-										"value": "${AUTH_LDAP_LOGIN_MODULE}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -408,28 +489,12 @@
 										"value": "${AUTH_LDAP_BASE_FILTER}"
 									},
 									{
-										"name": "AUTH_LDAP_SEARCH_SCOPE",
-										"value": "${AUTH_LDAP_SEARCH_SCOPE}"
+										"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+										"value": "${AUTH_LDAP_RECURSIVE_SEARCH}"
 									},
 									{
 										"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 										"value": "${AUTH_LDAP_SEARCH_TIME_LIMIT}"
-									},
-									{
-										"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-										"value": "${AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_USERNAME",
-										"value": "${AUTH_LDAP_PARSE_USERNAME}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-										"value": "${AUTH_LDAP_USERNAME_BEGIN_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_END_STRING",
-										"value": "${AUTH_LDAP_USERNAME_END_STRING}"
 									},
 									{
 										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -452,28 +517,24 @@
 										"value": "${AUTH_LDAP_DEFAULT_ROLE}"
 									},
 									{
-										"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID}"
+										"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+										"value": "${AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES}"
 									},
 									{
-										"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-										"value": "${AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-										"value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+										"name": "AUTH_LDAP_REFERRAL_MODE",
+										"value": "${AUTH_LDAP_REFERRAL_MODE}"
 									},
 									{
 										"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 										"value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
 									},
 									{
-										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
+										"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_MAPPED}"
+									},
+									{
+										"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
 								"image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -555,6 +616,19 @@
 								]
 							}
 						],
+						"initContainers": [
+							{
+								"command": [
+									"/bin/bash",
+									"-c",
+									"replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-mysql; replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
+								],
+								"image": "registry.redhat.io/openshift3/ose-cli",
+								"imagePullPolicy": "IfNotPresent",
+								"name": "${APPLICATION_NAME}-mysql-init",
+								"terminationMessagePolicy": "FallbackToLogsOnError"
+							}
+						],
 						"serviceAccountName": "${APPLICATION_NAME}-kieserver",
 						"terminationGracePeriodSeconds": 90,
 						"volumes": [
@@ -587,6 +661,147 @@
 					}
 				]
 			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"annotations": {
+					"template.alpha.openshift.io/wait-for-ready": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
+				},
+				"strategy": {
+					"type": "Recreate"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"application": "${APPLICATION_NAME}",
+							"deploymentConfig": "${APPLICATION_NAME}-mysql",
+							"service": "${APPLICATION_NAME}-mysql"
+						},
+						"name": "${APPLICATION_NAME}-mysql"
+					},
+					"spec": {
+						"containers": [
+							{
+								"env": [
+									{
+										"name": "MYSQL_USER",
+										"value": "${KIE_SERVER_MYSQL_USER}"
+									},
+									{
+										"name": "MYSQL_PASSWORD",
+										"value": "${KIE_SERVER_MYSQL_PWD}"
+									},
+									{
+										"name": "MYSQL_DATABASE",
+										"value": "${KIE_SERVER_MYSQL_DB}"
+									},
+									{
+										"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
+										"value": "mysql_native_password"
+									}
+								],
+								"image": "mysql",
+								"imagePullPolicy": "Always",
+								"livenessProbe": {
+									"initialDelaySeconds": 30,
+									"tcpSocket": {
+										"port": 3306
+									},
+									"timeoutSeconds": 1
+								},
+								"name": "${APPLICATION_NAME}-mysql",
+								"ports": [
+									{
+										"containerPort": 3306,
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/bin/sh",
+											"-i",
+											"-c",
+											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+										],
+										"port": 3306
+									},
+									"initialDelaySeconds": 5,
+									"timeoutSeconds": 1
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/var/lib/mysql/data",
+										"name": "${APPLICATION_NAME}-mysql-pvol"
+									}
+								]
+							}
+						],
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"name": "${APPLICATION_NAME}-mysql-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-mysql-claim"
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"${APPLICATION_NAME}-mysql"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "mysql:${MYSQL_IMAGE_STREAM_TAG}",
+								"namespace": "${MYSQL_IMAGE_STREAM_NAMESPACE}"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${DB_VOLUME_CAPACITY}"
+					}
+				}
+			}
 		}
 	],
 	"parameters": [
@@ -600,7 +815,7 @@
 		{
 			"name": "MAVEN_MIRROR_URL",
 			"displayName": "Maven mirror URL",
-			"description": "Maven mirror that KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for deploying your services."
+			"description": "Maven mirror that the KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for deploying your services."
 		},
 		{
 			"name": "MAVEN_MIRROR_OF",
@@ -611,7 +826,7 @@
 		{
 			"name": "MAVEN_REPO_ID",
 			"displayName": "Maven repository ID",
-			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhdmcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
+			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhpamcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
 			"value": "repo-custom"
 		},
 		{
@@ -630,35 +845,86 @@
 			"description": "Password to access the Maven repository, if required."
 		},
 		{
-			"name": "DECISION_CENTRAL_SERVICE",
-			"displayName": "Name of the Decision Central service",
-			"description": "The Service name for the optional Decision Central, where it can be reached, to allow service lookups (for example, maven repo usage), if required."
+			"name": "BUSINESS_CENTRAL_SERVICE",
+			"displayName": "Name of the Business Central service",
+			"description": "The Service name for the optional Business Central, where it can be reached, to allow service lookups (for example,  maven repo usage), if required."
 		},
 		{
 			"name": "CREDENTIALS_SECRET",
 			"displayName": "Credentials secret",
-			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values.",
+			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
+			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
 			"value": "openshift",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE Server. Default is \"rhdm-kieserver-rhel8\".",
-			"value": "rhdm-kieserver-rhel8",
+			"description": "The name of the image stream to use for KIE Server. Default is \"rhpam-kieserver-rhel8\".",
+			"value": "rhpam-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.11.1\".",
-			"value": "7.11.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.12.0\".",
+			"value": "7.12.0",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_PERSISTENCE_DS",
+			"displayName": "KIE Server Persistence DS",
+			"description": "KIE Server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
+			"value": "java:/jboss/datasources/rhpam"
+		},
+		{
+			"name": "MYSQL_IMAGE_STREAM_NAMESPACE",
+			"displayName": "MySQL ImageStream Namespace",
+			"description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+			"value": "openshift"
+		},
+		{
+			"name": "MYSQL_IMAGE_STREAM_TAG",
+			"displayName": "MySQL ImageStream Tag",
+			"description": "The MySQL image version, which is intended to correspond to the MySQL version. Default is \"8.0\".",
+			"value": "8.0"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_USER",
+			"displayName": "KIE Server MySQL Database User",
+			"description": "KIE Server MySQL database user name.",
+			"value": "rhpam"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_PWD",
+			"displayName": "KIE Server MySQL Database Password",
+			"description": "KIE Server MySQL database password.",
+			"generate": "expression",
+			"from": "[a-zA-Z]{6}[0-9]{1}!"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_DB",
+			"displayName": "KIE Server MySQL Database Name",
+			"description": "KIE Server MySQL database name.",
+			"value": "rhpam7"
+		},
+		{
+			"name": "DB_VOLUME_CAPACITY",
+			"displayName": "Database Volume Capacity",
+			"description": "Size of persistent storage for the database volume.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_DIALECT",
+			"displayName": "KIE Server MySQL Dialect",
+			"description": "KIE Server MySQL Hibernate dialect.",
+			"value": "org.hibernate.dialect.MySQL8Dialect",
 			"required": true
 		},
 		{
@@ -692,7 +958,7 @@
 		{
 			"name": "KIE_SERVER_HOSTNAME_HTTPS",
 			"displayName": "KIE Server Custom https Route Hostname",
-			"description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
@@ -725,6 +991,12 @@
 			"value": "false"
 		},
 		{
+			"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
+			"displayName": "Timer service data store refresh interval (in milliseconds)",
+			"description": "Sets refresh-interval for the EJB timer database data-store service.",
+			"value": "30000"
+		},
+		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
 			"displayName": "KIE Server Container Memory Limit",
 			"description": "KIE Server Container memory limit.",
@@ -734,7 +1006,7 @@
 		{
 			"name": "KIE_SERVER_MEMORY_REQUEST",
 			"displayName": "KIE Server Container Memory Request",
-			"description": "KIE Server Container memory Request.",
+			"description": "KIE Server Container memory request.",
 			"value": "1536Mi",
 			"required": true
 		},
@@ -748,7 +1020,7 @@
 		{
 			"name": "KIE_SERVER_CPU_REQUEST",
 			"displayName": "KIE Server Container CPU Request",
-			"description": "KIE Server Container CPU Request.",
+			"description": "KIE Server Container CPU request.",
 			"value": "750m",
 			"required": true
 		},
@@ -760,7 +1032,7 @@
 		{
 			"name": "KIE_SERVER_MGMT_DISABLED",
 			"displayName": "Disable KIE Server Management",
-			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
+			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
 		},
 		{
 			"name": "SSO_URL",
@@ -780,12 +1052,12 @@
 		{
 			"name": "KIE_SERVER_SSO_SECRET",
 			"displayName": "KIE Server RH-SSO Client Secret",
-			"description": "KIE Server RH-SSO Client Secret"
+			"description": "KIE Server RH-SSO Client Secret."
 		},
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist."
+			"description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
@@ -810,6 +1082,16 @@
 			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
+			"name": "AUTH_LDAP_LOGIN_MODULE",
+			"displayName": "LDAP Flag Login Module",
+			"description": "LDAP login module flag, adds backward compatibility with the legacy security subsystem on Elytron. 'optional' is the only supported value, if set, it will create a distributed realm on Elytron configuration with LDAP and FileSystem realms with the user added using the KIE_ADMIN_USER."
+		},
+		{
+			"name": "AUTH_LDAP_LOGIN_FAILOVER",
+			"displayName": "LDAP login failover",
+			"description": "Enable failover, if LDAP Url is unreachable, it will fail over to the KieFsRealm."
+		},
+		{
 			"name": "AUTH_LDAP_BIND_DN",
 			"displayName": "LDAP Bind DN",
 			"description": "Bind DN used for authentication."
@@ -818,16 +1100,6 @@
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
 			"description": "LDAP Credentials used for authentication."
-		},
-		{
-			"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-			"displayName": "LDAP JAAS Security Domain",
-			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
-		},
-		{
-			"name": "AUTH_LDAP_LOGIN_MODULE",
-			"displayName": "LDAP Flag Login Module",
-			"description": "A flag to set login module to optional. The default value is required"
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -840,34 +1112,14 @@
 			"description": "LDAP search filter used to locate the context of the user to authenticate. The input username or userDN obtained from the login module callback is substituted into the filter anywhere a {0} expression is used. A common example for the search filter is (uid={0})."
 		},
 		{
-			"name": "AUTH_LDAP_SEARCH_SCOPE",
-			"displayName": "LDAP Search scope",
-			"description": "The search scope to use."
+			"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+			"displayName": "LDAP User resursive search",
+			"description": "Indicates if the user queries are recursive."
 		},
 		{
 			"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 			"displayName": "LDAP Search time limit",
 			"description": "The timeout in milliseconds for user or role searches."
-		},
-		{
-			"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-			"displayName": "LDAP DN attribute",
-			"description": "The name of the attribute in the user entry that contains the DN of the user. This may be necessary if the DN of the user itself contains special characters, backslash for example, that prevent correct user mapping. If the attribute does not exist, the entry’s DN is used."
-		},
-		{
-			"name": "AUTH_LDAP_PARSE_USERNAME",
-			"displayName": "LDAP Parse username",
-			"description": "A flag indicating if the DN is to be parsed for the user name. If set to true, the DN is parsed for the user name. If set to false the DN is not parsed for the user name. This option is used together with usernameBeginString and usernameEndString."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-			"displayName": "LDAP Username begin string",
-			"description": "Defines the String which is to be removed from the start of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_END_STRING",
-			"displayName": "LDAP Username end string",
-			"description": "Defines the String which is to be removed from the end of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
 		},
 		{
 			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -895,38 +1147,33 @@
 			"description": "A role included for all authenticated users."
 		},
 		{
-			"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-			"displayName": "LDAP Role name attribute ID",
-			"description": "Name of the attribute within the roleCtxDN context which contains the role name. If the roleAttributeIsDN property is set to true, this property is used to find the role object’s name attribute."
+			"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+			"displayName": "LDAP new identity attributes",
+			"description": "Provide new identities for LDAP  identity mapping, the pattern to be used with this env is 'attribute_name=attribute_value;another_attribute_name=value'"
 		},
 		{
-			"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-			"displayName": "LDAP Role DN contains roleNameAttributeID",
-			"description": "A flag indicating if the DN returned by a query contains the roleNameAttributeID. If set to true, the DN is checked for the roleNameAttributeID. If set to false, the DN is not checked for the roleNameAttributeID. This flag can improve the performance of LDAP queries."
-		},
-		{
-			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-			"displayName": "LDAP Role Attribute ID is DN",
-			"description": "Whether or not the roleAttributeID contains the fully-qualified DN of a role object. If false, the role name is taken from the value of the roleNameAttributeId attribute of the context name. Certain directory schemas, such as Microsoft Active Directory, require this attribute to be set to true."
-		},
-		{
-			"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-			"displayName": "LDAP Referral user attribute ID",
-			"description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree."
+			"name": "AUTH_LDAP_REFERRAL_MODE",
+			"displayName": "LDAP follow referrals",
+			"description": "If LDAP referrals should be followed. Corresponds to REFERRAL ('java.naming.referral') environment property. Allowed values: 'ignore', 'follow', 'throw'"
 		},
 		{
 			"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
-			"displayName": "RoleMapping rolesProperties file path",
-			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
+			"displayName": "Role Mapping roles properties file path or one lined roles",
+			"description": "When present, the RoleMapping will be configured to use the provided properties file or roles. This parameter defines the fully-qualified file path and name of a properties file or a set of roles with the following pattern 'role=role1;another-role=role2'. The format of every entry in the file is original_role=role1,role2,role3"
 		},
 		{
-			"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-			"displayName": "RoleMapping replaceRole property",
-			"description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true."
+			"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+			"displayName": "Role Mapper Keep Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have defined mappings."
+		},
+		{
+			"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+			"displayName": "Role Mapper Keep Non Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have no defined mappings."
 		}
 	],
 	"labels": {
-		"rhdm": "7.11",
-		"template": "rhdm711-kieserver"
+		"rhpam": "7.12",
+		"template": "rhpam712-kieserver-mysql"
 	}
 }

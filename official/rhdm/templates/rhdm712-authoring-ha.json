@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm711-authoring",
+		"name": "rhdm712-authoring-ha",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a non-HA persistent authoring environment, for Red Hat Decision Manager 7.11 - Deprecated",
+			"description": "Application template for a HA persistent authoring environment, for Red Hat Decision Manager 7.12 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.11 authoring environment (non-HA, persistent, with https)",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.12 authoring environment (HA, persistent, with https)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,authoring",
+			"tags": "rhdm,decisionserver,jboss,authoring,ha",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.11/html/deploying_a_red_hat_decision_manager_7.11_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.11, including application deployment configuration, secure and insecure http communication and a persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/deploying_a_red_hat_decision_manager_7.12_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.12 with High Availability enabled as tech preview, including application deployment configuration, secure and insecure http communication and persistent volumes to store data that needs to survive a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.11"
+			"version": "7.12"
 		}
 	},
-	"message": "A new persistent Decision Manager application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+	"message": "A new persistent HA Decision Manager application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${DECISION_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${DECISION_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -84,6 +84,59 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
+					"description": "Provides a ping service for clustered applications.",
+					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-datagrid-ping"
+			},
+			"spec": {
+				"clusterIP": "None",
+				"ports": [
+					{
+						"name": "ping",
+						"port": 8888,
+						"targetPort": 8888
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-datagrid"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "Provides a service for accessing the application over Hot Rod protocol.",
+					"service.alpha.openshift.io/serving-cert-secret-name": "datagrid-service-certs"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-datagrid"
+			},
+			"spec": {
+				"ports": [
+					{
+						"name": "hotrod",
+						"port": 11222,
+						"targetPort": 11222
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-datagrid"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
 					"description": "All the KIE Server web server's ports."
 				},
 				"labels": {
@@ -118,11 +171,66 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The broker's OpenWire port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-amq-tcp"
+				},
+				"name": "${APPLICATION_NAME}-amq-tcp"
+			},
+			"spec": {
+				"clusterIP": "None",
+				"ports": [
+					{
+						"port": 61616,
+						"targetPort": 61616
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-amq"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The JGroups ping port for amq clustering.",
+					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "ping"
+				},
+				"name": "ping"
+			},
+			"spec": {
+				"clusterIP": "None",
+				"ports": [
+					{
+						"port": 8888,
+						"protocol": "TCP",
+						"targetPort": 8888
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-amq"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"id": "insecure-${APPLICATION_NAME}-rhdmcentr-http",
 			"kind": "Route",
 			"metadata": {
 				"annotations": {
 					"description": "Route for Decision Central's http service.",
+					"haproxy.router.openshift.io/balance": "source",
 					"haproxy.router.openshift.io/timeout": "1h"
 				},
 				"labels": {
@@ -222,6 +330,179 @@
 			}
 		},
 		{
+			"apiVersion": "apps/v1",
+			"kind": "StatefulSet",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-datagrid"
+			},
+			"spec": {
+				"podManagementPolicy": "OrderedReady",
+				"replicas": 2,
+				"selector": {
+					"matchLabels": {
+						"deploymentConfig": "${APPLICATION_NAME}-datagrid"
+					}
+				},
+				"serviceName": "${APPLICATION_NAME}-datagrid",
+				"template": {
+					"metadata": {
+						"labels": {
+							"application": "${APPLICATION_NAME}",
+							"deploymentConfig": "${APPLICATION_NAME}-datagrid"
+						},
+						"name": "${APPLICATION_NAME}-datagrid"
+					},
+					"spec": {
+						"containers": [
+							{
+								"env": [
+									{
+										"name": "USER",
+										"value": "${APPFORMER_INFINISPAN_USERNAME}"
+									},
+									{
+										"name": "PASS",
+										"value": "${APPFORMER_INFINISPAN_PASSWORD}"
+									},
+									{
+										"name": "SERVICE_NAME",
+										"value": "${APPLICATION_NAME}-datagrid"
+									},
+									{
+										"name": "SERVICE_PROFILE",
+										"value": "${APPLICATION_NAME}-datagrid"
+									},
+									{
+										"name": "JGROUPS_PING_PROTOCOL",
+										"value": "openshift.DNS_PING"
+									},
+									{
+										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
+										"value": "${APPLICATION_NAME}-datagrid-ping"
+									},
+									{
+										"name": "INFINISPAN_CONNECTORS",
+										"value": "hotrod"
+									}
+								],
+								"image": "${DATAGRID_IMAGE}",
+								"imagePullPolicy": "IfNotPresent",
+								"livenessProbe": {
+									"failureThreshold": 5,
+									"httpGet": {
+										"path": "/rest/v2/cache-managers/default/health/status",
+										"port": 11222,
+										"scheme": "HTTP"
+									},
+									"initialDelaySeconds": 10,
+									"periodSeconds": 10,
+									"successThreshold": 1,
+									"timeoutSeconds": 40
+								},
+								"name": "${APPLICATION_NAME}-datagrid",
+								"ports": [
+									{
+										"containerPort": 8888,
+										"name": "ping",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 11222,
+										"name": "hotrod",
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"failureThreshold": 5,
+									"httpGet": {
+										"path": "/rest/v2/cache-managers/default/health/status",
+										"port": 11222,
+										"scheme": "HTTP"
+									},
+									"initialDelaySeconds": 10,
+									"periodSeconds": 10,
+									"successThreshold": 1,
+									"timeoutSeconds": 40
+								},
+								"resources": {
+									"limits": {
+										"cpu": "${DATAGRID_CPU_LIMIT}",
+										"memory": "${DATAGRID_MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${DATAGRID_CPU_LIMIT}",
+										"memory": "${DATAGRID_MEMORY_LIMIT}"
+									}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/opt/datagrid/standalone/data",
+										"name": "srv-data"
+									},
+									{
+										"mountPath": "/var/run/secrets/java.io/keystores",
+										"name": "datagrid-keystore-volume"
+									},
+									{
+										"mountPath": "/var/run/secrets/openshift.io/serviceaccount",
+										"name": "datagrid-service-certs"
+									}
+								]
+							}
+						],
+						"dnsPolicy": "ClusterFirst",
+						"restartPolicy": "Always",
+						"schedulerName": "default-scheduler",
+						"securityContext": {},
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"empty-dir": {},
+								"name": "datagrid-keystore-volume"
+							},
+							{
+								"name": "datagrid-service-certs",
+								"secret": {
+									"secretName": "datagrid-service-certs"
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"type": "ConfigChange"
+					}
+				],
+				"updateStrategy": {
+					"rollingUpdate": {
+						"partition": 0
+					},
+					"type": "RollingUpdate"
+				},
+				"volumeClaimTemplates": [
+					{
+						"metadata": {
+							"name": "srv-data"
+						},
+						"spec": {
+							"accessModes": [
+								"ReadWriteOnce"
+							],
+							"resources": {
+								"requests": {
+									"storage": "${DATAGRID_VOLUME_CAPACITY}"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
 			"apiVersion": "v1",
 			"kind": "DeploymentConfig",
 			"metadata": {
@@ -235,7 +516,7 @@
 				"name": "${APPLICATION_NAME}-rhdmcentr"
 			},
 			"spec": {
-				"replicas": 1,
+				"replicas": "${{DECISION_CENTRAL_CONTAINER_REPLICAS}}",
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
 				},
@@ -247,8 +528,7 @@
 						"labels": {
 							"application": "${APPLICATION_NAME}",
 							"cluster": "jgrp.k8s.${APPLICATION_NAME}.rhdmcentr",
-							"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr",
-							"service": "${APPLICATION_NAME}-rhdmcentr"
+							"deploymentConfig": "${APPLICATION_NAME}-rhdmcentr"
 						},
 						"name": "${APPLICATION_NAME}-rhdmcentr"
 					},
@@ -288,7 +568,7 @@
 									},
 									{
 										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_ENABLED",
-										"value": "false"
+										"value": "true"
 									},
 									{
 										"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
@@ -351,6 +631,10 @@
 										"value": "${DECISION_CENTRAL_HTTPS_PASSWORD}"
 									},
 									{
+										"name": "JGROUPS_PING_PROTOCOL",
+										"value": "kubernetes.KUBE_PING"
+									},
+									{
 										"name": "KUBERNETES_NAMESPACE",
 										"valueFrom": {
 											"fieldRef": {
@@ -361,6 +645,54 @@
 									{
 										"name": "KUBERNETES_LABELS",
 										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.rhdmcentr"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_SERVICE_NAME",
+										"value": "${APPLICATION_NAME}-datagrid"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_PORT",
+										"value": "11222"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_USERNAME",
+										"value": "${APPFORMER_INFINISPAN_USERNAME}"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_PASSWORD",
+										"value": "${APPFORMER_INFINISPAN_PASSWORD}"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_SASL_QOP",
+										"value": "auth"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_SERVER_NAME",
+										"value": "infinispan"
+									},
+									{
+										"name": "APPFORMER_INFINISPAN_REALM",
+										"value": "default"
+									},
+									{
+										"name": "APPFORMER_JMS_BROKER_ADDRESS",
+										"value": "${APPLICATION_NAME}-amq-tcp"
+									},
+									{
+										"name": "APPFORMER_JMS_BROKER_PORT",
+										"value": "61616"
+									},
+									{
+										"name": "APPFORMER_JMS_BROKER_USER",
+										"value": "${APPFORMER_JMS_BROKER_USER}"
+									},
+									{
+										"name": "APPFORMER_JMS_BROKER_PASSWORD",
+										"value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+									},
+									{
+										"name": "JAVA_MAX_MEM_RATIO",
+										"value": "${DECISION_CENTRAL_JAVA_MAX_MEM_RATIO}"
 									},
 									{
 										"name": "SSO_URL",
@@ -411,20 +743,20 @@
 										"value": "${AUTH_LDAP_URL}"
 									},
 									{
+										"name": "AUTH_LDAP_LOGIN_MODULE",
+										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
+										"name": "AUTH_LDAP_LOGIN_FAILOVER",
+										"value": "${AUTH_LDAP_LOGIN_FAILOVER}"
+									},
+									{
 										"name": "AUTH_LDAP_BIND_DN",
 										"value": "${AUTH_LDAP_BIND_DN}"
 									},
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
-									},
-									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
-										"name": "AUTH_LDAP_LOGIN_MODULE",
-										"value": "${AUTH_LDAP_LOGIN_MODULE}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -435,28 +767,12 @@
 										"value": "${AUTH_LDAP_BASE_FILTER}"
 									},
 									{
-										"name": "AUTH_LDAP_SEARCH_SCOPE",
-										"value": "${AUTH_LDAP_SEARCH_SCOPE}"
+										"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+										"value": "${AUTH_LDAP_RECURSIVE_SEARCH}"
 									},
 									{
 										"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 										"value": "${AUTH_LDAP_SEARCH_TIME_LIMIT}"
-									},
-									{
-										"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-										"value": "${AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_USERNAME",
-										"value": "${AUTH_LDAP_PARSE_USERNAME}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-										"value": "${AUTH_LDAP_USERNAME_BEGIN_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_END_STRING",
-										"value": "${AUTH_LDAP_USERNAME_END_STRING}"
 									},
 									{
 										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -479,31 +795,27 @@
 										"value": "${AUTH_LDAP_DEFAULT_ROLE}"
 									},
 									{
-										"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID}"
+										"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+										"value": "${AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES}"
 									},
 									{
-										"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-										"value": "${AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-										"value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+										"name": "AUTH_LDAP_REFERRAL_MODE",
+										"value": "${AUTH_LDAP_REFERRAL_MODE}"
 									},
 									{
 										"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 										"value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
 									},
 									{
-										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
+										"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_MAPPED}"
+									},
+									{
+										"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
-								"image": "rhdm-decisioncentral-rhel8",
+								"image": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
 									"failureThreshold": 36,
@@ -595,7 +907,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "rhdm-decisioncentral-rhel8:${IMAGE_STREAM_TAG}",
+								"name": "${DECISION_CENTRAL_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -622,13 +934,17 @@
 				"name": "${APPLICATION_NAME}-kieserver"
 			},
 			"spec": {
-				"replicas": 1,
+				"replicas": "${{KIE_SERVER_CONTAINER_REPLICAS}}",
 				"revisionHistoryLimit": 10,
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}-kieserver"
 				},
 				"strategy": {
-					"type": "Recreate"
+					"rollingParams": {
+						"maxSurge": "100%",
+						"maxUnavailable": 0
+					},
+					"type": "Rolling"
 				},
 				"template": {
 					"metadata": {
@@ -709,7 +1025,7 @@
 									},
 									{
 										"name": "KIE_SERVER_STARTUP_STRATEGY",
-										"value": "ControllerBasedStartupStrategy"
+										"value": "OpenShiftStartupStrategy"
 									},
 									{
 										"name": "MAVEN_MIRROR_URL",
@@ -789,7 +1105,6 @@
 										"name": "KUBERNETES_NAMESPACE",
 										"valueFrom": {
 											"fieldRef": {
-												"apiVersion": "v1",
 												"fieldPath": "metadata.namespace"
 											}
 										}
@@ -847,20 +1162,20 @@
 										"value": "${AUTH_LDAP_URL}"
 									},
 									{
+										"name": "AUTH_LDAP_LOGIN_MODULE",
+										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
+										"name": "AUTH_LDAP_LOGIN_FAILOVER",
+										"value": "${AUTH_LDAP_LOGIN_FAILOVER}"
+									},
+									{
 										"name": "AUTH_LDAP_BIND_DN",
 										"value": "${AUTH_LDAP_BIND_DN}"
 									},
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
-									},
-									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
-										"name": "AUTH_LDAP_LOGIN_MODULE",
-										"value": "${AUTH_LDAP_LOGIN_MODULE}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -871,28 +1186,12 @@
 										"value": "${AUTH_LDAP_BASE_FILTER}"
 									},
 									{
-										"name": "AUTH_LDAP_SEARCH_SCOPE",
-										"value": "${AUTH_LDAP_SEARCH_SCOPE}"
+										"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+										"value": "${AUTH_LDAP_RECURSIVE_SEARCH}"
 									},
 									{
 										"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 										"value": "${AUTH_LDAP_SEARCH_TIME_LIMIT}"
-									},
-									{
-										"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-										"value": "${AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_USERNAME",
-										"value": "${AUTH_LDAP_PARSE_USERNAME}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-										"value": "${AUTH_LDAP_USERNAME_BEGIN_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_END_STRING",
-										"value": "${AUTH_LDAP_USERNAME_END_STRING}"
 									},
 									{
 										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -915,28 +1214,24 @@
 										"value": "${AUTH_LDAP_DEFAULT_ROLE}"
 									},
 									{
-										"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID}"
+										"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+										"value": "${AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES}"
 									},
 									{
-										"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-										"value": "${AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-										"value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+										"name": "AUTH_LDAP_REFERRAL_MODE",
+										"value": "${AUTH_LDAP_REFERRAL_MODE}"
 									},
 									{
 										"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 										"value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
 									},
 									{
-										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
+										"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_MAPPED}"
+									},
+									{
+										"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
 								"image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
@@ -1052,18 +1347,207 @@
 			}
 		},
 		{
+			"apiVersion": "apps/v1",
+			"kind": "StatefulSet",
+			"metadata": {
+				"annotations": {
+					"alpha.image.policy.openshift.io/resolve-names": "*"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-amq"
+			},
+			"spec": {
+				"podManagementPolicy": "OrderedReady",
+				"replicas": "${{AMQ_REPLICAS}}",
+				"revisionHistoryLimit": 10,
+				"selector": {
+					"matchLabels": {
+						"deploymentConfig": "${APPLICATION_NAME}-amq"
+					}
+				},
+				"serviceName": "${APPLICATION_NAME}-amq-tcp",
+				"template": {
+					"metadata": {
+						"labels": {
+							"application": "${APPLICATION_NAME}",
+							"deploymentConfig": "${APPLICATION_NAME}-amq"
+						},
+						"name": "${APPLICATION_NAME}-amq"
+					},
+					"spec": {
+						"containers": [
+							{
+								"env": [
+									{
+										"name": "AMQ_USER",
+										"value": "${APPFORMER_JMS_BROKER_USER}"
+									},
+									{
+										"name": "AMQ_PASSWORD",
+										"value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+									},
+									{
+										"name": "AMQ_ROLE",
+										"value": "${AMQ_ROLE}"
+									},
+									{
+										"name": "AMQ_NAME",
+										"value": "${AMQ_NAME}"
+									},
+									{
+										"name": "AMQ_TRANSPORTS",
+										"value": "openwire"
+									},
+									{
+										"name": "AMQ_GLOBAL_MAX_SIZE",
+										"value": "${AMQ_GLOBAL_MAX_SIZE}"
+									},
+									{
+										"name": "AMQ_REQUIRE_LOGIN"
+									},
+									{
+										"name": "AMQ_DATA_DIR",
+										"value": "/opt/amq/data"
+									},
+									{
+										"name": "AMQ_DATA_DIR_LOGGING",
+										"value": "true"
+									},
+									{
+										"name": "AMQ_CLUSTERED",
+										"value": "true"
+									},
+									{
+										"name": "AMQ_REPLICAS",
+										"value": "${AMQ_REPLICAS}"
+									},
+									{
+										"name": "AMQ_CLUSTER_USER",
+										"value": "${APPFORMER_JMS_BROKER_USER}"
+									},
+									{
+										"name": "AMQ_CLUSTER_PASSWORD",
+										"value": "${APPFORMER_JMS_BROKER_PASSWORD}"
+									},
+									{
+										"name": "AMQ_EXTRA_ARGS"
+									},
+									{
+										"name": "AMQ_ANYCAST_PREFIX"
+									},
+									{
+										"name": "AMQ_MULTICAST_PREFIX"
+									},
+									{
+										"name": "POD_NAMESPACE",
+										"valueFrom": {
+											"fieldRef": {
+												"apiVersion": "v1",
+												"fieldPath": "metadata.namespace"
+											}
+										}
+									}
+								],
+								"image": "${AMQ_BROKER_IMAGE}",
+								"imagePullPolicy": "IfNotPresent",
+								"name": "broker-amq",
+								"ports": [
+									{
+										"containerPort": 8161,
+										"name": "jolokia",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 5672,
+										"name": "amqp",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 1883,
+										"name": "mqtt",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 61613,
+										"name": "stomp",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 61616,
+										"name": "artemis",
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/bin/bash",
+											"-c",
+											"/opt/amq/bin/readinessProbe.sh"
+										]
+									},
+									"failureThreshold": 3,
+									"periodSeconds": 10,
+									"successThreshold": 1,
+									"timeoutSeconds": 1
+								},
+								"resources": {},
+								"terminationMessagePath": "/dev/termination-log",
+								"terminationMessagePolicy": "File",
+								"volumeMounts": [
+									{
+										"mountPath": "/opt/amq/data",
+										"name": "${APPLICATION_NAME}-amq-pvol"
+									}
+								]
+							}
+						],
+						"dnsPolicy": "ClusterFirst",
+						"restartPolicy": "Always",
+						"schedulerName": "default-scheduler",
+						"securityContext": {},
+						"terminationGracePeriodSeconds": 60
+					}
+				},
+				"updateStrategy": {
+					"rollingUpdate": {
+						"partition": 0
+					},
+					"type": "RollingUpdate"
+				},
+				"volumeClaimTemplates": [
+					{
+						"metadata": {
+							"name": "${APPLICATION_NAME}-amq-pvol"
+						},
+						"spec": {
+							"accessModes": [
+								"ReadWriteOnce"
+							],
+							"resources": {
+								"requests": {
+									"storage": "${AMQ_VOLUME_CAPACITY}"
+								}
+							}
+						}
+					}
+				]
+			}
+		},
+		{
 			"apiVersion": "v1",
 			"kind": "PersistentVolumeClaim",
 			"metadata": {
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-rhdmcentr"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}-rhdmcentr-claim"
 			},
 			"spec": {
 				"accessModes": [
-					"ReadWriteOnce"
+					"ReadWriteMany"
 				],
 				"resources": {
 					"requests": {
@@ -1107,13 +1591,13 @@
 		{
 			"name": "KIE_MBEANS",
 			"displayName": "KIE MBeans",
-			"description": "KIE Server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
+			"description": "KIE Server mbeans enabled/disabled. (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
 			"value": "enabled"
 		},
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE Server class filtering. (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1124,7 +1608,7 @@
 		{
 			"name": "DECISION_CENTRAL_HOSTNAME_HTTP",
 			"displayName": "Decision Central Custom http Route Hostname",
-			"description": "Custom hostname for http service route for Decision Central. Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhdmcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for http service route for Decision Central.  Leave blank for default hostname, e.g.: insecure-\u003capplication-name\u003e-rhdmcentr-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "DECISION_CENTRAL_HOSTNAME_HTTPS",
@@ -1139,7 +1623,7 @@
 		{
 			"name": "KIE_SERVER_HOSTNAME_HTTPS",
 			"displayName": "KIE Server Custom https Route Hostname",
-			"description": "Custom hostname for https service route for KIE Server.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for https service route for KIE Server. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "DECISION_CENTRAL_HTTPS_SECRET",
@@ -1150,44 +1634,141 @@
 		{
 			"name": "DECISION_CENTRAL_HTTPS_KEYSTORE",
 			"displayName": "Decision Central Server Keystore Filename",
-			"description": "The name of the keystore file within the secret.",
+			"description": "The name of the keystore file within the secret for Decision Central.",
 			"value": "keystore.jks"
 		},
 		{
 			"name": "DECISION_CENTRAL_HTTPS_NAME",
 			"displayName": "Decision Central Server Certificate Name",
-			"description": "The name associated with the server certificate.",
+			"description": "The name associated with the server certificate for Decision Central.",
 			"value": "jboss"
 		},
 		{
 			"name": "DECISION_CENTRAL_HTTPS_PASSWORD",
 			"displayName": "Decision Central Server Keystore Password",
-			"description": "The password for the keystore and certificate.",
+			"description": "The password for the keystore and certificate for Decision Central.",
 			"value": "mykeystorepass"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
 			"displayName": "KIE Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file.",
+			"description": "The name of the secret containing the keystore file for KIE Server.",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_KEYSTORE",
 			"displayName": "KIE Server Keystore Filename",
-			"description": "The name of the keystore file within the secret.",
+			"description": "The name of the keystore file within the secret for KIE Server.",
 			"value": "keystore.jks"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_NAME",
 			"displayName": "KIE Server Certificate Name",
-			"description": "The name associated with the server certificate.",
+			"description": "The name associated with the server certificate for KIE Server.",
 			"value": "jboss"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_PASSWORD",
 			"displayName": "KIE Server Keystore Password",
-			"description": "The password for the keystore and certificate.",
+			"description": "The password for the keystore and certificate for KIE Server.",
 			"value": "mykeystorepass"
+		},
+		{
+			"name": "APPFORMER_JMS_BROKER_USER",
+			"displayName": "AppFormer JMS Broker user name",
+			"description": "The user name to connect to the JMS broker.",
+			"value": "jmsBrokerUser",
+			"required": true
+		},
+		{
+			"name": "APPFORMER_JMS_BROKER_PASSWORD",
+			"displayName": "AppFormer JMS Broker password",
+			"description": "The password to connect to the JMS broker.",
+			"generate": "expression",
+			"from": "[a-zA-Z]{6}[0-9]{1}!",
+			"required": true
+		},
+		{
+			"name": "DATAGRID_IMAGE",
+			"displayName": "DataGrid Image",
+			"description": "DataGrid image.",
+			"value": "registry.redhat.io/datagrid/datagrid-8-rhel8:1.1",
+			"required": true
+		},
+		{
+			"name": "DATAGRID_CPU_LIMIT",
+			"displayName": "DataGrid Container CPU Limit",
+			"description": "DataGrid Container CPU limit.",
+			"value": "1000m",
+			"required": true
+		},
+		{
+			"name": "DATAGRID_MEMORY_LIMIT",
+			"displayName": "DataGrid Container Memory Limit",
+			"description": "DataGrid Container memory limit.",
+			"value": "2Gi",
+			"required": true
+		},
+		{
+			"name": "DATAGRID_VOLUME_CAPACITY",
+			"displayName": "DataGrid Volume Capacity",
+			"description": "Size of the persistent storage for DataGrid's runtime data.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "AMQ_BROKER_IMAGE",
+			"displayName": "Image",
+			"description": "AMQ Broker Image",
+			"value": "registry.redhat.io/amq7/amq-broker:7.8",
+			"required": true
+		},
+		{
+			"name": "AMQ_ROLE",
+			"displayName": "AMQ Role",
+			"description": "User role for standard broker user.",
+			"value": "admin",
+			"required": true
+		},
+		{
+			"name": "AMQ_NAME",
+			"displayName": "AMQ Name",
+			"description": "The name of the broker.",
+			"value": "broker",
+			"required": true
+		},
+		{
+			"name": "AMQ_GLOBAL_MAX_SIZE",
+			"displayName": "AMQ Global Max Size",
+			"description": "Specifies the maximum amount of memory that message data can consume. If no value is specified, half of the system’s memory is allocated."
+		},
+		{
+			"name": "AMQ_VOLUME_CAPACITY",
+			"displayName": "Broker Volume Capacity",
+			"description": "Size of persistent storage for AMQ broker volume.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "AMQ_REPLICAS",
+			"displayName": "Number of Replicas",
+			"description": "Number of broker replicas for a cluster",
+			"value": "2",
+			"required": true
+		},
+		{
+			"name": "DECISION_CENTRAL_CONTAINER_REPLICAS",
+			"displayName": "Decision Central Container Replicas",
+			"description": "Decision Central Container Replicas, defines how many Decision Central containers will be started.",
+			"value": "2",
+			"required": true
+		},
+		{
+			"name": "KIE_SERVER_CONTAINER_REPLICAS",
+			"displayName": "KIE Server Container Replicas",
+			"description": "KIE Server Container Replicas, defines how many KIE Server containers will be started.",
+			"value": "2",
+			"required": true
 		},
 		{
 			"name": "KIE_SERVER_CONTROLLER_OPENSHIFT_GLOBAL_DISCOVERY_ENABLED",
@@ -1215,6 +1796,13 @@
 			"required": true
 		},
 		{
+			"name": "DECISION_CENTRAL_IMAGE_STREAM_NAME",
+			"displayName": "Decision Central ImageStream Name",
+			"description": "The name of the image stream to use for Decision Central. Default is \"rhdm-decisioncentral-rhel8\".",
+			"value": "rhdm-decisioncentral-rhel8",
+			"required": true
+		},
+		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
 			"description": "The name of the image stream to use for KIE Server. Default is \"rhdm-kieserver-rhel8\".",
@@ -1224,8 +1812,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.11.1\".",
-			"value": "7.11.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.12.0\".",
+			"value": "7.12.0",
 			"required": true
 		},
 		{
@@ -1270,6 +1858,13 @@
 			"displayName": "Decision Central Volume Capacity",
 			"description": "Size of the persistent storage for Decision Central's runtime data.",
 			"value": "1Gi",
+			"required": true
+		},
+		{
+			"name": "DECISION_CENTRAL_JAVA_MAX_MEM_RATIO",
+			"displayName": "Decision Central Container JVM Max Memory Ratio",
+			"description": "Decision Central Container JVM max memory ratio. -Xmx is set to a ratio of the memory available on the container. The default is 80, which means the upper boundary is 80% of the available memory. To skip adding the -Xmx option, set this value to 0.",
+			"value": "80",
 			"required": true
 		},
 		{
@@ -1341,7 +1936,7 @@
 		{
 			"name": "DECISION_CENTRAL_SSO_CLIENT",
 			"displayName": "Decision Central RH-SSO Client name",
-			"description": "Decision Central RH-SSO Client name"
+			"description": "Decision Central RH-SSO Client name."
 		},
 		{
 			"name": "DECISION_CENTRAL_SSO_SECRET",
@@ -1386,6 +1981,16 @@
 			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
+			"name": "AUTH_LDAP_LOGIN_MODULE",
+			"displayName": "LDAP Flag Login Module",
+			"description": "LDAP login module flag, adds backward compatibility with the legacy security subsystem on Elytron. 'optional' is the only supported value, if set, it will create a distributed realm on Elytron configuration with LDAP and FileSystem realms with the user added using the KIE_ADMIN_USER."
+		},
+		{
+			"name": "AUTH_LDAP_LOGIN_FAILOVER",
+			"displayName": "LDAP login failover",
+			"description": "Enable failover, if LDAP Url is unreachable, it will fail over to the KieFsRealm."
+		},
+		{
 			"name": "AUTH_LDAP_BIND_DN",
 			"displayName": "LDAP Bind DN",
 			"description": "Bind DN used for authentication."
@@ -1394,16 +1999,6 @@
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
 			"description": "LDAP Credentials used for authentication."
-		},
-		{
-			"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-			"displayName": "LDAP JAAS Security Domain",
-			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
-		},
-		{
-			"name": "AUTH_LDAP_LOGIN_MODULE",
-			"displayName": "LDAP Flag Login Module",
-			"description": "A flag to set login module to optional. The default value is required"
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1416,34 +2011,14 @@
 			"description": "LDAP search filter used to locate the context of the user to authenticate. The input username or userDN obtained from the login module callback is substituted into the filter anywhere a {0} expression is used. A common example for the search filter is (uid={0})."
 		},
 		{
-			"name": "AUTH_LDAP_SEARCH_SCOPE",
-			"displayName": "LDAP Search scope",
-			"description": "The search scope to use."
+			"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+			"displayName": "LDAP User resursive search",
+			"description": "Indicates if the user queries are recursive."
 		},
 		{
 			"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 			"displayName": "LDAP Search time limit",
 			"description": "The timeout in milliseconds for user or role searches."
-		},
-		{
-			"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-			"displayName": "LDAP DN attribute",
-			"description": "The name of the attribute in the user entry that contains the DN of the user. This may be necessary if the DN of the user itself contains special characters, backslash for example, that prevent correct user mapping. If the attribute does not exist, the entry’s DN is used."
-		},
-		{
-			"name": "AUTH_LDAP_PARSE_USERNAME",
-			"displayName": "LDAP Parse username",
-			"description": "A flag indicating if the DN is to be parsed for the user name. If set to true, the DN is parsed for the user name. If set to false the DN is not parsed for the user name. This option is used together with usernameBeginString and usernameEndString."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-			"displayName": "LDAP Username begin string",
-			"description": "Defines the String which is to be removed from the start of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_END_STRING",
-			"displayName": "LDAP Username end string",
-			"description": "Defines the String which is to be removed from the end of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
 		},
 		{
 			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -1471,38 +2046,45 @@
 			"description": "A role included for all authenticated users"
 		},
 		{
-			"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-			"displayName": "LDAP Role name attribute ID",
-			"description": "Name of the attribute within the roleCtxDN context which contains the role name. If the roleAttributeIsDN property is set to true, this property is used to find the role object’s name attribute."
+			"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+			"displayName": "LDAP new identity attributes",
+			"description": "Provide new identities for LDAP  identity mapping, the pattern to be used with this env is 'attribute_name=attribute_value;another_attribute_name=value'"
 		},
 		{
-			"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-			"displayName": "LDAP Role DN contains roleNameAttributeID",
-			"description": "A flag indicating if the DN returned by a query contains the roleNameAttributeID. If set to true, the DN is checked for the roleNameAttributeID. If set to false, the DN is not checked for the roleNameAttributeID. This flag can improve the performance of LDAP queries."
-		},
-		{
-			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-			"displayName": "LDAP Role Attribute ID is DN",
-			"description": "Whether or not the roleAttributeID contains the fully-qualified DN of a role object. If false, the role name is taken from the value of the roleNameAttributeId attribute of the context name. Certain directory schemas, such as Microsoft Active Directory, require this attribute to be set to true."
-		},
-		{
-			"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-			"displayName": "LDAP Referral user attribute ID",
-			"description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree."
+			"name": "AUTH_LDAP_REFERRAL_MODE",
+			"displayName": "LDAP follow referrals",
+			"description": "If LDAP referrals should be followed. Corresponds to REFERRAL ('java.naming.referral') environment property. Allowed values: 'ignore', 'follow', 'throw'"
 		},
 		{
 			"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
-			"displayName": "RoleMapping rolesProperties file path",
-			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This parameter defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
+			"displayName": "Role Mapping roles properties file path or one lined roles",
+			"description": "When present, the RoleMapping will be configured to use the provided properties file or roles. This parameter defines the fully-qualified file path and name of a properties file or a set of roles with the following pattern 'role=role1;another-role=role2'. The format of every entry in the file is original_role=role1,role2,role3"
 		},
 		{
-			"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-			"displayName": "RoleMapping replaceRole property",
-			"description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true."
+			"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+			"displayName": "Role Mapper Keep Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have defined mappings. Defaults to false."
+		},
+		{
+			"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+			"displayName": "Role Mapper Keep Non Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have no defined mappings. Defaults to false."
+		},
+		{
+			"name": "APPFORMER_INFINISPAN_USERNAME",
+			"displayName": "Appformer infinispan username",
+			"description": "Username used for the Datagrid.",
+			"required": true
+		},
+		{
+			"name": "APPFORMER_INFINISPAN_PASSWORD",
+			"displayName": "Appformer infinispan password",
+			"description": "Password used for the Datagrid.",
+			"required": true
 		}
 	],
 	"labels": {
-		"rhdm": "7.11",
-		"template": "rhdm711-authoring"
+		"rhdm": "7.12",
+		"template": "rhdm712-authoring-ha"
 	}
 }

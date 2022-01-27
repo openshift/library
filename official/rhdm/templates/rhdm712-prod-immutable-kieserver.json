@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm711-prod-immutable-kieserver-amq",
+		"name": "rhdm712-prod-immutable-kieserver",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for an immutable KIE Server in a production environment integrated with ActiveMQ, for Red Hat Decision Manager 7.11 - Deprecated",
+			"description": "Application template for an immutable KIE Server in a production environment, for Red Hat Decision Manager 7.12 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.11 immutable production environment with ActiveMQ.",
+			"openshift.io/display-name": "Red Hat Decision Manager 7.12 immutable production environment",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i,amq",
+			"tags": "rhdm,decisionserver,jboss,kieserver,immutable,s2i",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.11/html/deploying_a_red_hat_decision_manager_7.11_immutable_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.11, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/deploying_a_red_hat_decision_manager_7.12_immutable_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Decision Manager 7.12, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.11"
+			"version": "7.12"
 		}
 	},
 	"message": "A new immutable Red Hat Decision Manager KIE Server has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -87,242 +87,6 @@
 		},
 		{
 			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's console and Jolokia port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-jolokia"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-jolokia-console",
-						"port": 8161,
-						"targetPort": 8161
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's AMQP port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-amqp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-amqp",
-						"port": 5672,
-						"targetPort": 5672
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's AMQP SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-amqp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-amqp-ssl",
-						"port": 5671,
-						"targetPort": 5671
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's MQTT port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-mqtt"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-mqtt",
-						"port": 1883,
-						"targetPort": 1883
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's MQTT SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-mqtt-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-mqtt-ssl",
-						"port": 8883,
-						"targetPort": 8883
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's STOMP port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-stomp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-stomp",
-						"port": 61613,
-						"targetPort": 61613
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's STOMP SSL port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-stomp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-stomp-ssl",
-						"port": 61612,
-						"targetPort": 61612
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's OpenWire port.",
-					"service.alpha.openshift.io/dependencies": " [{\"name\": \"${APPLICATION_NAME}-amq-amqp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp\", \"kind\": \"Service\"}]"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-tcp"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-tcp",
-						"port": 61616,
-						"targetPort": 61616
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The broker's OpenWire (SSL) port.",
-					"service.alpha.openshift.io/dependencies": " [{\"name\": \"${APPLICATION_NAME}-amq-tcp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-amqp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-amqp-ssl\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-mqtt-ssl\", \"kind\": \"Service\"}, {\"name\": \"${APPLICATION_NAME}-amq-stomp-ssl\", \"kind\": \"Service\"}]"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq-tcp-ssl"
-			},
-			"spec": {
-				"ports": [
-					{
-						"name": "amq-tcp-ssl",
-						"port": 61617,
-						"targetPort": 61617
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
 			"id": "insecure-${APPLICATION_NAME}-kieserver-http",
 			"kind": "Route",
 			"metadata": {
@@ -370,54 +134,6 @@
 				},
 				"to": {
 					"name": "${APPLICATION_NAME}-kieserver"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-amq-jolokia-console",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for AMQ Jolokia Service"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "console-jolokia"
-			},
-			"spec": {
-				"tls": {
-					"termination": "passthrough"
-				},
-				"to": {
-					"kind": "Service",
-					"name": "${APPLICATION_NAME}-amq-jolokia"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"id": "${APPLICATION_NAME}-amq-tcp-ssl",
-			"kind": "Route",
-			"metadata": {
-				"annotations": {
-					"description": "Route for AMQ tcp-ssl Service"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "amq-tcp-ssl-external"
-			},
-			"spec": {
-				"tls": {
-					"termination": "passthrough"
-				},
-				"to": {
-					"kind": "Service",
-					"name": "${APPLICATION_NAME}-amq-tcp-ssl"
 				}
 			}
 		},
@@ -609,8 +325,20 @@
 										"value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
 									},
 									{
+										"name": "MAVEN_MIRROR_URL",
+										"value": "${MAVEN_MIRROR_URL}"
+									},
+									{
+										"name": "MAVEN_MIRROR_OF",
+										"value": "${MAVEN_MIRROR_OF}"
+									},
+									{
 										"name": "MAVEN_REPOS",
 										"value": "RHDMCENTR,EXTERNAL"
+									},
+									{
+										"name": "RHDMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhdmcentr"
 									},
 									{
 										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
@@ -655,34 +383,6 @@
 										"value": "${MAVEN_REPO_PASSWORD}"
 									},
 									{
-										"name": "KIE_SERVER_JMS_QUEUE_REQUEST",
-										"value": "${KIE_SERVER_JMS_QUEUE_REQUEST}"
-									},
-									{
-										"name": "KIE_SERVER_JMS_QUEUE_RESPONSE",
-										"value": "${KIE_SERVER_JMS_QUEUE_RESPONSE}"
-									},
-									{
-										"name": "MQ_SERVICE_PREFIX_MAPPING",
-										"value": "${APPLICATION_NAME}-amq7=AMQ"
-									},
-									{
-										"name": "AMQ_USERNAME",
-										"value": "${AMQ_USERNAME}"
-									},
-									{
-										"name": "AMQ_PASSWORD",
-										"value": "${AMQ_PASSWORD}"
-									},
-									{
-										"name": "AMQ_PROTOCOL",
-										"value": "tcp"
-									},
-									{
-										"name": "AMQ_QUEUES",
-										"value": "${AMQ_QUEUES}"
-									},
-									{
 										"name": "HTTPS_KEYSTORE_DIR",
 										"value": "/etc/kieserver-secret-volume"
 									},
@@ -720,7 +420,7 @@
 									},
 									{
 										"name": "KUBERNETES_LABELS",
-										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.kiserver"
+										"value": "cluster=jgrp.k8s.${APPLICATION_NAME}.kieserver"
 									},
 									{
 										"name": "SSO_URL",
@@ -771,20 +471,20 @@
 										"value": "${AUTH_LDAP_URL}"
 									},
 									{
+										"name": "AUTH_LDAP_LOGIN_MODULE",
+										"value": "${AUTH_LDAP_LOGIN_MODULE}"
+									},
+									{
+										"name": "AUTH_LDAP_LOGIN_FAILOVER",
+										"value": "${AUTH_LDAP_LOGIN_FAILOVER}"
+									},
+									{
 										"name": "AUTH_LDAP_BIND_DN",
 										"value": "${AUTH_LDAP_BIND_DN}"
 									},
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
-									},
-									{
-										"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-										"value": "${AUTH_LDAP_JAAS_SECURITY_DOMAIN}"
-									},
-									{
-										"name": "AUTH_LDAP_LOGIN_MODULE",
-										"value": "${AUTH_LDAP_LOGIN_MODULE}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -795,28 +495,12 @@
 										"value": "${AUTH_LDAP_BASE_FILTER}"
 									},
 									{
-										"name": "AUTH_LDAP_SEARCH_SCOPE",
-										"value": "${AUTH_LDAP_SEARCH_SCOPE}"
+										"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+										"value": "${AUTH_LDAP_RECURSIVE_SEARCH}"
 									},
 									{
 										"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 										"value": "${AUTH_LDAP_SEARCH_TIME_LIMIT}"
-									},
-									{
-										"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-										"value": "${AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE}"
-									},
-									{
-										"name": "AUTH_LDAP_PARSE_USERNAME",
-										"value": "${AUTH_LDAP_PARSE_USERNAME}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-										"value": "${AUTH_LDAP_USERNAME_BEGIN_STRING}"
-									},
-									{
-										"name": "AUTH_LDAP_USERNAME_END_STRING",
-										"value": "${AUTH_LDAP_USERNAME_END_STRING}"
 									},
 									{
 										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -839,28 +523,24 @@
 										"value": "${AUTH_LDAP_DEFAULT_ROLE}"
 									},
 									{
-										"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-										"value": "${AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID}"
+										"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+										"value": "${AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES}"
 									},
 									{
-										"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-										"value": "${AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-										"value": "${AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN}"
-									},
-									{
-										"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-										"value": "${AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK}"
+										"name": "AUTH_LDAP_REFERRAL_MODE",
+										"value": "${AUTH_LDAP_REFERRAL_MODE}"
 									},
 									{
 										"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
 										"value": "${AUTH_ROLE_MAPPER_ROLES_PROPERTIES}"
 									},
 									{
-										"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-										"value": "${AUTH_ROLE_MAPPER_REPLACE_ROLE}"
+										"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_MAPPED}"
+									},
+									{
+										"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
 								"image": "${APPLICATION_NAME}-kieserver",
@@ -973,203 +653,6 @@
 					}
 				]
 			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "DeploymentConfig",
-			"metadata": {
-				"annotations": {
-					"template.alpha.openshift.io/wait-for-ready": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-amq"
-				},
-				"name": "${APPLICATION_NAME}-amq"
-			},
-			"spec": {
-				"replicas": 1,
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-amq"
-				},
-				"strategy": {
-					"rollingParams": {
-						"maxSurge": "100%",
-						"maxUnavailable": 0
-					},
-					"type": "Rolling"
-				},
-				"template": {
-					"metadata": {
-						"labels": {
-							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-amq",
-							"service": "${APPLICATION_NAME}-amq"
-						},
-						"name": "${APPLICATION_NAME}-amq"
-					},
-					"spec": {
-						"containers": [
-							{
-								"env": [
-									{
-										"name": "AMQ_USER",
-										"value": "${AMQ_USERNAME}"
-									},
-									{
-										"name": "AMQ_PASSWORD",
-										"value": "${AMQ_PASSWORD}"
-									},
-									{
-										"name": "AMQ_ROLE",
-										"value": "${AMQ_ROLE}"
-									},
-									{
-										"name": "AMQ_NAME",
-										"value": "${APPLICATION_NAME}-broker"
-									},
-									{
-										"name": "AMQ_TRANSPORTS",
-										"value": "${AMQ_PROTOCOL}"
-									},
-									{
-										"name": "AMQ_QUEUES",
-										"value": "${AMQ_QUEUES}"
-									},
-									{
-										"name": "AMQ_GLOBAL_MAX_SIZE",
-										"value": "${AMQ_GLOBAL_MAX_SIZE}"
-									},
-									{
-										"name": "AMQ_REQUIRE_LOGIN",
-										"value": "true"
-									},
-									{
-										"name": "AMQ_ANYCAST_PREFIX"
-									},
-									{
-										"name": "AMQ_MULTICAST_PREFIX"
-									},
-									{
-										"name": "AMQ_KEYSTORE_TRUSTSTORE_DIR",
-										"value": "/etc/amq-secret-volume"
-									},
-									{
-										"name": "AMQ_TRUSTSTORE",
-										"value": "${AMQ_TRUSTSTORE}"
-									},
-									{
-										"name": "AMQ_TRUSTSTORE_PASSWORD",
-										"value": "${AMQ_TRUSTSTORE_PASSWORD}"
-									},
-									{
-										"name": "AMQ_KEYSTORE",
-										"value": "${AMQ_KEYSTORE}"
-									},
-									{
-										"name": "AMQ_KEYSTORE_PASSWORD",
-										"value": "${AMQ_KEYSTORE_PASSWORD}"
-									}
-								],
-								"image": "${AMQ_BROKER_IMAGESTREAM_NAME}",
-								"imagePullPolicy": "Always",
-								"name": "${APPLICATION_NAME}-amq",
-								"ports": [
-									{
-										"containerPort": 8161,
-										"name": "console-jolokia",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 5672,
-										"name": "amq-amqp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 5671,
-										"name": "amqp-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 1883,
-										"name": "amq-mqtt",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 8883,
-										"name": "mqtt-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61613,
-										"name": "amq-stomp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61612,
-										"name": "stomp-ssl",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61616,
-										"name": "amq-tcp",
-										"protocol": "TCP"
-									},
-									{
-										"containerPort": 61617,
-										"name": "amq-tcp-ssl",
-										"protocol": "TCP"
-									}
-								],
-								"readinessProbe": {
-									"exec": {
-										"command": [
-											"/bin/bash",
-											"-c",
-											"/opt/amq/bin/readinessProbe.sh"
-										]
-									}
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/etc/amq-secret-volume",
-										"name": "broker-secret-volume",
-										"readOnly": true
-									}
-								]
-							}
-						],
-						"terminationGracePeriodSeconds": 60,
-						"volumes": [
-							{
-								"name": "broker-secret-volume",
-								"secret": {
-									"secretName": "${AMQ_SECRET}"
-								}
-							}
-						]
-					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"${APPLICATION_NAME}-amq"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${AMQ_BROKER_IMAGESTREAM_NAME}",
-								"namespace": "${AMQ_IMAGE_STREAM_NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
-			}
 		}
 	],
 	"parameters": [
@@ -1203,8 +686,8 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.11.1\".",
-			"value": "7.11.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.12.0\".",
+			"value": "7.12.0",
 			"required": true
 		},
 		{
@@ -1216,7 +699,7 @@
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property)",
+			"description": "KIE Server class filtering. (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1232,30 +715,30 @@
 		{
 			"name": "KIE_SERVER_HOSTNAME_HTTPS",
 			"displayName": "KIE Server Custom https Route Hostname",
-			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
 			"displayName": "KIE Server Keystore Secret Name",
-			"description": "The name of the secret containing the keystore file",
+			"description": "The name of the secret containing the keystore file.",
 			"required": true
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_KEYSTORE",
 			"displayName": "KIE Server Keystore Filename",
-			"description": "The name of the keystore file within the secret",
+			"description": "The name of the keystore file within the secret.",
 			"value": "keystore.jks"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_NAME",
 			"displayName": "KIE Server Certificate Name",
-			"description": "The name associated with the server certificate",
+			"description": "The name associated with the server certificate.",
 			"value": "jboss"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_PASSWORD",
 			"displayName": "KIE Server Keystore Password",
-			"description": "The password for the keystore and certificate",
+			"description": "The password for the keystore and certificate.",
 			"value": "mykeystorepass"
 		},
 		{
@@ -1273,13 +756,13 @@
 		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
-			"description": "Git source URI for application",
+			"description": "Git source URI for application.",
 			"required": true
 		},
 		{
 			"name": "SOURCE_REPOSITORY_REF",
 			"displayName": "Git Reference",
-			"description": "Git branch/tag reference"
+			"description": "Git branch/tag reference."
 		},
 		{
 			"name": "CONTEXT_DIR",
@@ -1289,7 +772,7 @@
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
 			"displayName": "Github Webhook Secret",
-			"description": "GitHub trigger secret",
+			"description": "GitHub trigger secret.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{8}",
 			"required": true
@@ -1297,7 +780,7 @@
 		{
 			"name": "GENERIC_WEBHOOK_SECRET",
 			"displayName": "Generic Webhook Secret",
-			"description": "Generic build trigger secret",
+			"description": "Generic build trigger secret.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{8}",
 			"required": true
@@ -1305,12 +788,19 @@
 		{
 			"name": "MAVEN_MIRROR_URL",
 			"displayName": "Maven mirror URL",
-			"description": "Maven mirror to use for S2I builds"
+			"description": "Maven mirror that KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services."
+		},
+		{
+			"name": "MAVEN_MIRROR_OF",
+			"displayName": "Maven mirror of",
+			"description": "Maven mirror configuration for KIE Server.",
+			"value": "external:*"
 		},
 		{
 			"name": "MAVEN_REPO_ID",
 			"displayName": "Maven repository ID",
-			"description": "The id to use for the maven repository, if set. Default is generated randomly."
+			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhdmcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
+			"value": "repo-custom"
 		},
 		{
 			"name": "MAVEN_REPO_URL",
@@ -1373,94 +863,6 @@
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_JMS_QUEUE_REQUEST",
-			"displayName": "KIE Server JMS Request Queue",
-			"description": "JNDI name of request queue for JMS. The default value is queue/KIE.SERVER.REQUEST"
-		},
-		{
-			"name": "KIE_SERVER_JMS_QUEUE_RESPONSE",
-			"displayName": "KIE Server JMS Response Queue",
-			"description": "JNDI name of response queue for JMS. The default value is queue/KIE.SERVER.RESPONSE"
-		},
-		{
-			"name": "AMQ_USERNAME",
-			"displayName": "AMQ Username",
-			"description": "User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-			"generate": "expression",
-			"from": "user[a-zA-Z0-9]{3}"
-		},
-		{
-			"name": "AMQ_PASSWORD",
-			"displayName": "AMQ Password",
-			"description": "Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{8}"
-		},
-		{
-			"name": "AMQ_ROLE",
-			"displayName": "AMQ Role",
-			"description": "User role for standard broker user.",
-			"value": "admin",
-			"required": true
-		},
-		{
-			"name": "AMQ_QUEUES",
-			"displayName": "AMQ Queues",
-			"description": "Queue names, separated by commas. These queues will be automatically created when the broker starts. Also, they will be made accessible as JNDI resources in EAP. These are the default queues needed by KIE Server. If using custom Queues, use the same values here as in the KIE_SERVER_JMS_QUEUE_RESPONSE and KIE_SERVER_JMS_QUEUE_REQUEST parameters.",
-			"value": "queue/KIE.SERVER.REQUEST,queue/KIE.SERVER.RESPONSE"
-		},
-		{
-			"name": "AMQ_GLOBAL_MAX_SIZE",
-			"displayName": "AMQ Global Max Size",
-			"description": "Specifies the maximum amount of memory that message data can consume. If no value is specified, half of the system’s memory is allocated."
-		},
-		{
-			"name": "AMQ_SECRET",
-			"displayName": "AMQ Secret Name",
-			"description": "The name of a secret containing AMQ SSL related files.",
-			"required": true
-		},
-		{
-			"name": "AMQ_TRUSTSTORE",
-			"displayName": "AMQ TRUSTSTORE",
-			"description": "The name of the AMQ SSL Trust Store file."
-		},
-		{
-			"name": "AMQ_TRUSTSTORE_PASSWORD",
-			"displayName": "AMQ TRUSTSTORE PASSWORD",
-			"description": "The password for the AMQ Trust Store."
-		},
-		{
-			"name": "AMQ_KEYSTORE",
-			"displayName": "AMQ KEYSTORE",
-			"description": "The name of the AMQ keystore file."
-		},
-		{
-			"name": "AMQ_KEYSTORE_PASSWORD",
-			"displayName": "AMQ KEYSTORE PASSWORD",
-			"description": "The password for the AMQ keystore and certificate."
-		},
-		{
-			"name": "AMQ_PROTOCOL",
-			"displayName": "AMQ Protocols",
-			"description": "Broker protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. Only `openwire` is supported by EAP.",
-			"value": "openwire"
-		},
-		{
-			"name": "AMQ_BROKER_IMAGESTREAM_NAME",
-			"displayName": "AMQ Broker Image Stream Name",
-			"description": "AMQ Broker Image Stream Name",
-			"value": "amq-broker:7.8",
-			"required": true
-		},
-		{
-			"name": "AMQ_IMAGE_STREAM_NAMESPACE",
-			"displayName": "AMQ ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat AMQ images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
-			"value": "openshift",
-			"required": true
-		},
-		{
 			"name": "SSO_URL",
 			"displayName": "RH-SSO URL",
 			"description": "RH-SSO URL"
@@ -1468,32 +870,32 @@
 		{
 			"name": "SSO_REALM",
 			"displayName": "RH-SSO Realm name",
-			"description": "RH-SSO Realm name"
+			"description": "RH-SSO Realm name."
 		},
 		{
 			"name": "KIE_SERVER_SSO_CLIENT",
 			"displayName": "KIE Server RH-SSO Client name",
-			"description": "KIE Server RH-SSO Client name"
+			"description": "KIE Server RH-SSO Client name."
 		},
 		{
 			"name": "KIE_SERVER_SSO_SECRET",
 			"displayName": "KIE Server RH-SSO Client Secret",
-			"description": "KIE Server RH-SSO Client Secret"
+			"description": "KIE Server RH-SSO Client Secret."
 		},
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist"
+			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
 			"displayName": "RH-SSO Realm Admin Password",
-			"description": "RH-SSO Realm Admin Password used to create the Client"
+			"description": "RH-SSO Realm Admin Password used to create the Client."
 		},
 		{
 			"name": "SSO_DISABLE_SSL_CERTIFICATE_VALIDATION",
 			"displayName": "RH-SSO Disable SSL Certificate Validation",
-			"description": "RH-SSO Disable SSL Certificate Validation",
+			"description": "RH-SSO Disable SSL Certificate Validation.",
 			"value": "false"
 		},
 		{
@@ -1508,24 +910,24 @@
 			"description": "LDAP endpoint to connect for authentication. For failover, set two or more LDAP endpoints separated by space."
 		},
 		{
+			"name": "AUTH_LDAP_LOGIN_MODULE",
+			"displayName": "LDAP Flag Login Module",
+			"description": "LDAP login module flag, adds backward compatibility with the legacy security subsystem on Elytron. 'optional' is the only supported value, if set, it will create a distributed realm on Elytron configuration with LDAP and FileSystem realms with the user added using the KIE_ADMIN_USER."
+		},
+		{
+			"name": "AUTH_LDAP_LOGIN_FAILOVER",
+			"displayName": "LDAP login failover",
+			"description": "Enable failover, if LDAP Url is unreachable, it will fail over to the KieFsRealm."
+		},
+		{
 			"name": "AUTH_LDAP_BIND_DN",
 			"displayName": "LDAP Bind DN",
-			"description": "Bind DN used for authentication"
+			"description": "Bind DN used for authentication."
 		},
 		{
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
-			"description": "LDAP Credentials used for authentication"
-		},
-		{
-			"name": "AUTH_LDAP_JAAS_SECURITY_DOMAIN",
-			"displayName": "LDAP JAAS Security Domain",
-			"description": "The JMX ObjectName of the JaasSecurityDomain used to decrypt the password."
-		},
-		{
-			"name": "AUTH_LDAP_LOGIN_MODULE",
-			"displayName": "LDAP Flag Login Module",
-			"description": "A flag to set login module to optional. The default value is required"
+			"description": "LDAP Credentials used for authentication."
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1538,34 +940,14 @@
 			"description": "LDAP search filter used to locate the context of the user to authenticate. The input username or userDN obtained from the login module callback is substituted into the filter anywhere a {0} expression is used. A common example for the search filter is (uid={0})."
 		},
 		{
-			"name": "AUTH_LDAP_SEARCH_SCOPE",
-			"displayName": "LDAP Search scope",
-			"description": "The search scope to use."
+			"name": "AUTH_LDAP_RECURSIVE_SEARCH",
+			"displayName": "LDAP User resursive search",
+			"description": "Indicates if the user queries are recursive."
 		},
 		{
 			"name": "AUTH_LDAP_SEARCH_TIME_LIMIT",
 			"displayName": "LDAP Search time limit",
 			"description": "The timeout in milliseconds for user or role searches."
-		},
-		{
-			"name": "AUTH_LDAP_DISTINGUISHED_NAME_ATTRIBUTE",
-			"displayName": "LDAP DN attribute",
-			"description": "The name of the attribute in the user entry that contains the DN of the user. This may be necessary if the DN of the user itself contains special characters, backslash for example, that prevent correct user mapping. If the attribute does not exist, the entry’s DN is used."
-		},
-		{
-			"name": "AUTH_LDAP_PARSE_USERNAME",
-			"displayName": "LDAP Parse username",
-			"description": "A flag indicating if the DN is to be parsed for the user name. If set to true, the DN is parsed for the user name. If set to false the DN is not parsed for the user name. This option is used together with usernameBeginString and usernameEndString."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_BEGIN_STRING",
-			"displayName": "LDAP Username begin string",
-			"description": "Defines the String which is to be removed from the start of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
-		},
-		{
-			"name": "AUTH_LDAP_USERNAME_END_STRING",
-			"displayName": "LDAP Username end string",
-			"description": "Defines the String which is to be removed from the end of the DN to reveal the user name. This option is used together with usernameEndString and only taken into account if parseUsername is set to true."
 		},
 		{
 			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_ID",
@@ -1590,41 +972,36 @@
 		{
 			"name": "AUTH_LDAP_DEFAULT_ROLE",
 			"displayName": "LDAP Default role",
-			"description": "A role included for all authenticated users"
+			"description": "A role included for all authenticated users."
 		},
 		{
-			"name": "AUTH_LDAP_ROLE_NAME_ATTRIBUTE_ID",
-			"displayName": "LDAP Role name attribute ID",
-			"description": "Name of the attribute within the roleCtxDN context which contains the role name. If the roleAttributeIsDN property is set to true, this property is used to find the role object’s name attribute."
+			"name": "AUTH_LDAP_NEW_IDENTITY_ATTRIBUTES",
+			"displayName": "LDAP new identity attributes",
+			"description": "Provide new identities for LDAP  identity mapping, the pattern to be used with this env is 'attribute_name=attribute_value;another_attribute_name=value'"
 		},
 		{
-			"name": "AUTH_LDAP_PARSE_ROLE_NAME_FROM_DN",
-			"displayName": "LDAP Role DN contains roleNameAttributeID",
-			"description": "A flag indicating if the DN returned by a query contains the roleNameAttributeID. If set to true, the DN is checked for the roleNameAttributeID. If set to false, the DN is not checked for the roleNameAttributeID. This flag can improve the performance of LDAP queries."
-		},
-		{
-			"name": "AUTH_LDAP_ROLE_ATTRIBUTE_IS_DN",
-			"displayName": "LDAP Role Attribute ID is DN",
-			"description": "Whether or not the roleAttributeID contains the fully-qualified DN of a role object. If false, the role name is taken from the value of the roleNameAttributeId attribute of the context name. Certain directory schemas, such as Microsoft Active Directory, require this attribute to be set to true."
-		},
-		{
-			"name": "AUTH_LDAP_REFERRAL_USER_ATTRIBUTE_ID_TO_CHECK",
-			"displayName": "LDAP Referral user attribute ID",
-			"description": "If you are not using referrals, you can ignore this option. When using referrals, this option denotes the attribute name which contains users defined for a certain role, for example member, if the role object is inside the referral. Users are checked against the content of this attribute name. If this option is not set, the check will always fail, so role objects cannot be stored in a referral tree."
+			"name": "AUTH_LDAP_REFERRAL_MODE",
+			"displayName": "LDAP follow referrals",
+			"description": "If LDAP referrals should be followed. Corresponds to REFERRAL ('java.naming.referral') environment property. Allowed values: 'ignore', 'follow', 'throw'"
 		},
 		{
 			"name": "AUTH_ROLE_MAPPER_ROLES_PROPERTIES",
-			"displayName": "RoleMapping rolesProperties file path",
-			"description": "When present, the RoleMapping Login Module will be configured to use the provided file. This property defines the fully-qualified file path and name of a properties file or resource which maps roles to replacement roles. The format is original_role=role1,role2,role3"
+			"displayName": "Role Mapping roles properties file path or one lined roles",
+			"description": "When present, the RoleMapping will be configured to use the provided properties file or roles. This parameter defines the fully-qualified file path and name of a properties file or a set of roles with the following pattern 'role=role1;another-role=role2'. The format of every entry in the file is original_role=role1,role2,role3"
 		},
 		{
-			"name": "AUTH_ROLE_MAPPER_REPLACE_ROLE",
-			"displayName": "RoleMapping replaceRole property",
-			"description": "Whether to add to the current roles, or replace the current roles with the mapped ones. Replaces if set to true."
+			"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
+			"displayName": "Role Mapper Keep Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have defined mappings. Defaults to false."
+		},
+		{
+			"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
+			"displayName": "Role Mapper Keep Non Mapped",
+			"description": "When set to 'true' the mapped roles will retain all roles, that have no defined mappings. Defaults to false."
 		}
 	],
 	"labels": {
-		"rhdm": "7.11",
-		"template": "rhdm711-prod-immutable-kieserver-amq"
+		"rhdm": "7.12",
+		"template": "rhdm712-prod-immutable-kieserver"
 	}
 }
