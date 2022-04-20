@@ -2,10 +2,10 @@
 	"kind": "ImageStream",
 	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
-		"name": "jboss-webserver56-openj9-tomcat9-openshift-ubi8",
+		"name": "jboss-webserver56-openjdk11-tomcat9-openshift-ubi8",
 		"creationTimestamp": null,
 		"annotations": {
-			"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJ9 JDK11",
+			"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJDK11 on UBI8",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"version": "5.6"
 		}
@@ -18,9 +18,9 @@
 			{
 				"name": "latest",
 				"annotations": {
-					"description": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJ9 JDK11 on UBI8 S2I images.",
+					"description": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJDK11 on UBI8 S2I images.",
 					"iconClass": "icon-rh-tomcat",
-					"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJ9 JDK11 on UBI8",
+					"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJDK11 on UBI8",
 					"sampleContextDir": "tomcat-websocket-chat",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
 					"supports": "tomcat9:5.6,tomcat:9,java:11",
@@ -29,22 +29,20 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/jboss-webserver-5/jws56-openj9-11-openshift-rhel8:latest"
+					"name": "registry.redhat.io/jboss-webserver-5/jws56-openjdk11-openshift-rhel8:latest"
 				},
 				"generation": null,
-				"importPolicy": {
-					"insecure": true
-				},
+				"importPolicy": {},
 				"referencePolicy": {
 					"type": "Local"
 				}
 			},
 			{
-				"name": "5.6.0",
+				"name": "5.6.1",
 				"annotations": {
-					"description": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJ9 JDK11 on UBI8 S2I images.",
+					"description": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJDK11 on UBI8 S2I images.",
 					"iconClass": "icon-rh-tomcat",
-					"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJ9 JDK11 on UBI8",
+					"openshift.io/display-name": "JBoss Web Server 5.6 Apache Tomcat 9 OpenJDK11 on UBI8",
 					"sampleContextDir": "tomcat-websocket-chat",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts.git",
 					"supports": "tomcat9:5.6,tomcat:9,java:11",
@@ -53,12 +51,10 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/jboss-webserver-5/jws56-openj9-11-openshift-rhel8:5.6.0"
+					"name": "registry.redhat.io/jboss-webserver-5/jws56-openjdk11-openshift-rhel8:5.6.1"
 				},
 				"generation": null,
-				"importPolicy": {
-					"insecure": true
-				},
+				"importPolicy": {},
 				"referencePolicy": {
 					"type": "Local"
 				}
