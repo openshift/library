@@ -70,6 +70,25 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
+			},
+			{
+				"name": "1.12",
+				"annotations": {
+					"description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
+					"tags": "java,openjdk,ubi8",
+					"version": "1.12"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:1.12"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
 			}
 		]
 	},

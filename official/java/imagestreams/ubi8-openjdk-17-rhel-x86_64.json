@@ -38,6 +38,27 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
+			},
+			{
+				"name": "1.12",
+				"annotations": {
+					"description": "Build and run Java applications using Maven and OpenJDK 17 upon RHEL8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 17 (UBI8)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"tags": "builder,java,openjdk,ubi8,hidden",
+					"version": "1.12"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-17:1.12"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
 			}
 		]
 	},
