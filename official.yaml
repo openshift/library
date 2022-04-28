@@ -8,9 +8,7 @@ variables:
   rhsso_tpcd_version: sso-cd-dev
   rhsso73_zstream_version: v7.3.8.GA-RHBZ-1813894-fix
   rhsso74_openjdk_version: v7.4.10.GA
-  rhsso74_openj9_version: v7.4.10.GA
-  rhsso75_openjdk_version: v7.5.1.GA
-  rhsso75_openj9_version: v7.5.1.GA
+  rhsso75_openjdk_version: v7.5.2.GA
   webserver_version: ose-v1.4.17
   webserver3_version: jws31-v1.4
   webserver5el7_version: jws54el7-v1.0
@@ -1036,92 +1034,40 @@ data:
         tags:
           - ocp
           - arch_x86_64
-      # List templates for RH-SSO 7.4.x on OpenJ9 stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_openj9_version}/docs/templates/openj9/sso74-openj9-https.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_openj9_version}/docs/templates/openj9/sso74-openj9-postgresql-persistent.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-postgresql.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_openj9_version}/docs/templates/openj9/sso74-openj9-postgresql.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-ocp4-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_openj9_version}/docs/templates/openj9/sso74-openj9-ocp4-x509-https.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-ocp4-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso74_openj9_version}/docs/templates/openj9/sso74-openj9-ocp4-x509-postgresql-persistent.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
       # List templates for RH-SSO 7.5.x on OpenJDK stable / zstream images stream below
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-https.json
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-https.adoc
         tags:
           - ocp
           - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-postgresql-persistent.json
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-postgresql.json
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-postgresql.adoc
         tags:
           - ocp
           - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-ocp4-x509-https.json
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-ocp4-x509-https.adoc
         tags:
           - ocp
           - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-ocp4-x509-postgresql-persistent.json
         docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-ocp4-x509-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
-      # List templates for RH-SSO 7.5.x on OpenJ9 stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openj9_version}/docs/templates/openj9/sso75-openj9-https.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openj9_version}/docs/templates/openj9/sso75-openj9-postgresql-persistent.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-postgresql.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openj9_version}/docs/templates/openj9/sso75-openj9-postgresql.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-ocp4-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openj9_version}/docs/templates/openj9/sso75-openj9-ocp4-x509-https.adoc
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-ocp4-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openj9_version}/docs/templates/openj9/sso75-openj9-ocp4-x509-postgresql-persistent.adoc
-        tags:
-          - ocp
           - arch_ppc64le
           - arch_s390x
 
@@ -1162,26 +1108,15 @@ data:
         tags:
           - ocp
           - arch_x86_64
-      # List imagestream for RH-SSO 7.4.x on OpenJ9 stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso74_openj9_version}/templates/openj9/sso74-openj9-image-stream.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.4/html-single/red_hat_single_sign-on_for_openshift_on_eclipse_openj9/
-        tags:
-          - ocp
-          - arch_ppc64le
-          - arch_s390x
       # List imagestream for RH-SSO 7.5.x on OpenJDK stable / zstream images stream below
       - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/red_hat_single_sign-on_for_openshift_on_openjdk
         tags:
           - ocp
           - arch_x86_64
-      # List imagestream for RH-SSO 7.5.x on OpenJ9 stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openj9_version}/templates/openj9/sso75-openj9-image-stream.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/red_hat_single_sign-on_for_openshift_on_eclipse_openj9/
-        tags:
-          - ocp
           - arch_ppc64le
           - arch_s390x
+      # List imagestream for RH-SSO 7.5.x on OpenJ9 stable / zstream images stream below
   webserver:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-basic-s2i.json
