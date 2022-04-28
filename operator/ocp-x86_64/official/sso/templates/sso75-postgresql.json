@@ -5,7 +5,7 @@
 		"name": "sso75-postgresql",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.5 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso75-cpaas-dev/docs.",
+			"description": "An example application based on RH-SSO 7.5 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso75-dev/docs.",
 			"iconClass": "icon-sso",
 			"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK + PostgreSQL (Ephemeral with passthrough TLS)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.5 on OpenJDK server based deployment, deployment configuration for PostgreSQL using ephemeral (temporary) storage, and securing RH-SSO communication using passthrough TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.5.1.GA"
+			"version": "7.5.2.GA"
 		}
 	},
 	"message": "A new RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
@@ -100,8 +100,7 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"description": "The JGroups ping port for clustering.",
-					"service.alpha.kubernetes.io/tolerate-unready-endpoints": "true"
+					"description": "The JGroups ping port for clustering."
 				},
 				"labels": {
 					"application": "${APPLICATION_NAME}"
@@ -116,6 +115,7 @@
 						"port": 8888
 					}
 				],
+				"publishNotReadyAddresses": true,
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}"
 				}
@@ -766,7 +766,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.5.1.GA",
+		"rhsso": "7.5.2.GA",
 		"template": "sso75-postgresql"
 	}
 }
