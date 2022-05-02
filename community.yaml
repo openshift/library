@@ -127,6 +127,18 @@ data:
         suffix: centos
         tags:
           - okd
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-maven-okd.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins-agent-maven
+        suffix: ubi
+        tags:
+          - okd
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-nodejs-okd.json
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins-agent-nodejs
+        suffix: ubi
+        tags:
+          - okd
   mariadb:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos.json
