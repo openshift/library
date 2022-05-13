@@ -99,8 +99,6 @@ data:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs.json
         docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
-      - location: https://raw.githubusercontent.com/sclorg/nodejs-ex/master/openshift/templates/nodejs-mongodb.json
-        docs: https://github.com/sclorg/nodejs-ex/blob/master/README.md
       - location: https://raw.githubusercontent.com/nodeshift-starters/nodejs-rest-http-crud/main/.openshift/postgresql-template.json
         docs: https://github.com/nodeshift-starters/nodejs-rest-http-crud/blob/main/README.md
         tags:
@@ -376,17 +374,6 @@ data:
         tags:
           - ocp
           - arch_aarch64
-  mongodb:
-    templates:
-      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-ephemeral-template.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/examples/mongodb-persistent-template.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-    imagestreams:
-      - location: https://raw.githubusercontent.com/sclorg/mongodb-container/master/imagestreams/mongodb-rhel7.json
-        docs: https://github.com/sclorg/mongodb-container/blob/master/README.md
-        regex: mongodb
-        suffix: rhel7
   mysql:
     templates:
       - location: https://raw.githubusercontent.com/sclorg/mysql-container/master/examples/mysql-ephemeral-template.json
