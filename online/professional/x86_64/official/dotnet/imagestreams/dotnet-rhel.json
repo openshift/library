@@ -82,52 +82,6 @@
 				}
 			},
 			{
-				"name": "5.0-ubi8",
-				"annotations": {
-					"description": "Build and run .NET 5 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/5.0/build/README.md.",
-					"iconClass": "icon-dotnet",
-					"openshift.io/display-name": ".NET 5 (UBI 8)",
-					"sampleContextDir": "app",
-					"sampleRef": "dotnet-5.0",
-					"sampleRepo": "https://github.com/redhat-developer/s2i-dotnetcore-ex",
-					"supports": "dotnet:5.0,dotnet",
-					"tags": "builder,.net,dotnet,dotnetcore,dotnet50",
-					"version": "5.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi8/dotnet-50:5.0"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "5.0",
-				"annotations": {
-					"description": "Build and run .NET 5 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/5.0/build/README.md.",
-					"iconClass": "icon-dotnet",
-					"openshift.io/display-name": ".NET 5 (UBI 8)",
-					"sampleContextDir": "app",
-					"sampleRef": "dotnetcore-5.0",
-					"sampleRepo": "https://github.com/redhat-developer/s2i-dotnetcore-ex",
-					"supports": "dotnet:5.0,dotnet",
-					"tags": "builder,.net,dotnet,dotnetcore,rh-dotnet50,hidden",
-					"version": "5.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi8/dotnet-50:5.0"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
 				"name": "3.1-ubi8",
 				"annotations": {
 					"description": "Build and run .NET Core 3.1 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/redhat-developer/s2i-dotnetcore/tree/master/3.1/build/README.md.",
