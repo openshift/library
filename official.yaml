@@ -630,18 +630,33 @@ data:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-basic-s2i.json
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-https-s2i.json
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/templates/eap74-sso-s2i.json
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/templates/eap-xp3-basic-s2i.json
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/templates/eap-xp4-basic-s2i.json
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk8-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/getting_started_with_jboss_eap_for_openshift_container_platform/index
@@ -649,24 +664,34 @@ data:
         suffix: rhel7
         tags:
           - ocp
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk11-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/getting_started_with_jboss_eap_for_openshift_container_platform/index
         regex: jboss-eap
         suffix: rhel8
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp3/jboss-eap-xp3-openjdk11-openshift.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_jboss_eap_xp_3.0.0/index
         regex: jboss-eap
         suffix: rhel8
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap-xp4/eap-xp4-openjdk11-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/7.4/html/using_jboss_eap_xp_4.0.0/index
         regex: jboss-eap
         suffix: rhel8
         tags:
           - ocp
+          - arch_ppc64le
+          - arch_s390x
+          - arch_x86_64
   java:
     templates:
       - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/{openjdk_version}/templates/openjdk-web-basic-s2i.json
