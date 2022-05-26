@@ -35,6 +35,28 @@
 				}
 			},
 			{
+				"name": "5.32-ubi9",
+				"annotations": {
+					"description": "Build and run Perl 5.32 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.32/README.md.",
+					"iconClass": "icon-perl",
+					"openshift.io/display-name": "Perl 5.32 (UBI 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/dancer-ex.git",
+					"supports": "perl:5.32,perl",
+					"tags": "builder,perl",
+					"version": "5.32"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi9/perl-532:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "5.32-ubi8",
 				"annotations": {
 					"description": "Build and run Perl 5.32 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-perl-container/blob/master/5.32/README.md.",
