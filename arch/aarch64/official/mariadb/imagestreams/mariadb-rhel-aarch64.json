@@ -71,6 +71,26 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
+			},
+			{
+				"name": "10.5-el9",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.5/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.5 (RHEL 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/mariadb-105:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
 			}
 		]
 	},
