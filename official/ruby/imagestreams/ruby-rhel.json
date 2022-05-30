@@ -35,6 +35,28 @@
 				}
 			},
 			{
+				"name": "3.0-ubi9",
+				"annotations": {
+					"description": "Build and run Ruby 3.0 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/3.0/README.md.",
+					"iconClass": "icon-ruby",
+					"openshift.io/display-name": "Ruby 3.0 (UBI 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+					"supports": "ruby:3.0,ruby",
+					"tags": "builder,ruby",
+					"version": "3.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi9/ruby-30:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "3.0-ubi8",
 				"annotations": {
 					"description": "Build and run Ruby 3.0 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/3.0/README.md.",
@@ -137,50 +159,6 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/rhscl/ruby-27-rhel7:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "2.6-ubi7",
-				"annotations": {
-					"description": "Build and run Ruby 2.6 applications on UBI 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.6/README.md.",
-					"iconClass": "icon-ruby",
-					"openshift.io/display-name": "Ruby 2.6 (UBI 7)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
-					"supports": "ruby:2.6,ruby",
-					"tags": "builder,ruby",
-					"version": "2.6"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.redhat.io/ubi7/ruby-26:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "2.6",
-				"annotations": {
-					"description": "Build and run Ruby 2.6 applications on RHEL 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/2.6/README.md.",
-					"iconClass": "icon-ruby",
-					"openshift.io/display-name": "Ruby 2.6",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
-					"supports": "ruby:2.6,ruby",
-					"tags": "builder,ruby,hidden",
-					"version": "2.6"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.redhat.io/rhscl/ruby-26-rhel7:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
