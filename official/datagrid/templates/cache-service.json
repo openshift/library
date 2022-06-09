@@ -1,6 +1,6 @@
 {
 	"kind": "Template",
-	"apiVersion": "v1",
+	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
 		"name": "cache-service",
 		"creationTimestamp": null,
@@ -54,6 +54,7 @@
 						"port": 8888
 					}
 				],
+				"publishNotReadyAddresses": true,
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}"
 				}
