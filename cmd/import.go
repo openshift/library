@@ -17,7 +17,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
-	"k8s.io/klog"
+	"k8s.io/klog/v2"
 
 	imageapiv1 "github.com/openshift/api/image/v1"
 	templateapiv1 "github.com/openshift/api/template/v1"
