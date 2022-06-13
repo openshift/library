@@ -9,7 +9,7 @@ variables:
   ips_ds_version: 6.4.12.GA
   rhdm_version: 7.12.1.GA
   rhpam_version: 7.12.1.GA
-  datagrid_version: 7.3-v1.4
+  datagrid_version: 7.3-v1.9
   rhamp_version: master
   fuse_version: "7.3"
 data:
@@ -563,7 +563,7 @@ data:
           - ocp
           - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/templates/datagrid73-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-datagrid-7-openshift-image/{datagrid_version}/image-streams/datagrid73-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_data_grid/7.3/html/data_grid_for_openshift/
         regex: jboss-datagrid
         suffix: rhel7
