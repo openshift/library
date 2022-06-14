@@ -967,24 +967,21 @@ data:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-console-namespace-template.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/managing_fuse/
         tags:
-          - ocp
           - online-professional
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fuse-apicurito.yml
         docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/designing_apis_with_apicurito/
         tags:
-          - ocp
           - online-professional
     imagestreams:
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/fuse_on_openshift_guide/
-        regex: '^(apicurito|fuse)'
+        regex: 'fuse7-(eap|java|karaf)'
         suffix: rhel7
         tags:
           - ocp
-          - online-professional
       - location: https://raw.githubusercontent.com/jboss-fuse/application-templates/GA/fis-image-streams.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_fuse/{fuse_version}/html/fuse_on_openshift_guide/
-        regex: '^fis'
+        regex: '^[^j]'
         suffix: rhel7
         tags:
           - online-professional
