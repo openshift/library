@@ -1,6 +1,6 @@
 {
 	"kind": "ImageStream",
-	"apiVersion": "v1",
+	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
 		"name": "openliberty",
 		"creationTimestamp": null,
@@ -14,11 +14,11 @@
 		},
 		"tags": [
 			{
-				"name": "latest",
+				"name": "22.0.0.4-java8",
 				"annotations": {
-					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/master/README.md.",
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
 					"iconClass": "icon-openliberty",
-					"openshift.io/display-name": "Open Liberty (Latest)",
+					"openshift.io/display-name": "Open Liberty 22.0.0.4 with Java 8",
 					"openshift.io/provider-display-name": "IBM",
 					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
 					"supports": "jee,java",
@@ -26,7 +26,28 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "docker.io/openliberty/open-liberty-s2i:latest"
+					"name": "docker.io/openliberty/open-liberty-s2i:22.0.0.4-java8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "22.0.0.4-java11",
+				"annotations": {
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
+					"iconClass": "icon-openliberty",
+					"openshift.io/display-name": "Open Liberty 22.0.0.4 with Java 11",
+					"openshift.io/provider-display-name": "IBM",
+					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+					"supports": "jee,java",
+					"tags": "builder,openliberty,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/openliberty/open-liberty-s2i:22.0.0.4-java11"
 				},
 				"generation": null,
 				"importPolicy": {},
