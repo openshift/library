@@ -1,6 +1,6 @@
 {
 	"kind": "ImageStream",
-	"apiVersion": "v1",
+	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
 		"name": "apicurito-ui",
 		"creationTimestamp": null,
@@ -134,7 +134,7 @@
 				}
 			},
 			{
-				"name": "1.10",
+				"name": "1.11",
 				"annotations": {
 					"description": "Red Hat Apicurito UI image.",
 					"openshift.io/display-name": "Red Hat Apicurito UI",
@@ -142,7 +142,24 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/fuse7/fuse-apicurito-rhel8:1.10"
+					"name": "registry.redhat.io/fuse7/fuse-apicurito-rhel8:1.11"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "1.11",
+				"annotations": {
+					"description": "Red Hat Apicurito UI image.",
+					"openshift.io/display-name": "Red Hat Apicurito UI",
+					"tags": "apicurio,hidden"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/fuse7/fuse-apicurito-rhel8:1.11"
 				},
 				"generation": null,
 				"importPolicy": {},
