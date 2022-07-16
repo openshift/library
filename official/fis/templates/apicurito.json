@@ -1,0 +1,400 @@
+{
+	"kind": "Template",
+	"apiVersion": "template.openshift.io/v1",
+	"metadata": {
+		"name": "apicurito",
+		"creationTimestamp": null,
+		"labels": {
+			"app": "apicurito"
+		},
+		"annotations": {
+			"description": "Design beautiful, functional APIs with zero coding, using a visual designer for OpenAPI documents.",
+			"iconClass": "icon-rh-integration",
+			"openshift.io/display-name": "Red Hat Fuse Apicurito",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"tags": "fuse,apicurio,openapi,swagger,api",
+			"version": "1.11"
+		}
+	},
+	"message": "Apicurito is now deployed to https://${ROUTE_HOSTNAME}.",
+	"objects": [
+		{
+			"apiVersion": "v1",
+			"data": {
+				"config.js": "var ApicuritoConfig = {\n    \"generators\": [\n        {\n            \"name\":\"Fuse Camel Project\",\n            \"url\":\"/api/v1/generate/camel-project.zip\"\n        }\n    ]\n}\n"
+			},
+			"kind": "ConfigMap",
+			"metadata": {
+				"labels": {
+					"app": "apicurito"
+				},
+				"name": "apicurito-ui-config"
+			}
+		},
+		{
+			"apiVersion": "apps.openshift.io/v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"labels": {
+					"app": "apicurito",
+					"component": "apicurito-ui"
+				},
+				"name": "apicurito-ui"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"app": "apicurito",
+					"component": "apicurito-ui"
+				},
+				"strategy": {
+					"rollingParams": {
+						"intervalSeconds": 1,
+						"maxSurge": "25%",
+						"maxUnavailable": "25%",
+						"timeoutSeconds": 600,
+						"updatePeriodSeconds": 1
+					},
+					"type": "Rolling"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"app": "apicurito",
+							"com.company": "Red_Hat",
+							"component": "apicurito-ui",
+							"rht.comp": "apicurito-ui",
+							"rht.comp_ver": "${APP_VERSION}",
+							"rht.prod_name": "Red_Hat_Integration",
+							"rht.prod_ver": "7.11"
+						}
+					},
+					"spec": {
+						"containers": [
+							{
+								"imagePullPolicy": "IfNotPresent",
+								"livenessProbe": {
+									"httpGet": {
+										"path": "/",
+										"port": 8080
+									},
+									"initialDelaySeconds": 30
+								},
+								"name": "apicurito-ui",
+								"ports": [
+									{
+										"containerPort": 8080
+									}
+								],
+								"readinessProbe": {
+									"httpGet": {
+										"path": "/",
+										"port": 8080
+									},
+									"initialDelaySeconds": 1
+								},
+								"resources": {
+									"limits": {
+										"cpu": "${CPU_LIMIT}",
+										"memory": "${MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${CPU_REQUEST}",
+										"memory": "${MEMORY_REQUEST}"
+									}
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/html/config",
+										"name": "config-volume"
+									}
+								]
+							}
+						],
+						"volumes": [
+							{
+								"configMap": {
+									"name": "apicurito-ui-config"
+								},
+								"name": "config-volume"
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"apicurito-ui"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "apicurito-ui:${APP_VERSION}",
+								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"labels": {
+					"app": "apicurito"
+				},
+				"name": "apicurito-ui"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 80,
+						"protocol": "TCP",
+						"targetPort": 8080
+					}
+				],
+				"selector": {
+					"app": "apicurito",
+					"component": "apicurito-ui"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
+			"kind": "Route",
+			"metadata": {
+				"annotations": {
+					"console.alpha.openshift.io/overview-app-route": "true"
+				},
+				"labels": {
+					"app": "apicurito"
+				},
+				"name": "apicurito"
+			},
+			"spec": {
+				"host": "${ROUTE_HOSTNAME}",
+				"tls": {
+					"termination": "edge"
+				},
+				"to": {
+					"kind": "Service",
+					"name": "apicurito-ui"
+				}
+			}
+		},
+		{
+			"apiVersion": "apps.openshift.io/v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"labels": {
+					"app": "apicurito",
+					"component": "fuse-apicurito-generator"
+				},
+				"name": "fuse-apicurito-generator"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"app": "apicurito",
+					"component": "fuse-apicurito-generator"
+				},
+				"strategy": {
+					"rollingParams": {
+						"intervalSeconds": 1,
+						"maxSurge": "25%",
+						"maxUnavailable": "25%",
+						"timeoutSeconds": 600,
+						"updatePeriodSeconds": 1
+					},
+					"type": "Rolling"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"app": "apicurito",
+							"com.company": "Red_Hat",
+							"component": "fuse-apicurito-generator",
+							"rht.comp": "fuse-apicurito-generator",
+							"rht.comp_ver": "${APP_VERSION}",
+							"rht.prod_name": "Red_Hat_Integration",
+							"rht.prod_ver": "7.11"
+						}
+					},
+					"spec": {
+						"containers": [
+							{
+								"imagePullPolicy": "IfNotPresent",
+								"livenessProbe": {
+									"failureThreshold": 3,
+									"initialDelaySeconds": 180,
+									"periodSeconds": 10,
+									"successThreshold": 1,
+									"tcpSocket": {
+										"port": 8080
+									},
+									"timeoutSeconds": 1
+								},
+								"name": "fuse-apicurito-generator",
+								"ports": [
+									{
+										"containerPort": 8080,
+										"name": "http",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 9779,
+										"name": "prometheus",
+										"protocol": "TCP"
+									},
+									{
+										"containerPort": 8778,
+										"name": "jolokia",
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"failureThreshold": 3,
+									"initialDelaySeconds": 10,
+									"periodSeconds": 10,
+									"successThreshold": 1,
+									"tcpSocket": {
+										"port": 8080
+									},
+									"timeoutSeconds": 1
+								},
+								"resources": {
+									"limits": {
+										"cpu": "${CPU_LIMIT}",
+										"memory": "${MEMORY_LIMIT}"
+									},
+									"requests": {
+										"cpu": "${CPU_REQUEST}",
+										"memory": "${MEMORY_REQUEST}"
+									}
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"fuse-apicurito-generator"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "fuse-apicurito-generator:${APP_VERSION}",
+								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"labels": {
+					"app": "apicurito"
+				},
+				"name": "fuse-apicurito-generator"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 80,
+						"protocol": "TCP",
+						"targetPort": 8080
+					}
+				],
+				"selector": {
+					"app": "apicurito",
+					"component": "fuse-apicurito-generator"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
+			"kind": "Route",
+			"metadata": {
+				"labels": {
+					"app": "apicurito"
+				},
+				"name": "fuse-apicurito-generator"
+			},
+			"spec": {
+				"host": "${ROUTE_HOSTNAME}",
+				"path": "/api/v1",
+				"tls": {
+					"termination": "edge"
+				},
+				"to": {
+					"kind": "Service",
+					"name": "fuse-apicurito-generator"
+				}
+			}
+		}
+	],
+	"parameters": [
+		{
+			"name": "APP_VERSION",
+			"displayName": "Application Version",
+			"description": "The application version.",
+			"value": "1.11",
+			"required": true
+		},
+		{
+			"name": "IMAGE_STREAM_NAMESPACE",
+			"displayName": "Image Stream Namespace",
+			"description": "Namespace in which the Fuse image streams are installed. These image streams are normally installed in the 'openshift' namespace. You should only need to modify this if you've installed the image streams in a different namespace/project.",
+			"value": "openshift",
+			"required": true
+		},
+		{
+			"name": "ROUTE_HOSTNAME",
+			"description": "The external hostname to access Apicurito",
+			"required": true
+		},
+		{
+			"name": "CPU_REQUEST",
+			"displayName": "CPU request",
+			"description": "The amount of CPU to request for each container.",
+			"value": "0.2",
+			"required": true
+		},
+		{
+			"name": "MEMORY_REQUEST",
+			"displayName": "Memory request",
+			"description": "The amount of memory required for each container to run.",
+			"value": "64Mi",
+			"required": true
+		},
+		{
+			"name": "CPU_LIMIT",
+			"displayName": "CPU limit",
+			"description": "The amount of CPU each container is limited to use.",
+			"value": "1.0",
+			"required": true
+		},
+		{
+			"name": "MEMORY_LIMIT",
+			"displayName": "Memory limit",
+			"description": "The amount of memory each container is limited to use.",
+			"value": "256Mi",
+			"required": true
+		}
+	]
+}
