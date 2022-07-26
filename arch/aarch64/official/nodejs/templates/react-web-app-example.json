@@ -1,0 +1,259 @@
+{
+	"kind": "Template",
+	"apiVersion": "template.openshift.io/v1",
+	"metadata": {
+		"name": "react-web-app-example",
+		"creationTimestamp": null,
+		"annotations": {
+			"description": "Build a basic React Web Application",
+			"iconClass": "icon-js",
+			"openshift.io/display-name": "React Web Application",
+			"tags": "nodejs, react, web app",
+			"template.openshift.io/provider-display-name": "Red Hat, Inc."
+		}
+	},
+	"message": "The following service(s) have been created in your project: ${NAME}.\n\nMore message text here",
+	"objects": [
+		{
+			"apiVersion": "image.openshift.io/v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"labels": {
+					"app": "${NAME}"
+				},
+				"name": "${NAME}"
+			},
+			"spec": {}
+		},
+		{
+			"apiVersion": "build.openshift.io/v1",
+			"kind": "BuildConfig",
+			"metadata": {
+				"labels": {
+					"app": "${NAME}"
+				},
+				"name": "${NAME}"
+			},
+			"spec": {
+				"output": {
+					"to": {
+						"kind": "ImageStreamTag",
+						"name": "${NAME}:latest"
+					}
+				},
+				"postCommit": {},
+				"resources": {},
+				"source": {
+					"git": {
+						"ref": "${SOURCE_REPOSITORY_REF}",
+						"uri": "${SOURCE_REPOSITORY_URL}"
+					},
+					"type": "Git"
+				},
+				"strategy": {
+					"sourceStrategy": {
+						"env": [
+							{
+								"name": "NPM_MIRROR",
+								"value": "${NPM_MIRROR}"
+							}
+						],
+						"from": {
+							"kind": "ImageStreamTag",
+							"name": "nodejs:${NODEJS_VERSION}",
+							"namespace": "${NAMESPACE}"
+						}
+					},
+					"type": "Source"
+				},
+				"triggers": [
+					{
+						"github": {
+							"secret": "${GITHUB_WEBHOOK_SECRET}"
+						},
+						"type": "GitHub"
+					},
+					{
+						"type": "ConfigChange"
+					},
+					{
+						"imageChange": {},
+						"type": "ImageChange"
+					}
+				]
+			},
+			"status": {
+				"lastVersion": 0
+			}
+		},
+		{
+			"apiVersion": "apps.openshift.io/v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"labels": {
+					"app": "${NAME}"
+				},
+				"name": "${NAME}"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"app": "${NAME}"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"app": "${NAME}"
+						}
+					},
+					"spec": {
+						"containers": [
+							{
+								"image": "${NAME}:latest",
+								"name": "${NAME}",
+								"ports": [
+									{
+										"containerPort": 3000,
+										"name": "http",
+										"protocol": "TCP"
+									}
+								],
+								"resources": {
+									"limits": {
+										"memory": "${MEMORY_LIMIT}"
+									}
+								},
+								"securityContext": {
+									"privileged": false
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"type": "ConfigChange"
+					},
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"${NAME}"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${NAME}:latest"
+							}
+						},
+						"type": "ImageChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"labels": {
+					"app": "${NAME}"
+				},
+				"name": "${NAME}"
+			},
+			"spec": {
+				"ports": [
+					{
+						"name": "http",
+						"port": 8080,
+						"targetPort": 3000
+					}
+				],
+				"selector": {
+					"app": "${NAME}"
+				}
+			}
+		},
+		{
+			"apiVersion": "route.openshift.io/v1",
+			"kind": "Route",
+			"metadata": {
+				"labels": {
+					"app": "${NAME}"
+				},
+				"name": "${NAME}"
+			},
+			"spec": {
+				"port": {
+					"targetPort": 3000
+				},
+				"to": {
+					"kind": "Service",
+					"name": "${NAME}"
+				}
+			}
+		}
+	],
+	"parameters": [
+		{
+			"name": "NAME",
+			"displayName": "Name",
+			"description": "The name assigned to all of the frontend objects defined in this template.",
+			"value": "react-web-app",
+			"required": true
+		},
+		{
+			"name": "NAMESPACE",
+			"displayName": "Namespace",
+			"description": "The OpenShift Namespace where the ImageStream resides.",
+			"value": "openshift",
+			"required": true
+		},
+		{
+			"name": "NODEJS_VERSION",
+			"displayName": "Version of NodeJS Image",
+			"description": "Version of NodeJS image to be used (14-ubi8, 16-ubi8, or latest).",
+			"value": "16-ubi8",
+			"required": true
+		},
+		{
+			"name": "MEMORY_LIMIT",
+			"displayName": "Memory Limit",
+			"description": "Maximum amount of memory the container can use.",
+			"value": "512Mi",
+			"required": true
+		},
+		{
+			"name": "SOURCE_REPOSITORY_URL",
+			"displayName": "Source URL",
+			"description": "The source URL for the application",
+			"value": "https://github.com/nodeshift-blog-examples/react-web-app",
+			"required": true
+		},
+		{
+			"name": "SOURCE_REPOSITORY_REF",
+			"displayName": "Source Branch",
+			"description": "The branch name for the application",
+			"value": "main",
+			"required": true
+		},
+		{
+			"name": "SOURCE_REPOSITORY_DIR",
+			"displayName": "Source Directory",
+			"description": "The location within the source repo of the application",
+			"value": ".",
+			"required": true
+		},
+		{
+			"name": "NPM_MIRROR",
+			"displayName": "Custom NPM mirror URL",
+			"description": "The custom NPM mirror URL"
+		},
+		{
+			"name": "GITHUB_WEBHOOK_SECRET",
+			"displayName": "GitHub Webhook Secret",
+			"description": "A secret string used to configure the GitHub webhook.",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{40}",
+			"required": true
+		}
+	]
+}
