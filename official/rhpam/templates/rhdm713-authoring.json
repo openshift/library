@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhdm712-authoring",
+		"name": "rhdm713-authoring",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a non-HA persistent authoring environment, for Red Hat Decision Manager 7.12 - Deprecated",
+			"description": "Application template for a non-HA persistent authoring environment for decision, for Red Hat Process Automation Manager 7.13 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Decision Manager 7.12 authoring environment (non-HA, persistent, with https)",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.13 authoring environment (non-HA, persistent, with https) for decisions.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhdm,decisionserver,jboss,authoring",
+			"tags": "rhpam,decision,jboss,authoring",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/deploying_a_red_hat_decision_manager_7.12_authoring_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Decision Manager 7.12, including application deployment configuration, secure and insecure http communication and a persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.13/html/deploying_a_red_hat_process_automation_manager_7.13_authoring_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to develop and execute Rules on Red Hat Process Automation Manager 7.13, including application deployment configuration, secure and insecure http communication and a persistent volume to store data that needs to survive to a restart. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.12"
+			"version": "7.13"
 		}
 	},
-	"message": "A new persistent Decision Manager application has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSINESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${BUSINESS_CENTRAL_HTTPS_KEYSTORE} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
+	"message": "A new persistent Process Automation Manager application for Decision has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secrets named \"${BUSIDECISION_CENTRAL_HTTPS_SECRETNESS_CENTRAL_HTTPS_SECRET}\" and \"${KIE_SERVER_HTTPS_SECRET}\"\ncontaining the ${DECISION_CENTRAL_HTTPS_SECRET} and ${KIE_SERVER_HTTPS_KEYSTORE} files used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -427,6 +427,10 @@
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
 									},
 									{
+										"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+										"value": "${AUTH_LDAP_ALLOW_EMPTY_PASSWORDS}"
+									},
+									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
 										"value": "${AUTH_LDAP_BASE_CTX_DN}"
 									},
@@ -483,7 +487,7 @@
 										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
-								"image": "rhdm-decisioncentral-rhel8",
+								"image": "rhpam-businesscentral-rhel8",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
 									"failureThreshold": 36,
@@ -575,7 +579,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "rhdm-decisioncentral-rhel8:${IMAGE_STREAM_TAG}",
+								"name": "rhpam-businesscentral-rhel8:${IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -658,6 +662,10 @@
 									{
 										"name": "DROOLS_SERVER_FILTER_CLASSES",
 										"value": "${DROOLS_SERVER_FILTER_CLASSES}"
+									},
+									{
+										"name": "KIE_SERVER_DECISIONS_ONLY",
+										"value": "${KIE_SERVER_DECISIONS_ONLY}"
 									},
 									{
 										"name": "PROMETHEUS_SERVER_EXT_DISABLED",
@@ -841,6 +849,10 @@
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
+									},
+									{
+										"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+										"value": "${AUTH_LDAP_ALLOW_EMPTY_PASSWORDS}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1077,6 +1089,12 @@
 			"value": "true"
 		},
 		{
+			"name": "KIE_SERVER_DECISIONS_ONLY",
+			"displayName": "KIE Server with Decisions only capabilities",
+			"description": "KIE Server capabilities filtering to disable everything that it is not related to decisions (i.e jBPM and case management)",
+			"value": "true"
+		},
+		{
 			"name": "PROMETHEUS_SERVER_EXT_DISABLED",
 			"displayName": "Prometheus Server Extension Disabled",
 			"description": "If set to false, the prometheus server extension will be enabled. (Sets the org.kie.prometheus.server.ext.disabled system property)"
@@ -1177,15 +1195,15 @@
 		{
 			"name": "KIE_SERVER_IMAGE_STREAM_NAME",
 			"displayName": "KIE Server ImageStream Name",
-			"description": "The name of the image stream to use for KIE Server. Default is \"rhdm-kieserver-rhel8\".",
-			"value": "rhdm-kieserver-rhel8",
+			"description": "The name of the image stream to use for KIE Server. Default is \"rhpam-kieserver-rhel8\".",
+			"value": "rhpam-kieserver-rhel8",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.12.1\".",
-			"value": "7.12.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.13.0\".",
+			"value": "7.13.0",
 			"required": true
 		},
 		{
@@ -1366,6 +1384,11 @@
 			"description": "LDAP Credentials used for authentication."
 		},
 		{
+			"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+			"displayName": "Allow Empty Passwords",
+			"description": "Does this realm support blank password direct verification? Blank password attempt will be rejected otherwise. Boolean flag, defaults to false."
+		},
+		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
 			"displayName": "LDAP Base DN",
 			"description": "LDAP Base DN of the top-level context to begin the user search."
@@ -1437,7 +1460,7 @@
 		}
 	],
 	"labels": {
-		"rhdm": "7.12",
-		"template": "rhdm712-authoring"
+		"rhdm": "7.13",
+		"template": "rhdm713-authoring"
 	}
 }

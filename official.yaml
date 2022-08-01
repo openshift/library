@@ -7,8 +7,7 @@ variables:
   webserver3_version: jws31-v1.4
   webserver5el8_version: jws56el8-v5.6.2
   ips_ds_version: 6.4.12.GA
-  rhdm_version: 7.12.1.GA
-  rhpam_version: 7.12.1.GA
+  rhpam_version: 7.13.0.GA
   datagrid_version: 7.3-v1.9
   rhamp_version: master
   fuse_version: "7.3"
@@ -750,95 +749,82 @@ data:
         suffix: rhel7
         tags:
           - online-professional
-  rhdm:
-    templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-authoring-ha.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-authoring-ha.adoc
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-authoring.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-authoring.adoc
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-kieserver.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-kieserver.adoc
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-prod-immutable-kieserver-amq.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-prod-immutable-kieserver-amq.adoc
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-prod-immutable-kieserver.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-prod-immutable-kieserver.adoc
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/templates/rhdm712-trial-ephemeral.yaml
-        docs: https://github.com/jboss-container-images/rhdm-7-openshift-image/blob/{rhdm_version}/templates/docs/rhdm712-trial-ephemeral.adoc
-        tags:
-          - online-professional
-    imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/rhdm712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index
-        regex: rhdm-decisioncentral-rhel8
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhdm-7-openshift-image/{rhdm_version}/rhdm712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_decision_manager/7.12/html/deploying_red_hat_decision_manager_on_red_hat_openshift_container_platform/index
-        regex: rhdm-kieserver-rhel8
-        tags:
-          - online-professional
   rhpam:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-authoring-ha.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-authoring-ha.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-authoring-ha.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-authoring-ha.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-authoring.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-authoring.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-authoring.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-authoring.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-kieserver-externaldb.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-kieserver-externaldb.adoc
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-kieserver-mysql.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-kieserver-mysql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-kieserver-externaldb.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-kieserver-externaldb.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-kieserver-mysql.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-kieserver-mysql.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-kieserver-postgresql.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-kieserver-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-kieserver-postgresql.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-kieserver-postgresql.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-managed.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-managed.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-managed.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-managed.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-prod-immutable-kieserver-amq.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-prod-immutable-kieserver-amq.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-prod-immutable-kieserver-amq.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-prod-immutable-kieserver-amq.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-prod-immutable-kieserver.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-prod-immutable-kieserver.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-prod-immutable-kieserver.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-prod-immutable-kieserver.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-prod-immutable-monitor.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-prod-immutable-monitor.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-prod-immutable-monitor.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-prod-immutable-monitor.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-prod.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-prod.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-prod.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-prod.adoc
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/rhpam712-trial-ephemeral.yaml
-        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/rhpam712-trial-ephemeral.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/process/rhpam713-trial-ephemeral.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/process/rhpam713-trial-ephemeral.adoc
         tags:
           - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-authoring-ha.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-authoring-ha.adoc
+        tags:
+        - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-authoring.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-authoring.adoc
+        tags:
+        - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-kieserver.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-kieserver.adoc
+        tags:
+        - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-prod-immutable-kieserver-amq.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-prod-immutable-kieserver-amq.adoc
+        tags:
+        - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-prod-immutable-kieserver.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-prod-immutable-kieserver.adoc
+        tags:
+        - online-professional
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/templates/decision/rhdm713-trial-ephemeral.yaml
+        docs: https://github.com/jboss-container-images/rhpam-7-openshift-image/blob/{rhpam_version}/templates/docs/decision/rhdm713-trial-ephemeral.adoc
+        tags:
+        - online-professional
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam713-image-streams.yaml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.13/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
         regex: rhpam-businesscentral-rhel8|rhpam-businesscentral-monitoring-rhel8|rhpam-smartrouter-rhel8
         tags:
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
+      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam713-image-streams.yaml
+        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.13/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
         regex: rhpam-kieserver-rhel8
         tags:
           - online-professional

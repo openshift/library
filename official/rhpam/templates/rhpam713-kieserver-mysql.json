@@ -2,19 +2,19 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam712-kieserver-externaldb",
+		"name": "rhpam713-kieserver-mysql",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed KIE Server with an external database, for Red Hat Process Automation Manager 7.12 - Deprecated",
+			"description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.13 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.12 managed KIE Server with an external database",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.13 managed KIE Server with a MySQL database",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhpam,processserver,jboss,kieserver,externaldb",
+			"tags": "rhpam,processserver,jboss,kieserver",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_a_red_hat_process_automation_manager_7.12_managed_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE Server 7.12, including application deployment configuration, secure and insecure http communication, using a external database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.13/html/deploying_a_red_hat_process_automation_manager_7.13_managed_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE Server 7.13, including application deployment configuration, secure and insecure http communication, using a MySQL database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.12"
+			"version": "7.13"
 		}
 	},
 	"message": "A new Process Automation Manager KIE Server application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
@@ -87,6 +87,31 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "Service",
+			"metadata": {
+				"annotations": {
+					"description": "The database server's port."
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql"
+			},
+			"spec": {
+				"ports": [
+					{
+						"port": 3306,
+						"targetPort": 3306
+					}
+				],
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"id": "insecure-${APPLICATION_NAME}-kieserver-http",
 			"kind": "Route",
 			"metadata": {
@@ -135,92 +160,6 @@
 				"to": {
 					"name": "${APPLICATION_NAME}-kieserver"
 				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "ImageStream",
-			"metadata": {
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-kieserver"
-				},
-				"name": "${APPLICATION_NAME}-kieserver"
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "BuildConfig",
-			"metadata": {
-				"annotations": {
-					"template.alpha.openshift.io/wait-for-ready": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-kieserver"
-				},
-				"name": "${APPLICATION_NAME}-kieserver"
-			},
-			"spec": {
-				"output": {
-					"to": {
-						"kind": "ImageStreamTag",
-						"name": "${APPLICATION_NAME}-kieserver:latest"
-					}
-				},
-				"source": {
-					"images": [
-						{
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${EXTENSIONS_IMAGE}",
-								"namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
-							},
-							"paths": [
-								{
-									"destinationDir": "./extensions/extras",
-									"sourcePath": "${EXTENSIONS_INSTALL_DIR}/."
-								}
-							]
-						}
-					]
-				},
-				"strategy": {
-					"sourceStrategy": {
-						"env": [
-							{
-								"name": "CUSTOM_INSTALL_DIRECTORIES",
-								"value": "extensions/*"
-							}
-						],
-						"forcePull": true,
-						"from": {
-							"kind": "ImageStreamTag",
-							"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
-							"namespace": "${IMAGE_STREAM_NAMESPACE}"
-						}
-					},
-					"type": "Source"
-				},
-				"triggers": [
-					{
-						"imageChange": {},
-						"type": "ImageChange"
-					},
-					{
-						"imageChange": {
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${EXTENSIONS_IMAGE}",
-								"namespace": "${EXTENSIONS_IMAGE_NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
 			}
 		},
 		{
@@ -391,87 +330,51 @@
 									},
 									{
 										"name": "KIE_SERVER_PERSISTENCE_DS",
-										"value": "${KIE_SERVER_EXTERNALDB_JNDI}"
-									},
-									{
-										"name": "KIE_SERVER_PERSISTENCE_SCHEMA",
-										"value": "${KIE_SERVER_PERSISTENCE_SCHEMA}"
-									},
-									{
-										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
-										"value": "${KIE_SERVER_EXTERNALDB_DIALECT}"
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
 									},
 									{
 										"name": "DATASOURCES",
 										"value": "RHPAM"
 									},
 									{
-										"name": "RHPAM_DATABASE",
-										"value": "${KIE_SERVER_EXTERNALDB_DB}"
-									},
-									{
-										"name": "RHPAM_SERVICE_HOST",
-										"value": "${KIE_SERVER_EXTERNALDB_SERVICE_HOST}"
-									},
-									{
-										"name": "RHPAM_SERVICE_PORT",
-										"value": "${KIE_SERVER_EXTERNALDB_SERVICE_PORT}"
-									},
-									{
 										"name": "RHPAM_JNDI",
-										"value": "${KIE_SERVER_EXTERNALDB_JNDI}"
-									},
-									{
-										"name": "RHPAM_DRIVER",
-										"value": "${KIE_SERVER_EXTERNALDB_DRIVER}"
-									},
-									{
-										"name": "RHPAM_USERNAME",
-										"value": "${KIE_SERVER_EXTERNALDB_USER}"
-									},
-									{
-										"name": "RHPAM_PASSWORD",
-										"value": "${KIE_SERVER_EXTERNALDB_PWD}"
-									},
-									{
-										"name": "RHPAM_NONXA",
-										"value": "${KIE_SERVER_EXTERNALDB_NONXA}"
-									},
-									{
-										"name": "RHPAM_URL",
-										"value": "${KIE_SERVER_EXTERNALDB_URL}"
-									},
-									{
-										"name": "RHPAM_XA_CONNECTION_PROPERTY_URL",
-										"value": "${KIE_SERVER_EXTERNALDB_URL}"
-									},
-									{
-										"name": "RHPAM_MIN_POOL_SIZE",
-										"value": "${KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE}"
-									},
-									{
-										"name": "RHPAM_MAX_POOL_SIZE",
-										"value": "${KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE}"
+										"value": "${KIE_SERVER_PERSISTENCE_DS}"
 									},
 									{
 										"name": "RHPAM_CONNECTION_CHECKER",
-										"value": "${KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER}"
+										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"
 									},
 									{
 										"name": "RHPAM_EXCEPTION_SORTER",
-										"value": "${KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER}"
+										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"
 									},
 									{
-										"name": "RHPAM_BACKGROUND_VALIDATION",
-										"value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION}"
+										"name": "RHPAM_DATABASE",
+										"value": "${KIE_SERVER_MYSQL_DB}"
 									},
 									{
-										"name": "RHPAM_VALIDATION_MILLIS",
-										"value": "${KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS}"
+										"name": "RHPAM_DRIVER",
+										"value": "mariadb"
 									},
 									{
-										"name": "RHPAM_DRIVER_TYPE",
-										"value": "${KIE_SERVER_EXTERNALDB_DRIVER_TYPE}"
+										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
+										"value": "${KIE_SERVER_MYSQL_DIALECT}"
+									},
+									{
+										"name": "RHPAM_USERNAME",
+										"value": "${KIE_SERVER_MYSQL_USER}"
+									},
+									{
+										"name": "RHPAM_PASSWORD",
+										"value": "${KIE_SERVER_MYSQL_PWD}"
+									},
+									{
+										"name": "RHPAM_SERVICE_HOST",
+										"value": "${APPLICATION_NAME}-mysql"
+									},
+									{
+										"name": "RHPAM_SERVICE_PORT",
+										"value": "3306"
 									},
 									{
 										"name": "RHPAM_JTA",
@@ -576,6 +479,10 @@
 									{
 										"name": "AUTH_LDAP_BIND_CREDENTIAL",
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
+									},
+									{
+										"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+										"value": "${AUTH_LDAP_ALLOW_EMPTY_PASSWORDS}"
 									},
 									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -713,6 +620,19 @@
 								]
 							}
 						],
+						"initContainers": [
+							{
+								"command": [
+									"/bin/bash",
+									"-c",
+									"replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-mysql; replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
+								],
+								"image": "registry.redhat.io/openshift3/ose-cli",
+								"imagePullPolicy": "IfNotPresent",
+								"name": "${APPLICATION_NAME}-mysql-init",
+								"terminationMessagePolicy": "FallbackToLogsOnError"
+							}
+						],
 						"serviceAccountName": "${APPLICATION_NAME}-kieserver",
 						"terminationGracePeriodSeconds": 90,
 						"volumes": [
@@ -734,7 +654,8 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "${APPLICATION_NAME}-kieserver:latest"
+								"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
+								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
 						"type": "ImageChange"
@@ -743,6 +664,147 @@
 						"type": "ConfigChange"
 					}
 				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "DeploymentConfig",
+			"metadata": {
+				"annotations": {
+					"template.alpha.openshift.io/wait-for-ready": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql"
+			},
+			"spec": {
+				"replicas": 1,
+				"selector": {
+					"deploymentConfig": "${APPLICATION_NAME}-mysql"
+				},
+				"strategy": {
+					"type": "Recreate"
+				},
+				"template": {
+					"metadata": {
+						"labels": {
+							"application": "${APPLICATION_NAME}",
+							"deploymentConfig": "${APPLICATION_NAME}-mysql",
+							"service": "${APPLICATION_NAME}-mysql"
+						},
+						"name": "${APPLICATION_NAME}-mysql"
+					},
+					"spec": {
+						"containers": [
+							{
+								"env": [
+									{
+										"name": "MYSQL_USER",
+										"value": "${KIE_SERVER_MYSQL_USER}"
+									},
+									{
+										"name": "MYSQL_PASSWORD",
+										"value": "${KIE_SERVER_MYSQL_PWD}"
+									},
+									{
+										"name": "MYSQL_DATABASE",
+										"value": "${KIE_SERVER_MYSQL_DB}"
+									},
+									{
+										"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
+										"value": "mysql_native_password"
+									}
+								],
+								"image": "mysql",
+								"imagePullPolicy": "Always",
+								"livenessProbe": {
+									"initialDelaySeconds": 30,
+									"tcpSocket": {
+										"port": 3306
+									},
+									"timeoutSeconds": 1
+								},
+								"name": "${APPLICATION_NAME}-mysql",
+								"ports": [
+									{
+										"containerPort": 3306,
+										"protocol": "TCP"
+									}
+								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/bin/sh",
+											"-i",
+											"-c",
+											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
+										],
+										"port": 3306
+									},
+									"initialDelaySeconds": 5,
+									"timeoutSeconds": 1
+								},
+								"volumeMounts": [
+									{
+										"mountPath": "/var/lib/mysql/data",
+										"name": "${APPLICATION_NAME}-mysql-pvol"
+									}
+								]
+							}
+						],
+						"terminationGracePeriodSeconds": 60,
+						"volumes": [
+							{
+								"name": "${APPLICATION_NAME}-mysql-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-mysql-claim"
+								}
+							}
+						]
+					}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"${APPLICATION_NAME}-mysql"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "mysql:${MYSQL_IMAGE_STREAM_TAG}",
+								"namespace": "${MYSQL_IMAGE_STREAM_NAMESPACE}"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-mysql"
+				},
+				"name": "${APPLICATION_NAME}-mysql-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${DB_VOLUME_CAPACITY}"
+					}
+				}
 			}
 		}
 	],
@@ -814,125 +876,59 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.12.1\".",
-			"value": "7.12.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.13.0\".",
+			"value": "7.13.0",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_PERSISTENCE_SCHEMA",
-			"displayName": "KIE Server Persistence Schema",
-			"description": "Hibernate persistence schema."
+			"name": "KIE_SERVER_PERSISTENCE_DS",
+			"displayName": "KIE Server Persistence DS",
+			"description": "KIE Server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
+			"value": "java:/jboss/datasources/rhpam"
 		},
 		{
-			"name": "KIE_SERVER_EXTERNALDB_DIALECT",
-			"displayName": "KIE Server External Database Dialect",
-			"description": "KIE Server external database Hibernate dialect.",
+			"name": "MYSQL_IMAGE_STREAM_NAMESPACE",
+			"displayName": "MySQL ImageStream Namespace",
+			"description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+			"value": "openshift"
+		},
+		{
+			"name": "MYSQL_IMAGE_STREAM_TAG",
+			"displayName": "MySQL ImageStream Tag",
+			"description": "The MySQL image version, which is intended to correspond to the MySQL version. Default is \"8.0\".",
+			"value": "8.0"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_USER",
+			"displayName": "KIE Server MySQL Database User",
+			"description": "KIE Server MySQL database user name.",
+			"value": "rhpam"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_PWD",
+			"displayName": "KIE Server MySQL Database Password",
+			"description": "KIE Server MySQL database password.",
+			"generate": "expression",
+			"from": "[a-zA-Z]{6}[0-9]{1}!"
+		},
+		{
+			"name": "KIE_SERVER_MYSQL_DB",
+			"displayName": "KIE Server MySQL Database Name",
+			"description": "KIE Server MySQL database name.",
+			"value": "rhpam7"
+		},
+		{
+			"name": "DB_VOLUME_CAPACITY",
+			"displayName": "Database Volume Capacity",
+			"description": "Size of persistent storage for the database volume.",
+			"value": "1Gi",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_EXTERNALDB_SERVICE_HOST",
-			"displayName": "Datasource Service Host",
-			"description": "Sets the datasource service host. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL parameter is set."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_SERVICE_PORT",
-			"displayName": "Database service Port",
-			"description": "Sets the datasource service port. Use this if you want to use the predefined mysql or postgresql datasource properties. Leave blank if the KIE_SERVER_EXTERNALDB_URL parameter is set."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_NONXA",
-			"displayName": "Non XA datasource",
-			"description": "Sets the datasources type. It can be XA or NONXA. For non XA set it to true. Default value is true."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_URL",
-			"displayName": "KIE Server External Database URL",
-			"description": "Sets the datasource jdbc connection url. Note that, if you are using PostgreSQL do not use this field, use the SERVICE_HOST and PORT. If using SERVICE_PORT and HOST there is no need to fill this parameter."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_DRIVER",
-			"displayName": "KIE Server External Database Driver",
-			"description": "The predefined driver name, available values are mysql, postgresql or the preferred name for the external driver.",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_JNDI",
-			"displayName": "Database JNDI Name",
-			"description": "Database JNDI name used by application to resolve the datasource, e.g. java:/jboss/datasources/ExampleDS.",
-			"value": "java:jboss/datasources/jbpmDS",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_DB",
-			"displayName": "KIE Server External Database name",
-			"description": "KIE Server external database name. Leave blank if the KIE_SERVER_EXTERNALDB_URL is set."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_USER",
-			"displayName": "KIE Server External Database User",
-			"description": "KIE Server external database user name.",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_PWD",
-			"displayName": "KIE Server External Database Password",
-			"description": "KIE Server external database password.",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_MIN_POOL_SIZE",
-			"displayName": "Datasource Minimum Pool Size",
-			"description": "Sets xa-pool/min-pool-size for the configured datasource."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_MAX_POOL_SIZE",
-			"displayName": "Datasource Maximum Pool Size",
-			"description": "Sets xa-pool/max-pool-size for the configured datasource."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_CONNECTION_CHECKER",
-			"displayName": "JDBC Connection Checker class",
-			"description": "An org.jboss.jca.adapters.jdbc.ValidConnectionChecker that provides a SQLException isValidConnection(Connection e) method to validate if a connection is valid."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_EXCEPTION_SORTER",
-			"displayName": "JDBC Exception Sorter class",
-			"description": "An org.jboss.jca.adapters.jdbc.ExceptionSorter that provides a boolean isExceptionFatal(SQLException e) method to validate if an exception should be broadcast to all javax.resource.spi.ConnectionEventListener as a connectionErrorOccurred."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION",
-			"displayName": "JDBC background validation",
-			"description": "Sets the sql validation method to background-validation, if set to false the validate-on-match method will be used."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_BACKGROUND_VALIDATION_MILLIS",
-			"displayName": "JDBC Background Validation Millis",
-			"description": "Defines the interval for the background-validation check for the jdbc connections."
-		},
-		{
-			"name": "KIE_SERVER_EXTERNALDB_DRIVER_TYPE",
-			"displayName": "KIE Server External Database Driver Type",
-			"description": "KIE Server external database driver type, applicable only for DB2, possible values are 4 (default) or 2."
-		},
-		{
-			"name": "EXTENSIONS_IMAGE",
-			"displayName": "Drivers Extension Image",
-			"description": "ImageStreamTag definition for the image containing the drivers and configuration. For example, custom-driver-image:7.12.1.",
-			"value": "custom-driver-extension:7.12.1",
-			"required": true
-		},
-		{
-			"name": "EXTENSIONS_IMAGE_NAMESPACE",
-			"displayName": "Drivers ImageStream Namespace",
-			"description": "Namespace within which the ImageStream definition for the image containing the drivers and configuration is located.",
-			"value": "openshift",
-			"required": true
-		},
-		{
-			"name": "EXTENSIONS_INSTALL_DIR",
-			"displayName": "Drivers Image Install Directory",
-			"description": "Full path to the directory within the extensions image where the extensions are located (e.g. install.sh, modules/, etc.).",
-			"value": "/extensions",
+			"name": "KIE_SERVER_MYSQL_DIALECT",
+			"displayName": "KIE Server MySQL Dialect",
+			"description": "KIE Server MySQL Hibernate dialect.",
+			"value": "org.hibernate.dialect.MySQL8Dialect",
 			"required": true
 		},
 		{
@@ -944,13 +940,13 @@
 		{
 			"name": "KIE_MBEANS",
 			"displayName": "KIE MBeans",
-			"description": "KIE Server mbeans enabled/disabled (Sets the kie.mbeans and kie.scanner.mbeans system properties).",
+			"description": "KIE Server mbeans enabled/disabled. (Sets the kie.mbeans and kie.scanner.mbeans system properties)",
 			"value": "enabled"
 		},
 		{
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
-			"description": "KIE Server class filtering (Sets the org.drools.server.filter.classes system property).",
+			"description": "KIE Server class filtering. (Sets the org.drools.server.filter.classes system property)",
 			"value": "true"
 		},
 		{
@@ -1040,7 +1036,7 @@
 		{
 			"name": "KIE_SERVER_MGMT_DISABLED",
 			"displayName": "Disable KIE Server Management",
-			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
+			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
 		},
 		{
 			"name": "SSO_URL",
@@ -1108,6 +1104,11 @@
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
 			"description": "LDAP Credentials used for authentication."
+		},
+		{
+			"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+			"displayName": "Allow Empty Passwords",
+			"description": "Does this realm support blank password direct verification? Blank password attempt will be rejected otherwise. Boolean flag, defaults to false."
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1181,7 +1182,7 @@
 		}
 	],
 	"labels": {
-		"rhpam": "7.12",
-		"template": "rhpam712-kieserver-externaldb"
+		"rhpam": "7.13",
+		"template": "rhpam713-kieserver-mysql"
 	}
 }

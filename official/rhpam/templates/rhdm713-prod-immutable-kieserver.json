@@ -2,22 +2,22 @@
 	"kind": "Template",
 	"apiVersion": "v1",
 	"metadata": {
-		"name": "rhpam712-kieserver-mysql",
+		"name": "rhdm713-prod-immutable-kieserver",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Application template for a managed KIE Server with a MySQL database, for Red Hat Process Automation Manager 7.12 - Deprecated",
+			"description": "Application template for an immutable KIE Server in a production environment for decision, for Red Hat Process Automation Manager 7.13 - Deprecated",
 			"iconClass": "icon-jboss",
-			"openshift.io/display-name": "Red Hat Process Automation Manager 7.12 managed KIE Server with a MySQL database",
+			"openshift.io/display-name": "Red Hat Process Automation Manager 7.13 immutable production environment for decision",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "rhpam,processserver,jboss,kieserver",
+			"tags": "rhdm,decision,jboss,kieserver,immutable,s2i",
 			"template.openshift.io/bindable": "false",
-			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_a_red_hat_process_automation_manager_7.12_managed_server_environment_on_red_hat_openshift_container_platform/",
-			"template.openshift.io/long-description": "This template defines resources needed to execute Rules and Processes on Red Hat Process Automation Manager KIE Server 7.12, including application deployment configuration, secure and insecure http communication, using a MySQL database. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Process Automation Manager version 7.5; consider using the Red Hat Business Automation Operator.",
+			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.13/html/deploying_a_red_hat_process_automation_manager_7.13_immutable_server_environment_on_red_hat_openshift_container_platform/",
+			"template.openshift.io/long-description": "This template defines resources needed for an immutable production runtime environment for Red Hat Process Automation Manager 7.13, including a source to image (S2I) build of your services, application deployment configuration, secure and insecure http communication. Template for Red Hat OpenShift Container Platform version 3.11. Deprecated since Red Hat Decision Manager version 7.5; consider using the Red Hat Business Automation Operator.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.12"
+			"version": "7.13"
 		}
 	},
-	"message": "A new Process Automation Manager KIE Server application have been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and the secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
+	"message": "A new immutable Red Hat Process Automation Manager KIE Server application for decision has been created in your project.\nThe username/password needed for accessing the application are stored in \"${CREDENTIALS_SECRET}\" secret as\nKIE_ADMIN_USER and KIE_ADMIN_PWD\n\nYou must create the secret named \"${CREDENTIALS_SECRET}\" containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values and\nthe secret named \"${KIE_SERVER_HTTPS_SECRET}\" containing the ${KIE_SERVER_HTTPS_KEYSTORE} file used for serving secure content.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -87,31 +87,6 @@
 		},
 		{
 			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {
-					"description": "The database server's port."
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-mysql"
-				},
-				"name": "${APPLICATION_NAME}-mysql"
-			},
-			"spec": {
-				"ports": [
-					{
-						"port": 3306,
-						"targetPort": 3306
-					}
-				],
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-mysql"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
 			"id": "insecure-${APPLICATION_NAME}-kieserver-http",
 			"kind": "Route",
 			"metadata": {
@@ -164,6 +139,93 @@
 		},
 		{
 			"apiVersion": "v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-kieserver"
+				},
+				"name": "${APPLICATION_NAME}-kieserver"
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "BuildConfig",
+			"metadata": {
+				"annotations": {
+					"template.alpha.openshift.io/wait-for-ready": "true"
+				},
+				"labels": {
+					"application": "${APPLICATION_NAME}",
+					"service": "${APPLICATION_NAME}-kieserver"
+				},
+				"name": "${APPLICATION_NAME}-kieserver"
+			},
+			"spec": {
+				"output": {
+					"to": {
+						"kind": "ImageStreamTag",
+						"name": "${APPLICATION_NAME}-kieserver:latest"
+					}
+				},
+				"source": {
+					"contextDir": "${CONTEXT_DIR}",
+					"git": {
+						"ref": "${SOURCE_REPOSITORY_REF}",
+						"uri": "${SOURCE_REPOSITORY_URL}"
+					},
+					"type": "Git"
+				},
+				"strategy": {
+					"sourceStrategy": {
+						"env": [
+							{
+								"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
+								"value": "${KIE_SERVER_CONTAINER_DEPLOYMENT}"
+							},
+							{
+								"name": "MAVEN_MIRROR_URL",
+								"value": "${MAVEN_MIRROR_URL}"
+							},
+							{
+								"name": "ARTIFACT_DIR",
+								"value": "${ARTIFACT_DIR}"
+							}
+						],
+						"forcePull": true,
+						"from": {
+							"kind": "ImageStreamTag",
+							"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
+							"namespace": "${IMAGE_STREAM_NAMESPACE}"
+						}
+					},
+					"type": "Source"
+				},
+				"triggers": [
+					{
+						"github": {
+							"secret": "${GITHUB_WEBHOOK_SECRET}"
+						},
+						"type": "GitHub"
+					},
+					{
+						"generic": {
+							"secret": "${GENERIC_WEBHOOK_SECRET}"
+						},
+						"type": "Generic"
+					},
+					{
+						"imageChange": {},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "v1",
 			"kind": "DeploymentConfig",
 			"metadata": {
 				"annotations": {
@@ -177,7 +239,7 @@
 				"name": "${APPLICATION_NAME}-kieserver"
 			},
 			"spec": {
-				"replicas": 1,
+				"replicas": 2,
 				"revisionHistoryLimit": 10,
 				"selector": {
 					"deploymentConfig": "${APPLICATION_NAME}-kieserver"
@@ -206,7 +268,7 @@
 								"env": [
 									{
 										"name": "WORKBENCH_SERVICE_NAME",
-										"value": "${BUSINESS_CENTRAL_SERVICE}"
+										"value": "${DECISION_CENTRAL_SERVICE}"
 									},
 									{
 										"name": "KIE_ADMIN_USER",
@@ -228,7 +290,7 @@
 									},
 									{
 										"name": "KIE_SERVER_MODE",
-										"value": "${KIE_SERVER_MODE}"
+										"value": "DEVELOPMENT"
 									},
 									{
 										"name": "KIE_MBEANS",
@@ -237,6 +299,10 @@
 									{
 										"name": "DROOLS_SERVER_FILTER_CLASSES",
 										"value": "${DROOLS_SERVER_FILTER_CLASSES}"
+									},
+									{
+										"name": "KIE_SERVER_DECISIONS_ONLY",
+										"value": "${KIE_SERVER_DECISIONS_ONLY}"
 									},
 									{
 										"name": "PROMETHEUS_SERVER_EXT_DISABLED",
@@ -272,22 +338,22 @@
 									},
 									{
 										"name": "MAVEN_REPOS",
-										"value": "RHPAMCENTR,EXTERNAL"
+										"value": "RHDMCENTR,EXTERNAL"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_ID",
-										"value": "repo-rhpamcentr"
+										"name": "RHDMCENTR_MAVEN_REPO_ID",
+										"value": "repo-rhdmcentr"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_SERVICE",
-										"value": "${BUSINESS_CENTRAL_SERVICE}"
+										"name": "RHDMCENTR_MAVEN_REPO_SERVICE",
+										"value": "${DECISION_CENTRAL_SERVICE}"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_PATH",
+										"name": "RHDMCENTR_MAVEN_REPO_PATH",
 										"value": "/maven2/"
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_USERNAME",
+										"name": "RHDMCENTR_MAVEN_REPO_USERNAME",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_USER",
@@ -296,7 +362,7 @@
 										}
 									},
 									{
-										"name": "RHPAMCENTR_MAVEN_REPO_PASSWORD",
+										"name": "RHDMCENTR_MAVEN_REPO_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "KIE_ADMIN_PWD",
@@ -321,70 +387,6 @@
 										"value": "${MAVEN_REPO_PASSWORD}"
 									},
 									{
-										"name": "KIE_SERVER_MGMT_DISABLED",
-										"value": "${KIE_SERVER_MGMT_DISABLED}"
-									},
-									{
-										"name": "KIE_SERVER_STARTUP_STRATEGY",
-										"value": "OpenShiftStartupStrategy"
-									},
-									{
-										"name": "KIE_SERVER_PERSISTENCE_DS",
-										"value": "${KIE_SERVER_PERSISTENCE_DS}"
-									},
-									{
-										"name": "DATASOURCES",
-										"value": "RHPAM"
-									},
-									{
-										"name": "RHPAM_JNDI",
-										"value": "${KIE_SERVER_PERSISTENCE_DS}"
-									},
-									{
-										"name": "RHPAM_CONNECTION_CHECKER",
-										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"
-									},
-									{
-										"name": "RHPAM_EXCEPTION_SORTER",
-										"value": "org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"
-									},
-									{
-										"name": "RHPAM_DATABASE",
-										"value": "${KIE_SERVER_MYSQL_DB}"
-									},
-									{
-										"name": "RHPAM_DRIVER",
-										"value": "mariadb"
-									},
-									{
-										"name": "KIE_SERVER_PERSISTENCE_DIALECT",
-										"value": "${KIE_SERVER_MYSQL_DIALECT}"
-									},
-									{
-										"name": "RHPAM_USERNAME",
-										"value": "${KIE_SERVER_MYSQL_USER}"
-									},
-									{
-										"name": "RHPAM_PASSWORD",
-										"value": "${KIE_SERVER_MYSQL_PWD}"
-									},
-									{
-										"name": "RHPAM_SERVICE_HOST",
-										"value": "${APPLICATION_NAME}-mysql"
-									},
-									{
-										"name": "RHPAM_SERVICE_PORT",
-										"value": "3306"
-									},
-									{
-										"name": "RHPAM_JTA",
-										"value": "true"
-									},
-									{
-										"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-										"value": "${TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL}"
-									},
-									{
 										"name": "HTTPS_KEYSTORE_DIR",
 										"value": "/etc/kieserver-secret-volume"
 									},
@@ -399,6 +401,14 @@
 									{
 										"name": "HTTPS_PASSWORD",
 										"value": "${KIE_SERVER_HTTPS_PASSWORD}"
+									},
+									{
+										"name": "KIE_SERVER_MGMT_DISABLED",
+										"value": "${KIE_SERVER_MGMT_DISABLED}"
+									},
+									{
+										"name": "KIE_SERVER_STARTUP_STRATEGY",
+										"value": "OpenShiftStartupStrategy"
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
@@ -481,6 +491,10 @@
 										"value": "${AUTH_LDAP_BIND_CREDENTIAL}"
 									},
 									{
+										"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+										"value": "${AUTH_LDAP_ALLOW_EMPTY_PASSWORDS}"
+									},
+									{
 										"name": "AUTH_LDAP_BASE_CTX_DN",
 										"value": "${AUTH_LDAP_BASE_CTX_DN}"
 									},
@@ -537,7 +551,7 @@
 										"value": "${AUTH_LDAP_MAPPER_KEEP_NON_MAPPED}"
 									}
 								],
-								"image": "${KIE_SERVER_IMAGE_STREAM_NAME}",
+								"image": "${APPLICATION_NAME}-kieserver",
 								"imagePullPolicy": "Always",
 								"lifecycle": {
 									"postStart": {
@@ -616,19 +630,6 @@
 								]
 							}
 						],
-						"initContainers": [
-							{
-								"command": [
-									"/bin/bash",
-									"-c",
-									"replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); until \"[\" $replicas -gt 0 \"]\"; do echo waiting for ${APPLICATION_NAME}-mysql; replicas=$(oc get dc ${APPLICATION_NAME}-mysql -o=jsonpath='{.status.availableReplicas}'); sleep 2; done;"
-								],
-								"image": "registry.redhat.io/openshift3/ose-cli",
-								"imagePullPolicy": "IfNotPresent",
-								"name": "${APPLICATION_NAME}-mysql-init",
-								"terminationMessagePolicy": "FallbackToLogsOnError"
-							}
-						],
 						"serviceAccountName": "${APPLICATION_NAME}-kieserver",
 						"terminationGracePeriodSeconds": 90,
 						"volumes": [
@@ -649,9 +650,8 @@
 								"${APPLICATION_NAME}-kieserver"
 							],
 							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${KIE_SERVER_IMAGE_STREAM_NAME}:${IMAGE_STREAM_TAG}",
-								"namespace": "${IMAGE_STREAM_NAMESPACE}"
+								"kind": "ImageStream",
+								"name": "${APPLICATION_NAME}-kieserver"
 							}
 						},
 						"type": "ImageChange"
@@ -660,147 +660,6 @@
 						"type": "ConfigChange"
 					}
 				]
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "DeploymentConfig",
-			"metadata": {
-				"annotations": {
-					"template.alpha.openshift.io/wait-for-ready": "true"
-				},
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-mysql"
-				},
-				"name": "${APPLICATION_NAME}-mysql"
-			},
-			"spec": {
-				"replicas": 1,
-				"selector": {
-					"deploymentConfig": "${APPLICATION_NAME}-mysql"
-				},
-				"strategy": {
-					"type": "Recreate"
-				},
-				"template": {
-					"metadata": {
-						"labels": {
-							"application": "${APPLICATION_NAME}",
-							"deploymentConfig": "${APPLICATION_NAME}-mysql",
-							"service": "${APPLICATION_NAME}-mysql"
-						},
-						"name": "${APPLICATION_NAME}-mysql"
-					},
-					"spec": {
-						"containers": [
-							{
-								"env": [
-									{
-										"name": "MYSQL_USER",
-										"value": "${KIE_SERVER_MYSQL_USER}"
-									},
-									{
-										"name": "MYSQL_PASSWORD",
-										"value": "${KIE_SERVER_MYSQL_PWD}"
-									},
-									{
-										"name": "MYSQL_DATABASE",
-										"value": "${KIE_SERVER_MYSQL_DB}"
-									},
-									{
-										"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
-										"value": "mysql_native_password"
-									}
-								],
-								"image": "mysql",
-								"imagePullPolicy": "Always",
-								"livenessProbe": {
-									"initialDelaySeconds": 30,
-									"tcpSocket": {
-										"port": 3306
-									},
-									"timeoutSeconds": 1
-								},
-								"name": "${APPLICATION_NAME}-mysql",
-								"ports": [
-									{
-										"containerPort": 3306,
-										"protocol": "TCP"
-									}
-								],
-								"readinessProbe": {
-									"exec": {
-										"command": [
-											"/bin/sh",
-											"-i",
-											"-c",
-											"MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"
-										],
-										"port": 3306
-									},
-									"initialDelaySeconds": 5,
-									"timeoutSeconds": 1
-								},
-								"volumeMounts": [
-									{
-										"mountPath": "/var/lib/mysql/data",
-										"name": "${APPLICATION_NAME}-mysql-pvol"
-									}
-								]
-							}
-						],
-						"terminationGracePeriodSeconds": 60,
-						"volumes": [
-							{
-								"name": "${APPLICATION_NAME}-mysql-pvol",
-								"persistentVolumeClaim": {
-									"claimName": "${APPLICATION_NAME}-mysql-claim"
-								}
-							}
-						]
-					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"${APPLICATION_NAME}-mysql"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "mysql:${MYSQL_IMAGE_STREAM_TAG}",
-								"namespace": "${MYSQL_IMAGE_STREAM_NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "PersistentVolumeClaim",
-			"metadata": {
-				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"service": "${APPLICATION_NAME}-mysql"
-				},
-				"name": "${APPLICATION_NAME}-mysql-claim"
-			},
-			"spec": {
-				"accessModes": [
-					"ReadWriteOnce"
-				],
-				"resources": {
-					"requests": {
-						"storage": "${DB_VOLUME_CAPACITY}"
-					}
-				}
 			}
 		}
 	],
@@ -813,52 +672,15 @@
 			"required": true
 		},
 		{
-			"name": "MAVEN_MIRROR_URL",
-			"displayName": "Maven mirror URL",
-			"description": "Maven mirror that the KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for deploying your services."
-		},
-		{
-			"name": "MAVEN_MIRROR_OF",
-			"displayName": "Maven mirror of",
-			"description": "Maven mirror configuration for KIE Server.",
-			"value": "external:*"
-		},
-		{
-			"name": "MAVEN_REPO_ID",
-			"displayName": "Maven repository ID",
-			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhpamcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
-			"value": "repo-custom"
-		},
-		{
-			"name": "MAVEN_REPO_URL",
-			"displayName": "Maven repository URL",
-			"description": "Fully qualified URL to a Maven repository or service."
-		},
-		{
-			"name": "MAVEN_REPO_USERNAME",
-			"displayName": "Maven repository user name",
-			"description": "User name for accessing the Maven repository, if required."
-		},
-		{
-			"name": "MAVEN_REPO_PASSWORD",
-			"displayName": "Maven repository password",
-			"description": "Password to access the Maven repository, if required."
-		},
-		{
-			"name": "BUSINESS_CENTRAL_SERVICE",
-			"displayName": "Name of the Business Central service",
-			"description": "The Service name for the optional Business Central, where it can be reached, to allow service lookups (for example,  maven repo usage), if required."
-		},
-		{
 			"name": "CREDENTIALS_SECRET",
 			"displayName": "Credentials secret",
-			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values",
+			"description": "Secret containing the KIE_ADMIN_USER and KIE_ADMIN_PWD values.",
 			"required": true
 		},
 		{
 			"name": "IMAGE_STREAM_NAMESPACE",
 			"displayName": "ImageStream Namespace",
-			"description": "Namespace in which the ImageStreams for Red Hat Process Automation Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
+			"description": "Namespace in which the ImageStreams for Red Hat Decision Manager images are installed. These ImageStreams are normally installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStreams in a different namespace/project.",
 			"value": "openshift",
 			"required": true
 		},
@@ -872,66 +694,9 @@
 		{
 			"name": "IMAGE_STREAM_TAG",
 			"displayName": "ImageStream Tag",
-			"description": "A named pointer to an image in an image stream. Default is \"7.12.1\".",
-			"value": "7.12.1",
+			"description": "A named pointer to an image in an image stream. Default is \"7.13.0\".",
+			"value": "7.13.0",
 			"required": true
-		},
-		{
-			"name": "KIE_SERVER_PERSISTENCE_DS",
-			"displayName": "KIE Server Persistence DS",
-			"description": "KIE Server persistence datasource. (Sets the org.kie.server.persistence.ds system property)",
-			"value": "java:/jboss/datasources/rhpam"
-		},
-		{
-			"name": "MYSQL_IMAGE_STREAM_NAMESPACE",
-			"displayName": "MySQL ImageStream Namespace",
-			"description": "Namespace in which the ImageStream for the MySQL image is installed. The ImageStream is already installed in the openshift namespace. You need to modify this parameter only if you installed the ImageStream in a different namespace/project. Default is \"openshift\".",
-			"value": "openshift"
-		},
-		{
-			"name": "MYSQL_IMAGE_STREAM_TAG",
-			"displayName": "MySQL ImageStream Tag",
-			"description": "The MySQL image version, which is intended to correspond to the MySQL version. Default is \"8.0\".",
-			"value": "8.0"
-		},
-		{
-			"name": "KIE_SERVER_MYSQL_USER",
-			"displayName": "KIE Server MySQL Database User",
-			"description": "KIE Server MySQL database user name.",
-			"value": "rhpam"
-		},
-		{
-			"name": "KIE_SERVER_MYSQL_PWD",
-			"displayName": "KIE Server MySQL Database Password",
-			"description": "KIE Server MySQL database password.",
-			"generate": "expression",
-			"from": "[a-zA-Z]{6}[0-9]{1}!"
-		},
-		{
-			"name": "KIE_SERVER_MYSQL_DB",
-			"displayName": "KIE Server MySQL Database Name",
-			"description": "KIE Server MySQL database name.",
-			"value": "rhpam7"
-		},
-		{
-			"name": "DB_VOLUME_CAPACITY",
-			"displayName": "Database Volume Capacity",
-			"description": "Size of persistent storage for the database volume.",
-			"value": "1Gi",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_MYSQL_DIALECT",
-			"displayName": "KIE Server MySQL Dialect",
-			"description": "KIE Server MySQL Hibernate dialect.",
-			"value": "org.hibernate.dialect.MySQL8Dialect",
-			"required": true
-		},
-		{
-			"name": "KIE_SERVER_MODE",
-			"displayName": "KIE Server Mode",
-			"description": "The KIE Server mode. Valid values are 'DEVELOPMENT' or 'PRODUCTION'. In production mode, you can not deploy SNAPSHOT versions of artifacts on the KIE Server and can not change the version of an artifact in an existing container. (Sets the org.kie.server.mode system property).",
-			"value": "PRODUCTION"
 		},
 		{
 			"name": "KIE_MBEANS",
@@ -943,6 +708,12 @@
 			"name": "DROOLS_SERVER_FILTER_CLASSES",
 			"displayName": "Drools Server Filter Classes",
 			"description": "KIE Server class filtering. (Sets the org.drools.server.filter.classes system property)",
+			"value": "true"
+		},
+		{
+			"name": "KIE_SERVER_DECISIONS_ONLY",
+			"displayName": "KIE Server with Decision only capabilities",
+			"description": "KIE Server capabilities filtering to disable everything that it is not related to decisions (i.e jBPM and case management)",
 			"value": "true"
 		},
 		{
@@ -958,7 +729,7 @@
 		{
 			"name": "KIE_SERVER_HOSTNAME_HTTPS",
 			"displayName": "KIE Server Custom https Route Hostname",
-			"description": "Custom hostname for https service route.  Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
+			"description": "Custom hostname for https service route. Leave blank for default hostname, e.g.: \u003capplication-name\u003e-kieserver-\u003cproject\u003e.\u003cdefault-domain-suffix\u003e"
 		},
 		{
 			"name": "KIE_SERVER_HTTPS_SECRET",
@@ -991,10 +762,84 @@
 			"value": "false"
 		},
 		{
-			"name": "TIMER_SERVICE_DATA_STORE_REFRESH_INTERVAL",
-			"displayName": "Timer service data store refresh interval (in milliseconds)",
-			"description": "Sets refresh-interval for the EJB timer database data-store service.",
-			"value": "30000"
+			"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
+			"displayName": "KIE Server Container Deployment",
+			"description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2",
+			"required": true
+		},
+		{
+			"name": "SOURCE_REPOSITORY_URL",
+			"displayName": "Git Repository URL",
+			"description": "Git source URI for application.",
+			"required": true
+		},
+		{
+			"name": "SOURCE_REPOSITORY_REF",
+			"displayName": "Git Reference",
+			"description": "Git branch/tag reference."
+		},
+		{
+			"name": "CONTEXT_DIR",
+			"displayName": "Context Directory",
+			"description": "Path within Git project to build; empty for root project directory."
+		},
+		{
+			"name": "GITHUB_WEBHOOK_SECRET",
+			"displayName": "Github Webhook Secret",
+			"description": "GitHub trigger secret.",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
+		},
+		{
+			"name": "GENERIC_WEBHOOK_SECRET",
+			"displayName": "Generic Webhook Secret",
+			"description": "Generic build trigger secret.",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{8}",
+			"required": true
+		},
+		{
+			"name": "MAVEN_MIRROR_URL",
+			"displayName": "Maven mirror URL",
+			"description": "Maven mirror that KIE Server must use. If you configure a mirror, this mirror must contain all artifacts that are required for building and deploying your services."
+		},
+		{
+			"name": "MAVEN_MIRROR_OF",
+			"displayName": "Maven mirror of",
+			"description": "Maven mirror configuration for KIE Server.",
+			"value": "external:*"
+		},
+		{
+			"name": "MAVEN_REPO_ID",
+			"displayName": "Maven repository ID",
+			"description": "The id to use for the maven repository. If set, it can be excluded from the optionally configured mirror by adding it to MAVEN_MIRROR_OF. For example: external:*,!repo-rhdmcentr,!repo-custom. If MAVEN_MIRROR_URL is set but MAVEN_MIRROR_ID is not set, an id will be generated randomly, but won't be usable in MAVEN_MIRROR_OF.",
+			"value": "repo-custom"
+		},
+		{
+			"name": "MAVEN_REPO_URL",
+			"displayName": "Maven repository URL",
+			"description": "Fully qualified URL to a Maven repository."
+		},
+		{
+			"name": "MAVEN_REPO_USERNAME",
+			"displayName": "Maven repository user name",
+			"description": "User name for accessing the Maven repository, if required."
+		},
+		{
+			"name": "MAVEN_REPO_PASSWORD",
+			"displayName": "Maven repository password",
+			"description": "Password to access the Maven repository, if required."
+		},
+		{
+			"name": "DECISION_CENTRAL_SERVICE",
+			"displayName": "Name of the Decision Central service",
+			"description": "The Service name for the optional Decision Central, where it can be reached, to allow service lookups (for example, maven repo usage), if required."
+		},
+		{
+			"name": "ARTIFACT_DIR",
+			"displayName": "List of directories from which archives will be copied into the deployment folder",
+			"description": "List of directories from which archives will be copied into the deployment folder. If unspecified, all archives in /target will be copied."
 		},
 		{
 			"name": "KIE_SERVER_MEMORY_LIMIT",
@@ -1006,7 +851,7 @@
 		{
 			"name": "KIE_SERVER_MEMORY_REQUEST",
 			"displayName": "KIE Server Container Memory Request",
-			"description": "KIE Server Container memory request.",
+			"description": "KIE Server Container memory Request.",
 			"value": "1536Mi",
 			"required": true
 		},
@@ -1020,24 +865,21 @@
 		{
 			"name": "KIE_SERVER_CPU_REQUEST",
 			"displayName": "KIE Server Container CPU Request",
-			"description": "KIE Server Container CPU request.",
+			"description": "KIE Server Container CPU Request.",
 			"value": "750m",
 			"required": true
 		},
 		{
-			"name": "KIE_SERVER_CONTAINER_DEPLOYMENT",
-			"displayName": "KIE Server Container Deployment",
-			"description": "KIE Server Container deployment configuration with optional alias. Format: containerId=groupId:artifactId:version|c2(alias2)=g2:a2:v2"
-		},
-		{
 			"name": "KIE_SERVER_MGMT_DISABLED",
 			"displayName": "Disable KIE Server Management",
-			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy."
+			"description": "Disable management api and don't allow KIE containers to be deployed/undeployed or started/stopped. Sets the property org.kie.server.mgmt.api.disabled to true and org.kie.server.startup.strategy to LocalContainersStartupStrategy.",
+			"value": "true",
+			"required": true
 		},
 		{
 			"name": "SSO_URL",
 			"displayName": "RH-SSO URL",
-			"description": "RH-SSO URL."
+			"description": "RH-SSO URL"
 		},
 		{
 			"name": "SSO_REALM",
@@ -1057,7 +899,7 @@
 		{
 			"name": "SSO_USERNAME",
 			"displayName": "RH-SSO Realm admin user name",
-			"description": "RH-SSO Realm admin user name for creating the Client if it doesn't exist."
+			"description": "RH-SSO Realm admin user name used to create the Client if it doesn't exist."
 		},
 		{
 			"name": "SSO_PASSWORD",
@@ -1100,6 +942,11 @@
 			"name": "AUTH_LDAP_BIND_CREDENTIAL",
 			"displayName": "LDAP Bind Credentials",
 			"description": "LDAP Credentials used for authentication."
+		},
+		{
+			"name": "AUTH_LDAP_ALLOW_EMPTY_PASSWORDS",
+			"displayName": "Allow Empty Passwords",
+			"description": "Does this realm support blank password direct verification? Blank password attempt will be rejected otherwise. Boolean flag, defaults to false."
 		},
 		{
 			"name": "AUTH_LDAP_BASE_CTX_DN",
@@ -1164,16 +1011,16 @@
 		{
 			"name": "AUTH_LDAP_MAPPER_KEEP_MAPPED",
 			"displayName": "Role Mapper Keep Mapped",
-			"description": "When set to 'true' the mapped roles will retain all roles, that have defined mappings."
+			"description": "When set to 'true' the mapped roles will retain all roles, that have defined mappings. Defaults to false."
 		},
 		{
 			"name": "AUTH_LDAP_MAPPER_KEEP_NON_MAPPED",
 			"displayName": "Role Mapper Keep Non Mapped",
-			"description": "When set to 'true' the mapped roles will retain all roles, that have no defined mappings."
+			"description": "When set to 'true' the mapped roles will retain all roles, that have no defined mappings. Defaults to false."
 		}
 	],
 	"labels": {
-		"rhpam": "7.12",
-		"template": "rhpam712-kieserver-mysql"
+		"rhdm": "7.13",
+		"template": "rhdm713-prod-immutable-kieserver"
 	}
 }
