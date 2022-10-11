@@ -7,7 +7,6 @@ variables:
   webserver_version: ose-v1.4.17
   webserver3_version: jws31-v1.4
   webserver5el8_version: jws56el8-v5.6.2
-  rhpam_version: 7.12.1.GA
   datagrid_version: 7.3-v1.9
   rhamp_version: master
   fuse_version: "7.3"
@@ -685,18 +684,6 @@ data:
           - arch_ppc64le
           - arch_s390x
           - arch_x86_64
-  rhpam:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
-        regex: rhpam-businesscentral-rhel8|rhpam-businesscentral-monitoring-rhel8|rhpam-smartrouter-rhel8
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/rhpam-7-openshift-image/{rhpam_version}/rhpam712-image-streams.yaml
-        docs: https://access.redhat.com/documentation/en-us/red_hat_process_automation_manager/7.12/html/deploying_red_hat_process_automation_manager_on_red_hat_openshift_container_platform/index
-        regex: rhpam-kieserver-rhel8
-        tags:
-          - online-professional
   sso:
     templates:
       # List templates for RH-SSO 7.5.x on OpenJDK stable / zstream images stream below
