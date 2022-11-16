@@ -2,8 +2,8 @@ variables:
   django_version: 3.2.x
   openjdk_version: release
   amq_version: ose-v1.4.18
-  rhsso75_openjdk_version: v7.5.3.GA
-  rhsso76_openjdk_version: v7.6.0.GA
+  rhsso75_tag: v7.5.3.GA
+  rhsso76_tag: v7.6.1.GA
   webserver_version: ose-v1.4.17
   webserver3_version: jws31-v1.4
   webserver5el8_version: jws56el8-v5.6.2
@@ -687,72 +687,86 @@ data:
   sso:
     templates:
       # List templates for RH-SSO 7.5.x on OpenJDK stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_tag}/docs/templates/sso75-https.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_tag}/docs/templates/sso75-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-postgresql.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-postgresql.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_tag}/docs/templates/sso75-postgresql.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-ocp4-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-ocp4-x509-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-ocp4-x509-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_tag}/docs/templates/sso75-ocp4-x509-https.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-ocp4-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_openjdk_version}/docs/templates/sso75-ocp4-x509-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-ocp4-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso75_tag}/docs/templates/sso75-ocp4-x509-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
       # List templates for RH-SSO 7.6.x on OpenJDK stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_openjdk_version}/docs/templates/sso76-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/passthrough/sso76-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/passthrough/sso76-https.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_openjdk_version}/docs/templates/sso76-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/passthrough/sso76-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/passthrough/sso76-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-postgresql.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_openjdk_version}/docs/templates/sso76-postgresql.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/passthrough/sso76-postgresql.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/passthrough/sso76-postgresql.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-ocp4-x509-https.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_openjdk_version}/docs/templates/sso76-ocp4-x509-https.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/reencrypt/ocp-3.x/sso76-ocp3-x509-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/reencrypt/ocp-3.x/sso76-ocp3-x509-https.adoc
         tags:
           - ocp
           - arch_x86_64
           - arch_ppc64le
           - arch_s390x
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-ocp4-x509-postgresql-persistent.json
-        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_openjdk_version}/docs/templates/sso76-ocp4-x509-postgresql-persistent.adoc
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/reencrypt/ocp-3.x/sso76-ocp3-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/reencrypt/ocp-3.x/sso76-ocp3-x509-postgresql-persistent.adoc
+        tags:
+          - ocp
+          - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/reencrypt/ocp-4.x/sso76-ocp4-x509-https.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/reencrypt/ocp-4.x/sso76-ocp4-x509-https.adoc
+        tags:
+          - ocp
+          - arch_x86_64
+          - arch_ppc64le
+          - arch_s390x
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/reencrypt/ocp-4.x/sso76-ocp4-x509-postgresql-persistent.json
+        docs: https://github.com/jboss-container-images/redhat-sso-7-openshift-image/blob/{rhsso76_tag}/docs/templates/reencrypt/ocp-4.x/sso76-ocp4-x509-postgresql-persistent.adoc
         tags:
           - ocp
           - arch_x86_64
@@ -760,7 +774,7 @@ data:
           - arch_s390x
     imagestreams:
       # List imagestream for RH-SSO 7.5.x on OpenJDK stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_openjdk_version}/templates/sso75-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso75_tag}/templates/sso75-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.5/html-single/red_hat_single_sign-on_for_openshift
         tags:
           - ocp
@@ -768,7 +782,7 @@ data:
           - arch_ppc64le
           - arch_s390x
       # List imagestream for RH-SSO 7.6.x on OpenJDK stable / zstream images stream below
-      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_openjdk_version}/templates/sso76-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/redhat-sso-7-openshift-image/{rhsso76_tag}/templates/sso76-image-stream.json
         docs: https://access.redhat.com/documentation/en-us/red_hat_single_sign-on/7.6/html-single/red_hat_single_sign-on_for_openshift
         tags:
           - ocp
