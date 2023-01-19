@@ -2,13 +2,13 @@
 	"kind": "ImageStream",
 	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
-		"name": "openjdk-11-rhel7",
+		"name": "ubi8-openjdk-11",
 		"creationTimestamp": null,
 		"labels": {
 			"xpaas": "1.4.17"
 		},
 		"annotations": {
-			"openshift.io/display-name": "Red Hat OpenJDK 11",
+			"openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"version": "1.4.17"
 		}
@@ -19,42 +19,19 @@
 		},
 		"tags": [
 			{
-				"name": "1.0",
+				"name": "1.3",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11",
+					"openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.0"
+					"tags": "builder,java,openjdk,ubi8,hidden",
+					"version": "1.3"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.0"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.1",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.1"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.1"
+					"name": "registry.access.redhat.com/ubi8/openjdk-11:1.3"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -65,18 +42,17 @@
 			{
 				"name": "1.10",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11",
+					"openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
+					"tags": "builder,java,openjdk,ubi8,hidden",
 					"version": "1.10"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.10"
+					"name": "registry.access.redhat.com/ubi8/openjdk-11:1.10"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -87,18 +63,17 @@
 			{
 				"name": "1.11",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11",
+					"openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
+					"tags": "builder,java,openjdk,ubi8,hidden",
 					"version": "1.11"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.11"
+					"name": "registry.access.redhat.com/ubi8/openjdk-11:1.11"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -109,18 +84,17 @@
 			{
 				"name": "1.12",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11 upon UBI8.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11",
+					"openshift.io/display-name": "Red Hat OpenJDK 11 (UBI8)",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
+					"tags": "builder,java,openjdk,ubi8,hidden",
 					"version": "1.12"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.12"
+					"name": "registry.access.redhat.com/ubi8/openjdk-11:1.12"
 				},
 				"generation": null,
 				"importPolicy": {},
