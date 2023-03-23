@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, deployment configuration for PostgreSQL using persistence and encrypted database connection, and securing RH-SSO communication using re-encrypt TLS. It is intended to be used solely on OpenShift 3.X versions. For OpenShift 4.X variant of this template refer to 'sso76-ocp4-x509-postgresql-persistent' one.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.1.GA"
+			"version": "7.6.2.GA"
 		}
 	},
 	"message": "A new persistent RH-SSO service (using SSL/TLS secured PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, the server truststore used for securing RH-SSO requests, and SSL/TLS certificate \u0026 private key used to run PostgreSQL server with SSL/TLS support were automatically created via OpenShift's service serving x509 certificate secrets using the service-serving CA bundle from '/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt'. Refer to: https://github.com/openshift/openshift-docs/blob/enterprise-4.1/release_notes/ocp-4-1-release-notes.adoc#service-ca-bundle-changes for additional details about this CA bundle.",
@@ -368,6 +368,11 @@
 										"mountPath": "/etc/x509/jgroups",
 										"name": "sso-x509-jgroups-volume",
 										"readOnly": true
+									},
+									{
+										"mountPath": "/mnt/rh-sso",
+										"name": "sso-probe-netrc-volume",
+										"readOnly": false
 									}
 								]
 							}
@@ -385,6 +390,12 @@
 								"secret": {
 									"secretName": "sso-x509-jgroups-secret"
 								}
+							},
+							{
+								"emptyDir": {
+									"medium": "Memory"
+								},
+								"name": "sso-probe-netrc-volume"
 							}
 						]
 					}
@@ -720,7 +731,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.1.GA",
+		"rhsso": "7.6.2.GA",
 		"template": "sso76-ocp3-x509-postgresql-persistent"
 	}
 }

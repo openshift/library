@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to 'sso76-ocp3-x509-https' one.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.1.GA"
+			"version": "7.6.2.GA"
 		}
 	},
 	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets by using a CA bundle that is automatically injected into any configMap annotated with 'service.beta.openshift.io/inject-cabundle=true' annotation. Refer to: https://github.com/openshift/openshift-docs/blob/enterprise-4.1/release_notes/ocp-4-1-release-notes.adoc#service-ca-bundle-changes for additional details about this CA bundle.",
@@ -256,6 +256,11 @@
 										"mountPath": "/var/run/configmaps/service-ca",
 										"name": "service-ca",
 										"readOnly": true
+									},
+									{
+										"mountPath": "/mnt/rh-sso",
+										"name": "sso-probe-netrc-volume",
+										"readOnly": false
 									}
 								]
 							}
@@ -279,6 +284,12 @@
 									"name": "${APPLICATION_NAME}-service-ca"
 								},
 								"name": "service-ca"
+							},
+							{
+								"emptyDir": {
+									"medium": "Memory"
+								},
+								"name": "sso-probe-netrc-volume"
 							}
 						]
 					}
@@ -387,7 +398,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.1.GA",
+		"rhsso": "7.6.2.GA",
 		"template": "sso76-ocp4-x509-https"
 	}
 }
