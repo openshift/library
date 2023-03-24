@@ -1,0 +1,37 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "jenkins-agent-base",
+		"creationTimestamp": null
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Provides a Jenkins Base Agent to extend Jenkins agents",
+					"iconClass": "icon-jenkins",
+					"openshift.io/display-name": "Jenkins Base Agent",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "jenkins"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/openshift/origin-jenkins-agent-base:4.12"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
