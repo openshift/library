@@ -73,6 +73,26 @@
 				}
 			},
 			{
+				"name": "6-el7",
+				"annotations": {
+					"description": "Provides a Redis 6 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/6/README.md.",
+					"iconClass": "icon-redis",
+					"openshift.io/display-name": "Redis 6 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "redis",
+					"version": "6"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/centos7/redis-6-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "5",
 				"annotations": {
 					"description": "Provides a Redis 5 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/5/README.md.",
