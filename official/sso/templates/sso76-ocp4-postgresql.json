@@ -2,7 +2,7 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "sso76-postgresql",
+		"name": "sso76-ocp4-postgresql",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "An example application based on RH-SSO 7.6 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso76-dev/docs.",
@@ -11,12 +11,12 @@
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "sso,keycloak,jboss,hidden",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, deployment configuration for PostgreSQL using ephemeral (temporary) storage, and securing RH-SSO communication using passthrough TLS.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, deployment configuration for PostgreSQL using ephemeral (temporary) storage, and securing RH-SSO communication using passthrough TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to the 'sso76-ocp3-postgresql' one.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.2.GA"
+			"version": "7.6.3.GA"
 		}
 	},
-	"message": "A new RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
+	"message": "A new RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests. To enable also dual-network clusters that support both IPv4 and IPv6 address families, all services defined by this template are configured having the 'spec.ipFamilyPolicy' field set to 'PreferDualStack' by default.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -33,6 +33,7 @@
 				"name": "${APPLICATION_NAME}"
 			},
 			"spec": {
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 8080,
@@ -59,6 +60,7 @@
 				"name": "secure-${APPLICATION_NAME}"
 			},
 			"spec": {
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 8443,
@@ -84,6 +86,7 @@
 				"name": "${APPLICATION_NAME}-postgresql"
 			},
 			"spec": {
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 5432,
@@ -109,6 +112,7 @@
 			},
 			"spec": {
 				"clusterIP": "None",
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"name": "ping",
@@ -239,7 +243,7 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "dns.DNS_PING"
 									},
 									{
 										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
@@ -777,7 +781,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.2.GA",
-		"template": "sso76-postgresql"
+		"rhsso": "7.6.3.GA",
+		"template": "sso76-ocp4-postgresql"
 	}
 }
