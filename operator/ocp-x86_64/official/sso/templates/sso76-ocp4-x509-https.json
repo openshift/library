@@ -11,12 +11,12 @@
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "sso,keycloak,jboss",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to 'sso76-ocp3-x509-https' one.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to the 'sso76-ocp3-x509-https' one.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.2.GA"
+			"version": "7.6.3.GA"
 		}
 	},
-	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets by using a CA bundle that is automatically injected into any configMap annotated with 'service.beta.openshift.io/inject-cabundle=true' annotation. Refer to: https://github.com/openshift/openshift-docs/blob/enterprise-4.1/release_notes/ocp-4-1-release-notes.adoc#service-ca-bundle-changes for additional details about this CA bundle.",
+	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets by using a CA bundle that is automatically injected into any configMap annotated with 'service.beta.openshift.io/inject-cabundle=true' annotation. Refer to: https://github.com/openshift/openshift-docs/blob/enterprise-4.1/release_notes/ocp-4-1-release-notes.adoc#service-ca-bundle-changes for additional details about this CA bundle. To enable also dual-network clusters that support both IPv4 and IPv6 address families, all services defined by this template are configured having the 'spec.ipFamilyPolicy' field set to 'PreferDualStack' by default.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -46,6 +46,7 @@
 				"name": "${APPLICATION_NAME}"
 			},
 			"spec": {
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 8443,
@@ -72,6 +73,7 @@
 			},
 			"spec": {
 				"clusterIP": "None",
+				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"name": "ping",
@@ -153,7 +155,7 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "openshift.DNS_PING"
+										"value": "dns.DNS_PING"
 									},
 									{
 										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
@@ -398,7 +400,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.2.GA",
+		"rhsso": "7.6.3.GA",
 		"template": "sso76-ocp4-x509-https"
 	}
 }
