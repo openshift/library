@@ -4,8 +4,6 @@ variables:
   amq_version: ose-v1.4.18
   rhsso75_tag: v7.5.3.GA
   rhsso76_tag: v7.6.3.GA
-  webserver_version: ose-v1.4.17
-  webserver3_version: jws31-v1.4
   webserver5el8_version: jws57el8-v5.7.3
   datagrid_version: 7.3-v1.9
   rhamp_version: master
@@ -757,24 +755,6 @@ data:
           - arch_s390x
   webserver:
     templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-basic-s2i.adoc
-        tags:
-          - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat7-https-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-basic-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-basic-s2i.adoc
-        tags:
-          - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-https-s2i.json
-        docs: https://github.com/jboss-openshift/application-templates/blob/{webserver_version}/docs/webserver/jws31-tomcat8-https-s2i.adoc
-        tags:
-          - ocp
-          - online-professional
       # List the JWS 5 UBI8 templates below
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk8-tomcat9-ubi8-basic-s2i.json
         tags:
@@ -797,18 +777,6 @@ data:
           - arch_s390x
           - arch_ppc64le
     imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat7-image-stream.json
-        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
-        suffix: rhel7
-        tags:
-          - ocp
-          - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-3-openshift-image/{webserver3_version}/templates/jws31-tomcat8-image-stream.json
-        docs: https://access.redhat.com/documentation/en/red-hat-jboss-middleware-for-openshift/3/paged/red-hat-jboss-web-server-for-openshift/
-        suffix: rhel7
-        tags:
-          - ocp
-          - online-professional
       # List the JWS 5 imagestreams below
       - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk8-tomcat9-ubi8-image-stream.json
         tags:
