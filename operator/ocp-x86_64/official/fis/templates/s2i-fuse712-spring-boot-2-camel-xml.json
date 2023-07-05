@@ -2,15 +2,15 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "s2i-fuse711-spring-boot-2-camel-xml",
+		"name": "s2i-fuse712-spring-boot-2-camel-xml",
 		"creationTimestamp": null,
 		"annotations": {
 			"description": "Spring Boot 2 and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot 2 on OpenShift. The quickstart uses Spring Boot 2 to configure an application which includes a Camel route (in Spring xml) that triggers a message every 5th second, and routes the message to a log.",
 			"iconClass": "icon-rh-integration",
-			"openshift.io/display-name": "Red Hat Fuse 7.11 Camel XML DSL with Spring Boot 2",
+			"openshift.io/display-name": "Red Hat Fuse 7.12 Camel XML DSL with Spring Boot 2",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "quickstart,java,springboot,fis,jboss-fuse",
-			"version": "1.11"
+			"version": "1.12"
 		}
 	},
 	"objects": [
@@ -166,7 +166,7 @@
 							"rht.comp": "${APP_NAME}",
 							"rht.comp_ver": "${APP_VERSION}",
 							"rht.prod_name": "Red_Hat_Integration",
-							"rht.prod_ver": "7.11.1",
+							"rht.prod_ver": "7.12.0",
 							"version": "${APP_VERSION}"
 						}
 					},
@@ -245,7 +245,7 @@
 			"name": "APP_NAME",
 			"displayName": "Application Name",
 			"description": "The name assigned to the application.",
-			"value": "s2i-fuse711-spring-boot-2-camel-xml",
+			"value": "s2i-fuse712-spring-boot-2-camel-xml",
 			"required": true
 		},
 		{
@@ -259,7 +259,7 @@
 			"name": "GIT_REF",
 			"displayName": "Git Reference",
 			"description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
-			"value": "spring-boot-camel-xml-7.11.1.fuse-sb2-7_11_1-00015-redhat-00002"
+			"value": "spring-boot-camel-xml-7.12.0.fuse-7_12_0-00019-redhat-00001"
 		},
 		{
 			"name": "BASE_IMAGE_NAME",
@@ -271,13 +271,13 @@
 			"name": "BUILDER_VERSION",
 			"displayName": "Builder version",
 			"description": "The version of the FIS S2I builder image to use.",
-			"value": "1.11"
+			"value": "1.12"
 		},
 		{
 			"name": "APP_VERSION",
 			"displayName": "Application Version",
 			"description": "The application version.",
-			"value": "7.11.1.fuse-sb2-7_11_1-00015-redhat-00002"
+			"value": "7.12.0.fuse-7_12_0-00019-redhat-00001"
 		},
 		{
 			"name": "MAVEN_ARGS",
@@ -358,6 +358,6 @@
 		}
 	],
 	"labels": {
-		"template": "s2i-fuse711-spring-boot-2-camel-xml"
+		"template": "s2i-fuse712-spring-boot-2-camel-xml"
 	}
 }
