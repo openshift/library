@@ -1,56 +1,4 @@
 data:
-  laravel:
-    templates:
-      - location: https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-mysql.json
-        docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
-        tags:
-          - online-professional
-      - location: https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-postgresql.json
-        docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
-      - location: https://raw.githubusercontent.com/luciddreamz/laravel-ex/master/openshift/templates/laravel-sqlite.json
-        docs: https://github.com/luciddreamz/laravel-ex/blob/master/readme.md
-  memcached:
-    templates:
-      - location: https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/memcached/memcached.yaml
-        docs: https://github.com/oprudkyi/openshift-templates/blob/master/memcached/README.md
-  mailcatcher:
-    templates:
-      - location: https://raw.githubusercontent.com/oprudkyi/openshift-templates/master/mailcatcher/mailcatcher.yaml
-        docs: https://github.com/oprudkyi/openshift-templates/blob/master/mailcatcher/README.md
-  swift:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/dudash/s2i-swift/master/openshift-resources/swift-all-ubuntu14-imagestreamlist.json
-        docs: https://github.com/dudash/s2i-swift/blob/master/README.md
-        regex: swift
-        suffix: ubuntu14
-  wildfly:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-centos7.json
-        docs: https://github.com/wildfly/wildfly-s2i/blob/current/README.md
-        regex: wildfly
-        suffix: centos7
-        tags:
-          - okd
-          - online-professional
-      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/imagestreams/wildfly-runtime-centos7.json
-        docs: https://github.com/wildfly/wildfly-s2i/blob/current/README.md
-        regex: wildfly-runtime
-        suffix: centos7
-        tags:
-          - okd
-          - online-professional
-    templates:
-    - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/current/templates/wildfly-s2i-chained-build-template.yml
-      docs: https://github.com/wildfly/wildfly-s2i/blob/current/doc/wildfly-s2i-chained-build-template.md
-      tags:
-          - okd
-          - online-professional
-  infinispan:
-    templates:
-    - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-ephemeral.yaml
-      docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
-    - location: https://raw.githubusercontent.com/infinispan/infinispan-openshift-templates/master/infinispan-persistent.yaml
-      docs: https://github.com/infinispan/infinispan-openshift-templates/blob/master/README.asciidoc
   ruby:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/s2i-ruby-container/master/imagestreams/ruby-centos.json
@@ -99,34 +47,6 @@ data:
         suffix: centos
         tags:
           - okd
-  java:
-    templates:
-      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/openjdk-web-basic-s2i.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
-        tags:
-          - okd
-          - online-professional
-    imagestreams:
-      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/develop/templates/community-image-streams.json
-        docs: https://access.redhat.com/documentation/en-us/red_hat_jboss_middleware_for_openshift/3/paged/red_hat_java_s2i_for_openshift/
-        regex: java
-        suffix: ubi
-        tags:
-          - okd
-  jenkins:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos.yaml
-        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
-        regex: jenkins
-        suffix: centos
-        tags:
-          - okd
-      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-base-centos.yaml
-        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
-        regex: jenkins-agent-base
-        suffix: centos
-        tags:
-          - okd
   mariadb:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/mariadb-container/master/imagestreams/mariadb-centos.json
@@ -167,17 +87,61 @@ data:
         suffix: centos
         tags:
           - okd
-  dotnet:
-    imagestreams:
-      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/main/dotnet_imagestreams.json
-        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/main/README.md
-        tags:
-          - okd
   golang:
     imagestreams:
       - location: https://raw.githubusercontent.com/sclorg/golang-container/master/imagestreams/golang-centos.json
         docs: https://github.com/sclorg/golang-container/blob/master/README.md
         suffix: centos
+        tags:
+          - okd
+  jenkins:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-centos.yaml
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins
+        suffix: ubi
+        tags:
+          - okd
+      - location: https://raw.githubusercontent.com/openshift/jenkins/master/openshift/imagestreams/jenkins-agent-base-centos.yaml
+        docs: https://github.com/openshift/origin/blob/master/examples/jenkins/README.md
+        regex: jenkins-agent-base
+        suffix: ubi
+        tags:
+          - okd
+  java:
+    templates:
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/ubi9/templates/openjdk-web-basic-s2i.json
+        docs: https://github.com/jboss-container-images/openjdk/blob/ubi9/README.adoc
+        tags:
+          - okd
+          - online-professional
+    imagestreams:
+      - location: https://raw.githubusercontent.com/jboss-container-images/openjdk/ubi9/templates/community-image-streams.json
+        docs: https://github.com/jboss-container-images/openjdk/blob/ubi9/README.adoc
+        regex: java
+        suffix: ubi
+        tags:
+          - okd
+  wildfly:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/main/imagestreams/wildfly-s2i.yaml
+        docs: https://github.com/wildfly/wildfly-s2i/blob/main/README.md
+        regex: wildfly
+        suffix: ubi
+        tags:
+          - okd
+          - online-professional
+      - location: https://raw.githubusercontent.com/wildfly/wildfly-s2i/main/imagestreams/wildfly-runtime.yaml
+        docs: https://github.com/wildfly/wildfly-s2i/blob/main/README.md
+        regex: wildfly-runtime
+        suffix: ubi
+        tags:
+          - okd
+          - online-professional
+  dotnet:
+    imagestreams:
+      - location: https://raw.githubusercontent.com/redhat-developer/s2i-dotnetcore/main/dotnet_imagestreams.json
+        docs: https://github.com/redhat-developer/s2i-dotnetcore/blob/main/README.md
         tags:
           - okd
   openliberty:
