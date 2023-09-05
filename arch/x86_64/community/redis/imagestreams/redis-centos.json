@@ -1,0 +1,60 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "redis",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Redis"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Provides a Redis database on CentOS. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/6/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Redis available on OpenShift, including major version updates.",
+					"iconClass": "icon-redis",
+					"openshift.io/display-name": "Redis (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "redis"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "6-el7"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "6-el7",
+				"annotations": {
+					"description": "Provides a Redis 6 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/6/README.md.",
+					"iconClass": "icon-redis",
+					"openshift.io/display-name": "Redis 6 (CentOS 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "redis",
+					"version": "6"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/centos7/redis-6-centos7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
