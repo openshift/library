@@ -33,6 +33,26 @@
 				}
 			},
 			{
+				"name": "7-el9",
+				"annotations": {
+					"description": "Provides a Redis 7 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/7/README.md.",
+					"iconClass": "icon-redis",
+					"openshift.io/display-name": "Redis 7 (RHEL 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "redis",
+					"version": "7"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/redis-7:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "6-el9",
 				"annotations": {
 					"description": "Provides a Redis 6 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/redis-container/tree/master/6/README.md.",
