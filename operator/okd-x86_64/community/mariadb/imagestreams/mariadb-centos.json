@@ -24,7 +24,67 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "10.5-el7"
+					"name": "10.5-c9s"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "10.5-fc",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on Fedora. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.5 (Fedora)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay./fedora/mariadb-105:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "10.5-c9s",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on CentOS 9 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.5 (CentOS 9 Stream)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay./sclorg/mariadb-105-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "10.5-c8s",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on CentOS 8 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.5 (CentOS 8 Stream)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay./sclorg/mariadb-105-c8s:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -53,18 +113,58 @@
 				}
 			},
 			{
-				"name": "10.3-el8",
+				"name": "10.5",
 				"annotations": {
-					"description": "Provides a MariaDB 10.3 database on CentOS 8. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"description": "Provides a MariaDB 10.5 database on CentOS 9 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
 					"iconClass": "icon-mariadb",
-					"openshift.io/display-name": "MariaDB 10.3 (CentOS 8)",
+					"openshift.io/display-name": "MariaDB 10.5",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.5"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay./sclorg/mariadb-105-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "10.3-fc",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on Fedora. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.3 (Fedora)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"tags": "database,mariadb",
 					"version": "10.3"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "docker.io/centos/mariadb-103-centos8:latest"
+					"name": "quay./fedora/mariadb-103:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "10.3-c8s",
+				"annotations": {
+					"description": "Provides a MariaDB 10.5 database on CentOS 8 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.3 (CentOS 8 Stream)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay./sclorg/mariadb-103-c8s:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -95,7 +195,7 @@
 			{
 				"name": "10.3",
 				"annotations": {
-					"description": "Provides a MariaDB 10.3 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
+					"description": "Provides a MariaDB 10.3 database on CentOS 8 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.3/README.md.",
 					"iconClass": "icon-mariadb",
 					"openshift.io/display-name": "MariaDB 10.3",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -104,7 +204,7 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "quay.io/centos7/mariadb-103-centos7:latest"
+					"name": "quay./sclorg/mariadb-103-c8s:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
