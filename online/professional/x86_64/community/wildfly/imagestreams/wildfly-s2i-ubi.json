@@ -72,6 +72,26 @@
 				"referencePolicy": {
 					"type": "Local"
 				}
+			},
+			{
+				"name": "latest-jdk21",
+				"annotations": {
+					"description": "Build and run WildFly applications on UBI 8 and JDK 21. For more information about using this builder image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/main/README.md.",
+					"iconClass": "icon-wildfly",
+					"openshift.io/display-name": "WildFly S2I builder, JDK 21",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"supports": "jee,java",
+					"tags": "builder,wildfly,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/wildfly/wildfly-s2i:latest-jdk21"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
 			}
 		]
 	},
