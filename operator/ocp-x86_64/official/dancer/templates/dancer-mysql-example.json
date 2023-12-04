@@ -138,11 +138,12 @@
 			}
 		},
 		{
-			"apiVersion": "apps.openshift.io/v1",
-			"kind": "DeploymentConfig",
+			"apiVersion": "apps/v1",
+			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -237,25 +238,7 @@
 							}
 						]
 					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"dancer-mysql-example"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${NAME}:latest"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
+				}
 			}
 		},
 		{
@@ -281,8 +264,8 @@
 			}
 		},
 		{
-			"apiVersion": "apps.openshift.io/v1",
-			"kind": "DeploymentConfig",
+			"apiVersion": "apps/v1",
+			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the database",
@@ -382,26 +365,7 @@
 							}
 						]
 					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"mysql"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "mysql:8.0-el8",
-								"namespace": "${NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
+				}
 			}
 		}
 	],
