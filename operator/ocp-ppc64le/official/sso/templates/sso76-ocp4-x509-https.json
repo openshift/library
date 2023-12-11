@@ -13,7 +13,7 @@
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
 			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, securing RH-SSO communication using re-encrypt TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to the 'sso76-ocp3-x509-https' one.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.4.GA"
+			"version": "7.6.6.GA"
 		}
 	},
 	"message": "A new RH-SSO service has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The HTTPS keystore used for serving secure content, the JGroups keystore used for securing JGroups communications, and server truststore used for securing RH-SSO requests were automatically created via OpenShift's service serving x509 certificate secrets by using a CA bundle that is automatically injected into any configMap annotated with 'service.beta.openshift.io/inject-cabundle=true' annotation. Refer to: https://github.com/openshift/openshift-docs/blob/enterprise-4.1/release_notes/ocp-4-1-release-notes.adoc#service-ca-bundle-changes for additional details about this CA bundle. To enable also dual-network clusters that support both IPv4 and IPv6 address families, all services defined by this template are configured having the 'spec.ipFamilyPolicy' field set to 'PreferDualStack' by default.",
@@ -204,7 +204,11 @@
 											"/opt/eap/bin/livenessProbe.sh"
 										]
 									},
-									"initialDelaySeconds": 60
+									"failureThreshold": 10,
+									"initialDelaySeconds": 30,
+									"periodSeconds": 30,
+									"successThreshold": 1,
+									"timeoutSeconds": 22
 								},
 								"name": "${APPLICATION_NAME}",
 								"ports": [
@@ -236,7 +240,12 @@
 											"-c",
 											"/opt/eap/bin/readinessProbe.sh"
 										]
-									}
+									},
+									"failureThreshold": 10,
+									"initialDelaySeconds": 40,
+									"periodSeconds": 30,
+									"successThreshold": 1,
+									"timeoutSeconds": 22
 								},
 								"resources": {
 									"limits": {
@@ -400,7 +409,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.4.GA",
+		"rhsso": "7.6.6.GA",
 		"template": "sso76-ocp4-x509-https"
 	}
 }
