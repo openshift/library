@@ -7,13 +7,12 @@
 		"annotations": {
 			"description": "An example Rails application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/rails-ex/blob/master/README.md.",
 			"iconClass": "icon-ruby",
-			"openshift.io/display-name": "Rails + PostgreSQL",
-			"openshift.io/documentation-url": "https://github.com/sclorg/rails-ex",
-			"openshift.io/long-description": "This template defines resources needed to develop a Rails application, including a build configuration, application deployment configuration, and database deployment configuration.",
-			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"openshift.io/support-url": "https://access.redhat.com",
+			"openshift.io/display-name": "Rails + PostgreSQL (Persistent)",
 			"tags": "quickstart,ruby,rails",
-			"template.openshift.io/bindable": "false"
+			"template.openshift.io/documentation-url": "https://github.com/sclorg/rails-ex",
+			"template.openshift.io/long-description": "This template defines resources needed to develop a Rails application, including a build configuration, application deployment configuration, and database deployment configuration.",
+			"template.openshift.io/provider-display-name": "Red Hat, Inc.",
+			"template.openshift.io/support-url": "https://access.redhat.com"
 		}
 	},
 	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/rails-ex/blob/master/README.md.",
@@ -22,6 +21,10 @@
 			"apiVersion": "v1",
 			"kind": "Secret",
 			"metadata": {
+				"annotations": {
+					"template.openshift.io/expose-password": "{.data['application-password']}",
+					"template.openshift.io/expose-username": "{.data['application-user']}"
+				},
 				"name": "${NAME}"
 			},
 			"stringData": {
@@ -59,6 +62,9 @@
 			"apiVersion": "route.openshift.io/v1",
 			"kind": "Route",
 			"metadata": {
+				"annotations": {
+					"template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
+				},
 				"name": "${NAME}"
 			},
 			"spec": {
@@ -95,6 +101,9 @@
 						"kind": "ImageStreamTag",
 						"name": "${NAME}:latest"
 					}
+				},
+				"postCommit": {
+					"script": "bundle exec rake test"
 				},
 				"source": {
 					"contextDir": "${CONTEXT_DIR}",
@@ -142,7 +151,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"},{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.initContainers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -155,17 +164,6 @@
 					}
 				},
 				"strategy": {
-					"recreateParams": {
-						"pre": {
-							"execNewPod": {
-								"command": [
-									"./migrate-database.sh"
-								],
-								"containerName": "${NAME}"
-							},
-							"failurePolicy": "Abort"
-						}
-					},
 					"type": "Recreate"
 				},
 				"template": {
@@ -277,6 +275,86 @@
 										"memory": "${MEMORY_LIMIT}"
 									}
 								}
+							}
+						],
+						"initContainers": [
+							{
+								"command": [
+									"./migrate-database.sh"
+								],
+								"env": [
+									{
+										"name": "DATABASE_SERVICE_NAME",
+										"value": "${DATABASE_SERVICE_NAME}"
+									},
+									{
+										"name": "POSTGRESQL_USER",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-user",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "POSTGRESQL_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-password",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "SECRET_KEY_BASE",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "keybase",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "POSTGRESQL_DATABASE",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "POSTGRESQL_MAX_CONNECTIONS",
+										"value": "${POSTGRESQL_MAX_CONNECTIONS}"
+									},
+									{
+										"name": "POSTGRESQL_SHARED_BUFFERS",
+										"value": "${POSTGRESQL_SHARED_BUFFERS}"
+									},
+									{
+										"name": "APPLICATION_DOMAIN",
+										"value": "${APPLICATION_DOMAIN}"
+									},
+									{
+										"name": "APPLICATION_USER",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "application-user",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "APPLICATION_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "application-password",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "RAILS_ENV",
+										"value": "${RAILS_ENV}"
+									}
+								],
+								"image": " ",
+								"name": "ruby-init-container"
 							}
 						]
 					}
