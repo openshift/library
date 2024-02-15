@@ -128,11 +128,12 @@
 			}
 		},
 		{
-			"apiVersion": "apps.openshift.io/v1",
-			"kind": "DeploymentConfig",
+			"apiVersion": "apps/v1",
+			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -140,10 +141,12 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${NAME}"
+					"matchLabels": {
+						"name": "${NAME}"
+					}
 				},
 				"strategy": {
-					"type": "Rolling"
+					"type": "RollingUpdate"
 				},
 				"template": {
 					"metadata": {
