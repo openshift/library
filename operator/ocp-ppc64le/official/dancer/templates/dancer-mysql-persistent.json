@@ -151,7 +151,9 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${NAME}"
+					"matchLabels": {
+						"name": "${NAME}"
+					}
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -293,7 +295,9 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${DATABASE_SERVICE_NAME}"
+					"matchLabels": {
+						"name": "${DATABASE_SERVICE_NAME}"
+					}
 				},
 				"strategy": {
 					"type": "Recreate"
