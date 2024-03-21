@@ -33,6 +33,46 @@
 				}
 			},
 			{
+				"name": "16-el9",
+				"annotations": {
+					"description": "Provides a PostgreSQL 16 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 16 (RHEL 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/postgresql-16:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "15-el9",
+				"annotations": {
+					"description": "Provides a PostgreSQL 15 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 15 (RHEL 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "15"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/postgresql-15:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "13-el9",
 				"annotations": {
 					"description": "Provides a PostgreSQL 13 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
@@ -45,6 +85,46 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/rhel9/postgresql-13:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "16-el8",
+				"annotations": {
+					"description": "Provides a PostgreSQL 16 database on RHEL 8. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 16 (RHEL 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel8/postgresql-16:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "15-el8",
+				"annotations": {
+					"description": "Provides a PostgreSQL 15 database on RHEL 8. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 15 (RHEL 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "15"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel8/postgresql-15:latest"
 				},
 				"generation": null,
 				"importPolicy": {},

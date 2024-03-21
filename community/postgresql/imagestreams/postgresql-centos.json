@@ -33,6 +33,26 @@
 				}
 			},
 			{
+				"name": "16-el9",
+				"annotations": {
+					"description": "Provides a PostgreSQL 16 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 16 (CentOS Stream 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/sclorg/postgresql-16-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "15-el9",
 				"annotations": {
 					"description": "Provides a PostgreSQL 15 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
@@ -65,6 +85,26 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "quay.io/sclorg/postgresql-13-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "16-el8",
+				"annotations": {
+					"description": "Provides a PostgreSQL 16 database on CentOS Stream 8. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 16 (CentOS Stream 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/sclorg/postgresql-16-c8s:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
