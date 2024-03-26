@@ -56,6 +56,27 @@
 				}
 			},
 			{
+				"name": "1.24-ubi8",
+				"annotations": {
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.24/README.md.",
+					"iconClass": "icon-nginx",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.24 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
+					"tags": "builder,nginx",
+					"version": "1.24"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi8/nginx-124:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "1.20-ubi9",
 				"annotations": {
 					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.20/README.md.",
@@ -98,19 +119,40 @@
 				}
 			},
 			{
-				"name": "latest",
+				"name": "1.24-ubi9",
 				"annotations": {
-					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.22/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.24/README.md.",
 					"iconClass": "icon-nginx",
-					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.22 (Latest)",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.24 (UBI 9)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
 					"tags": "builder,nginx",
-					"version": "1.22"
+					"version": "1.24"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi9/nginx-124:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Build and serve static content via Nginx HTTP Server and a reverse proxy (nginx) on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/nginx-container/blob/master/1.24/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"iconClass": "icon-nginx",
+					"openshift.io/display-name": "Nginx HTTP server and a reverse proxy 1.24 (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/nginx-ex.git",
+					"tags": "builder,nginx",
+					"version": "1.24"
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "1.22-ubi8"
+					"name": "1.24-ubi8"
 				},
 				"generation": null,
 				"importPolicy": {},
