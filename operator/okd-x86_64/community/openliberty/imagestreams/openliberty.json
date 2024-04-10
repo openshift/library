@@ -1,0 +1,105 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "openliberty",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Open Liberty"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "24.0.0.3-java8",
+				"annotations": {
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
+					"iconClass": "icon-openliberty",
+					"openshift.io/display-name": "Open Liberty 24.0.0.3 with Java 8",
+					"openshift.io/provider-display-name": "IBM",
+					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+					"supports": "jee,java",
+					"tags": "builder,openliberty,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/openliberty/open-liberty-s2i:24.0.0.3-java8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "24.0.0.3-java11",
+				"annotations": {
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
+					"iconClass": "icon-openliberty",
+					"openshift.io/display-name": "Open Liberty 24.0.0.3 with Java 11",
+					"openshift.io/provider-display-name": "IBM",
+					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+					"supports": "jee,java",
+					"tags": "builder,openliberty,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/openliberty/open-liberty-s2i:24.0.0.3-java11"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "24.0.0.3-java17",
+				"annotations": {
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
+					"iconClass": "icon-openliberty",
+					"openshift.io/display-name": "Open Liberty 24.0.0.3 with Java 17",
+					"openshift.io/provider-display-name": "IBM",
+					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+					"supports": "jee,java",
+					"tags": "builder,openliberty,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/openliberty/open-liberty-s2i:24.0.0.3-java17"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "24.0.0.3-java21",
+				"annotations": {
+					"description": "Build and run Open Liberty applications on Red Hat Universal Base Image 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/OpenLiberty/open-liberty-s2i/blob/main/README.md.",
+					"iconClass": "icon-openliberty",
+					"openshift.io/display-name": "Open Liberty 24.0.0.3 with Java 21",
+					"openshift.io/provider-display-name": "IBM",
+					"sampleRepo": "https://github.com/openshift/openshift-jee-sample.git",
+					"supports": "jee,java",
+					"tags": "builder,openliberty,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "docker.io/openliberty/open-liberty-s2i:24.0.0.3-java21"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
