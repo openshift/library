@@ -74,18 +74,38 @@
 				}
 			},
 			{
-				"name": "latest",
+				"name": "10.11-el9",
 				"annotations": {
-					"description": "Provides a MariaDB 10.5 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"description": "Provides a MariaDB 10.11 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.11/README.md.",
 					"iconClass": "icon-mariadb",
-					"openshift.io/display-name": "MariaDB 10.5 (Latest)",
+					"openshift.io/display-name": "MariaDB 10.11 (CentOS Stream 9)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"tags": "database,mariadb",
-					"version": "10.5"
+					"version": "10.11"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/sclorg/mariadb-1011-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Provides a MariaDB 10.11 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.11/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 10.11 (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "10.11"
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "10.5-el9"
+					"name": "10.11-el9"
 				},
 				"generation": null,
 				"importPolicy": {},
