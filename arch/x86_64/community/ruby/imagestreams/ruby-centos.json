@@ -16,7 +16,7 @@
 			{
 				"name": "latest",
 				"annotations": {
-					"description": "Build and run Ruby applications on UBI. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/3.1/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major version updates.",
+					"description": "Build and run Ruby applications on UBI. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/tree/master/3.3/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Ruby available on OpenShift, including major version updates.",
 					"iconClass": "icon-ruby",
 					"openshift.io/display-name": "Ruby (Latest)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
@@ -26,7 +26,29 @@
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "3.1-ubi8"
+					"name": "3.3-ubi9"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "3.3-ubi9",
+				"annotations": {
+					"description": "Build and run Ruby 3.3 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/3.3/README.md.",
+					"iconClass": "icon-ruby",
+					"openshift.io/display-name": "Ruby 3.3 (UBI 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+					"supports": "ruby:3.3,ruby",
+					"tags": "builder,ruby",
+					"version": "3.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi9/ruby-33:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
