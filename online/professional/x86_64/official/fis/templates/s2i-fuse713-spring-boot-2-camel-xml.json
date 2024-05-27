@@ -2,70 +2,18 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "s2i-fuse712-spring-boot-2-camel-rest-3scale",
+		"name": "s2i-fuse713-spring-boot-2-camel-xml",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Spring Boot 2, Camel REST DSL and 3Scale QuickStart. This example demonstrates how to use Camel's REST DSL to expose a RESTful API and expose it to 3scale.",
+			"description": "Spring Boot 2 and Camel Xml QuickStart. This example demonstrates how you can use Apache Camel with Spring Boot 2 on OpenShift. The quickstart uses Spring Boot 2 to configure an application which includes a Camel route (in Spring xml) that triggers a message every 5th second, and routes the message to a log.",
 			"iconClass": "icon-rh-integration",
-			"openshift.io/display-name": "Red Hat Fuse 7.12 Camel REST DSL and 3Scale",
+			"openshift.io/display-name": "Red Hat Fuse 7.13 Camel XML DSL with Spring Boot 2",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"tags": "quickstart,java,springboot,fis,jboss-fuse,3scale",
-			"version": "1.12"
+			"tags": "quickstart,java,springboot,fis,jboss-fuse",
+			"version": "1.13"
 		}
 	},
 	"objects": [
-		{
-			"apiVersion": "route.openshift.io/v1",
-			"kind": "Route",
-			"metadata": {
-				"labels": {
-					"app": "${APP_NAME}",
-					"component": "${APP_NAME}",
-					"group": "quickstarts",
-					"provider": "s2i",
-					"version": "${APP_VERSION}"
-				},
-				"name": "${SERVICE_NAME}-route"
-			},
-			"spec": {
-				"to": {
-					"kind": "Service",
-					"name": "${SERVICE_NAME}"
-				}
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "Service",
-			"metadata": {
-				"annotations": {},
-				"labels": {
-					"app": "${APP_NAME}",
-					"component": "${APP_NAME}",
-					"group": "quickstarts",
-					"provider": "s2i",
-					"version": "${APP_VERSION}"
-				},
-				"name": "${SERVICE_NAME}"
-			},
-			"spec": {
-				"clusterIP": "None",
-				"deprecatedPublicIPs": [],
-				"ports": [
-					{
-						"port": 9411,
-						"protocol": "TCP",
-						"targetPort": 8080
-					}
-				],
-				"selector": {
-					"app": "${APP_NAME}",
-					"component": "${APP_NAME}",
-					"group": "quickstarts",
-					"provider": "s2i"
-				}
-			}
-		},
 		{
 			"apiVersion": "image.openshift.io/v1",
 			"kind": "ImageStream",
@@ -218,7 +166,7 @@
 							"rht.comp": "${APP_NAME}",
 							"rht.comp_ver": "${APP_VERSION}",
 							"rht.prod_name": "Red_Hat_Integration",
-							"rht.prod_ver": "7.12.1",
+							"rht.prod_ver": "7.13.0",
 							"version": "${APP_VERSION}"
 						}
 					},
@@ -245,10 +193,6 @@
 								},
 								"name": "${APP_NAME}",
 								"ports": [
-									{
-										"containerPort": 8080,
-										"name": "http"
-									},
 									{
 										"containerPort": 8778,
 										"name": "jolokia"
@@ -301,27 +245,21 @@
 			"name": "APP_NAME",
 			"displayName": "Application Name",
 			"description": "The name assigned to the application.",
-			"value": "s2i-fuse712-spring-boot-2-camel-rest-3scale",
+			"value": "s2i-fuse713-spring-boot-2-camel-xml",
 			"required": true
 		},
 		{
 			"name": "GIT_REPO",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/fabric8-quickstarts/spring-boot-camel-rest-3scale.git",
+			"value": "https://github.com/fabric8-quickstarts/spring-boot-camel-xml.git",
 			"required": true
 		},
 		{
 			"name": "GIT_REF",
 			"displayName": "Git Reference",
 			"description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch.",
-			"value": "spring-boot-camel-rest-3scale-7.12.1.fuse-7_12_1-00009-redhat-00001"
-		},
-		{
-			"name": "SERVICE_NAME",
-			"displayName": "Service Name",
-			"description": "Exposed service name.",
-			"value": "camel-rest-3scale"
+			"value": "spring-boot-camel-xml-7.13.0.fuse-7_13_0-00011-redhat-00001"
 		},
 		{
 			"name": "BASE_IMAGE_NAME",
@@ -333,13 +271,13 @@
 			"name": "BUILDER_VERSION",
 			"displayName": "Builder version",
 			"description": "The version of the FIS S2I builder image to use.",
-			"value": "1.12"
+			"value": "1.13"
 		},
 		{
 			"name": "APP_VERSION",
 			"displayName": "Application Version",
 			"description": "The application version.",
-			"value": "7.12.1.fuse-7_12_1-00009-redhat-00001"
+			"value": "7.13.0.fuse-7_13_0-00011-redhat-00001"
 		},
 		{
 			"name": "MAVEN_ARGS",
@@ -420,6 +358,6 @@
 		}
 	],
 	"labels": {
-		"template": "s2i-fuse712-spring-boot-2-camel-rest-3scale"
+		"template": "s2i-fuse713-spring-boot-2-camel-xml"
 	}
 }
