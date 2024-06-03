@@ -119,6 +119,27 @@
 				}
 			},
 			{
+				"name": "7.3",
+				"annotations": {
+					"description": "Build and run PHP 7.3 applications on UBI 7. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/7.3/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 7.3 (UBI 7)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"tags": "builder,php",
+					"version": "7.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi7/php-73:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "latest",
 				"annotations": {
 					"description": "Build and run PHP 8.0 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/8.0/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
