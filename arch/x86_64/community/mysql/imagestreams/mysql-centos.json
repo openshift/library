@@ -14,97 +14,38 @@
 		},
 		"tags": [
 			{
+				"name": "8.0-el9",
+				"annotations": {
+					"description": "Provides a MySQL 8.0 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.0/README.md.",
+					"iconClass": "icon-mysql",
+					"openshift.io/display-name": "MySQL 8.0 (CentOS Stream 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mysql",
+					"version": "8.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/sclorg/mysql-80-c9s:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "latest",
 				"annotations": {
-					"description": "Provides a MySQL database on CentOS. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of MySQL available on OpenShift, including major version updates.",
-					"iconClass": "icon-mysql-database",
-					"openshift.io/display-name": "MySQL (Latest)",
+					"description": "Provides a MySQL 8.0 database on CentOS Stream 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.0/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"iconClass": "icon-mysql",
+					"openshift.io/display-name": "MySQL 8.0 (Latest)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "mysql"
+					"tags": "database,mysql",
+					"version": "8.0"
 				},
 				"from": {
 					"kind": "ImageStreamTag",
 					"name": "8.0-el9"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "8.0-fc",
-				"annotations": {
-					"description": "Provides a MySQL 8.0 database on Fedora. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.",
-					"iconClass": "icon-mysql-database",
-					"openshift.io/display-name": "MySQL 8.0 (Fedora)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "mysql",
-					"version": "8.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "quay.io/fedora/mysql-80:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "8.0-el9",
-				"annotations": {
-					"description": "Provides a MySQL 8.0 database on CentOS 9 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.",
-					"iconClass": "icon-mysql-database",
-					"openshift.io/display-name": "MySQL 8.0 (CentOS 9 Stream)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "mysql",
-					"version": "8.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "quay.io/sclorg/mysql-80-c9s:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "8.0-el7",
-				"annotations": {
-					"description": "Provides a MySQL 8.0 database on CentOS 7. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.",
-					"iconClass": "icon-mysql-database",
-					"openshift.io/display-name": "MySQL 8.0 (CentOS 7)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "mysql",
-					"version": "8.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "quay.io/centos7/mysql-80-centos7:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "8.0-el9",
-				"annotations": {
-					"description": "Provides a MySQL 8.0 database on CentOS 9 Stream. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/README.md.",
-					"iconClass": "icon-mysql-database",
-					"openshift.io/display-name": "MySQL 8.0",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"tags": "mysql,hidden",
-					"version": "8.0"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "quay.io/sclorg/mysql-80-c9s:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
