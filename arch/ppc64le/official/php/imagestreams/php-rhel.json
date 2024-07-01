@@ -77,6 +77,27 @@
 				}
 			},
 			{
+				"name": "8.2-ubi8",
+				"annotations": {
+					"description": "Build and run PHP 8.2 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/8.2/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 8.2 (UBI 8)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"tags": "builder,php",
+					"version": "8.2"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi8/php-82:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "8.0-ubi9",
 				"annotations": {
 					"description": "Build and run PHP 8.0 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/8.0/README.md.",
@@ -111,6 +132,27 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/ubi9/php-81:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "8.2-ubi9",
+				"annotations": {
+					"description": "Build and run PHP 8.2 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-php-container/blob/master/8.2/README.md.",
+					"iconClass": "icon-php",
+					"openshift.io/display-name": "PHP 8.2 (UBI 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/cakephp-ex.git",
+					"tags": "builder,php",
+					"version": "8.2"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/ubi9/php-82:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
