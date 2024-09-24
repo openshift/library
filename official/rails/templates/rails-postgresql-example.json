@@ -142,7 +142,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"},{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.initContainers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -155,17 +155,6 @@
 					}
 				},
 				"strategy": {
-					"recreateParams": {
-						"pre": {
-							"execNewPod": {
-								"command": [
-									"./migrate-database.sh"
-								],
-								"containerName": "${NAME}"
-							},
-							"failurePolicy": "Abort"
-						}
-					},
 					"type": "Recreate"
 				},
 				"template": {
@@ -278,6 +267,86 @@
 									}
 								}
 							}
+						],
+						"initContainers": [
+							{
+								"command": [
+									"./migrate-database.sh"
+								],
+								"env": [
+									{
+										"name": "DATABASE_SERVICE_NAME",
+										"value": "${DATABASE_SERVICE_NAME}"
+									},
+									{
+										"name": "POSTGRESQL_USER",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-user",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "POSTGRESQL_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-password",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "SECRET_KEY_BASE",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "keybase",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "POSTGRESQL_DATABASE",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "POSTGRESQL_MAX_CONNECTIONS",
+										"value": "${POSTGRESQL_MAX_CONNECTIONS}"
+									},
+									{
+										"name": "POSTGRESQL_SHARED_BUFFERS",
+										"value": "${POSTGRESQL_SHARED_BUFFERS}"
+									},
+									{
+										"name": "APPLICATION_DOMAIN",
+										"value": "${APPLICATION_DOMAIN}"
+									},
+									{
+										"name": "APPLICATION_USER",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "application-user",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "APPLICATION_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "application-password",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "RAILS_ENV",
+										"value": "${RAILS_ENV}"
+									}
+								],
+								"image": " ",
+								"name": "ruby-init-container"
+							}
 						]
 					}
 				}
@@ -311,7 +380,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the database",
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"postgresql:12-el8\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"postgresql:${POSTGRESQL_VERSION}\", \"namespace\": \"${NAMESPACE}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
@@ -438,6 +507,13 @@
 			"displayName": "Ruby Version",
 			"description": "Version of Ruby image to be used (3.1-ubi8 by default).",
 			"value": "3.1-ubi8",
+			"required": true
+		},
+		{
+			"name": "POSTGRESQL_VERSION",
+			"displayName": "Postgresql Version",
+			"description": "Version of Postgresql image to be used (12-el8 by default).",
+			"value": "12-el8",
 			"required": true
 		},
 		{
