@@ -1,0 +1,67 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "jboss-webserver61-openjdk17-tomcat10-openshift-ubi8",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "JBoss Web Server 6.1 Apache Tomcat 10 OpenJDK17 on UBI8",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"version": "6.1"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "JBoss Web Server 6.1 Apache Tomcat 10 OpenJDK17 on UBI8 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "JBoss Web Server 6.1 Apache Tomcat 10 OpenJDK17 on UBI8",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/web-servers/tomcat-websocket-chat-quickstart.git",
+					"supports": "tomcat10:6.1,tomcat:10,java:17",
+					"tags": "builder,tomcat,tomcat10,java,jboss,hidden",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-6/jws61-openjdk17-openshift-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "6.1.0",
+				"annotations": {
+					"description": "JBoss Web Server 6.1 Apache Tomcat 10 OpenJDK17 on UBI8 S2I images.",
+					"iconClass": "icon-rh-tomcat",
+					"openshift.io/display-name": "JBoss Web Server 6.1 Apache Tomcat 10 OpenJDK17 on UBI8",
+					"sampleContextDir": "tomcat-websocket-chat",
+					"sampleRepo": "https://github.com/web-servers/tomcat-websocket-chat-quickstart.git",
+					"supports": "tomcat10:6.1,tomcat:10,java:17",
+					"tags": "builder,tomcat,tomcat10,java,jboss,hidden",
+					"version": "6.1.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-webserver-6/jws61-openjdk17-openshift-rhel8:6.1.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
