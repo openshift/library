@@ -4,7 +4,7 @@ variables:
   amq_version: ose-v1.4.18
   rhsso75_tag: v7.5.3.GA
   rhsso76_tag: v7.6.7.GA
-  webserver5el8_version: jws57el8-v5.7.3
+  webserver5el8_version: jws58el8-v5.8.4
   datagrid_version: 7.3-v1.9
   rhamp_version: master
   fuse_version: "7.3"
@@ -756,20 +756,33 @@ data:
   webserver:
     templates:
       # List the JWS 5 UBI8 templates below
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk8-tomcat9-ubi8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk8-tomcat9-ubi8-basic-s2i.json
         tags:
           - ocp
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk8-tomcat9-ubi8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk8-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk11-tomcat9-ubi8-basic-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk11-tomcat9-ubi8-basic-s2i.json
         tags:
           - ocp
           - arch_x86_64
           - arch_s390x
           - arch_ppc64le
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk11-tomcat9-ubi8-https-s2i.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk11-tomcat9-ubi8-https-s2i.json
+        tags:
+          - ocp
+          - online-professional
+          - arch_x86_64
+          - arch_s390x
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk17-tomcat9-ubi8-basic-s2i.json
+        tags:
+          - ocp
+          - arch_x86_64
+          - arch_s390x
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk17-tomcat9-ubi8-https-s2i.json
         tags:
           - ocp
           - online-professional
@@ -778,11 +791,18 @@ data:
           - arch_ppc64le
     imagestreams:
       # List the JWS 5 imagestreams below
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk8-tomcat9-ubi8-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk8-tomcat9-ubi8-image-stream.json
         tags:
           - ocp
           - online-professional
-      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws57-openjdk11-tomcat9-ubi8-image-stream.json
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk11-tomcat9-ubi8-image-stream.json
+        tags:
+          - ocp
+          - online-professional
+          - arch_x86_64
+          - arch_s390x
+          - arch_ppc64le
+      - location: https://raw.githubusercontent.com/jboss-container-images/jboss-webserver-5-openshift-image/{webserver5el8_version}/templates/jws58-openjdk17-tomcat9-ubi8-image-stream.json
         tags:
           - ocp
           - online-professional
