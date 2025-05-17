@@ -2,20 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "nginx-example",
+		"name": "nodejs-example",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Nginx HTTP server and a reverse proxy (nginx) application that serves static content. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
-			"iconClass": "icon-nginx",
-			"openshift.io/display-name": "Nginx HTTP server and a reverse proxy",
-			"openshift.io/documentation-url": "https://github.com/sclorg/nginx-ex",
-			"openshift.io/long-description": "This template defines resources needed to develop a static application served by Nginx HTTP server and a reverse proxy (nginx), including a build configuration and application deployment configuration.",
+			"description": "An example Node.js application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
+			"iconClass": "icon-nodejs",
+			"openshift.io/display-name": "Node.js",
+			"openshift.io/documentation-url": "https://github.com/sclorg/nodejs-ex",
+			"openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration and application deployment configuration.  It does not include a database.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"openshift.io/support-url": "https://access.redhat.com",
-			"tags": "quickstart,nginx"
+			"tags": "quickstart,nodejs",
+			"template.openshift.io/bindable": "false"
 		}
 	},
-	"message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nginx-ex/blob/master/README.md.",
+	"message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/nodejs-ex/blob/master/README.md.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -43,9 +44,6 @@
 			"apiVersion": "route.openshift.io/v1",
 			"kind": "Route",
 			"metadata": {
-				"annotations": {
-					"template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
-				},
 				"name": "${NAME}"
 			},
 			"spec": {
@@ -93,9 +91,15 @@
 				},
 				"strategy": {
 					"sourceStrategy": {
+						"env": [
+							{
+								"name": "NPM_MIRROR",
+								"value": "${NPM_MIRROR}"
+							}
+						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "nginx:${NGINX_VERSION}",
+							"name": "nodejs:${NODEJS_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -138,7 +142,6 @@
 				"replicas": 1,
 				"selector": {
 					"matchLabels": {
-						"app": "${NAME}",
 						"name": "${NAME}"
 					}
 				},
@@ -148,9 +151,9 @@
 				"template": {
 					"metadata": {
 						"labels": {
-							"app": "${NAME}",
 							"name": "${NAME}"
-						}
+						},
+						"name": "${NAME}"
 					},
 					"spec": {
 						"containers": [
@@ -165,7 +168,7 @@
 									"initialDelaySeconds": 30,
 									"timeoutSeconds": 3
 								},
-								"name": "nginx-example",
+								"name": "nodejs-example",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -187,7 +190,25 @@
 							}
 						]
 					}
-				}
+				},
+				"triggers": [
+					{
+						"imageChangeParams": {
+							"automatic": true,
+							"containerNames": [
+								"nodejs-example"
+							],
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${NAME}:latest"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"type": "ConfigChange"
+					}
+				]
 			}
 		}
 	],
@@ -196,7 +217,7 @@
 			"name": "NAME",
 			"displayName": "Name",
 			"description": "The name assigned to all of the frontend objects defined in this template.",
-			"value": "nginx-example",
+			"value": "nodejs-example",
 			"required": true
 		},
 		{
@@ -207,10 +228,10 @@
 			"required": true
 		},
 		{
-			"name": "NGINX_VERSION",
-			"displayName": "NGINX Version",
-			"description": "Version of NGINX image to be used (1.20-ubi8 by default).",
-			"value": "1.20-ubi8",
+			"name": "NODEJS_VERSION",
+			"displayName": "Version of NodeJS Image",
+			"description": "Version of NodeJS image to be used (18-ubi9, 20-ubi9, 22-ubi9, or latest).",
+			"value": "22-ubi9",
 			"required": true
 		},
 		{
@@ -224,7 +245,7 @@
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/sclorg/nginx-ex.git",
+			"value": "https://github.com/sclorg/nodejs-ex.git",
 			"required": true
 		},
 		{
@@ -240,7 +261,7 @@
 		{
 			"name": "APPLICATION_DOMAIN",
 			"displayName": "Application Hostname",
-			"description": "The exposed hostname that will route to the nginx service, if left blank a value will be defaulted."
+			"description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted."
 		},
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
@@ -255,10 +276,15 @@
 			"description": "A secret string used to configure the Generic webhook.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{40}"
+		},
+		{
+			"name": "NPM_MIRROR",
+			"displayName": "Custom NPM Mirror URL",
+			"description": "The custom NPM mirror URL"
 		}
 	],
 	"labels": {
-		"app": "${NAME}",
-		"template": "${NAME}"
+		"app": "nodejs-example",
+		"template": "nodejs-example"
 	}
 }
