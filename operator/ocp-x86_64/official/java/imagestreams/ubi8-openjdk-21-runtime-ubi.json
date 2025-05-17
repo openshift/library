@@ -1,0 +1,41 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "ubi8-openjdk-21-runtime",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Red Hat OpenJDK 21 Runtime (UBI8)",
+			"openshift.io/provider-display-name": "Red Hat, Inc."
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "1.18",
+				"annotations": {
+					"description": "Run Java applications using OpenJDK 21 upon UBI8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 21 Runtime (UBI8)",
+					"tags": "java,openjdk,ubi8",
+					"version": "1.18"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-21-runtime:1.18"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
