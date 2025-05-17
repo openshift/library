@@ -2,13 +2,13 @@
 	"kind": "ImageStream",
 	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
-		"name": "sso76-openshift-rhel8",
+		"name": "sso75-openshift-rhel8",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "Red Hat Single Sign-On 7.6 on OpenJDK",
-			"openshift.io/display-name": "Red Hat Single Sign-On 7.6 on OpenJDK",
+			"description": "Red Hat Single Sign-On 7.5 on OpenJDK",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"version": "7.6.7.GA"
+			"version": "7.5.3.GA"
 		}
 	},
 	"spec": {
@@ -21,7 +21,7 @@
 				"annotations": null,
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "7.6"
+					"name": "7.5"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -30,18 +30,18 @@
 				}
 			},
 			{
-				"name": "7.6",
+				"name": "7.5",
 				"annotations": {
-					"description": "Red Hat Single Sign-On 7.6 on OpenJDK image",
+					"description": "Red Hat Single Sign-On 7.5 on OpenJDK image",
 					"iconClass": "icon-sso",
-					"openshift.io/display-name": "Red Hat Single Sign-On 7.6 on OpenJDK",
-					"supports": "sso:7.6",
+					"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK",
+					"supports": "sso:7.5",
 					"tags": "sso,keycloak,redhat,hidden",
 					"version": "1.0"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/rh-sso-7/sso76-openshift-rhel8:7.6"
+					"name": "registry.redhat.io/rh-sso-7/sso75-openshift-rhel8:7.5"
 				},
 				"generation": null,
 				"importPolicy": {},
