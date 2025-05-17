@@ -2,14 +2,14 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "nodejs-postgresql-example",
+		"name": "nodejs-postgresql-persistent",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Node.js application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/nodeshift-starters/nodejs-rest-http-crud/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+			"description": "An example Node.js application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/nodeshift-starters/nodejs-rest-http-crud/blob/master/README.md.",
 			"iconClass": "icon-nodejs",
-			"openshift.io/display-name": "Node.js + PostgreSQL (Ephemeral)",
+			"openshift.io/display-name": "Node.js + PostgreSQL",
 			"openshift.io/documentation-url": "https://github.com/nodeshift-starters/nodejs-rest-http-crud",
-			"openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration, application deployment configuration, and database deployment configuration.  The database is stored in non-persistent storage, so this configuration should be used for experimental purposes only.",
+			"openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration, application deployment configuration, and database deployment configuration.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"openshift.io/support-url": "https://access.redhat.com",
 			"tags": "quickstart,nodejs",
@@ -219,7 +219,7 @@
 									"initialDelaySeconds": 30,
 									"timeoutSeconds": 3
 								},
-								"name": "nodejs-postgresql-example",
+								"name": "nodejs-postgresql-persistent",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -247,7 +247,7 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"nodejs-postgresql-example"
+								"nodejs-postgresql-persistent"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
@@ -260,6 +260,23 @@
 						"type": "ConfigChange"
 					}
 				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"name": "${DATABASE_SERVICE_NAME}"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${VOLUME_CAPACITY}"
+					}
+				}
 			}
 		},
 		{
@@ -366,7 +383,7 @@
 								},
 								"volumeMounts": [
 									{
-										"mountPath": "/var/lib/postgresql/data",
+										"mountPath": "/var/lib/pgsql/data",
 										"name": "${DATABASE_SERVICE_NAME}-data"
 									}
 								]
@@ -374,10 +391,10 @@
 						],
 						"volumes": [
 							{
-								"emptyDir": {
-									"medium": ""
-								},
-								"name": "${DATABASE_SERVICE_NAME}-data"
+								"name": "${DATABASE_SERVICE_NAME}-data",
+								"persistentVolumeClaim": {
+									"claimName": "${DATABASE_SERVICE_NAME}"
+								}
 							}
 						]
 					}
@@ -409,7 +426,7 @@
 			"name": "NAME",
 			"displayName": "Name",
 			"description": "The name assigned to all of the frontend objects defined in this template.",
-			"value": "nodejs-postgresql-example",
+			"value": "nodejs-postgresql-persistent",
 			"required": true
 		},
 		{
@@ -445,6 +462,13 @@
 			"displayName": "Memory Limit (PostgreSQL)",
 			"description": "Maximum amount of memory the PostgreSQL container can use.",
 			"value": "256Mi",
+			"required": true
+		},
+		{
+			"name": "VOLUME_CAPACITY",
+			"displayName": "Volume Capacity",
+			"description": "Volume space available for data, e.g. 512Mi, 2Gi",
+			"value": "1Gi",
 			"required": true
 		},
 		{
@@ -523,7 +547,7 @@
 		}
 	],
 	"labels": {
-		"app": "nodejs-postgresql-example",
-		"template": "nodejs-postgresql-example"
+		"app": "nodejs-postgresql-persistent",
+		"template": "nodejs-postgresql-persistent"
 	}
 }
