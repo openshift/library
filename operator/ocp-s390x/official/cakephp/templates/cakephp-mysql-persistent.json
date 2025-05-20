@@ -2,21 +2,20 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "dancer-mysql-example",
+		"name": "cakephp-mysql-persistent",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
-			"iconClass": "icon-perl",
-			"openshift.io/display-name": "Dancer + MySQL (Ephemeral)",
-			"openshift.io/documentation-url": "https://github.com/sclorg/dancer-ex",
-			"openshift.io/long-description": "This template defines resources needed to develop a Dancer based application, including a build configuration, application deployment configuration, and database deployment configuration.  The database is stored in non-persistent storage, so this configuration should be used for experimental purposes only.",
+			"description": "An example CakePHP application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
+			"iconClass": "icon-php",
+			"openshift.io/display-name": "CakePHP + MySQL",
+			"openshift.io/documentation-url": "https://github.com/sclorg/cakephp-ex",
+			"openshift.io/long-description": "This template defines resources needed to develop a CakePHP application, including a build configuration, application deployment configuration, and database deployment configuration.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"openshift.io/support-url": "https://access.redhat.com",
-			"tags": "quickstart,perl,dancer",
-			"template.openshift.io/bindable": "false"
+			"tags": "quickstart,php,cakephp"
 		}
 	},
-	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
+	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/cakephp-ex/blob/master/README.md.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -25,9 +24,10 @@
 				"name": "${NAME}"
 			},
 			"stringData": {
+				"cakephp-secret-token": "${CAKEPHP_SECRET_TOKEN}",
+				"cakephp-security-salt": "${CAKEPHP_SECURITY_SALT}",
 				"database-password": "${DATABASE_PASSWORD}",
-				"database-user": "${DATABASE_USER}",
-				"keybase": "${SECRET_KEY_BASE}"
+				"database-user": "${DATABASE_USER}"
 			}
 		},
 		{
@@ -57,6 +57,9 @@
 			"apiVersion": "route.openshift.io/v1",
 			"kind": "Route",
 			"metadata": {
+				"annotations": {
+					"template.openshift.io/expose-uri": "http://{.spec.host}{.spec.path}"
+				},
 				"name": "${NAME}"
 			},
 			"spec": {
@@ -95,7 +98,7 @@
 					}
 				},
 				"postCommit": {
-					"script": "perl -I extlib/lib/perl5 -I lib t/*"
+					"script": "./vendor/bin/phpunit"
 				},
 				"source": {
 					"contextDir": "${CONTEXT_DIR}",
@@ -109,13 +112,13 @@
 					"sourceStrategy": {
 						"env": [
 							{
-								"name": "CPAN_MIRROR",
-								"value": "${CPAN_MIRROR}"
+								"name": "COMPOSER_MIRROR",
+								"value": "${COMPOSER_MIRROR}"
 							}
 						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "perl:${PERL_VERSION}",
+							"name": "php:${PHP_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -143,7 +146,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"},{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.initContainers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -174,7 +177,15 @@
 										"value": "${DATABASE_SERVICE_NAME}"
 									},
 									{
-										"name": "MYSQL_USER",
+										"name": "DATABASE_ENGINE",
+										"value": "${DATABASE_ENGINE}"
+									},
+									{
+										"name": "DATABASE_NAME",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "DATABASE_USER",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-user",
@@ -183,7 +194,7 @@
 										}
 									},
 									{
-										"name": "MYSQL_PASSWORD",
+										"name": "DATABASE_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-password",
@@ -192,33 +203,39 @@
 										}
 									},
 									{
-										"name": "MYSQL_DATABASE",
-										"value": "${DATABASE_NAME}"
-									},
-									{
-										"name": "SECRET_KEY_BASE",
+										"name": "CAKEPHP_SECRET_TOKEN",
 										"valueFrom": {
 											"secretKeyRef": {
-												"key": "keybase",
+												"key": "cakephp-secret-token",
 												"name": "${NAME}"
 											}
 										}
 									},
 									{
-										"name": "PERL_APACHE2_RELOAD",
-										"value": "${PERL_APACHE2_RELOAD}"
+										"name": "CAKEPHP_SECURITY_SALT",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "cakephp-security-salt",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "OPCACHE_REVALIDATE_FREQ",
+										"value": "${OPCACHE_REVALIDATE_FREQ}"
 									}
 								],
 								"image": " ",
 								"livenessProbe": {
 									"httpGet": {
-										"path": "/health",
+										"path": "/health.php",
 										"port": 8080
 									},
 									"initialDelaySeconds": 30,
+									"periodSeconds": 60,
 									"timeoutSeconds": 3
 								},
-								"name": "dancer-mysql-example",
+								"name": "${NAME}",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -226,10 +243,11 @@
 								],
 								"readinessProbe": {
 									"httpGet": {
-										"path": "/health",
+										"path": "/health.php",
 										"port": 8080
 									},
 									"initialDelaySeconds": 3,
+									"periodSeconds": 60,
 									"timeoutSeconds": 3
 								},
 								"resources": {
@@ -238,7 +256,87 @@
 									}
 								}
 							}
+						],
+						"initContainers": [
+							{
+								"command": [
+									"./migrate-database.sh"
+								],
+								"env": [
+									{
+										"name": "DATABASE_SERVICE_NAME",
+										"value": "${DATABASE_SERVICE_NAME}"
+									},
+									{
+										"name": "DATABASE_USER",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-user",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "DATABASE_PASSWORD",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "database-password",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "CAKEPHP_SECRET_TOKEN",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "cakephp-secret-token",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "CAKEPHP_SECURITY_SALT",
+										"valueFrom": {
+											"secretKeyRef": {
+												"key": "cakephp-security-salt",
+												"name": "${NAME}"
+											}
+										}
+									},
+									{
+										"name": "DATABASE_NAME",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "DATABASE_ENGINE",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "APPLICATION_DOMAIN",
+										"value": "${APPLICATION_DOMAIN}"
+									}
+								],
+								"image": " ",
+								"name": "cakephp-init-container"
+							}
 						]
+					}
+				}
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"name": "${DATABASE_SERVICE_NAME}"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${VOLUME_CAPACITY}"
 					}
 				}
 			}
@@ -271,6 +369,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the database",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
@@ -278,7 +377,9 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${DATABASE_SERVICE_NAME}"
+					"matchLabels": {
+						"name": "${DATABASE_SERVICE_NAME}"
+					}
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -355,15 +456,17 @@
 								"volumeMounts": [
 									{
 										"mountPath": "/var/lib/mysql/data",
-										"name": "data"
+										"name": "${DATABASE_SERVICE_NAME}-data"
 									}
 								]
 							}
 						],
 						"volumes": [
 							{
-								"emptyDir": {},
-								"name": "data"
+								"name": "${DATABASE_SERVICE_NAME}-data",
+								"persistentVolumeClaim": {
+									"claimName": "${DATABASE_SERVICE_NAME}"
+								}
 							}
 						]
 					}
@@ -376,7 +479,7 @@
 			"name": "NAME",
 			"displayName": "Name",
 			"description": "The name assigned to all of the frontend objects defined in this template.",
-			"value": "dancer-mysql-example",
+			"value": "cakephp-mysql-persistent",
 			"required": true
 		},
 		{
@@ -387,16 +490,23 @@
 			"required": true
 		},
 		{
-			"name": "PERL_VERSION",
-			"displayName": "Version of Perl Image",
-			"description": "Version of Perl image to be used (5.30-el7, 5.30-ubi8, or latest).",
-			"value": "5.30-ubi8",
+			"name": "PHP_VERSION",
+			"displayName": "PHP Version",
+			"description": "Version of PHP image to be used (7.3-ubi7, 7.4-ubi8, or latest).",
+			"value": "7.4-ubi8",
+			"required": true
+		},
+		{
+			"name": "MYSQL_VERSION",
+			"displayName": "MySQL Version",
+			"description": "Version of MySQL image to be used (8.0-el8 or latest).",
+			"value": "8.0-el8",
 			"required": true
 		},
 		{
 			"name": "MEMORY_LIMIT",
 			"displayName": "Memory Limit",
-			"description": "Maximum amount of memory the Perl Dancer container can use.",
+			"description": "Maximum amount of memory the CakePHP container can use.",
 			"value": "512Mi",
 			"required": true
 		},
@@ -408,10 +518,17 @@
 			"required": true
 		},
 		{
+			"name": "VOLUME_CAPACITY",
+			"displayName": "Volume Capacity",
+			"description": "Volume space available for data, e.g. 512Mi, 2Gi",
+			"value": "1Gi",
+			"required": true
+		},
+		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/sclorg/dancer-ex.git",
+			"value": "https://github.com/sclorg/cakephp-ex.git",
 			"required": true
 		},
 		{
@@ -427,7 +544,7 @@
 		{
 			"name": "APPLICATION_DOMAIN",
 			"displayName": "Application Hostname",
-			"description": "The exposed hostname that will route to the Dancer service, if left blank a value will be defaulted."
+			"description": "The exposed hostname that will route to the CakePHP service, if left blank a value will be defaulted."
 		},
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
@@ -439,53 +556,68 @@
 		{
 			"name": "DATABASE_SERVICE_NAME",
 			"displayName": "Database Service Name",
-			"value": "database",
+			"value": "mysql",
+			"required": true
+		},
+		{
+			"name": "DATABASE_ENGINE",
+			"displayName": "Database Engine",
+			"description": "Database engine: postgresql, mysql or sqlite (default).",
+			"value": "mysql",
+			"required": true
+		},
+		{
+			"name": "DATABASE_NAME",
+			"displayName": "Database Name",
+			"value": "default",
 			"required": true
 		},
 		{
 			"name": "DATABASE_USER",
-			"displayName": "Database Username",
-			"generate": "expression",
-			"from": "user[A-Z0-9]{3}"
+			"displayName": "Database User",
+			"value": "cakephp",
+			"required": true
 		},
 		{
 			"name": "DATABASE_PASSWORD",
 			"displayName": "Database Password",
 			"generate": "expression",
-			"from": "[a-zA-Z0-9]{8}"
+			"from": "[a-zA-Z0-9]{16}"
 		},
 		{
-			"name": "DATABASE_NAME",
-			"displayName": "Database Name",
-			"value": "sampledb",
-			"required": true
-		},
-		{
-			"name": "PERL_APACHE2_RELOAD",
-			"displayName": "Perl Module Reload",
-			"description": "Set this to \"true\" to enable automatic reloading of modified Perl modules."
-		},
-		{
-			"name": "SECRET_KEY_BASE",
-			"displayName": "Secret Key",
-			"description": "Your secret key for verifying the integrity of signed cookies.",
+			"name": "CAKEPHP_SECRET_TOKEN",
+			"displayName": "CakePHP secret token",
+			"description": "Set this to a long random string.",
 			"generate": "expression",
-			"from": "[a-z0-9]{127}"
+			"from": "[\\w]{50}"
 		},
 		{
-			"name": "CPAN_MIRROR",
-			"displayName": "Custom CPAN Mirror URL",
-			"description": "The custom CPAN mirror URL"
+			"name": "CAKEPHP_SECURITY_SALT",
+			"displayName": "CakePHP Security Salt",
+			"description": "Security salt for session hash.",
+			"generate": "expression",
+			"from": "[a-zA-Z0-9]{40}"
+		},
+		{
+			"name": "OPCACHE_REVALIDATE_FREQ",
+			"displayName": "OPcache Revalidation Frequency",
+			"description": "How often to check script timestamps for updates, in seconds. 0 will result in OPcache checking for updates on every request.",
+			"value": "2"
+		},
+		{
+			"name": "COMPOSER_MIRROR",
+			"displayName": "Custom Composer Mirror URL",
+			"description": "The custom Composer mirror URL"
 		},
 		{
 			"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
 			"displayName": "MySQL authentication plugin",
-			"description": "The custom MySQL default authentication plugin (default: mysql_native_password), might be changed to caching_sha2_password once clients support it.",
+			"description": "The custom MySQL default authentication plugin (default: mysql_native_password), might be changed to caching_sha2_password once PHP client supports it.",
 			"value": "mysql_native_password"
 		}
 	],
 	"labels": {
-		"app": "dancer-mysql-example",
-		"template": "dancer-mysql-example"
+		"app": "cakephp-mysql-persistent",
+		"template": "cakephp-mysql-persistent"
 	}
 }

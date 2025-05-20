@@ -2,21 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "sso76-ocp4-postgresql",
+		"name": "sso75-postgresql-persistent",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example application based on RH-SSO 7.6 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso76-dev/docs.",
+			"description": "An example application based on RH-SSO 7.5 on OpenJDK image. For more information about using this template, see https://github.com/jboss-container-images/redhat-sso-7-openshift-image/tree/sso75-dev/docs.",
 			"iconClass": "icon-sso",
-			"openshift.io/display-name": "Red Hat Single Sign-On 7.6 on OpenJDK + PostgreSQL (Ephemeral with passthrough TLS)",
+			"openshift.io/display-name": "Red Hat Single Sign-On 7.5 on OpenJDK + PostgreSQL (Persistent with passthrough TLS)",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "sso,keycloak,jboss,hidden",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/red-hat-single-sign-on/",
-			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.6 on OpenJDK server based deployment, deployment configuration for PostgreSQL using ephemeral (temporary) storage, and securing RH-SSO communication using passthrough TLS. It is intended to be used solely on OpenShift 4.X versions. For OpenShift 3.X variant of this template refer to the 'sso76-ocp3-postgresql' one.",
+			"template.openshift.io/long-description": "This template defines resources needed to develop Red Hat Single Sign-On 7.5 on OpenJDK server based deployment, deployment configuration for PostgreSQL using persistence, and securing RH-SSO communication using passthrough TLS.",
 			"template.openshift.io/support-url": "https://access.redhat.com",
-			"version": "7.6.7.GA"
+			"version": "7.5.3.GA"
 		}
 	},
-	"message": "A new RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests. To enable also dual-network clusters that support both IPv4 and IPv6 address families, all services defined by this template are configured having the 'spec.ipFamilyPolicy' field set to 'PreferDualStack' by default.",
+	"message": "A new persistent RH-SSO service (using PostgreSQL) has been created in your project. The admin username/password for accessing the master realm via the RH-SSO console is ${SSO_ADMIN_USERNAME}/${SSO_ADMIN_PASSWORD}. The username/password for accessing the PostgreSQL database \"${DB_DATABASE}\" is ${DB_USERNAME}/${DB_PASSWORD}. Please be sure to create the following secrets: \"${HTTPS_SECRET}\" containing the ${HTTPS_KEYSTORE} file used for serving secure content; \"${JGROUPS_ENCRYPT_SECRET}\" containing the ${JGROUPS_ENCRYPT_KEYSTORE} file used for securing JGroups communications; \"${SSO_TRUSTSTORE_SECRET}\" containing the ${SSO_TRUSTSTORE} file used for securing RH-SSO requests.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -27,13 +27,11 @@
 					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
 				},
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "server"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}"
 			},
 			"spec": {
-				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 8080,
@@ -54,13 +52,11 @@
 					"service.alpha.openshift.io/dependencies": "[{\"name\": \"${APPLICATION_NAME}-postgresql\", \"kind\": \"Service\"}]"
 				},
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "server"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "secure-${APPLICATION_NAME}"
 			},
 			"spec": {
-				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 8443,
@@ -80,13 +76,11 @@
 					"description": "The database server's port."
 				},
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "database"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}-postgresql"
 			},
 			"spec": {
-				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"port": 5432,
@@ -112,7 +106,6 @@
 			},
 			"spec": {
 				"clusterIP": "None",
-				"ipFamilyPolicy": "PreferDualStack",
 				"ports": [
 					{
 						"name": "ping",
@@ -134,8 +127,7 @@
 					"description": "Route for application's http service."
 				},
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "server"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}"
 			},
@@ -155,8 +147,7 @@
 					"description": "Route for application's https service."
 				},
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "server"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "secure-${APPLICATION_NAME}"
 			},
@@ -175,8 +166,7 @@
 			"kind": "DeploymentConfig",
 			"metadata": {
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "server"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}"
 			},
@@ -192,7 +182,6 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"component": "server",
 							"deploymentConfig": "${APPLICATION_NAME}"
 						},
 						"name": "${APPLICATION_NAME}"
@@ -243,7 +232,7 @@
 									},
 									{
 										"name": "JGROUPS_PING_PROTOCOL",
-										"value": "dns.DNS_PING"
+										"value": "openshift.DNS_PING"
 									},
 									{
 										"name": "OPENSHIFT_DNS_PING_SERVICE_NAME",
@@ -340,11 +329,7 @@
 											"/opt/eap/bin/livenessProbe.sh"
 										]
 									},
-									"failureThreshold": 10,
-									"initialDelaySeconds": 30,
-									"periodSeconds": 30,
-									"successThreshold": 1,
-									"timeoutSeconds": 22
+									"initialDelaySeconds": 60
 								},
 								"name": "${APPLICATION_NAME}",
 								"ports": [
@@ -376,12 +361,7 @@
 											"-c",
 											"/opt/eap/bin/readinessProbe.sh"
 										]
-									},
-									"failureThreshold": 10,
-									"initialDelaySeconds": 40,
-									"periodSeconds": 30,
-									"successThreshold": 1,
-									"timeoutSeconds": 22
+									}
 								},
 								"resources": {
 									"limits": {
@@ -403,11 +383,6 @@
 										"mountPath": "/etc/sso-secret-volume",
 										"name": "sso-truststore-volume",
 										"readOnly": true
-									},
-									{
-										"mountPath": "/mnt/rh-sso",
-										"name": "sso-probe-netrc-volume",
-										"readOnly": false
 									}
 								]
 							}
@@ -431,12 +406,6 @@
 								"secret": {
 									"secretName": "${SSO_TRUSTSTORE_SECRET}"
 								}
-							},
-							{
-								"emptyDir": {
-									"medium": "Memory"
-								},
-								"name": "sso-probe-netrc-volume"
 							}
 						]
 					}
@@ -450,7 +419,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "sso76-openshift-rhel8:7.6",
+								"name": "sso75-openshift-rhel8:7.5",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -467,8 +436,7 @@
 			"kind": "DeploymentConfig",
 			"metadata": {
 				"labels": {
-					"application": "${APPLICATION_NAME}",
-					"component": "database"
+					"application": "${APPLICATION_NAME}"
 				},
 				"name": "${APPLICATION_NAME}-postgresql"
 			},
@@ -484,7 +452,6 @@
 					"metadata": {
 						"labels": {
 							"application": "${APPLICATION_NAME}",
-							"component": "database",
 							"deploymentConfig": "${APPLICATION_NAME}-postgresql"
 						},
 						"name": "${APPLICATION_NAME}-postgresql"
@@ -521,11 +488,13 @@
 								"image": "postgresql",
 								"imagePullPolicy": "Always",
 								"livenessProbe": {
-									"initialDelaySeconds": 30,
+									"failureThreshold": 3,
+									"initialDelaySeconds": 90,
+									"successThreshold:": 1,
 									"tcpSocket": {
 										"port": 5432
 									},
-									"timeoutSeconds": 1
+									"timeoutSeconds": 10
 								},
 								"name": "${APPLICATION_NAME}-postgresql",
 								"ports": [
@@ -543,13 +512,15 @@
 											"psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"
 										]
 									},
-									"initialDelaySeconds": 5,
-									"timeoutSeconds": 1
+									"failureThreshold": 3,
+									"initialDelaySeconds": 90,
+									"successThreshold:": 1,
+									"timeoutSeconds": 10
 								},
 								"volumeMounts": [
 									{
 										"mountPath": "/var/lib/pgsql/data",
-										"name": "${APPLICATION_NAME}-data"
+										"name": "${APPLICATION_NAME}-postgresql-pvol"
 									}
 								]
 							}
@@ -557,10 +528,10 @@
 						"terminationGracePeriodSeconds": 60,
 						"volumes": [
 							{
-								"emptyDir": {
-									"medium": ""
-								},
-								"name": "${APPLICATION_NAME}-data"
+								"name": "${APPLICATION_NAME}-postgresql-pvol",
+								"persistentVolumeClaim": {
+									"claimName": "${APPLICATION_NAME}-postgresql-claim"
+								}
 							}
 						]
 					}
@@ -574,7 +545,7 @@
 							],
 							"from": {
 								"kind": "ImageStreamTag",
-								"name": "postgresql13-for-sso76-openshift-rhel8:${POSTGRESQL_IMAGE_STREAM_TAG}",
+								"name": "postgresql13-for-sso75-openshift-rhel8:${POSTGRESQL_IMAGE_STREAM_TAG}",
 								"namespace": "${IMAGE_STREAM_NAMESPACE}"
 							}
 						},
@@ -584,6 +555,26 @@
 						"type": "ConfigChange"
 					}
 				]
+			}
+		},
+		{
+			"apiVersion": "v1",
+			"kind": "PersistentVolumeClaim",
+			"metadata": {
+				"labels": {
+					"application": "${APPLICATION_NAME}"
+				},
+				"name": "${APPLICATION_NAME}-postgresql-claim"
+			},
+			"spec": {
+				"accessModes": [
+					"ReadWriteOnce"
+				],
+				"resources": {
+					"requests": {
+						"storage": "${VOLUME_CAPACITY}"
+					}
+				}
 			}
 		}
 	],
@@ -692,6 +683,13 @@
 			"required": true
 		},
 		{
+			"name": "VOLUME_CAPACITY",
+			"displayName": "Database Volume Capacity",
+			"description": "Size of persistent storage for database volume.",
+			"value": "1Gi",
+			"required": true
+		},
+		{
 			"name": "JGROUPS_ENCRYPT_SECRET",
 			"displayName": "JGroups Secret Name",
 			"description": "The name of the secret containing the keystore file",
@@ -790,7 +788,7 @@
 		}
 	],
 	"labels": {
-		"rhsso": "7.6.7.GA",
-		"template": "sso76-ocp4-postgresql"
+		"rhsso": "7.5.3.GA",
+		"template": "sso75-postgresql-persistent"
 	}
 }
