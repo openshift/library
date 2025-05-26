@@ -154,6 +154,26 @@
 				}
 			},
 			{
+				"name": "16-el10",
+				"annotations": {
+					"description": "Provides a PostgreSQL 16 database on RHEL 10. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.",
+					"iconClass": "icon-postgresql",
+					"openshift.io/display-name": "PostgreSQL 16 (RHEL 10)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,postgresql",
+					"version": "16"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel10/postgresql-16:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "latest",
 				"annotations": {
 					"description": "Provides a PostgreSQL 16 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/postgresql-container/blob/master/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
