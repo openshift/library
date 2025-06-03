@@ -56,6 +56,27 @@
 				}
 			},
 			{
+				"name": "2.4-ubi10",
+				"annotations": {
+					"description": "Build and serve static content via Apache HTTP Server (httpd) 2.4 on UBI 10. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/httpd-container/blob/master/2.4/README.md.",
+					"iconClass": "icon-httpd",
+					"openshift.io/display-name": "Apache HTTP Server 2.4 (UBI 10)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/httpd-ex.git",
+					"tags": "builder,httpd",
+					"version": "2.4"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi10/httpd-24:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "2.4-micro-el9",
 				"annotations": {
 					"description": "Build and serve static content via Apache HTTP Server (httpd) 2.4-micro on CentOS Stream 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/httpd-container/blob/master/2.4-micro/README.md.",
