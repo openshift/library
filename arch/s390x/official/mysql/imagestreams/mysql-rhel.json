@@ -54,18 +54,58 @@
 				}
 			},
 			{
-				"name": "latest",
+				"name": "8.4-el9",
 				"annotations": {
-					"description": "Provides a MySQL 8.0 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.0/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"description": "Provides a MySQL 8.4 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.4/README.md.",
 					"iconClass": "icon-mysql",
-					"openshift.io/display-name": "MySQL 8.0 (Latest)",
+					"openshift.io/display-name": "MySQL 8.4 (RHEL 9)",
 					"openshift.io/provider-display-name": "Red Hat, Inc.",
 					"tags": "database,mysql",
-					"version": "8.0"
+					"version": "8.4"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/mysql-84:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "8.4-el10",
+				"annotations": {
+					"description": "Provides a MySQL 8.4 database on RHEL 10. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.4/README.md.",
+					"iconClass": "icon-mysql",
+					"openshift.io/display-name": "MySQL 8.4 (RHEL 10)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mysql",
+					"version": "8.4"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel10/mysql-84:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Provides a MySQL 8.4 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mysql-container/blob/master/8.4/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
+					"iconClass": "icon-mysql",
+					"openshift.io/display-name": "MySQL 8.4 (Latest)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mysql",
+					"version": "8.4"
 				},
 				"from": {
 					"kind": "ImageStreamTag",
-					"name": "8.0-el9"
+					"name": "8.4-el9"
 				},
 				"generation": null,
 				"importPolicy": {},
