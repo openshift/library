@@ -98,6 +98,27 @@
 				}
 			},
 			{
+				"name": "3.3-ubi10",
+				"annotations": {
+					"description": "Build and run Ruby 3.3 applications on UBI 10. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/3.3/README.md.",
+					"iconClass": "icon-ruby",
+					"openshift.io/display-name": "Ruby 3.3 (UBI 10)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"sampleRepo": "https://github.com/sclorg/ruby-ex.git",
+					"tags": "builder,ruby",
+					"version": "3.3"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi10/ruby-33:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "latest",
 				"annotations": {
 					"description": "Build and run Ruby 3.3 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-ruby-container/blob/master/3.3/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version available on OpenShift, including major version updates.\n",
