@@ -14,48 +14,6 @@
 		},
 		"tags": [
 			{
-				"name": "18-ubi8",
-				"annotations": {
-					"description": "Build and run Node.js 18 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18 (UBI 8)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi8/nodejs-18:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "18-minimal-ubi8",
-				"annotations": {
-					"description": "Build and run Node.js 18-minimal applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18-minimal/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18-minimal (UBI 8)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18-minimal"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi8/nodejs-18-minimal:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
 				"name": "20-ubi8",
 				"annotations": {
 					"description": "Build and run Node.js 20 applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/20/README.md.",
@@ -90,48 +48,6 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.access.redhat.com/ubi8/nodejs-20-minimal:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "18-ubi9",
-				"annotations": {
-					"description": "Build and run Node.js 18 applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18 (UBI 9)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi9/nodejs-18:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "18-minimal-ubi9",
-				"annotations": {
-					"description": "Build and run Node.js 18-minimal applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18-minimal/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18-minimal (UBI 9)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18-minimal"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi9/nodejs-18-minimal:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -224,27 +140,6 @@
 				}
 			},
 			{
-				"name": "18-ubi8-minimal",
-				"annotations": {
-					"description": "Build and run Node.js 18-minimal applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18-minimal/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18-minimal (UBI 8)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18-minimal"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi8/nodejs-18-minimal:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
 				"name": "20-ubi8-minimal",
 				"annotations": {
 					"description": "Build and run Node.js 20-minimal applications on UBI 8. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/20-minimal/README.md.",
@@ -258,27 +153,6 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.access.redhat.com/ubi8/nodejs-20-minimal:latest"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "18-ubi9-minimal",
-				"annotations": {
-					"description": "Build and run Node.js 18-minimal applications on UBI 9. For more information about using this builder image, including OpenShift considerations, see https://github.com/sclorg/s2i-nodejs-container/blob/master/18-minimal/README.md.",
-					"iconClass": "icon-nodejs",
-					"openshift.io/display-name": "Node.js 18-minimal (UBI 9)",
-					"openshift.io/provider-display-name": "Red Hat, Inc.",
-					"sampleRepo": "https://github.com/sclorg/nodejs-ex.git",
-					"tags": "builder,nodejs",
-					"version": "18-minimal"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/ubi9/nodejs-18-minimal:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
