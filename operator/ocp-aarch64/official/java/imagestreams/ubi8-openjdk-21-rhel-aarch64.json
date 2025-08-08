@@ -2,15 +2,11 @@
 	"kind": "ImageStream",
 	"apiVersion": "image.openshift.io/v1",
 	"metadata": {
-		"name": "openj9-8-rhel8",
+		"name": "ubi8-openjdk-21",
 		"creationTimestamp": null,
-		"labels": {
-			"xpaas": "1.4.17"
-		},
 		"annotations": {
-			"openshift.io/display-name": "OpenJ9 1.8.0 (RHEL8)",
-			"openshift.io/provider-display-name": "Red Hat, Inc.",
-			"version": "1.4.17"
+			"openshift.io/display-name": "Red Hat OpenJDK 21 (UBI8)",
+			"openshift.io/provider-display-name": "Red Hat, Inc."
 		}
 	},
 	"spec": {
@@ -19,19 +15,19 @@
 		},
 		"tags": [
 			{
-				"name": "1.1",
+				"name": "1.18",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJ9 1.8.0 upon RHEL8.",
-					"iconClass": "icon-rh-openj9",
-					"openshift.io/display-name": "OpenJ9 1.8.0 (RHEL8)",
+					"description": "Build and run Java applications using Maven and OpenJDK 21 upon UBI8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 21 (UBI8)",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"tags": "builder,java,openj9,ubi8,hidden",
-					"version": "1.1"
+					"tags": "builder,java,openjdk,ubi8,hidden",
+					"version": "1.18"
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.redhat.io/openj9/openj9-8-rhel8:1.1"
+					"name": "registry.access.redhat.com/ubi8/openjdk-21:1.18"
 				},
 				"generation": null,
 				"importPolicy": {},
