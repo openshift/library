@@ -11,7 +11,7 @@
 		"annotations": {
 			"description": "An example Java application using OpenJDK. For more information about using this template, see https://github.com/jboss-openshift/application-templates.",
 			"iconClass": "icon-rh-openjdk",
-			"openshift.io/display-name": "OpenJDK",
+			"openshift.io/display-name": "OpenJDK example application",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"tags": "java",
 			"template.openshift.io/documentation-url": "https://access.redhat.com/documentation/en/",
@@ -168,6 +168,11 @@
 								"name": "${APPLICATION_NAME}",
 								"ports": [
 									{
+										"containerPort": 8778,
+										"name": "jolokia",
+										"protocol": "TCP"
+									},
+									{
 										"containerPort": 8080,
 										"name": "http",
 										"protocol": "TCP"
@@ -177,13 +182,7 @@
 										"name": "https",
 										"protocol": "TCP"
 									}
-								],
-								"readinessProbe": {
-									"initialDelaySeconds": 5,
-									"tcpSocket": {
-										"port": 8080
-									}
-								}
+								]
 							}
 						],
 						"terminationGracePeriodSeconds": 75
@@ -221,7 +220,7 @@
 		{
 			"name": "JAVA_IMAGE_STREAM_TAG",
 			"displayName": "Java Version",
-			"description": "The version of Java to use, e.g. 8, 11, latest. (Corresponds to the 'java' ImageStream tag.)",
+			"description": "The version of Java to use, e.g. 8, 11, 17, latest. (Corresponds to the 'java' ImageStream tag.)",
 			"value": "latest",
 			"required": true
 		},
