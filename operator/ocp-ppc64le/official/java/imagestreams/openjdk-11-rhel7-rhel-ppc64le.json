@@ -4,9 +4,13 @@
 	"metadata": {
 		"name": "openjdk-11-rhel7",
 		"creationTimestamp": null,
+		"labels": {
+			"xpaas": "1.4.17"
+		},
 		"annotations": {
-			"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-			"openshift.io/provider-display-name": "Red Hat, Inc."
+			"openshift.io/display-name": "Red Hat OpenJDK 11",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"version": "1.4.17"
 		}
 	},
 	"spec": {
@@ -17,9 +21,9 @@
 			{
 				"name": "1.0",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
+					"openshift.io/display-name": "Red Hat OpenJDK 11",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
 					"supports": "java:11",
@@ -28,7 +32,7 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.0"
+					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.0"
 				},
 				"generation": null,
 				"importPolicy": {},
@@ -39,9 +43,9 @@
 			{
 				"name": "1.1",
 				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
+					"description": "Build and run Java applications using Maven and OpenJDK 11.",
 					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
+					"openshift.io/display-name": "Red Hat OpenJDK 11",
 					"sampleContextDir": "undertow-servlet",
 					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
 					"supports": "java:11",
@@ -50,161 +54,7 @@
 				},
 				"from": {
 					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.1"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.10",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.10"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.10"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.11",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.11"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.11"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.12",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.12"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.12"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.14",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.14"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.14"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.15",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.15"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.15"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.16",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.16"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.16"
-				},
-				"generation": null,
-				"importPolicy": {},
-				"referencePolicy": {
-					"type": "Local"
-				}
-			},
-			{
-				"name": "1.17",
-				"annotations": {
-					"description": "Build and run Java applications using Maven and OpenJDK 11 upon RHEL7.",
-					"iconClass": "icon-rh-openjdk",
-					"openshift.io/display-name": "Red Hat OpenJDK 11 (RHEL7)",
-					"sampleContextDir": "undertow-servlet",
-					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
-					"supports": "java:11",
-					"tags": "builder,java,openjdk,hidden",
-					"version": "1.17"
-				},
-				"from": {
-					"kind": "DockerImage",
-					"name": "registry.access.redhat.com/openjdk/openjdk-11-rhel7:1.17"
+					"name": "registry.redhat.io/openjdk/openjdk-11-rhel7:1.1"
 				},
 				"generation": null,
 				"importPolicy": {},
