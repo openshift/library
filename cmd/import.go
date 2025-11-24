@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"reflect"
@@ -73,7 +72,7 @@ var importCmd = &cobra.Command{
 				klog.Errorf("the configuration file specified does not exist: %v", err)
 				os.Exit(1)
 			}
-			c, err := ioutil.ReadFile(config)
+			c, err := os.ReadFile(config)
 			if err != nil {
 				klog.Errorf("[%s] unable to read configuration file: %v", config, err)
 				os.Exit(1)

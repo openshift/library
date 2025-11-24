@@ -3,7 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -43,7 +43,7 @@ func processDocuments(cache *sync.Map, configs libraryapiv1.Configs) error {
 			}
 
 			// Read the YAML file
-			contents, err := ioutil.ReadFile(fmt.Sprintf("%s.yaml", document))
+			contents, err := os.ReadFile(fmt.Sprintf("%s.yaml", document))
 			if err != nil {
 				klog.Errorf("[Doc: %s] unable to read specified file: %v", document, err)
 				os.Exit(1)
@@ -130,7 +130,7 @@ func writeToFile(config int, document string, data []byte, filePath string) erro
 			return fmt.Errorf("Error creating directory %q: %v", filepath.Dir(filePath), err)
 		}
 	}
-	return ioutil.WriteFile(filePath, data, os.ModePerm)
+	return os.WriteFile(filePath, data, os.ModePerm)
 }
 
 func replaceVariables(document string, d *[]byte, v map[string]string) error {
@@ -156,7 +156,7 @@ func fetchURL(cache *sync.Map, path string) ([]byte, error) {
 	if resp.StatusCode != 200 {
 		return []byte{}, fmt.Errorf("%d", resp.StatusCode)
 	}
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
