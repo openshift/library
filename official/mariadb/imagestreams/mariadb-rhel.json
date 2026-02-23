@@ -114,6 +114,26 @@
 				}
 			},
 			{
+				"name": "11.8-el9",
+				"annotations": {
+					"description": "Provides a MariaDB 11.8 database on RHEL 9. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/11.8/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 11.8 (RHEL 9)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "11.8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel9/mariadb-118:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
 				"name": "10.11-el10",
 				"annotations": {
 					"description": "Provides a MariaDB 10.11 database on RHEL 10. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/10.11/README.md.",
@@ -126,6 +146,26 @@
 				"from": {
 					"kind": "DockerImage",
 					"name": "registry.redhat.io/rhel10/mariadb-1011:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "11.8-el10",
+				"annotations": {
+					"description": "Provides a MariaDB 11.8 database on RHEL 10. For more information about using this database image, including OpenShift considerations, see https://github.com/sclorg/mariadb-container/tree/master/11.8/README.md.",
+					"iconClass": "icon-mariadb",
+					"openshift.io/display-name": "MariaDB 11.8 (RHEL 10)",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"tags": "database,mariadb",
+					"version": "11.8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/rhel10/mariadb-118:latest"
 				},
 				"generation": null,
 				"importPolicy": {},
