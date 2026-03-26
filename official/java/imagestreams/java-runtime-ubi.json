@@ -1,0 +1,102 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "java-runtime",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "Red Hat OpenJDK Runtime",
+			"openshift.io/provider-display-name": "Red Hat, Inc."
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "openjdk-8-ubi8",
+				"annotations": {
+					"description": "Run Java applications using OpenJDK 1.8 upon UBI8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 1.8 Runtime (UBI8)",
+					"tags": "java:8,openjdk,ubi8",
+					"version": "8"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-8-runtime:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "openjdk-11-ubi8",
+				"annotations": {
+					"description": "Run Java applications using OpenJDK 11 upon UBI8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 11 Runtime (UBI8)",
+					"tags": "java:11,openjdk,ubi8",
+					"version": "11"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-11-runtime:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "openjdk-17-ubi8",
+				"annotations": {
+					"description": "Run Java applications using OpenJDK 17 upon RHEL8.",
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Red Hat OpenJDK 17 Runtime (UBI8)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"tags": "java:17,openjdk,ubi8",
+					"version": "17"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.access.redhat.com/ubi8/openjdk-17-runtime:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest",
+				"annotations": {
+					"iconClass": "icon-rh-openjdk",
+					"openshift.io/display-name": "Java Runtime (Latest)",
+					"sampleContextDir": "undertow-servlet",
+					"sampleRepo": "https://github.com/jboss-openshift/openshift-quickstarts",
+					"supports": "java",
+					"tags": "java,openjdk",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "ImageStreamTag",
+					"name": "openjdk-17-ubi8"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
