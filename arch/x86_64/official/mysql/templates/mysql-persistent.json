@@ -41,7 +41,6 @@
 			"kind": "Service",
 			"metadata": {
 				"annotations": {
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MARIADB_VERSION}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.openshift.io/expose-uri": "mysql://{.spec.clusterIP}:{.spec.ports[?(.name==\"mysql\")].port}"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
@@ -80,7 +79,7 @@
 			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\",\"namespace\":\"${NAMESPACE}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
