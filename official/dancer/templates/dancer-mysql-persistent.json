@@ -288,7 +288,7 @@
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the database",
-					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\",\"namespace\":\"${NAMESPACE}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
