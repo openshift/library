@@ -2,21 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "nodejs-postgresql-persistent",
+		"name": "django-psql-example",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Node.js application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/nodeshift-starters/nodejs-rest-http-crud/blob/master/README.md.",
-			"iconClass": "icon-nodejs",
-			"openshift.io/display-name": "Node.js + PostgreSQL",
-			"openshift.io/documentation-url": "https://github.com/nodeshift-starters/nodejs-rest-http-crud",
-			"openshift.io/long-description": "This template defines resources needed to develop a NodeJS application, including a build configuration, application deployment configuration, and database deployment configuration.",
+			"description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.\n\nWARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.",
+			"iconClass": "icon-python",
+			"openshift.io/display-name": "Django + PostgreSQL (Ephemeral)",
+			"openshift.io/documentation-url": "https://github.com/sclorg/django-ex",
+			"openshift.io/long-description": "This template defines resources needed to develop a Django based application, including a build configuration, application deployment configuration, and database deployment configuration.  The database is stored in non-persistent storage, so this configuration should be used for experimental purposes only.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"openshift.io/support-url": "https://access.redhat.com",
-			"tags": "quickstart,nodejs",
+			"tags": "quickstart,python,django",
 			"template.openshift.io/bindable": "false"
 		}
 	},
-	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/nodeshift-starters/nodejs-rest-http-crud/blob/master/README.md.",
+	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -25,9 +25,9 @@
 				"name": "${NAME}"
 			},
 			"stringData": {
-				"database-admin-password": "${DATABASE_ADMIN_PASSWORD}",
 				"database-password": "${DATABASE_PASSWORD}",
-				"database-user": "${DATABASE_USER}"
+				"database-user": "${DATABASE_USER}",
+				"django-secret-key": "${DJANGO_SECRET_KEY}"
 			}
 		},
 		{
@@ -94,7 +94,9 @@
 						"name": "${NAME}:latest"
 					}
 				},
-				"postCommit": {},
+				"postCommit": {
+					"script": "./manage.py test"
+				},
 				"source": {
 					"contextDir": "${CONTEXT_DIR}",
 					"git": {
@@ -107,13 +109,13 @@
 					"sourceStrategy": {
 						"env": [
 							{
-								"name": "NPM_MIRROR",
-								"value": "${NPM_MIRROR}"
+								"name": "PIP_INDEX_URL",
+								"value": "${PIP_INDEX_URL}"
 							}
 						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "nodejs:${NODEJS_VERSION}",
+							"name": "python:${PYTHON_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -131,12 +133,6 @@
 							"secret": "${GITHUB_WEBHOOK_SECRET}"
 						},
 						"type": "GitHub"
-					},
-					{
-						"generic": {
-							"secret": "${GENERIC_WEBHOOK_SECRET}"
-						},
-						"type": "Generic"
 					}
 				]
 			}
@@ -148,9 +144,6 @@
 				"annotations": {
 					"description": "Defines how to deploy the application server",
 					"template.alpha.openshift.io/wait-for-ready": "true"
-				},
-				"labels": {
-					"app.openshift.io/runtime": "nodejs"
 				},
 				"name": "${NAME}"
 			},
@@ -165,7 +158,6 @@
 				"template": {
 					"metadata": {
 						"labels": {
-							"app.openshift.io/runtime": "nodejs",
 							"name": "${NAME}"
 						},
 						"name": "${NAME}"
@@ -179,7 +171,15 @@
 										"value": "${DATABASE_SERVICE_NAME}"
 									},
 									{
-										"name": "POSTGRESQL_USER",
+										"name": "DATABASE_ENGINE",
+										"value": "${DATABASE_ENGINE}"
+									},
+									{
+										"name": "DATABASE_NAME",
+										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "DATABASE_USER",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-user",
@@ -188,7 +188,7 @@
 										}
 									},
 									{
-										"name": "POSTGRESQL_PASSWORD",
+										"name": "DATABASE_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-password",
@@ -197,14 +197,14 @@
 										}
 									},
 									{
-										"name": "POSTGRESQL_DATABASE",
-										"value": "${DATABASE_NAME}"
+										"name": "APP_CONFIG",
+										"value": "${APP_CONFIG}"
 									},
 									{
-										"name": "POSTGRESQL_ADMIN_PASSWORD",
+										"name": "DJANGO_SECRET_KEY",
 										"valueFrom": {
 											"secretKeyRef": {
-												"key": "database-admin-password",
+												"key": "django-secret-key",
 												"name": "${NAME}"
 											}
 										}
@@ -213,13 +213,13 @@
 								"image": " ",
 								"livenessProbe": {
 									"httpGet": {
-										"path": "/",
+										"path": "/health",
 										"port": 8080
 									},
 									"initialDelaySeconds": 30,
 									"timeoutSeconds": 3
 								},
-								"name": "nodejs-postgresql-persistent",
+								"name": "django-psql-example",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -227,7 +227,7 @@
 								],
 								"readinessProbe": {
 									"httpGet": {
-										"path": "/",
+										"path": "/health",
 										"port": 8080
 									},
 									"initialDelaySeconds": 3,
@@ -247,7 +247,7 @@
 						"imageChangeParams": {
 							"automatic": true,
 							"containerNames": [
-								"nodejs-postgresql-persistent"
+								"django-psql-example"
 							],
 							"from": {
 								"kind": "ImageStreamTag",
@@ -260,23 +260,6 @@
 						"type": "ConfigChange"
 					}
 				]
-			}
-		},
-		{
-			"apiVersion": "v1",
-			"kind": "PersistentVolumeClaim",
-			"metadata": {
-				"name": "${DATABASE_SERVICE_NAME}"
-			},
-			"spec": {
-				"accessModes": [
-					"ReadWriteOnce"
-				],
-				"resources": {
-					"requests": {
-						"storage": "${VOLUME_CAPACITY}"
-					}
-				}
 			}
 		},
 		{
@@ -351,24 +334,18 @@
 									{
 										"name": "POSTGRESQL_DATABASE",
 										"value": "${DATABASE_NAME}"
-									},
-									{
-										"name": "POSTGRESQL_ADMIN_PASSWORD",
-										"valueFrom": {
-											"secretKeyRef": {
-												"key": "database-admin-password",
-												"name": "${NAME}"
-											}
-										}
 									}
 								],
 								"image": " ",
 								"livenessProbe": {
-									"initialDelaySeconds": 30,
-									"tcpSocket": {
-										"port": 5432
+									"exec": {
+										"command": [
+											"/usr/libexec/check-container",
+											"--live"
+										]
 									},
-									"timeoutSeconds": 1
+									"initialDelaySeconds": 120,
+									"timeoutSeconds": 10
 								},
 								"name": "postgresql",
 								"ports": [
@@ -376,6 +353,15 @@
 										"containerPort": 5432
 									}
 								],
+								"readinessProbe": {
+									"exec": {
+										"command": [
+											"/usr/libexec/check-container"
+										]
+									},
+									"initialDelaySeconds": 5,
+									"timeoutSeconds": 1
+								},
 								"resources": {
 									"limits": {
 										"memory": "${MEMORY_POSTGRESQL_LIMIT}"
@@ -384,17 +370,15 @@
 								"volumeMounts": [
 									{
 										"mountPath": "/var/lib/pgsql/data",
-										"name": "${DATABASE_SERVICE_NAME}-data"
+										"name": "data"
 									}
 								]
 							}
 						],
 						"volumes": [
 							{
-								"name": "${DATABASE_SERVICE_NAME}-data",
-								"persistentVolumeClaim": {
-									"claimName": "${DATABASE_SERVICE_NAME}"
-								}
+								"emptyDir": {},
+								"name": "data"
 							}
 						]
 					}
@@ -426,7 +410,7 @@
 			"name": "NAME",
 			"displayName": "Name",
 			"description": "The name assigned to all of the frontend objects defined in this template.",
-			"value": "nodejs-postgresql-persistent",
+			"value": "django-psql-example",
 			"required": true
 		},
 		{
@@ -437,45 +421,38 @@
 			"required": true
 		},
 		{
-			"name": "NODEJS_VERSION",
-			"displayName": "Version of NodeJS Image",
-			"description": "Version of NodeJS image to be used (20-ubi8, or latest).",
-			"value": "20-ubi8",
+			"name": "PYTHON_VERSION",
+			"displayName": "Version of Python Image",
+			"description": "Version of Python image to be used (3.6-ubi8, 3.8-ubi8, 3.9-ubi8, or latest).",
+			"value": "3.9-ubi8",
 			"required": true
 		},
 		{
 			"name": "POSTGRESQL_VERSION",
 			"displayName": "Version of PostgreSQL Image",
-			"description": "Version of PostgreSQL image to be used (12-el8, or latest).",
+			"description": "Version of PostgreSQL image to be used (10-el8, 12-el8, or latest).",
 			"value": "12-el8",
 			"required": true
 		},
 		{
 			"name": "MEMORY_LIMIT",
 			"displayName": "Memory Limit",
-			"description": "Maximum amount of memory the Node.js container can use.",
-			"value": "256Mi",
+			"description": "Maximum amount of memory the Django container can use.",
+			"value": "512Mi",
 			"required": true
 		},
 		{
 			"name": "MEMORY_POSTGRESQL_LIMIT",
 			"displayName": "Memory Limit (PostgreSQL)",
 			"description": "Maximum amount of memory the PostgreSQL container can use.",
-			"value": "256Mi",
-			"required": true
-		},
-		{
-			"name": "VOLUME_CAPACITY",
-			"displayName": "Volume Capacity",
-			"description": "Volume space available for data, e.g. 512Mi, 2Gi",
-			"value": "1Gi",
+			"value": "512Mi",
 			"required": true
 		},
 		{
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/nodeshift-starters/nodejs-rest-http-crud.git",
+			"value": "https://github.com/sclorg/django-ex.git",
 			"required": true
 		},
 		{
@@ -491,19 +468,12 @@
 		{
 			"name": "APPLICATION_DOMAIN",
 			"displayName": "Application Hostname",
-			"description": "The exposed hostname that will route to the Node.js service, if left blank a value will be defaulted."
+			"description": "The exposed hostname that will route to the Django service, if left blank a value will be defaulted."
 		},
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
 			"displayName": "GitHub Webhook Secret",
 			"description": "Github trigger secret.  A difficult to guess string encoded as part of the webhook URL.  Not encrypted.",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{40}"
-		},
-		{
-			"name": "GENERIC_WEBHOOK_SECRET",
-			"displayName": "Generic Webhook Secret",
-			"description": "A secret string used to configure the Generic webhook.",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{40}"
 		},
@@ -514,40 +484,50 @@
 			"required": true
 		},
 		{
-			"name": "DATABASE_USER",
-			"displayName": "PostgreSQL Username",
-			"description": "Username for PostgreSQL user that will be used for accessing the database.",
-			"generate": "expression",
-			"from": "user[A-Z0-9]{3}"
-		},
-		{
-			"name": "DATABASE_PASSWORD",
-			"displayName": "PostgreSQL Password",
-			"description": "Password for the PostgreSQL user.",
-			"generate": "expression",
-			"from": "[a-zA-Z0-9]{16}"
+			"name": "DATABASE_ENGINE",
+			"displayName": "Database Engine",
+			"description": "Database engine: postgresql, mysql or sqlite (default).",
+			"value": "postgresql",
+			"required": true
 		},
 		{
 			"name": "DATABASE_NAME",
 			"displayName": "Database Name",
-			"value": "my_data",
+			"value": "default",
 			"required": true
 		},
 		{
-			"name": "DATABASE_ADMIN_PASSWORD",
-			"displayName": "Database Administrator Password",
-			"description": "Password for the database admin user.",
+			"name": "DATABASE_USER",
+			"displayName": "Database Username",
+			"value": "django",
+			"required": true
+		},
+		{
+			"name": "DATABASE_PASSWORD",
+			"displayName": "Database User Password",
 			"generate": "expression",
 			"from": "[a-zA-Z0-9]{16}"
 		},
 		{
-			"name": "NPM_MIRROR",
-			"displayName": "Custom NPM Mirror URL",
-			"description": "The custom NPM mirror URL"
+			"name": "APP_CONFIG",
+			"displayName": "Application Configuration File Path",
+			"description": "Relative path to Gunicorn configuration file (optional)."
+		},
+		{
+			"name": "DJANGO_SECRET_KEY",
+			"displayName": "Django Secret Key",
+			"description": "Set this to a long random string.",
+			"generate": "expression",
+			"from": "[\\w]{50}"
+		},
+		{
+			"name": "PIP_INDEX_URL",
+			"displayName": "Custom PyPi Index URL",
+			"description": "The custom PyPi index URL"
 		}
 	],
 	"labels": {
-		"app": "nodejs-postgresql-persistent",
-		"template": "nodejs-postgresql-persistent"
+		"app": "django-psql-example",
+		"template": "django-psql-example"
 	}
 }
