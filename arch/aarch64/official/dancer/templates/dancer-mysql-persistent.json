@@ -2,21 +2,21 @@
 	"kind": "Template",
 	"apiVersion": "template.openshift.io/v1",
 	"metadata": {
-		"name": "django-psql-persistent",
+		"name": "dancer-mysql-persistent",
 		"creationTimestamp": null,
 		"annotations": {
-			"description": "An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
-			"iconClass": "icon-python",
-			"openshift.io/display-name": "Django + PostgreSQL",
-			"openshift.io/documentation-url": "https://github.com/sclorg/django-ex",
-			"openshift.io/long-description": "This template defines resources needed to develop a Django based application, including a build configuration, application deployment configuration, and database deployment configuration.",
+			"description": "An example Dancer application with a MySQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
+			"iconClass": "icon-perl",
+			"openshift.io/display-name": "Dancer + MySQL",
+			"openshift.io/documentation-url": "https://github.com/sclorg/dancer-ex",
+			"openshift.io/long-description": "This template defines resources needed to develop a Dancer based application, including a build configuration, application deployment configuration, and database deployment configuration.",
 			"openshift.io/provider-display-name": "Red Hat, Inc.",
 			"openshift.io/support-url": "https://access.redhat.com",
-			"tags": "quickstart,python,django",
+			"tags": "quickstart,perl,dancer",
 			"template.openshift.io/bindable": "false"
 		}
 	},
-	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.",
+	"message": "The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
 	"objects": [
 		{
 			"apiVersion": "v1",
@@ -27,7 +27,7 @@
 			"stringData": {
 				"database-password": "${DATABASE_PASSWORD}",
 				"database-user": "${DATABASE_USER}",
-				"django-secret-key": "${DJANGO_SECRET_KEY}"
+				"keybase": "${SECRET_KEY_BASE}"
 			}
 		},
 		{
@@ -95,7 +95,7 @@
 					}
 				},
 				"postCommit": {
-					"script": "./manage.py test"
+					"script": "perl -I extlib/lib/perl5 -I lib t/*"
 				},
 				"source": {
 					"contextDir": "${CONTEXT_DIR}",
@@ -109,13 +109,13 @@
 					"sourceStrategy": {
 						"env": [
 							{
-								"name": "PIP_INDEX_URL",
-								"value": "${PIP_INDEX_URL}"
+								"name": "CPAN_MIRROR",
+								"value": "${CPAN_MIRROR}"
 							}
 						],
 						"from": {
 							"kind": "ImageStreamTag",
-							"name": "python:${PYTHON_VERSION}",
+							"name": "perl:${PERL_VERSION}",
 							"namespace": "${NAMESPACE}"
 						}
 					},
@@ -138,11 +138,12 @@
 			}
 		},
 		{
-			"apiVersion": "apps.openshift.io/v1",
-			"kind": "DeploymentConfig",
+			"apiVersion": "apps/v1",
+			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the application server",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"${NAME}:latest\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${NAME}"
@@ -150,7 +151,9 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${NAME}"
+					"matchLabels": {
+						"name": "${NAME}"
+					}
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -171,15 +174,7 @@
 										"value": "${DATABASE_SERVICE_NAME}"
 									},
 									{
-										"name": "DATABASE_ENGINE",
-										"value": "${DATABASE_ENGINE}"
-									},
-									{
-										"name": "DATABASE_NAME",
-										"value": "${DATABASE_NAME}"
-									},
-									{
-										"name": "DATABASE_USER",
+										"name": "MYSQL_USER",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-user",
@@ -188,7 +183,7 @@
 										}
 									},
 									{
-										"name": "DATABASE_PASSWORD",
+										"name": "MYSQL_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-password",
@@ -197,17 +192,21 @@
 										}
 									},
 									{
-										"name": "APP_CONFIG",
-										"value": "${APP_CONFIG}"
+										"name": "MYSQL_DATABASE",
+										"value": "${DATABASE_NAME}"
 									},
 									{
-										"name": "DJANGO_SECRET_KEY",
+										"name": "SECRET_KEY_BASE",
 										"valueFrom": {
 											"secretKeyRef": {
-												"key": "django-secret-key",
+												"key": "keybase",
 												"name": "${NAME}"
 											}
 										}
+									},
+									{
+										"name": "PERL_APACHE2_RELOAD",
+										"value": "${PERL_APACHE2_RELOAD}"
 									}
 								],
 								"image": " ",
@@ -219,7 +218,7 @@
 									"initialDelaySeconds": 30,
 									"timeoutSeconds": 3
 								},
-								"name": "django-psql-persistent",
+								"name": "dancer-mysql-persistent",
 								"ports": [
 									{
 										"containerPort": 8080
@@ -241,25 +240,7 @@
 							}
 						]
 					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"django-psql-persistent"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "${NAME}:latest"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
+				}
 			}
 		},
 		{
@@ -291,9 +272,9 @@
 			"spec": {
 				"ports": [
 					{
-						"name": "postgresql",
-						"port": 5432,
-						"targetPort": 5432
+						"name": "mysql",
+						"port": 3306,
+						"targetPort": 3306
 					}
 				],
 				"selector": {
@@ -302,11 +283,12 @@
 			}
 		},
 		{
-			"apiVersion": "apps.openshift.io/v1",
-			"kind": "DeploymentConfig",
+			"apiVersion": "apps/v1",
+			"kind": "Deployment",
 			"metadata": {
 				"annotations": {
 					"description": "Defines how to deploy the database",
+					"image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"mysql:${MYSQL_VERSION}\",\"namespace\":\"${NAMESPACE}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]",
 					"template.alpha.openshift.io/wait-for-ready": "true"
 				},
 				"name": "${DATABASE_SERVICE_NAME}"
@@ -314,7 +296,9 @@
 			"spec": {
 				"replicas": 1,
 				"selector": {
-					"name": "${DATABASE_SERVICE_NAME}"
+					"matchLabels": {
+						"name": "${DATABASE_SERVICE_NAME}"
+					}
 				},
 				"strategy": {
 					"type": "Recreate"
@@ -331,7 +315,7 @@
 							{
 								"env": [
 									{
-										"name": "POSTGRESQL_USER",
+										"name": "MYSQL_USER",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-user",
@@ -340,7 +324,7 @@
 										}
 									},
 									{
-										"name": "POSTGRESQL_PASSWORD",
+										"name": "MYSQL_PASSWORD",
 										"valueFrom": {
 											"secretKeyRef": {
 												"key": "database-password",
@@ -349,31 +333,35 @@
 										}
 									},
 									{
-										"name": "POSTGRESQL_DATABASE",
+										"name": "MYSQL_DATABASE",
 										"value": "${DATABASE_NAME}"
+									},
+									{
+										"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
+										"value": "${MYSQL_DEFAULT_AUTHENTICATION_PLUGIN}"
 									}
 								],
 								"image": " ",
 								"livenessProbe": {
-									"exec": {
-										"command": [
-											"/usr/libexec/check-container",
-											"--live"
-										]
+									"initialDelaySeconds": 30,
+									"tcpSocket": {
+										"port": 3306
 									},
-									"initialDelaySeconds": 120,
-									"timeoutSeconds": 10
+									"timeoutSeconds": 1
 								},
-								"name": "postgresql",
+								"name": "mysql",
 								"ports": [
 									{
-										"containerPort": 5432
+										"containerPort": 3306
 									}
 								],
 								"readinessProbe": {
 									"exec": {
 										"command": [
-											"/usr/libexec/check-container"
+											"/bin/sh",
+											"-i",
+											"-c",
+											"MYSQL_PWD='${DATABASE_PASSWORD}' mysql -h 127.0.0.1 -u ${DATABASE_USER} -D ${DATABASE_NAME} -e 'SELECT 1'"
 										]
 									},
 									"initialDelaySeconds": 5,
@@ -381,12 +369,12 @@
 								},
 								"resources": {
 									"limits": {
-										"memory": "${MEMORY_POSTGRESQL_LIMIT}"
+										"memory": "${MEMORY_MYSQL_LIMIT}"
 									}
 								},
 								"volumeMounts": [
 									{
-										"mountPath": "/var/lib/pgsql/data",
+										"mountPath": "/var/lib/mysql/data",
 										"name": "${DATABASE_SERVICE_NAME}-data"
 									}
 								]
@@ -401,26 +389,7 @@
 							}
 						]
 					}
-				},
-				"triggers": [
-					{
-						"imageChangeParams": {
-							"automatic": true,
-							"containerNames": [
-								"postgresql"
-							],
-							"from": {
-								"kind": "ImageStreamTag",
-								"name": "postgresql:${POSTGRESQL_VERSION}",
-								"namespace": "${NAMESPACE}"
-							}
-						},
-						"type": "ImageChange"
-					},
-					{
-						"type": "ConfigChange"
-					}
-				]
+				}
 			}
 		}
 	],
@@ -429,7 +398,7 @@
 			"name": "NAME",
 			"displayName": "Name",
 			"description": "The name assigned to all of the frontend objects defined in this template.",
-			"value": "django-psql-persistent",
+			"value": "dancer-mysql-persistent",
 			"required": true
 		},
 		{
@@ -440,30 +409,30 @@
 			"required": true
 		},
 		{
-			"name": "PYTHON_VERSION",
-			"displayName": "Version of Python Image",
-			"description": "Version of Python image to be used (3.6-ubi8, 3.8-ubi8, 3.9-ubi8, or latest).",
-			"value": "3.9-ubi8",
+			"name": "PERL_VERSION",
+			"displayName": "Version of Perl Image",
+			"description": "Version of Perl image to be used (5.30-el7, 5.30-ubi8, or latest).",
+			"value": "5.30-ubi8",
 			"required": true
 		},
 		{
-			"name": "POSTGRESQL_VERSION",
-			"displayName": "Version of PostgreSQL Image",
-			"description": "Version of PostgreSQL image to be used (10-el8, 12-el8, or latest).",
-			"value": "12-el8",
+			"name": "MYSQL_VERSION",
+			"displayName": "Version of MySQL Image",
+			"description": "Version of MySQL image to be used (8.0-el8, 8.0-el9, or latest).",
+			"value": "8.0-el8",
 			"required": true
 		},
 		{
 			"name": "MEMORY_LIMIT",
 			"displayName": "Memory Limit",
-			"description": "Maximum amount of memory the Django container can use.",
+			"description": "Maximum amount of memory the Perl Dancer container can use.",
 			"value": "512Mi",
 			"required": true
 		},
 		{
-			"name": "MEMORY_POSTGRESQL_LIMIT",
-			"displayName": "Memory Limit (PostgreSQL)",
-			"description": "Maximum amount of memory the PostgreSQL container can use.",
+			"name": "MEMORY_MYSQL_LIMIT",
+			"displayName": "Memory Limit (MySQL)",
+			"description": "Maximum amount of memory the MySQL container can use.",
 			"value": "512Mi",
 			"required": true
 		},
@@ -478,7 +447,7 @@
 			"name": "SOURCE_REPOSITORY_URL",
 			"displayName": "Git Repository URL",
 			"description": "The URL of the repository with your application source code.",
-			"value": "https://github.com/sclorg/django-ex.git",
+			"value": "https://github.com/sclorg/dancer-ex.git",
 			"required": true
 		},
 		{
@@ -494,7 +463,7 @@
 		{
 			"name": "APPLICATION_DOMAIN",
 			"displayName": "Application Hostname",
-			"description": "The exposed hostname that will route to the Django service, if left blank a value will be defaulted."
+			"description": "The exposed hostname that will route to the Dancer service, if left blank a value will be defaulted."
 		},
 		{
 			"name": "GITHUB_WEBHOOK_SECRET",
@@ -506,54 +475,53 @@
 		{
 			"name": "DATABASE_SERVICE_NAME",
 			"displayName": "Database Service Name",
-			"value": "postgresql",
-			"required": true
-		},
-		{
-			"name": "DATABASE_ENGINE",
-			"displayName": "Database Engine",
-			"description": "Database engine: postgresql, mysql or sqlite (default).",
-			"value": "postgresql",
-			"required": true
-		},
-		{
-			"name": "DATABASE_NAME",
-			"displayName": "Database Name",
-			"value": "default",
+			"value": "database",
 			"required": true
 		},
 		{
 			"name": "DATABASE_USER",
 			"displayName": "Database Username",
-			"value": "django",
-			"required": true
+			"generate": "expression",
+			"from": "user[A-Z0-9]{3}"
 		},
 		{
 			"name": "DATABASE_PASSWORD",
-			"displayName": "Database User Password",
+			"displayName": "Database Password",
 			"generate": "expression",
-			"from": "[a-zA-Z0-9]{16}"
+			"from": "[a-zA-Z0-9]{8}"
 		},
 		{
-			"name": "APP_CONFIG",
-			"displayName": "Application Configuration File Path",
-			"description": "Relative path to Gunicorn configuration file (optional)."
+			"name": "DATABASE_NAME",
+			"displayName": "Database Name",
+			"value": "sampledb",
+			"required": true
 		},
 		{
-			"name": "DJANGO_SECRET_KEY",
-			"displayName": "Django Secret Key",
-			"description": "Set this to a long random string.",
+			"name": "PERL_APACHE2_RELOAD",
+			"displayName": "Perl Module Reload",
+			"description": "Set this to \"true\" to enable automatic reloading of modified Perl modules."
+		},
+		{
+			"name": "SECRET_KEY_BASE",
+			"displayName": "Secret Key",
+			"description": "Your secret key for verifying the integrity of signed cookies.",
 			"generate": "expression",
-			"from": "[\\w]{50}"
+			"from": "[a-z0-9]{127}"
 		},
 		{
-			"name": "PIP_INDEX_URL",
-			"displayName": "Custom PyPi Index URL",
-			"description": "The custom PyPi index URL"
+			"name": "CPAN_MIRROR",
+			"displayName": "Custom CPAN Mirror URL",
+			"description": "The custom CPAN mirror URL"
+		},
+		{
+			"name": "MYSQL_DEFAULT_AUTHENTICATION_PLUGIN",
+			"displayName": "MySQL authentication plugin",
+			"description": "The custom MySQL default authentication plugin (default: mysql_native_password), might be changed to caching_sha2_password once clients support it.",
+			"value": "mysql_native_password"
 		}
 	],
 	"labels": {
-		"app": "django-psql-persistent",
-		"template": "django-psql-persistent"
+		"app": "dancer-mysql-persistent",
+		"template": "dancer-mysql-persistent"
 	}
 }
