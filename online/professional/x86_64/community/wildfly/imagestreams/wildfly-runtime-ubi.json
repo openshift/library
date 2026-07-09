@@ -1,0 +1,81 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "wildfly-runtime",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "WildFly Runtime, Latest LTS JDK"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "WildFly runtime dependencies image based on UBI 8 and latest LTS JDK. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/main/README.md.",
+					"iconClass": "icon-wildfly",
+					"openshift.io/display-name": "WildFly Runtime Dependencies, Latest LTS JDK",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"supports": "jee,java",
+					"tags": "wildfly,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/wildfly/wildfly-runtime:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest-jdk11",
+				"annotations": {
+					"description": "WildFly runtime dependencies image based on UBI 8 and JDK 11. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/main/README.md.",
+					"iconClass": "icon-wildfly",
+					"openshift.io/display-name": "WildFly Runtime Dependencies, JDK 11",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"supports": "jee,java",
+					"tags": "wildfly,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/wildfly/wildfly-runtime:latest-jdk11"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "latest-jdk17",
+				"annotations": {
+					"description": "WildFly runtime dependencies image based on UBI 8 and JDK 17. For more information about using this image, including OpenShift considerations, see https://github.com/wildfly/wildfly-s2i/blob/main/README.md.",
+					"iconClass": "icon-wildfly",
+					"openshift.io/display-name": "WildFly Runtime Dependencies, JDK 17",
+					"openshift.io/provider-display-name": "Red Hat, Inc.",
+					"supports": "jee,java",
+					"tags": "wildfly,java"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "quay.io/wildfly/wildfly-runtime:latest-jdk17"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
