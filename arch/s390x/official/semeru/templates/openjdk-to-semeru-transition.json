@@ -1,0 +1,213 @@
+{
+	"kind": "Template",
+	"apiVersion": "template.openshift.io/v1",
+	"metadata": {
+		"name": "openjdk-to-semeru-transition",
+		"creationTimestamp": null,
+		"annotations": {
+			"description": "Example of a build template that installs IBM Semeru 11 Certified Edition to an OpenJDK 11 based Red Hat container.",
+			"iconClass": "icon-rh-openjdk",
+			"openshift.io/display-name": "OpenJDK to Semeru Transition Build",
+			"openshift.io/documentation-url": "https://access.redhat.com/documentation/en/",
+			"openshift.io/long-description": "This template defines resources needed to install IBM Semeru 11 Certified Edition into an OpenJDK 11 based Red Hat container, including imagestreams and a build configuration.",
+			"openshift.io/provider-display-name": "Red Hat, Inc.",
+			"openshift.io/support-url": "https://access.redhat.com",
+			"tags": "ibm, java, openjdk, openj9, semeru"
+		}
+	},
+	"message": "The new Red Hat image with IBM Semeru 11 Certified Edition has started building and will be available in your internal OpenShift repository.",
+	"objects": [
+		{
+			"apiVersion": "image.openshift.io/v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"annotations": {
+					"description": "IBM Semeru Runtimes Container Imagestream"
+				},
+				"creationTimestamp": null,
+				"name": "ibm-semeru-runtimes"
+			},
+			"spec": {
+				"lookupPolicy": {
+					"local": false
+				},
+				"tags": [
+					{
+						"from": {
+							"kind": "DockerImage",
+							"name": "icr.io/appcafe/ibm-semeru-runtimes:certified-11-jdk-ubi-minimal"
+						},
+						"importPolicy": {
+							"scheduled": true
+						},
+						"name": "certified-11-jdk-ubi-minimal"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "image.openshift.io/v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"annotations": {
+					"description": "Red Hat Container with OpenJDK 11 Imagestream"
+				},
+				"labels": {
+					"application": "red-hat-container-with-openjdk-11-imagestream"
+				},
+				"name": "${OPENJDK_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}"
+			},
+			"spec": {
+				"lookupPolicy": {
+					"local": false
+				},
+				"tags": [
+					{
+						"from": {
+							"kind": "DockerImage",
+							"name": "${OPENJDK_BASED_RED_HAT_CONTAINER_IMAGE}"
+						},
+						"importPolicy": {
+							"scheduled": true
+						},
+						"name": "latest"
+					}
+				]
+			}
+		},
+		{
+			"apiVersion": "image.openshift.io/v1",
+			"kind": "ImageStream",
+			"metadata": {
+				"annotations": {
+					"description": "Red Hat Container with IBM Semeru 11 Imagestream"
+				},
+				"labels": {
+					"application": "red-hat-container-with-ibm-semeru-11-imagestream"
+				},
+				"name": "${SEMERU_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}"
+			},
+			"spec": {
+				"lookupPolicy": {
+					"local": false
+				}
+			}
+		},
+		{
+			"apiVersion": "build.openshift.io/v1",
+			"kind": "BuildConfig",
+			"metadata": {
+				"annotations": {
+					"description": "Red Hat Container with IBM Semeru 11 BuildConfig"
+				},
+				"labels": {
+					"application": "red-hat-container-with-ibm-semeru-11-buildconfig"
+				},
+				"name": "${SEMERU_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}"
+			},
+			"spec": {
+				"output": {
+					"to": {
+						"kind": "ImageStreamTag",
+						"name": "${SEMERU_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}:latest"
+					}
+				},
+				"source": {
+					"dockerfile": "FROM -\nCOPY opt /\nUSER 0\nRUN rpm -e --nodeps java-11-openjdk java-11-openjdk-headless java-11-openjdk-devel || echo \"Java 11 not installed\"\nRUN chown jboss /opt\nUSER 185",
+					"images": [
+						{
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "ibm-semeru-runtimes:certified-11-jdk-ubi-minimal"
+							},
+							"paths": [
+								{
+									"destinationDir": "./opt",
+									"sourcePath": "/opt"
+								}
+							]
+						}
+					]
+				},
+				"strategy": {
+					"dockerStrategy": {
+						"env": [
+							{
+								"name": "JAVA_HOME",
+								"value": "/opt/ibm/java"
+							},
+							{
+								"name": "PATH",
+								"value": "/opt/ibm/java/bin:$PATH"
+							},
+							{
+								"name": "JAVA_TOOL_OPTIONS",
+								"value": "${JAVA_TOOL_OPTIONS}"
+							}
+						],
+						"from": {
+							"kind": "ImageStreamTag",
+							"name": "${OPENJDK_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}:latest"
+						},
+						"imageOptimizationPOlicy": "SkipLayers"
+					},
+					"type": "Docker"
+				},
+				"triggers": [
+					{
+						"type": "ConfigChange"
+					},
+					{
+						"imageChange": {
+							"automatic": true,
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "ibm-semeru-runtimes:certified-11-jdk-ubi-minimal"
+							}
+						},
+						"type": "ImageChange"
+					},
+					{
+						"imageChange": {
+							"automatic": true,
+							"from": {
+								"kind": "ImageStreamTag",
+								"name": "${OPENJDK_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME}:latest"
+							}
+						},
+						"type": "ImageChange"
+					}
+				]
+			}
+		}
+	],
+	"parameters": [
+		{
+			"name": "OPENJDK_BASED_RED_HAT_CONTAINER_IMAGE",
+			"displayName": "OpenJDK 11 Based Red Hat Container Image",
+			"description": "The OpenJDK 11 based Red Hat container image from the Red Hat Image Catalog.",
+			"required": true
+		},
+		{
+			"name": "OPENJDK_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME",
+			"displayName": "OpenJDK 11 Based Red Hat Container ImageStream Name",
+			"description": "The user defined imagestream name for the OpenJDK 11 based Red Hat container.",
+			"required": true
+		},
+		{
+			"name": "SEMERU_BASED_RED_HAT_CONTAINER_IMAGESTREAM_NAME",
+			"displayName": "IBM Semeru 11 Based Red Hat Container ImageStream Name",
+			"description": "The user defined imagestream name for the IBM Semeru 11 based Red Hat container.",
+			"required": true
+		},
+		{
+			"name": "JAVA_TOOL_OPTIONS",
+			"displayName": "Java Tool Options",
+			"description": "The default Java Options provided by the IBM Semeru Runtimes 11 Certified Edition container image.",
+			"value": "-XX:+IgnoreUnrecognizedVMOptions -XX:+PortableSharedCache -XX:+IdleTuningGcOnIdle -Xshareclasses:name=openj9_system_scc,cacheDir=/opt/java/.scc,readonly,nonFatal"
+		}
+	],
+	"labels": {
+		"template": "openjdk-to-semeru-transition"
+	}
+}
