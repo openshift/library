@@ -1,0 +1,63 @@
+{
+	"kind": "ImageStream",
+	"apiVersion": "image.openshift.io/v1",
+	"metadata": {
+		"name": "jboss-eap-xp4-openjdk11-runtime-openshift",
+		"creationTimestamp": null,
+		"annotations": {
+			"openshift.io/display-name": "JBoss EAP XP 4.0 with OpenJDK11 (Runtime Image)",
+			"openshift.io/provider-display-name": "Red Hat",
+			"version": "4.0"
+		}
+	},
+	"spec": {
+		"lookupPolicy": {
+			"local": false
+		},
+		"tags": [
+			{
+				"name": "latest",
+				"annotations": {
+					"description": "Runtime image for JBoss EAP expansion pack 4.0 to run Microservices applications on RHEL8 with OpenJDK11.",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP XP 4.0 with OpenJDK11 (Runtime Image)",
+					"supports": "eap-xp:4,javaee:8,java:11",
+					"tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+					"version": "latest"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7/eap-xp4-openjdk11-runtime-openshift-rhel8:latest"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			},
+			{
+				"name": "4.0",
+				"annotations": {
+					"description": "Runtime image for JBoss EAP expansion pack 4.0 to run Microservices applications on RHEL8 with OpenJDK11.",
+					"iconClass": "icon-eap",
+					"openshift.io/display-name": "JBoss EAP XP 4.0 with OpenJDK11 (Runtime Image)",
+					"supports": "eap-xp:4,javaee:8,java:11",
+					"tags": "runtime,eap-xp,javaee,java,jboss,hidden",
+					"version": "4.0"
+				},
+				"from": {
+					"kind": "DockerImage",
+					"name": "registry.redhat.io/jboss-eap-7/eap-xp4-openjdk11-runtime-openshift-rhel8:4.0"
+				},
+				"generation": null,
+				"importPolicy": {},
+				"referencePolicy": {
+					"type": "Local"
+				}
+			}
+		]
+	},
+	"status": {
+		"dockerImageRepository": ""
+	}
+}
